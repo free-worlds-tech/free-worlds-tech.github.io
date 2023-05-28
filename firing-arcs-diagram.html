@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Free Worlds Technical Institute</title>
+<link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
+<script>
+    function updateDiagram() {
+        svgItem = document.querySelector('svg');
+        
+        frontTextNodes = document.querySelectorAll('.front-text');
+        frontTextNodes.forEach((textNode) => {
+            childNode = textNode.childNodes[0];
+            childNode.nodeValue = front.value;
+            if (front.value == '0') {
+                textNode.setAttribute('fill', '#d3d3d3');
+            } else {
+                textNode.setAttribute('fill', '#000000');
+            }
+        });
+
+        leftTextNodes = document.querySelectorAll('.left-text');
+        leftTextNodes.forEach((textNode) => {
+            childNode = textNode.childNodes[0];
+            childNode.nodeValue = left.value;
+            if (left.value == '0') {
+                textNode.setAttribute('fill', '#d3d3d3');
+            } else {
+                textNode.setAttribute('fill', '#000000');
+            }
+        });
+
+        rightTextNodes = document.querySelectorAll('.right-text');
+        rightTextNodes.forEach((textNode) => {
+            childNode = textNode.childNodes[0];
+            childNode.nodeValue = right.value;
+            if (right.value == '0') {
+                textNode.setAttribute('fill', '#d3d3d3');
+            } else {
+                textNode.setAttribute('fill', '#000000');
+            }
+        });
+
+        rearTextNodes = document.querySelectorAll('.rear-text');
+        rearTextNodes.forEach((textNode) => {
+            childNode = textNode.childNodes[0];
+            childNode.nodeValue = rear.value;
+            if (rear.value == '0') {
+                textNode.setAttribute('fill', '#d3d3d3');
+            } else {
+                textNode.setAttribute('fill', '#000000');
+            }
+        });
+    }
+
+    function download() {
+        svgContents = document.querySelector('svg').innerHTML;
+
+        contents = '<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">\n' +
+            '<svg version="1.1" xmlns="http://www.w3.org/2000/svg" height="540" width="502">\n' +
+            svgContents +
+            '</svg>';
+
+        var tempElement = document.createElement('a');
+        tempElement.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(contents));
+        tempElement.setAttribute('download', 'arcs.svg');
+
+        tempElement.style.display = 'none';
+        document.body.appendChild(tempElement);
+
+        tempElement.click();
+
+        document.body.removeChild(tempElement);
+    }
+</script>
+</head>
+<body>
+
+<header>
+    <img src="assets/fwti-256.png" alt="FWTI logo">
+    <h1>Free Worlds Technical Institute</h1>
+</header>
+
+<h2>Firing Arc Diagram</h2>
+<label for="front">Front Arc Damage:</label>
+<input type="text" id="front" name="Front Damage" value="0" oninput="updateDiagram();">
+
+<label for="front">Left Arc Damage:</label>
+<input type="text" id="left" name="Left Damage" value="0" oninput="updateDiagram();">
+
+<label for="front">Right Arc Damage:</label>
+<input type="text" id="right" name="Right Damage" value="0" oninput="updateDiagram();">
+
+<label for="front">Rear Arc Damage:</label>
+<input type="text" id="rear" name="Rear Damage" value="0" oninput="updateDiagram();">
+
+<div style="text-align:center;">
+<svg height="540" width="502">
+    <polygon points="135.47005383792515,170 106.60254037844386,120 48.86751345948129,120 19.999999999999993,170 48.86751345948129,220 106.60254037844386,220 135.47005383792515,170" fill="white" stroke="black" stroke-width="1" />
+    <text class="front-text" x="77.73502691896257" y="182" text-anchor="middle" font-size="32" font-weight="900" fill="#d3d3d3">0</text>
+    <polygon points="135.47005383792515,270 106.60254037844386,220 48.86751345948129,220 19.999999999999993,270 48.86751345948129,320 106.60254037844386,320 135.47005383792515,270" fill="white" stroke="black" stroke-width="1" />
+    <text class="left-text" x="77.73502691896257" y="282" text-anchor="middle" font-size="32" font-weight="900" fill="#d3d3d3">0</text>
+    <polygon points="135.47005383792515,370 106.60254037844386,320 48.86751345948129,320 19.999999999999993,370 48.86751345948129,420 106.60254037844386,420 135.47005383792515,370" fill="white" stroke="black" stroke-width="1" />
+    <text class="left-text" x="77.73502691896257" y="382" text-anchor="middle" font-size="32" font-weight="900" fill="#d3d3d3">0</text>
+    <polygon points="222.07259421636903,120 193.20508075688775,70 135.47005383792515,70 106.60254037844388,120 135.47005383792515,170 193.20508075688775,170 222.07259421636903,120" fill="white" stroke="black" stroke-width="1" />
+    <text class="front-text" x="164.33756729740645" y="132" text-anchor="middle" font-size="32" font-weight="900" fill="#d3d3d3">0</text>
+    <polygon points="222.07259421636903,220 193.20508075688775,170 135.47005383792515,170 106.60254037844388,220 135.47005383792515,270 193.20508075688775,270 222.07259421636903,220" fill="white" stroke="black" stroke-width="1" />
+    <text class="front-text" x="164.33756729740645" y="232" text-anchor="middle" font-size="32" font-weight="900" fill="#d3d3d3">0</text>
+    <polygon points="222.07259421636903,320 193.20508075688775,270 135.47005383792515,270 106.60254037844388,320 135.47005383792515,370 193.20508075688775,370 222.07259421636903,320" fill="white" stroke="black" stroke-width="1" />
+    <text class="left-text" x="164.33756729740645" y="332" text-anchor="middle" font-size="32" font-weight="900" fill="#d3d3d3">0</text>
+    <polygon points="222.07259421636903,420 193.20508075688775,370 135.47005383792515,370 106.60254037844388,420 135.47005383792515,470 193.20508075688775,470 222.07259421636903,420" fill="white" stroke="black" stroke-width="1" />
+    <text class="rear-text" x="164.33756729740645" y="432" text-anchor="middle" font-size="32" font-weight="900" fill="#d3d3d3">0</text>
+    <polygon points="308.6751345948129,70 279.8076211353316,20 222.07259421636903,20 193.20508075688775,70 222.07259421636903,120 279.8076211353316,120 308.6751345948129,70" fill="white" stroke="black" stroke-width="1" />
+    <text class="front-text" x="250.94010767585033" y="82" text-anchor="middle" font-size="32" font-weight="900" fill="#d3d3d3">0</text>
+    <polygon points="308.6751345948129,170 279.8076211353316,120 222.07259421636903,120 193.20508075688775,170 222.07259421636903,220 279.8076211353316,220 308.6751345948129,170" fill="white" stroke="black" stroke-width="1" />
+    <text class="front-text" x="250.94010767585033" y="182" text-anchor="middle" font-size="32" font-weight="900" fill="#d3d3d3">0</text>
+    <polygon points="308.6751345948129,270 279.8076211353316,220 222.07259421636903,220 193.20508075688775,270 222.07259421636903,320 279.8076211353316,320 308.6751345948129,270" fill="gray" stroke="black" stroke-width="1" />
+    <g transform="matrix(1.47079,0,0,1.00318,-90.0028,15.5045)"><path d="M231.239,227.273L248.236,270.435L214.241,270.435L231.239,227.273Z"/></g>
+    <polygon points="308.6751345948129,370 279.8076211353316,320 222.07259421636903,320 193.20508075688775,370 222.07259421636903,420 279.8076211353316,420 308.6751345948129,370" fill="white" stroke="black" stroke-width="1" />
+    <text class="rear-text" x="250.94010767585033" y="382" text-anchor="middle" font-size="32" font-weight="900" fill="#d3d3d3">0</text>
+    <polygon points="308.6751345948129,470 279.8076211353316,420 222.07259421636903,420 193.20508075688775,470 222.07259421636903,520 279.8076211353316,520 308.6751345948129,470" fill="white" stroke="black" stroke-width="1" />
+    <text class="rear-text" x="250.94010767585033" y="482" text-anchor="middle" font-size="32" font-weight="900" fill="#d3d3d3">0</text>
+    <polygon points="395.2776749732568,120 366.4101615137755,70 308.6751345948129,70 279.8076211353316,120 308.6751345948129,170 366.4101615137755,170 395.2776749732568,120" fill="white" stroke="black" stroke-width="1" />
+    <text class="front-text" x="337.5426480542942" y="132" text-anchor="middle" font-size="32" font-weight="900" fill="#d3d3d3">0</text>
+    <polygon points="395.2776749732568,220 366.4101615137755,170 308.6751345948129,170 279.8076211353316,220 308.6751345948129,270 366.4101615137755,270 395.2776749732568,220" fill="white" stroke="black" stroke-width="1" />
+    <text class="front-text" x="337.5426480542942" y="232" text-anchor="middle" font-size="32" font-weight="900" fill="#d3d3d3">0</text>
+    <polygon points="395.2776749732568,320 366.4101615137755,270 308.6751345948129,270 279.8076211353316,320 308.6751345948129,370 366.4101615137755,370 395.2776749732568,320" fill="white" stroke="black" stroke-width="1" />
+    <text class="right-text" x="337.5426480542942" y="332" text-anchor="middle" font-size="32" font-weight="900" fill="#d3d3d3">0</text>
+    <polygon points="395.2776749732568,420 366.4101615137755,370 308.6751345948129,370 279.8076211353316,420 308.6751345948129,470 366.4101615137755,470 395.2776749732568,420" fill="white" stroke="black" stroke-width="1" />
+    <text class="rear-text" x="337.5426480542942" y="432" text-anchor="middle" font-size="32" font-weight="900" fill="#d3d3d3">0</text>
+    <polygon points="481.8802153517007,170 453.0127018922194,120 395.2776749732568,120 366.4101615137755,170 395.2776749732568,220 453.0127018922194,220 481.8802153517007,170" fill="white" stroke="black" stroke-width="1" />
+    <text class="front-text" x="424.1451884327381" y="182" text-anchor="middle" font-size="32" font-weight="900" fill="#d3d3d3">0</text>
+    <polygon points="481.8802153517007,270 453.0127018922194,220 395.2776749732568,220 366.4101615137755,270 395.2776749732568,320 453.0127018922194,320 481.8802153517007,270" fill="white" stroke="black" stroke-width="1" />
+    <text class="right-text" x="424.1451884327381" y="282" text-anchor="middle" font-size="32" font-weight="900" fill="#d3d3d3">0</text>
+    <polygon points="481.8802153517007,370 453.0127018922194,320 395.2776749732568,320 366.4101615137755,370 395.2776749732568,420 453.0127018922194,420 481.8802153517007,370" fill="white" stroke="black" stroke-width="1" />
+    <text class="right-text" x="424.1451884327381" y="382" text-anchor="middle" font-size="32" font-weight="900" fill="#d3d3d3">0</text>
+    <polyline points="193.20508075688775,270 222.07259421636903,220 279.8076211353316,220 308.6751345948129,270" fill="none" stroke="#000000" stroke-width="5" />
+</svg>
+</div>
+
+<input type="button" value="Download" onclick="download();">
+
+</body>
+</html>
