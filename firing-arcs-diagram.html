@@ -61,7 +61,7 @@
             '</svg>';
 
         var tempElement = document.createElement('a');
-        tempElement.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(contents));
+        tempElement.setAttribute('href', 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(contents));
         tempElement.setAttribute('download', 'arcs.svg');
 
         tempElement.style.display = 'none';
@@ -78,9 +78,19 @@
 <header>
     <img src="assets/fwti-256.png" alt="FWTI logo">
     <h1>Free Worlds Technical Institute</h1>
+    <nav>
+        <a href="index.html">Home</a>
+        <a class="current" href="#">Firing Arcs</a>
+    </nav>
 </header>
 
-<h2>Firing Arc Diagram</h2>
+<h2>Firing Arc Diagram Tool</h2>
+<p>
+    This simple tool can be used to generate a diagram showing the damage that
+    a unit can deal in its various firing arcs. The diagram can then be downloaded
+    as an <code>svg</code> file.
+</p>
+
 <label for="front">Front Arc Damage:</label>
 <input type="text" id="front" name="Front Damage" value="0" oninput="updateDiagram();">
 
