@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Free Worlds Technical Institute</title>
+<meta name="description" content="Useful tools for the BattleTech tabletop game and its setting">
+<meta property="og:url" content="https://free-worlds-tech.github.io">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Free Worlds Technical Institute">
+<meta property="og:description" content="Useful tools for the BattleTech tabletop game and its setting">
+<meta property="og:image" content="https://free-worlds-tech.github.io/assets/fwti-1200-630.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="twitter:domain" content="free-worlds-tech.github.io">
+<meta property="twitter:url" content="https://free-worlds-tech.github.io">
+<meta name="twitter:title" content="Free Worlds Technical Institute">
+<meta name="twitter:description" content="Useful tools for the BattleTech tabletop game and its setting">
+<meta name="twitter:image" content="https://free-worlds-tech.github.io/assets/fwti-1200-630.png">
+<link rel="icon" href="assets/fwti.svg" type="image/svg+xml">
+
+<link rel="stylesheet" href="ext/simple.min.css">
+
+<script src="ext/jquery-3.7.1.min.js"></script>
+<script charset="UTF-8" src="script/force-builder.js"></script>
+</head>
+<body>
+
+<header>
+    <img src="assets/fwti-256.png" alt="FWTI logo">
+    <h1>Free Worlds Technical Institute</h1>
+    <nav>
+        <a href="index.html">Home</a>
+        <a class="current" href="#">Force Builder</a>
+        <a href="firing-arcs-diagram.html">Firing Arcs</a>
+        <a href="the-inner-sphere.html">Inner Sphere</a>
+    </nav>
+</header>
+
+        <h2 id="page-title">Force Builder</h2>
+        <p>
+            This is a prototype of a BattleTech force builder. The
+            set of mechs to choose from is limited to just the A Game of
+            Armored Combat record sheets and the script is just to let me
+            experiment with the UI. I intend to iterate on it and slowly
+            fill in more functionality.
+        </p>
+        <div>
+            <select id="unit-picker">
+                <option value="lct-1e">Locust LCT-1E</option>
+                <option value="lct-1v">Locust LCT-1V</option>
+                <option value="com-2d">Commando COM-2D</option>
+                <option value="com-3a">Commando COM-3A</option>
+                <option value="grf-1n">Griffin GRF-1N</option>
+                <option value="grf-1s">Griffin GRF-1S</option>
+                <option value="shd-2h">Shadow Hawk SHD-2H</option>
+                <option value="wvr-6m">Wolverine WVR-6M</option>
+                <option value="wvr-6r">Wolverine WVR-6R</option>
+                <option value="cplt-c1">Catapult CPLT-C1</option>
+                <option value="cplt-k2">Catapult CPLT-K2</option>
+                <option value="tdr-5s">Thunderbolt TDR-5S</option>
+                <option value="tdr-5se">Thunderbolt TDR-5SE</option>
+                <option value="aws-8q">Awesome AWS-8Q</option>
+                <option value="blr-1g">BattleMaster BLR-1G</option>
+            </select>
+            <button type="button" onclick="addUnit()">Add</button>
+            <button type="button" onclick="clearUnits()">Clear</button>
+        </div>
+        <figure>
+            <table id="force-table" style="font-size:8pt;min-width: 100%;">
+                <thead>
+                    <th>Unit</th>
+                    <th>Crew</th>
+                    <th>Gunnery</th>
+                    <th>Piloting</th>
+                    <th>Tonnage</th>
+                    <th>BV</th>
+                    <th>Adjusted BV</th>
+                    <th></th>
+                </thead>
+                <tbody id="force-table-body">
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th>Total</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th id="tonnage-total" class="right aligned">0</th>
+                        <th id="bv-total" class="right aligned">0</th>
+                        <th id="adj-bv-total" class="right aligned">0</th>
+                        <th></th>
+                    </tr>
+                </tfoot>
+            </table>
+        </figure>
+        <h3>Ammo Selections</h3>
+        <p>Select the types of ammunition carried by your units.</p>
+        <div id="ammo-selections">
+            <!-- <div id="ammo-ex">
+                <h3>Commando COM-2D ~ Annabelle</h3>
+                <p>
+                    <label for="ammo-ex-lt1">SRM 6 (LT)</label>
+                    <select id="ammo-ex-lt1" >
+                        <option value="standard">SRM</option>
+                        <option value="inferno">Inferno SRM</option>
+                        <option value="narc">Narc-capable SRM</option>
+                    </select>
+                </p>
+                <p>
+                    <label for="ammo-ex-rt1">SRM 4 (RT)</label>
+                    <select id="ammo-ex-rt1">
+                        <option value="standard">SRM</option>
+                        <option value="inferno">Inferno SRM</option>
+                        <option value="narc">Narc-capable SRM</option>
+                    </select>
+                </p>
+            </div> -->
+        </div>
+        <h3>Networks</h3>
+        <p>Under construction...</p>
+    </body>
+</html>
