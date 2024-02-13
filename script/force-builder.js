@@ -550,3 +550,18 @@ function updateTotals() {
     });
     $("#adj-bv-total").text(totalAdjBV);
 }
+
+function downloadForce() {
+    let contents = "Not Implemented!";
+
+    let tempElement = document.createElement('a');
+    tempElement.setAttribute('href', 'data:text/markdown;charset=utf-8,' + encodeURIComponent(contents));
+    tempElement.setAttribute('download', 'saved-force.md');
+
+    tempElement.style.display = 'none';
+    document.body.appendChild(tempElement);
+
+    tempElement.click();
+
+    document.body.removeChild(tempElement);
+}
