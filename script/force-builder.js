@@ -1,28 +1,57 @@
-let unitId = 1;
+let nextId = 1;
+
+const force = new Map();
 
 function addUnit() {
     const unit = getUnitProperties();
 
-    const $row = $("<tr>", {id: "unit-" + unitId});
-    $row.append("<td class='unit-name'>" + unit.name + "</td");
-    $row.append("<td><input type='text' placeholder='Name' onchange='updateCrewName(" + unitId + ")'></td>");
-    $row.append(createSkillPicker(unitId, "gunnery-skill", 4));
-    $row.append(createSkillPicker(unitId, "piloting-skill", 5));
-    $row.append("<td class='tonnage'>" + unit.tonnage + "</td>");
-    $row.append("<td class='bv'>" + unit.bv + "</td>");
-    $row.append("<td class='adj-bv'>" + unit.bv + "</td>");
-    $row.append("<td><button type='button' onclick='removeUnit(" + unitId + ")'>❌</button></td>");
+    const currentId = nextId++;
+
+    const newUnit = {
+        id: currentId,
+        unitProps: unit,
+        crew: "",
+        gunnery: 4,
+        piloting: 5,
+        adjustedBV: unit.bv,
+        ammoTypes: new Map()
+    };
+
+    unit.ammo.forEach((ammoBin) => {
+        newUnit.ammoTypes.set(ammoBin.id, "default");
+    });
+
+    force.set(currentId, newUnit);
+
+    addUnitRow(newUnit);
+    addUnitAmmoSelector(newUnit);
+}
+
+function addUnitRow(unit)
+{
+    const $row = $("<tr>", {id: "unit-" + unit.id});
+    $row.append("<td class='unit-name'>" + unit.unitProps.name + "</td");
+    $row.append("<td><input type='text' placeholder='Name' onchange='updateCrewName(" + unit.id + ")'></td>");
+    $row.append(createSkillPicker(unit.id, "gunnery-skill", unit.gunnery));
+    $row.append(createSkillPicker(unit.id, "piloting-skill", unit.piloting));
+    $row.append("<td class='tonnage'>" + unit.unitProps.tonnage + "</td>");
+    $row.append("<td class='bv'>" + unit.unitProps.bv + "</td>");
+    $row.append("<td class='adj-bv'>" + unit.adjustedBV + "</td>");
+    $row.append("<td><button type='button' onclick='removeUnit(" + unit.id + ")'>❌</button></td>");
     $("#force-table-body").append($row);
     
-
     updateTotals();
+}
 
-    if (unit.ammo.length > 0)
+function addUnitAmmoSelector(unit)
+{
+    // Check if the unit uses any ammo
+    if (unit.unitProps.ammo.length > 0)
     {
-        const unitLabel = "ammo-" + unitId;
+        const unitLabel = "ammo-" + unit.id;
         const $ammoSelections = $("<details>", {id: unitLabel});
-        $ammoSelections.append("<summary>" + unit.name + " #" + unitId + "</summary>")
-        unit.ammo.forEach(element => {
+        $ammoSelections.append("<summary>" + unit.unitProps.name + " #" + unit.id + "</summary>")
+        unit.unitProps.ammo.forEach(element => {
             const slotLabel = unitLabel + "-slot-" + element.id;
             const selectLabel = slotLabel + "-sel";
             const $selection = $("<div>", {id: slotLabel});
@@ -98,6 +127,14 @@ function addUnit() {
                 $ammoSelect.append("<option value='" + option.value + "'>" + option.label + "</option>")
             });
 
+            $ammoSelect.on("change", function(e) {
+                const ammoType = e.target.value;
+        
+                unit.ammoTypes.set(element.id, ammoType);
+        
+                // TODO: Update BVs as needed for ammo changes
+            });
+
             $selection.append($ammoSelect);
 
             $ammoSelections.append($selection);
@@ -105,9 +142,6 @@ function addUnit() {
 
         $("#ammo-selections").append($ammoSelections);
     }
-
-    
-    unitId++;
 }
 
 function getUnitProperties() {
@@ -261,6 +295,19 @@ function getUnitProperties() {
     
 }
 
+function updateUnitBV(unit) {
+    const g = unit.gunnery;
+    const p = unit.gunnery;
+
+    unit.adjustedBV = Math.round(unit.unitProps.bv * getSkillMultiplier(g,p));
+
+    const $adjbv = $("#unit-" + unit.id + " .adj-bv");
+
+    $adjbv.text(unit.adjustedBV);
+
+    updateTotals();
+}
+
 function createSkillPicker(id, type, initialRating)
 {
     const $select = $("<select>");
@@ -274,16 +321,16 @@ function createSkillPicker(id, type, initialRating)
     }
 
     $select.on("change", function(e) {
-        let $g = $("#unit-" + id + " .gunnery-skill select");
-        let g = Number($g.find("option:selected").val());
-        let $p = $("#unit-" + id + " .piloting-skill select");
-        let p = Number($p.find("option:selected").val());
-        let bv = Number($("#unit-" + id + " .bv").text());
-        let $adjbv = $("#unit-" + id + " .adj-bv");
+        const skill = Number(e.target.value);
 
-        $adjbv.text(Math.round(bv * getSkillMultiplier(g,p)));
+        const unit = force.get(id);
+        if (type === "gunnery-skill") {
+            unit.gunnery = skill;
+        } else if (type === "piloting-skill") {
+            unit.piloting = skill;
+        }
 
-        updateTotals();
+        updateUnitBV(unit);
     });
 
     const $td = $("<td>");
@@ -297,13 +344,16 @@ function removeUnit(id) {
     $("#unit-" + id).remove();
     $("#ammo-" + id).remove();
 
+    force.delete(id);
+
     updateTotals();
 }
 
 function clearUnits() {
     $("#force-table-body").children().remove("*");
-
     $("#ammo-selections").children().remove();
+
+    force.clear();
 
     updateTotals();
 }
@@ -533,27 +583,27 @@ function getSkillMultiplier(gunnery, piloting) {
 
 function updateTotals() {
     let totalTonnage = 0;
-    $(".tonnage").each(function sum(index) {
-        totalTonnage += Number($(this).text());
-    });
-    $("#tonnage-total").text(totalTonnage);
-
     let totalBV = 0;
-    $(".bv").each(function sum(index) {
-        totalBV += Number($(this).text());
-    });
-    $("#bv-total").text(totalBV);
-
     let totalAdjBV = 0;
-    $(".adj-bv").each(function sum(index) {
-        totalAdjBV += Number($(this).text());
+
+    force.forEach((unit) => {
+        totalTonnage += unit.unitProps.tonnage;
+        totalBV += unit.unitProps.bv;
+        totalAdjBV += unit.adjustedBV;
     });
+
+    $("#tonnage-total").text(totalTonnage);
+    $("#bv-total").text(totalBV);
     $("#adj-bv-total").text(totalAdjBV);
 }
 
 function updateCrewName(id) {
-    const unitName = $("#unit-" + id + " .unit-name").text();
+    const unit = force.get(id);
     const crewName = $("#unit-" + id + " input").val();
+    const unitName = unit.unitProps.name;
+    
+    unit.crew = crewName;
+
     if (crewName != "") {
         $("#ammo-" + id + " summary").text(unitName + " | " + crewName);
     } else {
@@ -562,7 +612,29 @@ function updateCrewName(id) {
 }
 
 function downloadForce() {
-    let contents = "Not Implemented!";
+    let contents = "# Saved Force\n";
+    contents += "\n";
+    contents += "| Unit | Crew | Gunnery | Piloting | Tonnage | Base BV | Adjusted BV |\n";
+    contents += "| :--- | :--- | :-----: | :------: | ------: | ------: | ----------: |\n";
+    force.forEach((unit) => {
+        contents += `| ${unit.unitProps.name} | ${unit.crew} | ${unit.gunnery} | ${unit.piloting} | ${unit.unitProps.tonnage} | ${unit.unitProps.bv} | ${unit.adjustedBV} |\n`;
+    });
+    contents += "\n";
+    contents += "## Ammo Selections\n";
+    force.forEach((unit) => {
+        if (unit.unitProps.ammo.length > 0) {
+            contents += `### ${unit.unitProps.name}`;
+            if (unit.crew != "") {
+                contents += ` ${unit.crew}\n`;
+            } else {
+                contents += "\n";
+            }
+            unit.unitProps.ammo.forEach((ammoBin) => {
+                contents += `- ${ammoBin.type} (${ammoBin.location}): ${unit.ammoTypes.get(ammoBin.id)}\n`;
+            });
+        }
+    });
+    contents += "\n";
 
     let tempElement = document.createElement('a');
     tempElement.setAttribute('href', 'data:text/markdown;charset=utf-8,' + encodeURIComponent(contents));
