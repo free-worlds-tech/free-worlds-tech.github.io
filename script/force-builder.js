@@ -1,16 +1,16 @@
-let unitId = 0;
+let unitId = 1;
 
 function addUnit() {
     const unit = getUnitProperties();
 
     const $row = $("<tr>", {id: "unit-" + unitId});
-    $row.append("<td>" + unit.name + "</td");
-    $row.append("<td><input type='text' placeholder='Name'></td>");
+    $row.append("<td class='unit-name'>" + unit.name + "</td");
+    $row.append("<td><input type='text' placeholder='Name' onchange='updateCrewName(" + unitId + ")'></td>");
     $row.append(createSkillPicker(unitId, "gunnery-skill", 4));
     $row.append(createSkillPicker(unitId, "piloting-skill", 5));
-    $row.append("<td class='tonnage right aligned'>" + unit.tonnage + "</td>");
-    $row.append("<td class='bv right aligned'>" + unit.bv + "</td>");
-    $row.append("<td class='adj-bv right aligned'>" + unit.bv + "</td>");
+    $row.append("<td class='tonnage'>" + unit.tonnage + "</td>");
+    $row.append("<td class='bv'>" + unit.bv + "</td>");
+    $row.append("<td class='adj-bv'>" + unit.bv + "</td>");
     $row.append("<td><button type='button' onclick='removeUnit(" + unitId + ")'>❌</button></td>");
     $("#force-table-body").append($row);
     
@@ -21,7 +21,7 @@ function addUnit() {
     {
         const unitLabel = "ammo-" + unitId;
         const $ammoSelections = $("<details>", {id: unitLabel});
-        $ammoSelections.append("<summary>" + unit.name + "</summary>")
+        $ammoSelections.append("<summary>" + unit.name + " #" + unitId + "</summary>")
         unit.ammo.forEach(element => {
             const slotLabel = unitLabel + "-slot-" + element.id;
             const selectLabel = slotLabel + "-sel";
@@ -549,6 +549,16 @@ function updateTotals() {
         totalAdjBV += Number($(this).text());
     });
     $("#adj-bv-total").text(totalAdjBV);
+}
+
+function updateCrewName(id) {
+    const unitName = $("#unit-" + id + " .unit-name").text();
+    const crewName = $("#unit-" + id + " input").val();
+    if (crewName != "") {
+        $("#ammo-" + id + " summary").text(unitName + " | " + crewName);
+    } else {
+        $("#ammo-" + id + " summary").text(unitName + " #" + id);
+    }
 }
 
 function downloadForce() {
