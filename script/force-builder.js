@@ -20,8 +20,8 @@ function addUnit() {
     if (unit.ammo.length > 0)
     {
         const unitLabel = "ammo-" + unitId;
-        const $ammoSelections = $("<div>", {id: unitLabel});
-        $ammoSelections.append("<h4>" + unit.name + "</h4>")
+        const $ammoSelections = $("<details>", {id: unitLabel});
+        $ammoSelections.append("<summary>" + unit.name + "</summary>")
         unit.ammo.forEach(element => {
             const slotLabel = unitLabel + "-slot-" + element.id;
             const selectLabel = slotLabel + "-sel";
