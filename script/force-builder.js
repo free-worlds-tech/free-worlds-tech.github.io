@@ -132,7 +132,7 @@ function addUnitAmmoSelector(unit)
         
                 unit.ammoTypes.set(element.id, ammoType);
         
-                // TODO: Update BVs as needed for ammo changes
+                updateUnitBV(unit);
             });
 
             $selection.append($ammoSelect);
@@ -297,15 +297,51 @@ function getUnitProperties() {
 
 function updateUnitBV(unit) {
     const g = unit.gunnery;
-    const p = unit.gunnery;
+    const p = unit.piloting;
 
-    unit.adjustedBV = Math.round(unit.unitProps.bv * getSkillMultiplier(g,p));
+    let modifiedBV = unit.unitProps.bv;
+
+    // Add BV for alternate ammunition types
+    unit.unitProps.ammo.forEach((ammoBin) => {
+        const addedValue = getAmmoValue(ammoBin.type, unit.ammoTypes.get(ammoBin.id));
+        modifiedBV += addedValue;
+    });
+
+    unit.adjustedBV = Math.round(modifiedBV * getSkillMultiplier(g,p));
 
     const $adjbv = $("#unit-" + unit.id + " .adj-bv");
 
     $adjbv.text(unit.adjustedBV);
 
     updateTotals();
+}
+
+function getAmmoValue(weaponType, ammoType)
+{
+    switch (weaponType) {
+        case "is:ac2":
+            if (ammoType == "caseless") {
+                return 5;
+            }
+            return 0;
+        case "is:ac5":
+            if (ammoType == "caseless") {
+                return 9;
+            }
+            return 0;
+        case "is:ac10":
+            if (ammoType == "caseless") {
+                return 15;
+            }
+            return 0;
+        case "is:ac20":
+            if (ammoType == "caseless") {
+                return 22;
+            }
+            return 0;
+        default:
+            return 0;
+    }
 }
 
 function createSkillPicker(id, type, initialRating)
