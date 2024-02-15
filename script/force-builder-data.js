@@ -88,6 +88,21 @@ const knownWeapons = [
         ]
     },
     {
+        id: "is:lb10xac",
+        name: "LB 10-X AC",
+        ammoTypes: [
+            {id: "standard", name: "Standard"},
+            {id: "cluster", name: "Cluster"}
+        ]
+    },
+    {
+        id: "is:gaussrifle",
+        name: "Gauss Rifle",
+        ammoTypes: [
+            {id: "standard", name: "Standard"},
+        ]
+    },
+    {
         id: "is:narc", 
         name: "Narc", 
         ammoTypes: [
@@ -191,6 +206,27 @@ const knownWeapons = [
             {id: "fragmentation", name: "Fragmentation"},
             {id: "narc", name: "Narc-Equipped"},
             {id: "semiguided", name: "Semi-Guided", tagBV: 23}
+        ]
+    },
+    {
+        id: "is:mrm20",
+        name: "MRM 20",
+        ammoTypes: [
+            {id: "standard", name: "Standard"},
+        ]
+    },
+    {
+        id: "is:mrm30",
+        name: "MRM 30",
+        ammoTypes: [
+            {id: "standard", name: "Standard"},
+        ]
+    },
+    {
+        id: "is:ams",
+        name: "AMS",
+        ammoTypes: [
+            {id: "standard", name: "Standard"},
         ]
     },
     {
@@ -321,12 +357,40 @@ const knownUnits = [
         specials: ["artemisiv"]
     },
     {
+        id: "sdr-c",
+        name: "Spider SDR-C",
+        tonnage: 30,
+        bv: 616,
+        ammo: [],
+        specials: ["c3s"]
+    },
+    {
+        id: "jr7-c",
+        name: "Jenner JR7-C",
+        tonnage: 35,
+        bv: 832,
+        ammo: [
+            {id: 0, type: "is:srm4", location: "RT"},
+        ],
+        specials: ["c3s"]
+    },
+    {
         id: "ott-7k",
         name: "Ostscout OTT-7K",
         tonnage: 35,
         bv: 484,
         ammo: [],
         specials: ["tag"]
+    },
+    {
+        id: "pnt-c",
+        name: "Panther PNT-C",
+        tonnage: 35,
+        bv: 833,
+        ammo: [
+            {id: 0, type: "is:srm4", location: "LT"},
+        ],
+        specials: ["c3s"]
     },
     {
         id: "rvn-3l",
@@ -339,6 +403,14 @@ const knownUnits = [
             {id: 2, type: "is:narc", location: "LT"}
         ],
         specials: ["tag"]
+    },
+    {
+        id: "crb-c",
+        name: "Crab CRB-C",
+        tonnage: 50,
+        bv: 1135,
+        ammo: [],
+        specials: ["c3s"]
     },
     {
         id: "grf-1n",
@@ -395,6 +467,17 @@ const knownUnits = [
         specials: []
     },
     {
+        id: "drg-c",
+        name: "Grand Dragon DRG-C",
+        tonnage: 60,
+        bv: 1322,
+        ammo: [
+            {id: 0, type: "is:lrm10", location: "LT"},
+            {id: 1, type: "is:lrm10", location: "LT"},
+        ],
+        specials: ["c3s"]
+    },
+    {
         id: "cplt-c1",
         name: "Catapult CPLT-C1",
         tonnage: 65,
@@ -414,6 +497,19 @@ const knownUnits = [
             {id: 0, type: "is:machinegun", location: "CT"}
         ],
         specials: []
+    },
+    {
+        id: "cplt-k5",
+        name: "Catapult CPLT-K5",
+        tonnage: 65,
+        bv: 1457,
+        ammo: [
+            {id: 0, type: "is:mrm30", location: "LT"},
+            {id: 1, type: "is:mrm30", location: "LT"},
+            {id: 2, type: "is:mrm30", location: "RT"},
+            {id: 3, type: "is:mrm30", location: "RT"},
+        ],
+        specials: ["c3s"]
     },
     {
         id: "tdr-5s",
@@ -466,6 +562,20 @@ const knownUnits = [
         specials: ["artemisv"]
     },
     {
+        id: "on1-mc",
+        name: "Orion ON1-MC",
+        tonnage: 75,
+        bv: 1501,
+        ammo: [
+            {id: 0, type: "is:mrm30", location: "LT"},
+            {id: 1, type: "is:mrm30", location: "LT"},
+            {id: 2, type: "is:mrm20", location: "LT"},
+            {id: 3, type: "is:lb10xac", location: "RT"},
+            {id: 4, type: "is:lb10xac", location: "RT", default: "cluster"},
+        ],
+        specials: ["c3s"]
+    },
+    {
         id: "aws-8q",
         name: "Awesome AWS-8Q",
         tonnage: 80,
@@ -485,6 +595,59 @@ const knownUnits = [
         ],
         specials: []
     },
+    {
+        id: "crk-5003-c",
+        name: "Katana CRK-5003-C",
+        tonnage: 85,
+        bv: 1618,
+        ammo: [
+            {id: 0, type: "is:srm6", location: "RT"},
+            {id: 1, type: "is:srm6", location: "RT"},
+            {id: 2, type: "is:lb10xac", location: "RT"},
+            {id: 3, type: "is:lb10xac", location: "RT", default: "cluster"},
+        ],
+        specials: ["c3s"]
+    },
+    {
+        id: "crk-5003-cm",
+        name: "Katana CRK-5003-CM",
+        tonnage: 85,
+        bv: 1554,
+        ammo: [
+            {id: 0, type: "is:srm6", location: "RT"},
+            {id: 1, type: "is:lb10xac", location: "RT"},
+            {id: 2, type: "is:lb10xac", location: "RT", default: "cluster"},
+        ],
+        specials: ["c3m", "tag"]
+    },
+    {
+        id: "as7-c",
+        name: "Atlas AS7-C",
+        tonnage: 100,
+        bv: 2163,
+        ammo: [
+            {id: 0, type: "is:gaussrifle", location: "RA"},
+            {id: 1, type: "is:gaussrifle", location: "RA"},
+            {id: 2, type: "is:lrm20", location: "LT"},
+            {id: 3, type: "is:lrm20", location: "LT"},
+            {id: 4, type: "is:ams", location: "LT"},
+        ],
+        specials: ["c3s"]
+    },
+    {
+        id: "as7-cm",
+        name: "Atlas AS7-CM",
+        tonnage: 100,
+        bv: 2036,
+        ammo: [
+            {id: 0, type: "is:gaussrifle", location: "RA"},
+            {id: 1, type: "is:gaussrifle", location: "RA"},
+            {id: 2, type: "is:lrm20", location: "LT"},
+            {id: 3, type: "is:lrm20", location: "LT"},
+            {id: 4, type: "is:ams", location: "LT"},
+        ],
+        specials: ["c3m", "tag"]
+    }
 ];
 
 function getSkillMultiplier(gunnery, piloting) {
