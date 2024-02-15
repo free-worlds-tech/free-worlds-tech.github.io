@@ -56,85 +56,20 @@ function addUnitAmmoSelector(unit)
             const selectLabel = slotLabel + "-sel";
             const $selection = $("<div>", {id: slotLabel});
             
-            let slotTitle = element.type;
-            switch(element.type) {
-                case "is:machinegun": slotTitle = "Machine Gun"; break;
-                case "is:ac2": slotTitle = "AC/2"; break;
-                case "is:ac5": slotTitle = "AC/5"; break;
-                case "is:ac10": slotTitle = "AC/10"; break;
-                case "is:ac20": slotTitle = "AC/20"; break;
-                case "is:narc": slotTitle = "Narc"; break;
-                case "is:srm2": slotTitle = "SRM 2"; break;
-                case "is:srm4": slotTitle = "SRM 4"; break;
-                case "is:srm6": slotTitle = "SRM 6"; break;
-                case "is:lrm5": slotTitle = "LRM 5"; break;
-                case "is:lrm10": slotTitle = "LRM 10"; break;
-                case "is:lrm15": slotTitle = "LRM 15"; break;
-                case "is:lrm20": slotTitle = "LRM 20"; break;
-            }
+            let slotTitle = getWeaponName(element.type);
             slotTitle += " (" + element.location.toUpperCase() + ")";
             
-            let ammoOptions = [];
-
-            switch(element.type) {
-                case "is:ac2":
-                case "is:ac5":
-                case "is:ac10":
-                case "is:ac20":
-                    ammoOptions = [
-                        {label: "Standard", value: "standard"},
-                        {label: "Armor-Piercing", value: "ap"},
-                        {label: "Caseless", value: "caseless"},
-                        {label: "Flechette", value: "flechette"},
-                        {label: "Precision", value: "precision"}
-                    ];
-                    break;
-                case "is:narc":
-                    ammoOptions = [
-                        {label: "Homing", value: "standard"},
-                        {label: "Explosive", value: "explosive"}
-                    ];
-                    break;
-                case "is:srm2":
-                case "is:srm4":
-                case "is:srm6":
-                    ammoOptions = [
-                        {label: "Standard", value: "standard"},
-                        {label: "Artemis IV-Equipped", value: "artemisiv"},
-                        {label: "Artemis V-Equipped", value: "artemisv"},
-                        {label: "Fragmentation", value: "fragmentation"},
-                        {label: "Inferno", value: "inferno"},
-                        {label: "Narc-Equipped", value: "narc"}
-                    ];
-                    break;
-                case "is:lrm5":
-                case "is:lrm10":
-                case "is:lrm15":
-                case "is:lrm20":
-                    ammoOptions = [
-                        {label: "Standard", value: "standard"},
-                        {label: "Artemis IV-Equipped", value: "artemisiv"},
-                        {label: "Artemis V-Equipped", value: "artemisv"},
-                        {label: "Fragmentation", value: "fragmentation"},
-                        {label: "Narc-Equipped", value: "narc"},
-                        {label: "Semi-Guided", value: "semiguided"}
-                    ];
-                    break;
-                default:
-                    ammoOptions = [
-                        {label: "Standard", value: "standard"}
-                    ]
-            }
+            let ammoOptions = getAmmoTypes(element.type);
 
             $selection.append("<label for='" + selectLabel + "'>" + slotTitle + "</label>");
             
             $ammoSelect = $("<select>", { id: selectLabel });
 
             ammoOptions.forEach(option => {
-                if (option.value == element.default) {
-                    $ammoSelect.append(`<option value='${option.value}' selected>${option.label}</option>`);
+                if (element.default ? option.value == element.default : option.value == "standard") {
+                    $ammoSelect.append(`<option value='${option.id}' selected>${option.name}</option>`);
                 } else {
-                    $ammoSelect.append(`<option value='${option.value}'>${option.label}</option>`);
+                    $ammoSelect.append(`<option value='${option.id}'>${option.name}</option>`);
                 }
             });
 
@@ -777,9 +712,11 @@ function downloadForce() {
             } else {
                 contents += "\n";
             }
-            // TODO: Improve strings used for weapon and ammo types
+            
             unit.unitProps.ammo.forEach((ammoBin) => {
-                contents += `- ${ammoBin.type} (${ammoBin.location}): ${unit.ammoTypes.get(ammoBin.id)}\n`;
+                const weaponName = getWeaponName(ammoBin.type);
+                const ammoName = getAmmoName(ammoBin.type, unit.ammoTypes.get(ammoBin.id));
+                contents += `- ${weaponName} (${ammoBin.location}): ${ammoName}\n`;
             });
         }
     });
