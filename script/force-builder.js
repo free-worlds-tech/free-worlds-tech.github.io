@@ -757,9 +757,16 @@ function downloadForce() {
     contents += "\n";
     contents += "| Unit | Crew | Gunnery | Piloting | Tonnage | Base BV | Adjusted BV |\n";
     contents += "| :--- | :--- | :-----: | :------: | ------: | ------: | ----------: |\n";
+    let totalTonnage = 0;
+    let totalBV = 0;
+    let totalAdjBV = 0;
     force.forEach((unit) => {
         contents += `| ${unit.unitProps.name} | ${unit.crew} | ${unit.gunnery} | ${unit.piloting} | ${unit.unitProps.tonnage} | ${unit.unitProps.bv} | ${unit.adjustedBV} |\n`;
+        totalTonnage += unit.unitProps.tonnage;
+        totalBV += unit.unitProps.bv;
+        totalAdjBV += unit.adjustedBV;
     });
+    contents += `| **TOTAL** |  |  |  | ${totalTonnage} | ${totalBV} | ${totalAdjBV} |\n`;
     contents += "\n";
     contents += "## Ammo Selections\n";
     force.forEach((unit) => {
