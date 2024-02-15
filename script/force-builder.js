@@ -18,7 +18,7 @@ function addUnit() {
     };
 
     unit.ammo.forEach((ammoBin) => {
-        newUnit.ammoTypes.set(ammoBin.id, "default");
+        newUnit.ammoTypes.set(ammoBin.id, ammoBin.default ? ammoBin.default : "standard");
     });
 
     force.set(currentId, newUnit);
@@ -63,6 +63,7 @@ function addUnitAmmoSelector(unit)
                 case "is:ac5": slotTitle = "AC/5"; break;
                 case "is:ac10": slotTitle = "AC/10"; break;
                 case "is:ac20": slotTitle = "AC/20"; break;
+                case "is:narc": slotTitle = "Narc"; break;
                 case "is:srm2": slotTitle = "SRM 2"; break;
                 case "is:srm4": slotTitle = "SRM 4"; break;
                 case "is:srm6": slotTitle = "SRM 6"; break;
@@ -88,6 +89,12 @@ function addUnitAmmoSelector(unit)
                         {label: "Precision", value: "precision"}
                     ];
                     break;
+                case "is:narc":
+                    ammoOptions = [
+                        {label: "Homing", value: "standard"},
+                        {label: "Explosive", value: "explosive"}
+                    ];
+                    break;
                 case "is:srm2":
                 case "is:srm4":
                 case "is:srm6":
@@ -110,7 +117,7 @@ function addUnitAmmoSelector(unit)
                         {label: "Artemis V-Equipped", value: "artemisv"},
                         {label: "Fragmentation", value: "fragmentation"},
                         {label: "Narc-Equipped", value: "narc"},
-                        {label: "Semi-Guided", value: "semi-guided"}
+                        {label: "Semi-Guided", value: "semiguided"}
                     ];
                     break;
                 default:
@@ -124,7 +131,11 @@ function addUnitAmmoSelector(unit)
             $ammoSelect = $("<select>", { id: selectLabel });
 
             ammoOptions.forEach(option => {
-                $ammoSelect.append("<option value='" + option.value + "'>" + option.label + "</option>")
+                if (option.value == element.default) {
+                    $ammoSelect.append(`<option value='${option.value}' selected>${option.label}</option>`);
+                } else {
+                    $ammoSelect.append(`<option value='${option.value}'>${option.label}</option>`);
+                }
             });
 
             $ammoSelect.on("change", function(e) {
@@ -133,6 +144,7 @@ function addUnitAmmoSelector(unit)
                 unit.ammoTypes.set(element.id, ammoType);
         
                 updateUnitBV(unit);
+                adjustTAGUnitsBV();
             });
 
             $selection.append($ammoSelect);
@@ -153,7 +165,8 @@ function getUnitProperties() {
                 name: "Locust LCT-1E",
                 tonnage: 20,
                 bv: 553,
-                ammo: []
+                ammo: [],
+                specials: []
             };
         case "lct-1v":
             return {
@@ -162,7 +175,8 @@ function getUnitProperties() {
                 bv: 432,
                 ammo: [
                     {id: 0, type: "is:machinegun", location: "ct"}
-                ]
+                ],
+                specials: []
             };
         case "com-2d":
             return {
@@ -172,7 +186,8 @@ function getUnitProperties() {
                 ammo: [
                     {id: 0, type: "is:srm6", location: "lt"},
                     {id: 1, type: "is:srm4", location: "rt"}
-                ]
+                ],
+                specials: []
             };
         case "com-3a":
             return {
@@ -181,7 +196,8 @@ function getUnitProperties() {
                 bv: 540,
                 ammo: [
                     {id: 0, type: "is:srm6", location: "rt"}
-                ]
+                ],
+                specials: []
             };
         case "grf-1n":
             return {
@@ -191,7 +207,8 @@ function getUnitProperties() {
                 ammo: [
                     {id: 0, type: "is:lrm10", location: "rt"},
                     {id: 1, type: "is:lrm10", location: "rt"}
-                ]
+                ],
+                specials: []
             };
         case "grf-1s":
             return {
@@ -200,7 +217,8 @@ function getUnitProperties() {
                 bv: 1253,
                 ammo: [
                     {id: 0, type: "is:lrm5", location: "rt"}
-                ]
+                ],
+                specials: []
             };
         case "shd-2h":
             return {
@@ -211,7 +229,8 @@ function getUnitProperties() {
                     {id: 0, type: "is:ac5", location: "lt"},
                     {id: 1, type: "is:srm2", location: "ct"},
                     {id: 2, type: "is:lrm5", location: "rt"}
-                ]
+                ],
+                specials: []
             };
         case "wvr-6m":
             return {
@@ -220,7 +239,8 @@ function getUnitProperties() {
                 bv: 1291,
                 ammo: [
                     {id: 0, type: "is:srm6", location: "rt"}
-                ]
+                ],
+                specials: []
             };
         case "wvr-6r":
             return {
@@ -230,7 +250,8 @@ function getUnitProperties() {
                 ammo: [
                     {id: 0, type: "is:ac5", location: "ra"},
                     {id: 1, type: "is:srm6", location: "lt"}
-                ]
+                ],
+                specials: []
             };
         case "cplt-c1":
             return {
@@ -240,7 +261,8 @@ function getUnitProperties() {
                 ammo: [
                     {id: 0, type: "is:lrm15", location: "lt"},
                     {id: 1, type: "is:lrm15", location: "rt"}
-                ]
+                ],
+                specials: []
             };
         case "cplt-k2":
             return {
@@ -249,7 +271,8 @@ function getUnitProperties() {
                 bv: 1319,
                 ammo: [
                     {id: 0, type: "is:machinegun", location: "ct"}
-                ]
+                ],
+                specials: []
             };
         case "tdr-5s":
             return {
@@ -261,7 +284,8 @@ function getUnitProperties() {
                     {id: 1, type: "is:lrm15", location: "ct"},
                     {id: 2, type: "is:srm2", location: "rt"},
                     {id: 3, type: "is:machinegun", location: "la"}
-                ]
+                ],
+                specials: []
             };
         case "tdr-5se":
             return {
@@ -271,14 +295,16 @@ function getUnitProperties() {
                 ammo: [
                     {id: 0, type: "is:lrm10", location: "ct"},
                     {id: 1, type: "is:lrm10", location: "ct"}
-                ]
+                ],
+                specials: []
             };
         case "aws-8q":
             return {
                 name: "Awesome AWS-8Q",
                 tonnage: 80,
                 bv: 1605,
-                ammo: []
+                ammo: [],
+                specials: []
             };
         case "blr-1g":
             return {
@@ -289,7 +315,28 @@ function getUnitProperties() {
                     {id: 0, type: "is:srm6", location: "lt"},
                     {id: 1, type: "is:srm6", location: "lt"},
                     {id: 2, type: "is:machinegun", location: "lt"}
-                ]
+                ],
+                specials: []
+            };
+        case "ott-7k":
+            return {
+                name: "Ostscout OTT-7K",
+                tonnage: 35,
+                bv: 484,
+                ammo: [],
+                specials: ["tag"]
+            };
+        case "rvn-3l":
+            return {
+                name: "Raven RVN-3L",
+                tonnage: 35,
+                bv: 708,
+                ammo: [
+                    {id: 0, type: "is:srm6", location: "lt", default: "narc"},
+                    {id: 1, type: "is:narc", location: "lt"},
+                    {id: 2, type: "is:narc", location: "lt"}
+                ],
+                specials: ["tag"]
             };
     }
     
@@ -307,6 +354,11 @@ function updateUnitBV(unit) {
         modifiedBV += addedValue;
     });
 
+    // Add BV for TAG and semi-guided ammo in the force
+    if (unit.unitProps.specials.includes("tag")) {
+        modifiedBV += getSemiGuidedAmmoValueForForce();
+    }
+
     unit.adjustedBV = Math.round(modifiedBV * getSkillMultiplier(g,p));
 
     const $adjbv = $("#unit-" + unit.id + " .adj-bv");
@@ -314,6 +366,14 @@ function updateUnitBV(unit) {
     $adjbv.text(unit.adjustedBV);
 
     updateTotals();
+}
+
+function adjustTAGUnitsBV() {
+    force.forEach((unit) => {
+        if (unit.unitProps.specials.includes("tag")) {
+            updateUnitBV(unit);
+        }
+    });
 }
 
 function getAmmoValue(weaponType, ammoType)
@@ -337,6 +397,46 @@ function getAmmoValue(weaponType, ammoType)
         case "is:ac20":
             if (ammoType == "caseless") {
                 return 22;
+            }
+            return 0;
+        default:
+            return 0;
+    }
+}
+
+function getSemiGuidedAmmoValueForForce()
+{
+    let total = 0;
+    force.forEach((unit) => {
+        unit.unitProps.ammo.forEach((ammoBin) => {
+            const addedValue = getAmmoTagValue(ammoBin.type, unit.ammoTypes.get(ammoBin.id));
+            total += addedValue;
+        });
+    });
+    return total;
+}
+
+function getAmmoTagValue(weaponType, ammoType)
+{
+    switch (weaponType) {
+        case "is:lrm5":
+            if (ammoType == "semiguided") {
+                return 6;
+            }
+            return 0;
+        case "is:lrm10":
+            if (ammoType == "semiguided") {
+                return 11;
+            }
+            return 0;
+        case "is:lrm15":
+            if (ammoType == "semiguided") {
+                return 17;
+            }
+            return 0;
+        case "is:lrm20":
+            if (ammoType == "semiguided") {
+                return 23;
             }
             return 0;
         default:
@@ -382,6 +482,11 @@ function removeUnit(id) {
 
     force.delete(id);
 
+    // Have to re-calculate units with TAG because removed unit
+    // might have had semi-guided ammo.
+    adjustTAGUnitsBV();
+
+    // Update the total fields to reflect removed unit.
     updateTotals();
 }
 
@@ -665,6 +770,7 @@ function downloadForce() {
             } else {
                 contents += "\n";
             }
+            // TODO: Improve strings used for weapon and ammo types
             unit.unitProps.ammo.forEach((ammoBin) => {
                 contents += `- ${ammoBin.type} (${ammoBin.location}): ${unit.ammoTypes.get(ammoBin.id)}\n`;
             });
