@@ -18,7 +18,7 @@ function addUnit() {
     };
 
     unit.ammo.forEach((ammoBin) => {
-        newUnit.ammoTypes.set(ammoBin.id, "default");
+        newUnit.ammoTypes.set(ammoBin.id, ammoBin.default ? ammoBin.default : "standard");
     });
 
     force.set(currentId, newUnit);
@@ -63,6 +63,7 @@ function addUnitAmmoSelector(unit)
                 case "is:ac5": slotTitle = "AC/5"; break;
                 case "is:ac10": slotTitle = "AC/10"; break;
                 case "is:ac20": slotTitle = "AC/20"; break;
+                case "is:narc": slotTitle = "Narc"; break;
                 case "is:srm2": slotTitle = "SRM 2"; break;
                 case "is:srm4": slotTitle = "SRM 4"; break;
                 case "is:srm6": slotTitle = "SRM 6"; break;
@@ -86,6 +87,12 @@ function addUnitAmmoSelector(unit)
                         {label: "Caseless", value: "caseless"},
                         {label: "Flechette", value: "flechette"},
                         {label: "Precision", value: "precision"}
+                    ];
+                    break;
+                case "is:narc":
+                    ammoOptions = [
+                        {label: "Homing", value: "standard"},
+                        {label: "Explosive", value: "explosive"}
                     ];
                     break;
                 case "is:srm2":
@@ -124,7 +131,11 @@ function addUnitAmmoSelector(unit)
             $ammoSelect = $("<select>", { id: selectLabel });
 
             ammoOptions.forEach(option => {
-                $ammoSelect.append("<option value='" + option.value + "'>" + option.label + "</option>")
+                if (option.value == element.default) {
+                    $ammoSelect.append(`<option value='${option.value}' selected>${option.label}</option>`);
+                } else {
+                    $ammoSelect.append(`<option value='${option.value}'>${option.label}</option>`);
+                }
             });
 
             $ammoSelect.on("change", function(e) {
@@ -313,6 +324,18 @@ function getUnitProperties() {
                 tonnage: 35,
                 bv: 484,
                 ammo: [],
+                specials: ["tag"]
+            };
+        case "rvn-3l":
+            return {
+                name: "Raven RVN-3L",
+                tonnage: 35,
+                bv: 708,
+                ammo: [
+                    {id: 0, type: "is:srm6", location: "lt", default: "narc"},
+                    {id: 1, type: "is:narc", location: "lt"},
+                    {id: 2, type: "is:narc", location: "lt"}
+                ],
                 specials: ["tag"]
             };
     }
