@@ -1,18 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>Free Worlds Technical Institute</title>
-<meta name="description" content="Useful tools for the BattleTech tabletop game and its setting">
-<meta property="og:url" content="https://free-worlds-tech.github.io">
+<title>FWTI - Force Builder</title>
+<meta charset="utf-8">
+<meta name="description" content="A force builder for BattleTech">
+<meta property="og:url" content="https://free-worlds-tech.github.io/force-builder.html">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Free Worlds Technical Institute">
-<meta property="og:description" content="Useful tools for the BattleTech tabletop game and its setting">
+<meta property="og:title" content="FWTI - Force Builder">
+<meta property="og:description" content="A force builder for BattleTech">
 <meta property="og:image" content="https://free-worlds-tech.github.io/assets/fwti-1200-630.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta property="twitter:domain" content="free-worlds-tech.github.io">
-<meta property="twitter:url" content="https://free-worlds-tech.github.io">
-<meta name="twitter:title" content="Free Worlds Technical Institute">
-<meta name="twitter:description" content="Useful tools for the BattleTech tabletop game and its setting">
+<meta property="twitter:url" content="https://free-worlds-tech.github.io/force-builder.html">
+<meta name="twitter:title" content="FWTI - Force Builder">
+<meta name="twitter:description" content="A force builder for BattleTech">
 <meta name="twitter:image" content="https://free-worlds-tech.github.io/assets/fwti-1200-630.png">
 <link rel="icon" href="assets/fwti.svg" type="image/svg+xml">
 
@@ -20,7 +21,8 @@
 <link rel="stylesheet" href="css/fwti.css">
 
 <script src="ext/jquery-3.7.1.min.js"></script>
-<script charset="UTF-8" src="script/force-builder.js"></script>
+<script charset="UTF-8" src="script/force-builder-data.js" defer></script>
+<script charset="UTF-8" src="script/force-builder.js" defer></script>
 </head>
 <body>
 
@@ -46,31 +48,15 @@
             <a href="https://github.com/free-worlds-tech/free-worlds-tech.github.io/issues">here</a>.
         </p>
         <div>
-            <select id="unit-picker">
-                <option value="lct-1e">Locust LCT-1E</option>
-                <option value="lct-1v">Locust LCT-1V</option>
-                <option value="com-2d">Commando COM-2D</option>
-                <option value="com-3a">Commando COM-3A</option>
-                <option value="ott-7k">Ostscout OTT-7K</option>
-                <option value="rvn-3l">Raven RVN-3L</option>
-                <option value="grf-1n">Griffin GRF-1N</option>
-                <option value="grf-1s">Griffin GRF-1S</option>
-                <option value="shd-2h">Shadow Hawk SHD-2H</option>
-                <option value="wvr-6m">Wolverine WVR-6M</option>
-                <option value="wvr-6r">Wolverine WVR-6R</option>
-                <option value="cplt-c1">Catapult CPLT-C1</option>
-                <option value="cplt-k2">Catapult CPLT-K2</option>
-                <option value="tdr-5s">Thunderbolt TDR-5S</option>
-                <option value="tdr-5se">Thunderbolt TDR-5SE</option>
-                <option value="aws-8q">Awesome AWS-8Q</option>
-                <option value="blr-1g">BattleMaster BLR-1G</option>
+            <select id="unit-picker" disabled="disabled" title="Unit Picker">
+                <option value="unknown">Choose a unit...</option>
             </select>
-            <button type="button" onclick="addUnit()">Add</button>
-            <button type="reset" onclick="clearUnits()">Clear</button>
-            <button type="button" onclick="downloadForce()">Download</button>
+            <button id="add-unit-button" type="button" onclick="addUnit()" disabled="disabled">Add</button>
+            <button id="clear-units-button" type="reset" onclick="clearUnits()" disabled="disabled">Clear</button>
+            <button id="download-button" type="button" onclick="downloadForce()" disabled="disabled">Download</button>
         </div>
         <figure>
-            <table id="force-table" style="font-size:8pt;min-width: 100%;">
+            <table id="force-table">
                 <thead>
                     <th>Unit</th>
                     <th>Crew</th>
