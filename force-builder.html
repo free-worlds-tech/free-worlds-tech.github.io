@@ -36,12 +36,14 @@
 </header>
 
         <h2 id="page-title">Force Builder</h2>
-        <p>
-            This is a prototype of a BattleTech force builder. The
-            set of mechs to choose from is limited to just the A Game of
-            Armored Combat record sheets and the script is just to let me
-            experiment with the UI. I intend to iterate on it and slowly
-            fill in more functionality.
+        <p class="notice">
+            This is a prototype for a BattleTech force builder.
+            The set of mechs to choose from is very limited and focused on letting me experiment with the user interface. 
+            I intend to iterate on it and gradually add more functionality and units.
+            <br>
+            <br>
+            If you notice a bug or have feedback, feel free to open an issue 
+            <a href="https://github.com/free-worlds-tech/free-worlds-tech.github.io/issues">here</a>.
         </p>
         <div>
             <select id="unit-picker">
@@ -49,6 +51,7 @@
                 <option value="lct-1v">Locust LCT-1V</option>
                 <option value="com-2d">Commando COM-2D</option>
                 <option value="com-3a">Commando COM-3A</option>
+                <option value="ott-7k">Ostscout OTT-7K</option>
                 <option value="grf-1n">Griffin GRF-1N</option>
                 <option value="grf-1s">Griffin GRF-1S</option>
                 <option value="shd-2h">Shadow Hawk SHD-2H</option>
@@ -96,25 +99,6 @@
         <h3>Ammo Selections</h3>
         <p>Select the types of ammunition carried by your units.</p>
         <div id="ammo-selections">
-            <!-- <div id="ammo-ex">
-                <h3>Commando COM-2D ~ Annabelle</h3>
-                <p>
-                    <label for="ammo-ex-lt1">SRM 6 (LT)</label>
-                    <select id="ammo-ex-lt1" >
-                        <option value="standard">SRM</option>
-                        <option value="inferno">Inferno SRM</option>
-                        <option value="narc">Narc-capable SRM</option>
-                    </select>
-                </p>
-                <p>
-                    <label for="ammo-ex-rt1">SRM 4 (RT)</label>
-                    <select id="ammo-ex-rt1">
-                        <option value="standard">SRM</option>
-                        <option value="inferno">Inferno SRM</option>
-                        <option value="narc">Narc-capable SRM</option>
-                    </select>
-                </p>
-            </div> -->
         </div>
         <h3>Networks</h3>
         <p>Under construction...</p>
