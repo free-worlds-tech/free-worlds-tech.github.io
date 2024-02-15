@@ -100,8 +100,7 @@ const knownWeapons = [
         name: "SRM 2", 
         ammoTypes: [
             {id: "standard", name: "Standard"},
-            {id: "artemisiv", name: "Artemis IV-Equipped"},
-            {id: "artemisv", name: "Artemis V-Equipped"},
+            {id: "artemisiv", name: "Artemis IV-Equipped", requirement:"artemisiv"},
             {id: "fragmentation", name: "Fragmentation"},
             {id: "inferno", name: "Inferno"},
             {id: "narc", name: "Narc-Equipped"}
@@ -112,8 +111,7 @@ const knownWeapons = [
         name: "SRM 4", 
         ammoTypes: [
             {id: "standard", name: "Standard"},
-            {id: "artemisiv", name: "Artemis IV-Equipped"},
-            {id: "artemisv", name: "Artemis V-Equipped"},
+            {id: "artemisiv", name: "Artemis IV-Equipped", requirement:"artemisiv"},
             {id: "fragmentation", name: "Fragmentation"},
             {id: "inferno", name: "Inferno"},
             {id: "narc", name: "Narc-Equipped"}
@@ -124,11 +122,31 @@ const knownWeapons = [
         name: "SRM 6", 
         ammoTypes: [
             {id: "standard", name: "Standard"},
-            {id: "artemisiv", name: "Artemis IV-Equipped"},
-            {id: "artemisv", name: "Artemis V-Equipped"},
+            {id: "artemisiv", name: "Artemis IV-Equipped", requirement:"artemisiv"},
             {id: "fragmentation", name: "Fragmentation"},
             {id: "inferno", name: "Inferno"},
             {id: "narc", name: "Narc-Equipped"}
+        ]
+    },
+    {
+        id: "is:streaksrm2", 
+        name: "Streak SRM 2", 
+        ammoTypes: [
+            {id: "standard", name: "Standard"}
+        ]
+    },
+    {
+        id: "is:streaksrm4", 
+        name: "Streak SRM 4", 
+        ammoTypes: [
+            {id: "standard", name: "Standard"}
+        ]
+    },
+    {
+        id: "is:streaksrm6", 
+        name: "Streak SRM 6", 
+        ammoTypes: [
+            {id: "standard", name: "Standard"}
         ]
     },
     {
@@ -136,8 +154,7 @@ const knownWeapons = [
         name: "LRM 5", 
         ammoTypes: [
             {id: "standard", name: "Standard"},
-            {id: "artemisiv", name: "Artemis IV-Equipped"},
-            {id: "artemisv", name: "Artemis V-Equipped"},
+            {id: "artemisiv", name: "Artemis IV-Equipped", requirement:"artemisiv"},
             {id: "fragmentation", name: "Fragmentation"},
             {id: "narc", name: "Narc-Equipped"},
             {id: "semiguided", name: "Semi-Guided", tagBV: 6}
@@ -148,8 +165,7 @@ const knownWeapons = [
         name: "LRM 10", 
         ammoTypes: [
             {id: "standard", name: "Standard"},
-            {id: "artemisiv", name: "Artemis IV-Equipped"},
-            {id: "artemisv", name: "Artemis V-Equipped"},
+            {id: "artemisiv", name: "Artemis IV-Equipped", requirement:"artemisiv"},
             {id: "fragmentation", name: "Fragmentation"},
             {id: "narc", name: "Narc-Equipped"},
             {id: "semiguided", name: "Semi-Guided", tagBV: 11}
@@ -160,8 +176,7 @@ const knownWeapons = [
         name: "LRM 15", 
         ammoTypes: [
             {id: "standard", name: "Standard"},
-            {id: "artemisiv", name: "Artemis IV-Equipped"},
-            {id: "artemisv", name: "Artemis V-Equipped"},
+            {id: "artemisiv", name: "Artemis IV-Equipped", requirement:"artemisiv"},
             {id: "fragmentation", name: "Fragmentation"},
             {id: "narc", name: "Narc-Equipped"},
             {id: "semiguided", name: "Semi-Guided", tagBV: 17}
@@ -172,11 +187,83 @@ const knownWeapons = [
         name: "LRM 20", 
         ammoTypes: [
             {id: "standard", name: "Standard"},
-            {id: "artemisiv", name: "Artemis IV-Equipped"},
-            {id: "artemisv", name: "Artemis V-Equipped"},
+            {id: "artemisiv", name: "Artemis IV-Equipped", requirement:"artemisiv"},
             {id: "fragmentation", name: "Fragmentation"},
             {id: "narc", name: "Narc-Equipped"},
             {id: "semiguided", name: "Semi-Guided", tagBV: 23}
+        ]
+    },
+    {
+        id: "clan:srm2", 
+        name: "SRM 2", 
+        ammoTypes: [
+            {id: "standard", name: "Standard"},
+            {id: "artemisiv", name: "Artemis IV-Equipped", requirement:"artemisiv"},
+            {id: "artemisv", name: "Artemis V-Equipped", requirement:"artemisv"},
+            {id: "inferno", name: "Inferno"},
+            {id: "narc", name: "Narc-Equipped"}
+        ]
+    },
+    {
+        id: "clan:srm4", 
+        name: "SRM 4", 
+        ammoTypes: [
+            {id: "standard", name: "Standard"},
+            {id: "artemisiv", name: "Artemis IV-Equipped", requirement:"artemisiv"},
+            {id: "artemisv", name: "Artemis V-Equipped", requirement:"artemisv"},
+            {id: "inferno", name: "Inferno"},
+            {id: "narc", name: "Narc-Equipped"}
+        ]
+    },
+    {
+        id: "clan:srm6", 
+        name: "SRM 6", 
+        ammoTypes: [
+            {id: "standard", name: "Standard"},
+            {id: "artemisiv", name: "Artemis IV-Equipped", requirement:"artemisiv"},
+            {id: "artemisv", name: "Artemis V-Equipped", requirement:"artemisv"},
+            {id: "inferno", name: "Inferno"},
+            {id: "narc", name: "Narc-Equipped"}
+        ]
+    },
+    {
+        id: "clan:lrm5", 
+        name: "LRM 5", 
+        ammoTypes: [
+            {id: "standard", name: "Standard"},
+            {id: "artemisiv", name: "Artemis IV-Equipped", requirement:"artemisiv"},
+            {id: "artemisv", name: "Artemis V-Equipped", requirement:"artemisv"},
+            {id: "narc", name: "Narc-Equipped"},
+        ]
+    },
+    {
+        id: "clan:lrm10", 
+        name: "LRM 10", 
+        ammoTypes: [
+            {id: "standard", name: "Standard"},
+            {id: "artemisiv", name: "Artemis IV-Equipped", requirement:"artemisiv"},
+            {id: "artemisv", name: "Artemis V-Equipped", requirement:"artemisv"},
+            {id: "narc", name: "Narc-Equipped"},
+        ]
+    },
+    {
+        id: "clan:lrm15", 
+        name: "LRM 15", 
+        ammoTypes: [
+            {id: "standard", name: "Standard"},
+            {id: "artemisiv", name: "Artemis IV-Equipped", requirement:"artemisiv"},
+            {id: "artemisv", name: "Artemis V-Equipped", requirement:"artemisv"},
+            {id: "narc", name: "Narc-Equipped"},
+        ]
+    },
+    {
+        id: "clan:lrm20", 
+        name: "LRM 20", 
+        ammoTypes: [
+            {id: "standard", name: "Standard"},
+            {id: "artemisiv", name: "Artemis IV-Equipped", requirement:"artemisiv"},
+            {id: "artemisv", name: "Artemis V-Equipped", requirement:"artemisv"},
+            {id: "narc", name: "Narc-Equipped"},
         ]
     },
 ];
@@ -220,6 +307,18 @@ const knownUnits = [
             {id: 0, type: "is:srm6", location: "RT"}
         ],
         specials: []
+    },
+    {
+        id: "com-5s",
+        name: "Commando COM-5S",
+        tonnage: 25,
+        bv: 557,
+        ammo: [
+            {id: 0, type: "is:srm6", location: "RT", default: "artemisiv"},
+            {id: 1, type: "is:srm6", location: "RT", default: "artemisiv"},
+            {id: 2, type: "is:streaksrm2", location: "RT"}
+        ],
+        specials: ["artemisiv"]
     },
     {
         id: "ott-7k",
@@ -339,6 +438,32 @@ const knownUnits = [
             {id: 1, type: "is:lrm10", location: "CT"}
         ],
         specials: []
+    },
+    {
+        id: "arc-4m",
+        name: "Archer ARC-4M",
+        tonnage: 70,
+        bv: 1705,
+        ammo: [
+            {id: 0, type: "is:lrm20", location: "LT", default: "artemisiv"},
+            {id: 1, type: "is:lrm20", location: "LT", default: "artemisiv"},
+            {id: 2, type: "is:lrm20", location: "RT", default: "artemisiv"},
+            {id: 3, type: "is:lrm20", location: "RT", default: "artemisiv"},
+        ],
+        specials: ["artemisiv"]
+    },
+    {
+        id: "arc-7c",
+        name: "Archer ARC-7C",
+        tonnage: 70,
+        bv: 2408,
+        ammo: [
+            {id: 0, type: "clan:lrm20", location: "LT", default: "artemisv"},
+            {id: 1, type: "clan:lrm20", location: "LT", default: "artemisv"},
+            {id: 2, type: "clan:lrm20", location: "RT", default: "artemisv"},
+            {id: 3, type: "clan:lrm20", location: "RT", default: "artemisv"},
+        ],
+        specials: ["artemisv"]
     },
     {
         id: "aws-8q",

@@ -88,6 +88,11 @@ function addUnitAmmoSelector(unit)
             $ammoSelect = $("<select>", { id: selectLabel });
 
             ammoOptions.forEach(option => {
+                if (option.requirement) {
+                    if (!unit.unitProps.specials.includes(option.requirement)) {
+                        return;
+                    }
+                }
                 if (element.default ? option.id == element.default : option.id == "standard") {
                     $ammoSelect.append(`<option value='${option.id}' selected='selected'>${option.name}</option>`);
                 } else {
