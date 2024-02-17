@@ -55,13 +55,13 @@ function addUnit() {
     addUnitAmmoSelector(newUnit);
 
     if (unit.specials.includes("c3m")) {
-        c3mUnits.push(currentId);
+        c3mUnits.push({id: currentId, linked: false});
     }
     if (unit.specials.includes("c3s")) {
-        c3sUnits.push(currentId);
+        c3sUnits.push({id: currentId, linked: false});
     }
     if (unit.specials.includes("c3i")) {
-        c3iUnits.push(currentId);
+        c3iUnits.push({id: currentId, linked: false});
     }
     updateC3Eligibility();
     addUnitToAllNetworks(newUnit);
@@ -279,17 +279,17 @@ function removeUnit(id) {
     // might have had semi-guided ammo.
     adjustTAGUnitsBV();
 
-    const c3mIndex = c3mUnits.indexOf(id);
+    const c3mIndex = c3mUnits.findIndex((x) => x.id == id);
     if (c3mIndex != -1) {
         c3mUnits.splice(c3mIndex, 1);
     }
 
-    const c3sIndex = c3sUnits.indexOf(id);
+    const c3sIndex = c3sUnits.findIndex((x) => x.id == id);
     if (c3sIndex != -1) {
         c3sUnits.splice(c3sIndex, 1);
     }
 
-    const c3iIndex = c3iUnits.indexOf(id);
+    const c3iIndex = c3iUnits.findIndex((x) => x.id == id);
     if (c3iIndex != -1) {
         c3iUnits.splice(c3iIndex, 1);
     }
@@ -389,19 +389,24 @@ function downloadForce() {
 }
 
 function updateC3Eligibility() {
-    let c3mCount = c3mUnits.length;
-    let c3sCount = c3sUnits.length;
-    let c3iCount = c3iUnits.length;
+    // TODO: Once c3m->c3m links are supported, update this...
+    let c3mAvailable = c3mUnits.find((x) => !x.linked) != undefined;
+    let c3sAvailable = c3sUnits.find((x) => !x.linked) != undefined;
 
-    // TODO: Improve this to not count units already in a network...
+    let c3iAvailableCount = 0;
+    c3iUnits.forEach((c3i) => {
+        if (!c3i.linked) {
+            c3iAvailableCount += 1;
+        }
+    });
 
-    if (c3mCount > 1 || c3mCount > 0 && c3sCount > 0) {
+    if (c3mAvailable && c3sAvailable) {
         $("#add-c3-network-button").removeAttr("disabled");
     } else {
         $("#add-c3-network-button").attr("disabled", "disabled");
     }
 
-    if (c3iCount > 1) {
+    if (c3iAvailableCount > 1) {
         $("#add-c3i-network-button").removeAttr("disabled");
     } else {
         $("#add-c3i-network-button").attr("disabled", "disabled");
@@ -411,11 +416,13 @@ function updateC3Eligibility() {
 function addC3Network() {
     const currentId = nextNetworkId++;
 
+    const defaultRoot = c3mUnits.find((x) => !x.linked);
+
     const network = {
         id: currentId,
         type: "c3",
         rootUnit: {
-            id: c3mUnits[0], 
+            id: defaultRoot.id, 
             type: "m", 
             linkType: "s", 
             links: [
@@ -426,10 +433,13 @@ function addC3Network() {
         }
     };
 
+    defaultRoot.linked = true;
+
     networks.set(currentId, network);
 
     addNetworkEditor(network);
     updateNetworkBV(network);
+    updateC3Eligibility();
 }
 
 function addNetworkEditor(network) {
@@ -439,20 +449,23 @@ function addNetworkEditor(network) {
         $networkEditor.append(`<summary>C<sup>3</sup> Network #${network.id}</summary>`);
 
         const $rootSelect = $("<select>", {class: "network c3m"});
-        c3mUnits.forEach((c3mUnitId) => {
-            const c3mUnit = force.get(c3mUnitId);
-            $rootSelect.append(`<option class='network c3m' value='${c3mUnitId}'>${getUnitFullName(c3mUnit)}</option>`);
+        c3mUnits.forEach((c3mLink) => {
+            const c3mUnit = force.get(c3mLink.id);
+            $rootSelect.append(`<option class='network c3m' value='${c3mLink.id}'>${getUnitFullName(c3mUnit)}</option>`);
         });
         $rootSelect.on("change", function(e) {
             const previousUnitId = network.rootUnit.id;
             network.rootUnit.id = Number(e.target.value);
+            c3mUnits.find((x) => x.id == network.rootUnit.id).linked = true;
 
             // Update BV to reflect network change
             updateNetworkBV(network);
             const previousUnit = force.get(previousUnitId);
             if (previousUnit) {
+                c3mUnits.find((x) => x.id == previousUnitId).linked = false;
                 updateUnitBV(previousUnit, true);
             }
+            updateC3Eligibility();
         });
         $networkEditor.append($rootSelect);
 
@@ -464,15 +477,16 @@ function addNetworkEditor(network) {
             const $linkListItem = $("<li>");
             const $linkSelect = $("<select>", {id: `${networkLabel}-${i}`, class: "network c3s"});
             $linkSelect.append(`<option class='network' value='0' selected>~EMPTY~</option>`)
-            c3sUnits.forEach((c3sUnitId) => {
-                const c3sUnit = force.get(c3sUnitId);
-                $linkSelect.append(`<option class='network c3s' value='${c3sUnitId}'>${getUnitFullName(c3sUnit)}</option>`);
+            c3sUnits.forEach((c3s) => {
+                const c3sUnit = force.get(c3s.id);
+                $linkSelect.append(`<option class='network c3s' value='${c3s.id}'>${getUnitFullName(c3sUnit)}</option>`);
             });
             $linkSelect.on("change", function(e) {
                 const previousUnitId = network.rootUnit.links[i].id;
                 const newUnitId = Number(e.target.value);
                 network.rootUnit.links[i].id = newUnitId;
                 if (newUnitId != 0) {
+                    c3sUnits.find((x) => x.id == newUnitId).linked = true;
                     markNetworkUnitAsLinked(newUnitId);
                 }
 
@@ -480,9 +494,11 @@ function addNetworkEditor(network) {
                 updateNetworkBV(network);
                 const previousUnit = force.get(previousUnitId);
                 if (previousUnit) {
+                    c3sUnits.find((x) => x.id == previousUnitId).linked = false;
                     updateUnitBV(previousUnit, true);
                     markNetworkUnitAsUnlinked(previousUnitId);
                 }
+                updateC3Eligibility();
             });
             $linkListItem.append($linkSelect);
             $linksList.append($linkListItem);
@@ -497,11 +513,15 @@ function addNetworkEditor(network) {
 }
 
 function markNetworkUnitAsLinked(unitId) {
-    $(`select.network.c3s[value!='${unitId}'] option[value='${unitId}']`).attr("disabled", "disabled");
+    const $c3sSelectMatches = $(`select.network.c3s[value!='${unitId}'] option[value='${unitId}']`);
+    $c3sSelectMatches.attr("disabled", "disabled");
+    $c3sSelectMatches.attr("hidden", "hidden");
 }
 
 function markNetworkUnitAsUnlinked(unitId) {
-    $(`option.network.c3s[value='${unitId}']`).removeAttr("disabled");
+    const $c3sSelectMatches = $(`option.network.c3s[value='${unitId}']`);
+    $c3sSelectMatches.removeAttr("disabled");
+    $c3sSelectMatches.removeAttr("hidden");
 }
 
 function addUnitToAllNetworks(addedUnit) {
@@ -534,6 +554,13 @@ function removeUnitFromNetwork(network, removedUnitId) {
             $(`#network-${network.id}`).remove();
             networks.delete(network.id);
             updateNetworkBV(network);
+            network.rootUnit.links.forEach((link) => {
+                const linkedUnit = c3sUnits.find((x) => x.id == link.id);
+                if (linkedUnit) {
+                    linkedUnit.linked = false;
+                }
+                markNetworkUnitAsUnlinked(link.id);
+            });
             return;
         }
 
@@ -586,22 +613,22 @@ function dumpDebugData() {
 
     data += "\n";
     data += "c3m: ";
-    c3mUnits.forEach((id) => {
-        data += `${id}, `;
+    c3mUnits.forEach((c3m) => {
+        data += `${c3m.id}:${c3m.linked}, `;
     });
     data += "\n";
 
     data += "\n";
     data += "c3s: ";
-    c3sUnits.forEach((id) => {
-        data += `${id}, `;
+    c3sUnits.forEach((c3s) => {
+        data += `${c3s.id}:${c3s.linked}, `;
     });
     data += "\n";
 
     data += "\n";
     data += "c3i: ";
-    c3iUnits.forEach((id) => {
-        data += `${id}, `;
+    c3iUnits.forEach((c3i) => {
+        data += `${c3i.id}:${c3i.linked}, `;
     });
     data += "\n";
 
