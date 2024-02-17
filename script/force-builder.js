@@ -393,6 +393,8 @@ function updateC3Eligibility() {
     let c3sCount = c3sUnits.length;
     let c3iCount = c3iUnits.length;
 
+    // TODO: Improve this to not count units already in a network...
+
     if (c3mCount > 1 || c3mCount > 0 && c3sCount > 0) {
         $("#add-c3-network-button").removeAttr("disabled");
     } else {
@@ -468,13 +470,18 @@ function addNetworkEditor(network) {
             });
             $linkSelect.on("change", function(e) {
                 const previousUnitId = network.rootUnit.links[i].id;
-                network.rootUnit.links[i].id = Number(e.target.value);
+                const newUnitId = Number(e.target.value);
+                network.rootUnit.links[i].id = newUnitId;
+                if (newUnitId != 0) {
+                    markNetworkUnitAsLinked(newUnitId);
+                }
 
                 // Update BV to reflect network change
                 updateNetworkBV(network);
                 const previousUnit = force.get(previousUnitId);
                 if (previousUnit) {
                     updateUnitBV(previousUnit, true);
+                    markNetworkUnitAsUnlinked(previousUnitId);
                 }
             });
             $linkListItem.append($linkSelect);
@@ -487,6 +494,14 @@ function addNetworkEditor(network) {
     }
 
     $("#network-setups").append($networkEditor);
+}
+
+function markNetworkUnitAsLinked(unitId) {
+    $(`select.network.c3s[value!='${unitId}'] option[value='${unitId}']`).attr("disabled", "disabled");
+}
+
+function markNetworkUnitAsUnlinked(unitId) {
+    $(`option.network.c3s[value='${unitId}']`).removeAttr("disabled");
 }
 
 function addUnitToAllNetworks(addedUnit) {
