@@ -42,7 +42,8 @@ function addUnit() {
         gunnery: 4,
         piloting: 5,
         adjustedBV: unit.bv,
-        ammoTypes: new Map()
+        ammoTypes: new Map(),
+        bvNotes: []
     };
 
     unit.ammo.forEach((ammoBin) => {
@@ -160,15 +161,26 @@ function updateUnitBV(unit, fromNetworkChange) {
 
     let modifiedBV = unit.unitProps.bv;
 
+    const bvNotes = [];
+
     // Add BV for alternate ammunition types
+    let alternateAmmoBV = 0;
     unit.unitProps.ammo.forEach((ammoBin) => {
         const addedValue = getAmmoAdditionalBV(ammoBin.type, unit.ammoTypes.get(ammoBin.id));
-        modifiedBV += addedValue;
+        alternateAmmoBV += addedValue;
     });
+    modifiedBV += Math.round(alternateAmmoBV);
+    if (alternateAmmoBV > 0) {
+        bvNotes.push({note: "Alternate Ammo", amount: Math.round(alternateAmmoBV)});
+    }
 
     // Add BV for TAG and semi-guided ammo in the force
     if (unit.unitProps.specials.includes("tag")) {
-        modifiedBV += getSemiGuidedAmmoValueForForce();
+        const semiGuidedAmmoBV = Math.round(getSemiGuidedAmmoValueForForce());
+        modifiedBV += semiGuidedAmmoBV;
+        if (semiGuidedAmmoBV > 0) {
+            bvNotes.push({note: "TAG", amount: semiGuidedAmmoBV});
+        }
     }
 
     // C3 networks
@@ -178,7 +190,9 @@ function updateUnitBV(unit, fromNetworkChange) {
             if (network.type == "c3") {
                 if (network.rootUnit.id == unit.id || network.rootUnit.links.find((x) => x.id == unit.id)) {
                     connectedNetwork = network;
-                    modifiedBV += getNetworkBV(network.id);
+                    const networkBV = Math.round(getNetworkBV(network.id));
+                    modifiedBV += networkBV;
+                    bvNotes.push({note: "C3", amount:networkBV});
                 }
             }
         });
@@ -187,8 +201,13 @@ function updateUnitBV(unit, fromNetworkChange) {
         updateNetworkBV(connectedNetwork);
     }
 
-    unit.adjustedBV = Math.round(modifiedBV * getSkillMultiplier(g,p));
+    const multiplier = getSkillMultiplier(g,p);
+    unit.adjustedBV = Math.round(modifiedBV * multiplier);
+    if (multiplier != 1) {
+        bvNotes.push({note: `Skills ×${multiplier}`, amount:(unit.adjustedBV - modifiedBV)});
+    }
 
+    unit.bvNotes = bvNotes;
     const $adjbv = $("#unit-" + unit.id + " .adj-bv");
 
     $adjbv.text(unit.adjustedBV);
@@ -200,6 +219,7 @@ function getNetworkBV(networkId) {
     const network = networks.get(networkId);
     if (network.type == "c3") {
         let networkBV = 0;
+        let unitCount = 1;
         const rootUnit = force.get(network.rootUnit.id);
 
         // TODO: This should include alternate munitions and TAG BV...
@@ -210,10 +230,11 @@ function getNetworkBV(networkId) {
             const linkedUnit = force.get(link.id);
             if (linkedUnit) {
                 networkBV += linkedUnit.unitProps.bv * 0.05;
+                unitCount += 1;
             }
         });
 
-        return networkBV;
+        return unitCount > 1 ? networkBV : 0;
     }
 }
 
@@ -373,6 +394,34 @@ function downloadForce() {
                 contents += `- ${weaponName} (${ammoBin.location}): ${ammoName}\n`;
             });
         }
+    });
+    contents += "\n";
+    contents += "## Networks\n";
+    networks.forEach((network) => {
+        if (network.type == "c3") {
+            contents += "### C3 Network\n";
+            const rootUnit = force.get(network.rootUnit.id);
+            contents += `- ${getUnitFullName(rootUnit)}\n`
+            network.rootUnit.links.forEach((link) => {
+                const linkedUnit = force.get(link.id);
+                if (linkedUnit) {
+                    contents += `  - ${getUnitFullName(linkedUnit)}\n`
+                }
+            });
+        }
+    });
+    contents += "\n";
+    contents += "## BV Breakdown\n";
+    force.forEach((unit) => {
+        contents += `- ${getUnitFullName(unit)}: ${unit.unitProps.bv}`;
+        unit.bvNotes.forEach((note) => {
+            if (note.amount > 0) {
+                contents += ` + ${note.amount} (${note.note})`
+            } else {
+                contents += ` - ${Math.abs(note.amount)} (${note.note})`
+            }
+        });
+        contents += ` = ${unit.adjustedBV}\n`;
     });
     contents += "\n";
 
@@ -621,6 +670,9 @@ function dumpDebugData() {
 
     force.forEach((unit) => {
         data += `${unit.id}: ${getUnitFullName(unit)} ${unit.unitProps.bv} ${unit.adjustedBV}\n`;
+        unit.bvNotes.forEach((note) => {
+            data += `  - ${note.note}: ${note.amount}\n`;
+        });
     });
 
     data += "\n";
