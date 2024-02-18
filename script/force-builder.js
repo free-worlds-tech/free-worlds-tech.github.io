@@ -504,6 +504,7 @@ function addNetworkEditor(network) {
             $linksList.append($linkListItem);
         }
         $networkEditor.append($linksList);
+        $networkEditor.append(`<button type='button' class='network' onclick='removeNetwork(${network.id})'>Remove Nework</button>`);
 
     } else {
         $networkEditor.append(`<summary>C<sup>3</sup>i Network #${network.id}</summary>`);
@@ -573,6 +574,28 @@ function removeUnitFromNetwork(network, removedUnitId) {
             }
         });
     }
+}
+
+function removeNetwork(networkId) {
+    $(`#network-${networkId}`).remove();
+    const network = networks.get(networkId);
+    networks.delete(networkId);
+    updateNetworkBV(network);
+    if (network.type == "c3") {
+        const rootUnit = c3mUnits.find((x) => x.id == network.rootUnit.id);
+        if (rootUnit) {
+            rootUnit.linked = false;
+        }
+        markNetworkUnitAsUnlinked(rootUnit.id);
+        network.rootUnit.links.forEach((link) => {
+            const linkedUnit = c3sUnits.find((x) => x.id == link.id);
+            if (linkedUnit) {
+                linkedUnit.linked = false;
+            }
+            markNetworkUnitAsUnlinked(link.id);
+        });
+    }
+    updateC3Eligibility();
 }
 
 function updateNetworkBV(network) {

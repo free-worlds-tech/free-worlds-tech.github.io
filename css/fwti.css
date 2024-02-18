@@ -18,3 +18,7 @@ select.network {
 select.ammo {
     width: 100%;
 }
+
+button.network {
+    width: 100%;
+}
