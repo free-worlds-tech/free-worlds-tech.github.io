@@ -139,7 +139,7 @@ const knownWeapons = [
         name: "iNarc", 
         ammoTypes: [
             {id: "standard", name: "Homing"},
-            {id: "ecm", name: "ECM"}
+            {id: "ecm", name: "ECM"},
             {id: "explosive", name: "Explosive"},
             {id: "haywire", name: "Haywire"},
             {id: "nemesis", name: "Nemesis"}
