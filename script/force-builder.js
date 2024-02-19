@@ -28,6 +28,18 @@ function readyInterface() {
     $("#add-unit-button").removeAttr("disabled");
     $("#clear-units-button").removeAttr("disabled");
     $("#download-button").removeAttr("disabled");
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const debugParam = urlParams.get('debug');
+    if (debugParam == "true") {
+        $("body").append("<h3>Debug</h3>");
+        $("body").append(
+            `<div>
+                <button type="button" onclick="dumpDebugData()">Dump Debug Data</button>
+                <pre id="debug-output"></pre>
+            </div>`
+        );
+    }
 }
 
 function addUnit() {
