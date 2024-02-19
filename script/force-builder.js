@@ -1,6 +1,12 @@
-let nextId = 1;
+let nextUnitId = 1;
+let nextNetworkId = 1;
 
 const force = new Map();
+const networks = new Map();
+
+const c3mUnits = [];
+const c3sUnits = [];
+const c3iUnits = [];
 
 readyInterface();
 
@@ -22,12 +28,24 @@ function readyInterface() {
     $("#add-unit-button").removeAttr("disabled");
     $("#clear-units-button").removeAttr("disabled");
     $("#download-button").removeAttr("disabled");
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const debugParam = urlParams.get('debug');
+    if (debugParam == "true") {
+        $("body").append("<h3>Debug</h3>");
+        $("body").append(
+            `<div>
+                <button type="button" onclick="dumpDebugData()">Dump Debug Data</button>
+                <pre id="debug-output"></pre>
+            </div>`
+        );
+    }
 }
 
 function addUnit() {
     const unit = getUnitProperties();
 
-    const currentId = nextId++;
+    const currentId = nextUnitId++;
 
     const newUnit = {
         id: currentId,
@@ -36,7 +54,8 @@ function addUnit() {
         gunnery: 4,
         piloting: 5,
         adjustedBV: unit.bv,
-        ammoTypes: new Map()
+        ammoTypes: new Map(),
+        bvNotes: []
     };
 
     unit.ammo.forEach((ammoBin) => {
@@ -47,6 +66,29 @@ function addUnit() {
 
     addUnitRow(newUnit);
     addUnitAmmoSelector(newUnit);
+
+    if (unit.specials.includes("c3m")) {
+        c3mUnits.push({id: currentId, linked: false});
+    }
+    if (unit.specials.includes("c3s")) {
+        c3sUnits.push({id: currentId, linked: false});
+    }
+    if (unit.specials.includes("c3i")) {
+        c3iUnits.push({id: currentId, linked: false});
+    }
+    updateC3Eligibility();
+    addUnitToAllNetworks(newUnit);
+}
+
+function getUnitFullName(unit) {
+    const unitName = unit.unitProps.name;
+    const crewName = unit.crew;
+
+    if (crewName != "") {
+        return `${unitName} | ${crewName}`;
+    } else {
+        return `${unitName} #${unit.id}`
+    }
 }
 
 function addUnitRow(unit)
@@ -72,20 +114,20 @@ function addUnitAmmoSelector(unit)
     {
         const unitLabel = "ammo-" + unit.id;
         const $ammoSelections = $("<details>", {id: unitLabel});
-        $ammoSelections.append("<summary>" + unit.unitProps.name + " #" + unit.id + "</summary>")
+        $ammoSelections.append(`<summary>${getUnitFullName(unit)}</summary>`)
         unit.unitProps.ammo.forEach(element => {
             const slotLabel = unitLabel + "-slot-" + element.id;
             const selectLabel = slotLabel + "-sel";
             const $selection = $("<div>", {id: slotLabel});
             
             let slotTitle = getWeaponName(element.type);
-            slotTitle += " (" + element.location.toUpperCase() + ")";
+            slotTitle += " (" + element.location + ")";
             
             let ammoOptions = getAmmoTypes(element.type);
 
             $selection.append("<label for='" + selectLabel + "'>" + slotTitle + "</label>");
             
-            $ammoSelect = $("<select>", { id: selectLabel });
+            $ammoSelect = $("<select>", { id: selectLabel, class: "ammo" });
 
             ammoOptions.forEach(option => {
                 if (option.requirement) {
@@ -125,30 +167,103 @@ function getUnitProperties() {
     return getKnownUnit(unitId);
 }
 
-function updateUnitBV(unit) {
+function updateUnitBV(unit, fromNetworkChange) {
     const g = unit.gunnery;
     const p = unit.piloting;
 
     let modifiedBV = unit.unitProps.bv;
 
-    // Add BV for alternate ammunition types
-    unit.unitProps.ammo.forEach((ammoBin) => {
-        const addedValue = getAmmoAdditionalBV(ammoBin.type, unit.ammoTypes.get(ammoBin.id));
-        modifiedBV += addedValue;
-    });
+    const bvNotes = [];
 
-    // Add BV for TAG and semi-guided ammo in the force
-    if (unit.unitProps.specials.includes("tag")) {
-        modifiedBV += getSemiGuidedAmmoValueForForce();
+    // Add BV for alternate ammunition types
+    const alternateAmmoBV = getAlternateAmmoBV(unit);
+    modifiedBV += alternateAmmoBV;
+    if (alternateAmmoBV > 0) {
+        bvNotes.push({note: "Alternate Ammo", amount: Math.round(alternateAmmoBV)});
     }
 
-    unit.adjustedBV = Math.round(modifiedBV * getSkillMultiplier(g,p));
+    // Add BV for TAG and semi-guided ammo in the force
+    const semiGuidedAmmoBV = getAdditionalBVforTAG(unit);
+    if (semiGuidedAmmoBV > 0) {
+        modifiedBV += semiGuidedAmmoBV;
+        bvNotes.push({note: "TAG", amount: semiGuidedAmmoBV});
+    }
 
+    // C3 networks
+    let connectedNetwork = undefined;
+    if (unit.unitProps.specials.includes("c3m") || unit.unitProps.specials.includes("c3s")) {
+        networks.forEach((network) => {
+            if (network.type == "c3") {
+                if (network.rootUnit.id == unit.id || network.rootUnit.links.find((x) => x.id == unit.id)) {
+                    connectedNetwork = network;
+                    const networkBV = Math.round(getNetworkBV(network.id));
+                    modifiedBV += networkBV;
+                    bvNotes.push({note: "C3", amount:networkBV});
+                }
+            }
+        });
+    }
+    if (connectedNetwork && !fromNetworkChange) {
+        updateNetworkBV(connectedNetwork);
+    }
+
+    const multiplier = getSkillMultiplier(g,p);
+    unit.adjustedBV = Math.round(modifiedBV * multiplier);
+    if (multiplier != 1) {
+        bvNotes.push({note: `Skills ×${multiplier}`, amount:(unit.adjustedBV - modifiedBV)});
+    }
+
+    unit.bvNotes = bvNotes;
     const $adjbv = $("#unit-" + unit.id + " .adj-bv");
 
     $adjbv.text(unit.adjustedBV);
 
     updateTotals();
+}
+
+function getAlternateAmmoBV(unit) {
+    let alternateAmmoBV = 0;
+    unit.unitProps.ammo.forEach((ammoBin) => {
+        const addedValue = getAmmoAdditionalBV(ammoBin.type, unit.ammoTypes.get(ammoBin.id));
+        alternateAmmoBV += addedValue;
+    });
+    return Math.round(alternateAmmoBV);
+}
+
+function getAdditionalBVforTAG(unit) {
+    if (unit.unitProps.specials.includes("tag")) {
+        const semiGuidedAmmoBV = Math.round(getSemiGuidedAmmoValueForForce());
+        return semiGuidedAmmoBV;
+    }
+    return 0;
+}
+
+function getNetworkBVforUnit(unit) {
+    let unitBV = unit.unitProps.bv;
+    unitBV += getAlternateAmmoBV(unit);
+    unitBV += getAdditionalBVforTAG(unit);
+    return unitBV;
+}
+
+function getNetworkBV(networkId) {
+    const network = networks.get(networkId);
+    if (network.type == "c3") {
+        let networkBV = 0;
+        let unitCount = 1;
+        const rootUnit = force.get(network.rootUnit.id);
+
+        networkBV += getNetworkBVforUnit(rootUnit) * 0.05;
+
+        network.rootUnit.links.forEach((link) => {
+            const linkedUnit = force.get(link.id);
+            if (linkedUnit) {
+                networkBV += getNetworkBVforUnit(linkedUnit) * 0.05;
+                unitCount += 1;
+            }
+        });
+
+        return unitCount > 1 ? networkBV : 0;
+    }
 }
 
 function adjustTAGUnitsBV() {
@@ -213,17 +328,44 @@ function removeUnit(id) {
     // might have had semi-guided ammo.
     adjustTAGUnitsBV();
 
+    const c3mIndex = c3mUnits.findIndex((x) => x.id == id);
+    if (c3mIndex != -1) {
+        c3mUnits.splice(c3mIndex, 1);
+    }
+
+    const c3sIndex = c3sUnits.findIndex((x) => x.id == id);
+    if (c3sIndex != -1) {
+        c3sUnits.splice(c3sIndex, 1);
+    }
+
+    const c3iIndex = c3iUnits.findIndex((x) => x.id == id);
+    if (c3iIndex != -1) {
+        c3iUnits.splice(c3iIndex, 1);
+    }
+
+    // Adjust network UI to account for the unit.
+    removeUnitFromAllNetworks(id);
+
     // Update the total fields to reflect removed unit.
     updateTotals();
+
+    updateC3Eligibility();
 }
 
 function clearUnits() {
     $("#force-table-body").children().remove();
     $("#ammo-selections").children().remove();
+    $("#network-setups").children().remove();
 
     force.clear();
+    networks.clear();
+    c3mUnits.splice(0, c3mUnits.length);
+    c3sUnits.splice(0, c3sUnits.length);
+    c3iUnits.splice(0, c3iUnits.length);
 
     updateTotals();
+
+    updateC3Eligibility();
 }
 
 function updateTotals() {
@@ -245,15 +387,12 @@ function updateTotals() {
 function updateCrewName(id) {
     const unit = force.get(id);
     const crewName = $("#unit-" + id + " input").val();
-    const unitName = unit.unitProps.name;
     
     unit.crew = crewName;
 
-    if (crewName != "") {
-        $("#ammo-" + id + " summary").text(unitName + " | " + crewName);
-    } else {
-        $("#ammo-" + id + " summary").text(unitName + " #" + id);
-    }
+    $("#ammo-" + id + " summary").text(getUnitFullName(unit));
+
+    $(`option.network[value='${id}']`).text(getUnitFullName(unit));
 }
 
 function downloadForce() {
@@ -275,12 +414,7 @@ function downloadForce() {
     contents += "## Ammo Selections\n";
     force.forEach((unit) => {
         if (unit.unitProps.ammo.length > 0) {
-            contents += `### ${unit.unitProps.name}`;
-            if (unit.crew != "") {
-                contents += ` ${unit.crew}\n`;
-            } else {
-                contents += "\n";
-            }
+            contents += `### ${getUnitFullName(unit)}\n`;
             
             unit.unitProps.ammo.forEach((ammoBin) => {
                 const weaponName = getWeaponName(ammoBin.type);
@@ -288,6 +422,34 @@ function downloadForce() {
                 contents += `- ${weaponName} (${ammoBin.location}): ${ammoName}\n`;
             });
         }
+    });
+    contents += "\n";
+    contents += "## Networks\n";
+    networks.forEach((network) => {
+        if (network.type == "c3") {
+            contents += "### C3 Network\n";
+            const rootUnit = force.get(network.rootUnit.id);
+            contents += `- ${getUnitFullName(rootUnit)}\n`
+            network.rootUnit.links.forEach((link) => {
+                const linkedUnit = force.get(link.id);
+                if (linkedUnit) {
+                    contents += `  - ${getUnitFullName(linkedUnit)}\n`
+                }
+            });
+        }
+    });
+    contents += "\n";
+    contents += "## BV Breakdown\n";
+    force.forEach((unit) => {
+        contents += `- ${getUnitFullName(unit)}: ${unit.unitProps.bv}`;
+        unit.bvNotes.forEach((note) => {
+            if (note.amount > 0) {
+                contents += ` + ${note.amount} (${note.note})`
+            } else {
+                contents += ` - ${Math.abs(note.amount)} (${note.note})`
+            }
+        });
+        contents += ` = ${unit.adjustedBV}\n`;
     });
     contents += "\n";
 
@@ -301,4 +463,279 @@ function downloadForce() {
     tempElement.click();
 
     document.body.removeChild(tempElement);
+}
+
+function updateC3Eligibility() {
+    // TODO: Once c3m->c3m links are supported, update this...
+    let c3mAvailable = c3mUnits.find((x) => !x.linked) != undefined;
+    let c3sAvailable = c3sUnits.find((x) => !x.linked) != undefined;
+
+    let c3iAvailableCount = 0;
+    c3iUnits.forEach((c3i) => {
+        if (!c3i.linked) {
+            c3iAvailableCount += 1;
+        }
+    });
+
+    if (c3mAvailable && c3sAvailable) {
+        $("#add-c3-network-button").removeAttr("disabled");
+    } else {
+        $("#add-c3-network-button").attr("disabled", "disabled");
+    }
+
+    if (c3iAvailableCount > 1) {
+        $("#add-c3i-network-button").removeAttr("disabled");
+    } else {
+        $("#add-c3i-network-button").attr("disabled", "disabled");
+    }
+}
+
+function addC3Network() {
+    const currentId = nextNetworkId++;
+
+    const defaultRoot = c3mUnits.find((x) => !x.linked);
+
+    const network = {
+        id: currentId,
+        type: "c3",
+        rootUnit: {
+            id: defaultRoot.id, 
+            type: "m", 
+            linkType: "s", 
+            links: [
+                {id: 0, type: "s"},
+                {id: 0, type: "s"},
+                {id: 0, type: "s"}
+            ]
+        }
+    };
+
+    defaultRoot.linked = true;
+
+    networks.set(currentId, network);
+
+    addNetworkEditor(network);
+    updateNetworkBV(network);
+    updateC3Eligibility();
+}
+
+function addNetworkEditor(network) {
+    const networkLabel = `network-${network.id}`;
+    const $networkEditor = $("<details>", {id: networkLabel});
+    if (network.type == "c3") {
+        $networkEditor.append(`<summary>C<sup>3</sup> Network #${network.id}</summary>`);
+
+        $networkEditor.append("<p><strong>Work in Progress: </strong> C<sup>3</sup>M to C<sup>3</sup>M links are not supported yet.</p>")
+
+        const $rootSelect = $("<select>", {class: "network c3m"});
+        c3mUnits.forEach((c3mLink) => {
+            const c3mUnit = force.get(c3mLink.id);
+            $rootSelect.append(`<option class='network c3m' value='${c3mLink.id}'>${getUnitFullName(c3mUnit)}</option>`);
+        });
+        $rootSelect.on("change", function(e) {
+            const previousUnitId = network.rootUnit.id;
+            network.rootUnit.id = Number(e.target.value);
+            c3mUnits.find((x) => x.id == network.rootUnit.id).linked = true;
+
+            // Update BV to reflect network change
+            updateNetworkBV(network);
+            const previousUnit = force.get(previousUnitId);
+            if (previousUnit) {
+                c3mUnits.find((x) => x.id == previousUnitId).linked = false;
+                updateUnitBV(previousUnit, true);
+            }
+            updateC3Eligibility();
+        });
+        $networkEditor.append($rootSelect);
+
+        // TODO: Support c3m->c3m links...
+        // $networkEditor.append(`<label><input type='checkbox' id='${networkLabel}-type'>Link to additional C<sup>3</sup>M computers</label>`);
+
+        const $linksList = $("<ul>");
+        for (let i = 0; i < 3; i++) {
+            const $linkListItem = $("<li>");
+            const $linkSelect = $("<select>", {id: `${networkLabel}-${i}`, class: "network c3s"});
+            $linkSelect.append(`<option class='network' value='0' selected>~EMPTY~</option>`)
+            c3sUnits.forEach((c3s) => {
+                const c3sUnit = force.get(c3s.id);
+                $linkSelect.append(`<option class='network c3s' value='${c3s.id}'>${getUnitFullName(c3sUnit)}</option>`);
+            });
+            $linkSelect.on("change", function(e) {
+                const previousUnitId = network.rootUnit.links[i].id;
+                const newUnitId = Number(e.target.value);
+                network.rootUnit.links[i].id = newUnitId;
+                if (newUnitId != 0) {
+                    c3sUnits.find((x) => x.id == newUnitId).linked = true;
+                    markNetworkUnitAsLinked(newUnitId);
+                }
+
+                // Update BV to reflect network change
+                updateNetworkBV(network);
+                const previousUnit = force.get(previousUnitId);
+                if (previousUnit) {
+                    c3sUnits.find((x) => x.id == previousUnitId).linked = false;
+                    updateUnitBV(previousUnit, true);
+                    markNetworkUnitAsUnlinked(previousUnitId);
+                }
+                updateC3Eligibility();
+            });
+            $linkListItem.append($linkSelect);
+            $linksList.append($linkListItem);
+        }
+        $networkEditor.append($linksList);
+        $networkEditor.append(`<button type='button' class='network' onclick='removeNetwork(${network.id})'>Remove Nework</button>`);
+
+    } else {
+        $networkEditor.append(`<summary>C<sup>3</sup>i Network #${network.id}</summary>`);
+    }
+
+    $("#network-setups").append($networkEditor);
+}
+
+function markNetworkUnitAsLinked(unitId) {
+    const $c3sSelectMatches = $(`select.network.c3s[value!='${unitId}'] option[value='${unitId}']`);
+    $c3sSelectMatches.attr("disabled", "disabled");
+    $c3sSelectMatches.attr("hidden", "hidden");
+}
+
+function markNetworkUnitAsUnlinked(unitId) {
+    const $c3sSelectMatches = $(`option.network.c3s[value='${unitId}']`);
+    $c3sSelectMatches.removeAttr("disabled");
+    $c3sSelectMatches.removeAttr("hidden");
+}
+
+function addUnitToAllNetworks(addedUnit) {
+    // Add new unit to network UIs
+    if (addedUnit.unitProps.specials.includes("c3m")) {
+        $(`select.network.c3m`).append(`<option class='network c3m' value='${addedUnit.id}'>${getUnitFullName(addedUnit)}</option>`);
+    }
+
+    if (addedUnit.unitProps.specials.includes("c3s")) {
+        $(`select.network.c3s`).append(`<option class='network c3s' value='${addedUnit.id}'>${getUnitFullName(addedUnit)}</option>`);
+    }
+
+    if (addedUnit.unitProps.specials.includes("c3i")) {
+        $(`select.network.c3i`).append(`<option class='network c3i' value='${addedUnit.id}'>${getUnitFullName(addedUnit)}</option>`);
+    }
+}
+
+function removeUnitFromAllNetworks(removedUnitId) {
+    networks.forEach((network) => {
+        removeUnitFromNetwork(network, removedUnitId);
+    });
+    $(`select.network option[value='${removedUnitId}']`).remove();
+}
+
+function removeUnitFromNetwork(network, removedUnitId) {
+    if (network.type == "c3") {
+        const rootUnitId = network.rootUnit.id;
+        if (rootUnitId == removedUnitId) {
+            // Delete network since its root is gone
+            $(`#network-${network.id}`).remove();
+            networks.delete(network.id);
+            updateNetworkBV(network);
+            network.rootUnit.links.forEach((link) => {
+                const linkedUnit = c3sUnits.find((x) => x.id == link.id);
+                if (linkedUnit) {
+                    linkedUnit.linked = false;
+                }
+                markNetworkUnitAsUnlinked(link.id);
+            });
+            return;
+        }
+
+        network.rootUnit.links.forEach((link, index) => {
+            const linkUnitId = link.id;
+            if (linkUnitId == removedUnitId) {
+                link.id = 0;
+                $(`#network-${network.id}-${index}`).val(0);
+                updateNetworkBV(network);
+            }
+        });
+    }
+}
+
+function removeNetwork(networkId) {
+    $(`#network-${networkId}`).remove();
+    const network = networks.get(networkId);
+    networks.delete(networkId);
+    updateNetworkBV(network);
+    if (network.type == "c3") {
+        const rootUnit = c3mUnits.find((x) => x.id == network.rootUnit.id);
+        if (rootUnit) {
+            rootUnit.linked = false;
+        }
+        markNetworkUnitAsUnlinked(rootUnit.id);
+        network.rootUnit.links.forEach((link) => {
+            const linkedUnit = c3sUnits.find((x) => x.id == link.id);
+            if (linkedUnit) {
+                linkedUnit.linked = false;
+            }
+            markNetworkUnitAsUnlinked(link.id);
+        });
+    }
+    updateC3Eligibility();
+}
+
+function updateNetworkBV(network) {
+    if (network.type == "c3") {
+        const rootUnit = force.get(network.rootUnit.id);
+        if (rootUnit) {
+            updateUnitBV(rootUnit, true);
+        }
+
+        network.rootUnit.links.forEach((link) => {
+            const linkedUnit = force.get(link.id);
+            if (linkedUnit) {
+                updateUnitBV(linkedUnit, true);
+            }
+        });
+    }
+}
+
+function dumpDebugData() {
+    $("#debug-output").children().remove();
+
+    let data = "";
+
+    force.forEach((unit) => {
+        data += `${unit.id}: ${getUnitFullName(unit)} ${unit.unitProps.bv} ${unit.adjustedBV}\n`;
+        unit.bvNotes.forEach((note) => {
+            data += `  - ${note.note}: ${note.amount}\n`;
+        });
+    });
+
+    data += "\n";
+    networks.forEach((network) => {
+        data += `${network.id}: ${network.type}\n`
+        if (network.type == "c3") {
+            data += `- ${network.rootUnit.id}\n`;
+            network.rootUnit.links.forEach((link) => {
+                data += `  - ${link.id}\n`;
+            });
+        }
+    });
+
+    data += "\n";
+    data += "c3m: ";
+    c3mUnits.forEach((c3m) => {
+        data += `${c3m.id}:${c3m.linked}, `;
+    });
+    data += "\n";
+
+    data += "\n";
+    data += "c3s: ";
+    c3sUnits.forEach((c3s) => {
+        data += `${c3s.id}:${c3s.linked}, `;
+    });
+    data += "\n";
+
+    data += "\n";
+    data += "c3i: ";
+    c3iUnits.forEach((c3i) => {
+        data += `${c3i.id}:${c3i.linked}, `;
+    });
+    data += "\n";
+
+    $("#debug-output").text(data);
 }

@@ -10,3 +10,15 @@ p {
     font-size: 8pt;
     min-width: 100%;
 }
+
+select.network {
+    width: 100%;
+}
+
+select.ammo {
+    width: 100%;
+}
+
+button.network {
+    width: 100%;
+}
