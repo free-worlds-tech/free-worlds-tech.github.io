@@ -88,8 +88,32 @@ const knownWeapons = [
         ]
     },
     {
+        id: "is:lb2xac",
+        name: "LB 2-X AC",
+        ammoTypes: [
+            {id: "standard", name: "Standard"},
+            {id: "cluster", name: "Cluster"}
+        ]
+    },
+    {
+        id: "is:lb5xac",
+        name: "LB 5-X AC",
+        ammoTypes: [
+            {id: "standard", name: "Standard"},
+            {id: "cluster", name: "Cluster"}
+        ]
+    },
+    {
         id: "is:lb10xac",
         name: "LB 10-X AC",
+        ammoTypes: [
+            {id: "standard", name: "Standard"},
+            {id: "cluster", name: "Cluster"}
+        ]
+    },
+    {
+        id: "is:lb20xac",
+        name: "LB 20-X AC",
         ammoTypes: [
             {id: "standard", name: "Standard"},
             {id: "cluster", name: "Cluster"}
@@ -108,6 +132,17 @@ const knownWeapons = [
         ammoTypes: [
             {id: "standard", name: "Homing"},
             {id: "explosive", name: "Explosive"}
+        ]
+    },
+    {
+        id: "is:inarc", 
+        name: "iNarc", 
+        ammoTypes: [
+            {id: "standard", name: "Homing"},
+            {id: "ecm", name: "ECM"}
+            {id: "explosive", name: "Explosive"},
+            {id: "haywire", name: "Haywire"},
+            {id: "nemesis", name: "Nemesis"}
         ]
     },
     {
@@ -209,6 +244,13 @@ const knownWeapons = [
         ]
     },
     {
+        id: "is:mrm10",
+        name: "MRM 10",
+        ammoTypes: [
+            {id: "standard", name: "Standard"},
+        ]
+    },
+    {
         id: "is:mrm20",
         name: "MRM 20",
         ammoTypes: [
@@ -218,6 +260,13 @@ const knownWeapons = [
     {
         id: "is:mrm30",
         name: "MRM 30",
+        ammoTypes: [
+            {id: "standard", name: "Standard"},
+        ]
+    },
+    {
+        id: "is:mrm40",
+        name: "MRM 40",
         ammoTypes: [
             {id: "standard", name: "Standard"},
         ]
@@ -405,6 +454,14 @@ const knownUnits = [
         specials: ["tag"]
     },
     {
+        id: "crb-30",
+        name: "Crab CRB-30",
+        tonnage: 50,
+        bv: 1509,
+        ammo: [],
+        specials: ["c3i"]
+    },
+    {
         id: "crb-c",
         name: "Crab CRB-C",
         tonnage: 50,
@@ -478,6 +535,14 @@ const knownUnits = [
         specials: ["c3s"]
     },
     {
+        id: "lnc25-04",
+        name: "Lancelot LNC25-04",
+        tonnage: 60,
+        bv: 1640,
+        ammo: [],
+        specials: ["c3i"]
+    },
+    {
         id: "cplt-c1",
         name: "Catapult CPLT-C1",
         tonnage: 65,
@@ -510,6 +575,19 @@ const knownUnits = [
             {id: 3, type: "is:mrm30", location: "RT"},
         ],
         specials: ["c3s"]
+    },
+    {
+        id: "ext-5e",
+        name: "Exterminator EXT-5E",
+        tonnage: 65,
+        bv: 1532,
+        ammo: [
+            {id: 0, type: "is:inarc", location: "RT"},
+            {id: 1, type: "is:inarc", location: "RT"},
+            {id: 2, type: "is:inarc", location: "RT"},
+            {id: 3, type: "is:inarc", location: "RT"},
+        ],
+        specials: ["c3i"]
     },
     {
         id: "tdr-5s",
@@ -562,6 +640,14 @@ const knownUnits = [
         specials: ["artemisv"]
     },
     {
+        id: "fls-9c",
+        name: "Flashman FLS-9C",
+        tonnage: 75,
+        bv: 1779,
+        ammo: [],
+        specials: ["c3i"]
+    },
+    {
         id: "on1-mc",
         name: "Orion ON1-MC",
         tonnage: 75,
@@ -582,6 +668,16 @@ const knownUnits = [
         bv: 1605,
         ammo: [],
         specials: []
+    },
+    {
+        id: "thg-12e",
+        name: "Thug THG-12E",
+        tonnage: 80,
+        bv: 1751,
+        ammo: [
+            {id: 0, type: "is:streaksrm6", location: "RT"}
+        ],
+        specials: ["c3i"]
     },
     {
         id: "blr-1g",
@@ -647,6 +743,22 @@ const knownUnits = [
             {id: 4, type: "is:ams", location: "LT"},
         ],
         specials: ["c3m", "tag"]
+    },
+    {
+        id: "kgc-005",
+        name: "King Crab KGC-005",
+        tonnage: 100,
+        bv: 2264,
+        ammo: [
+            {id: 0, type: "is:lb20xac", location: "LT"},
+            {id: 1, type: "is:lb20xac", location: "LT"},
+            {id: 2, type: "is:lb20xac", location: "LT", default: "cluster"},
+            {id: 3, type: "is:lb20xac", location: "RT"},
+            {id: 4, type: "is:lb20xac", location: "RT", default: "cluster"},
+            {id: 5, type: "is:lb20xac", location: "RT", default: "cluster"},
+            {id: 6, type: "is:streaksrm4", location: "LT"},
+        ],
+        specials: ["c3i"]
     }
 ];
 
