@@ -176,23 +176,17 @@ function updateUnitBV(unit, fromNetworkChange) {
     const bvNotes = [];
 
     // Add BV for alternate ammunition types
-    let alternateAmmoBV = 0;
-    unit.unitProps.ammo.forEach((ammoBin) => {
-        const addedValue = getAmmoAdditionalBV(ammoBin.type, unit.ammoTypes.get(ammoBin.id));
-        alternateAmmoBV += addedValue;
-    });
-    modifiedBV += Math.round(alternateAmmoBV);
+    const alternateAmmoBV = getAlternateAmmoBV(unit);
+    modifiedBV += alternateAmmoBV;
     if (alternateAmmoBV > 0) {
         bvNotes.push({note: "Alternate Ammo", amount: Math.round(alternateAmmoBV)});
     }
 
     // Add BV for TAG and semi-guided ammo in the force
-    if (unit.unitProps.specials.includes("tag")) {
-        const semiGuidedAmmoBV = Math.round(getSemiGuidedAmmoValueForForce());
+    const semiGuidedAmmoBV = getAdditionalBVforTAG(unit);
+    if (semiGuidedAmmoBV > 0) {
         modifiedBV += semiGuidedAmmoBV;
-        if (semiGuidedAmmoBV > 0) {
-            bvNotes.push({note: "TAG", amount: semiGuidedAmmoBV});
-        }
+        bvNotes.push({note: "TAG", amount: semiGuidedAmmoBV});
     }
 
     // C3 networks
@@ -227,6 +221,30 @@ function updateUnitBV(unit, fromNetworkChange) {
     updateTotals();
 }
 
+function getAlternateAmmoBV(unit) {
+    let alternateAmmoBV = 0;
+    unit.unitProps.ammo.forEach((ammoBin) => {
+        const addedValue = getAmmoAdditionalBV(ammoBin.type, unit.ammoTypes.get(ammoBin.id));
+        alternateAmmoBV += addedValue;
+    });
+    return Math.round(alternateAmmoBV);
+}
+
+function getAdditionalBVforTAG(unit) {
+    if (unit.unitProps.specials.includes("tag")) {
+        const semiGuidedAmmoBV = Math.round(getSemiGuidedAmmoValueForForce());
+        return semiGuidedAmmoBV;
+    }
+    return 0;
+}
+
+function getNetworkBVforUnit(unit) {
+    let unitBV = unit.unitProps.bv;
+    unitBV += getAlternateAmmoBV(unit);
+    unitBV += getAdditionalBVforTAG(unit);
+    return unitBV;
+}
+
 function getNetworkBV(networkId) {
     const network = networks.get(networkId);
     if (network.type == "c3") {
@@ -234,14 +252,12 @@ function getNetworkBV(networkId) {
         let unitCount = 1;
         const rootUnit = force.get(network.rootUnit.id);
 
-        // TODO: This should include alternate munitions and TAG BV...
-
-        networkBV += rootUnit.unitProps.bv * 0.05;
+        networkBV += getNetworkBVforUnit(rootUnit) * 0.05;
 
         network.rootUnit.links.forEach((link) => {
             const linkedUnit = force.get(link.id);
             if (linkedUnit) {
-                networkBV += linkedUnit.unitProps.bv * 0.05;
+                networkBV += getNetworkBVforUnit(linkedUnit) * 0.05;
                 unitCount += 1;
             }
         });
