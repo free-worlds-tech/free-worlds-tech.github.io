@@ -509,6 +509,8 @@ function addNetworkEditor(network) {
     if (network.type == "c3") {
         $networkEditor.append(`<summary>C<sup>3</sup> Network #${network.id}</summary>`);
 
+        $networkEditor.append("<p><strong>Work in Progress: </strong> C<sup>3</sup>M to C<sup>3</sup>M links are not supported yet.</p>")
+
         const $rootSelect = $("<select>", {class: "network c3m"});
         c3mUnits.forEach((c3mLink) => {
             const c3mUnit = force.get(c3mLink.id);
