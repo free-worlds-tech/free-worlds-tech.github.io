@@ -587,8 +587,16 @@ function addNetworkEditor(network) {
         const $rootSelect = $("<select>", {class: "network c3m"});
         c3mUnits.forEach((c3mLink) => {
             const c3mUnit = force.get(c3mLink.id);
-            // TODO: disabled/hidden if unit already linked...
-            $rootSelect.append(`<option class='network c3m' value='${c3mLink.id}'>${getUnitFullName(c3mUnit)}</option>`);
+            const $c3mUnitOption = $("<option>", {
+                class: "network c3m", 
+                value: `${c3mLink.id}`,
+                text: getUnitFullName(c3mUnit)
+            });
+            if (c3mLink.linked && c3mLink.id != network.rootUnit.id) {
+                $c3mUnitOption.attr("disabled", "disabled");
+                $c3mUnitOption.attr("hidden", "hidden");
+            }
+            $rootSelect.append($c3mUnitOption);
         });
         $rootSelect.on("change", function(e) {
             const previousUnitId = network.rootUnit.id;
@@ -616,8 +624,16 @@ function addNetworkEditor(network) {
             $linkSelect.append(`<option class='network' value='0' selected>~EMPTY~</option>`);
             c3sUnits.forEach((c3s) => {
                 const c3sUnit = force.get(c3s.id);
-                // TODO: disabled/hidden if unit already linked...
-                $linkSelect.append(`<option class='network c3s' value='${c3s.id}'>${getUnitFullName(c3sUnit)}</option>`);
+                const $c3sUnitOption = $("<option>", {
+                    class: "network c3s",
+                    value: `${c3s.id}`,
+                    text: getUnitFullName(c3sUnit)
+                });
+                if (c3s.linked) {
+                    $c3sUnitOption.attr("disabled", "disabled");
+                    $c3sUnitOption.attr("hidden", "hidden");
+                }
+                $linkSelect.append($c3sUnitOption);
             });
             $linkSelect.on("change", function(e) {
                 const previousUnitId = network.rootUnit.links[i].id;
@@ -651,8 +667,16 @@ function addNetworkEditor(network) {
             $unitSelect.append(`<option class='network' value='0' selected>~EMPTY~</option>`);
             c3iUnits.forEach((c3i) => {
                 const c3iUnit = force.get(c3i.id);
-                // TODO: disabled/hidden if unit already linked...
-                $unitSelect.append(`<option class='network c3i' value='${c3i.id}'>${getUnitFullName(c3iUnit)}</option>`)
+                const $c3iUnitOption = $("<option>", {
+                    class: "network c3i",
+                    value: `${c3i.id}`,
+                    text: getUnitFullName(c3iUnit)
+                });
+                if (c3i.linked) {
+                    $c3iUnitOption.attr("disabled", "disabled");
+                    $c3iUnitOption.attr("hidden", "hidden");
+                }
+                $unitSelect.append($c3iUnitOption);
             });
             $unitSelect.on("change", function(e) {
                 const previousUnitId = network.units[i].id;
