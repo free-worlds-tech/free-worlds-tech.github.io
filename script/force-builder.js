@@ -28,6 +28,7 @@ function readyInterface() {
     $("#add-unit-button").removeAttr("disabled");
     $("#clear-units-button").removeAttr("disabled");
     $("#download-button").removeAttr("disabled");
+    $("#search-button").removeAttr("disabled");
 
     const urlParams = new URLSearchParams(window.location.search);
     const debugParam = urlParams.get('debug');
@@ -42,23 +43,54 @@ function readyInterface() {
     }
 }
 
-function addUnit() {
-    const unit = getUnitProperties();
+function searchKeyDown(e) {
+    if (e.key == "Enter") {
+        searchUnits();
+    }
+}
 
+function searchUnits() {
+    $("#search-results").children().remove();
+    const knownUnits = getKnownUnits();
+    const query = $("#search-box").val().toLowerCase();
+    let resultCount = 0;
+    knownUnits.forEach((unit) => {
+        if (resultCount < 10 && unit.name.toLowerCase().includes(query)) {
+            $("#search-results").append(`<li style="display:flex"><span style="flex:1">${unit.name}</span><button type='button' onclick='addUnitById("${unit.id}")'>➕</button></li>`);
+            resultCount += 1;
+        }
+    });
+
+    if (resultCount == 0) {
+        $("#search-results").append(`<li><em>No units found.</em></li>`);
+    }
+}
+
+function addSelectedUnit() {
+    const unitProps = getUnitProperties();
+    addUnit(unitProps);
+}
+
+function addUnitById(unitId) {
+    const unitProps = getKnownUnit(unitId);
+    addUnit(unitProps);
+}
+
+function addUnit(unitProps) {
     const currentId = nextUnitId++;
 
     const newUnit = {
         id: currentId,
-        unitProps: unit,
+        unitProps: unitProps,
         crew: "",
         gunnery: 4,
         piloting: 5,
-        adjustedBV: unit.bv,
+        adjustedBV: unitProps.bv,
         ammoTypes: new Map(),
         bvNotes: []
     };
 
-    unit.ammo.forEach((ammoBin) => {
+    unitProps.ammo.forEach((ammoBin) => {
         newUnit.ammoTypes.set(ammoBin.id, ammoBin.default ? ammoBin.default : "standard");
     });
 
@@ -67,13 +99,13 @@ function addUnit() {
     addUnitRow(newUnit);
     addUnitAmmoSelector(newUnit);
 
-    if (unit.specials.includes("c3m")) {
+    if (unitProps.specials.includes("c3m")) {
         c3mUnits.push({id: currentId, linked: false});
     }
-    if (unit.specials.includes("c3s")) {
+    if (unitProps.specials.includes("c3s")) {
         c3sUnits.push({id: currentId, linked: false});
     }
-    if (unit.specials.includes("c3i")) {
+    if (unitProps.specials.includes("c3i")) {
         c3iUnits.push({id: currentId, linked: false});
     }
     updateC3Eligibility();

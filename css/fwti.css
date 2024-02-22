@@ -22,3 +22,30 @@ select.ammo {
 button.network {
     width: 100%;
 }
+
+ul#search-results {
+    list-style-type:none;
+    padding: 0;
+    margin: 0;
+}
+
+ul#search-results li {
+    padding: 0.3rem;
+}
+
+ul#search-results li:nth-child(even) {
+    background-color: var(--accent-bg);
+}
+
+ul#search-results button {
+    padding: 0.3rem;
+    margin: 0rem;
+}
+
+input#search-box {
+    border-radius: var(--standard-border-radius) 0px 0px var(--standard-border-radius);
+}
+
+button#search-button {
+    border-radius: 0px var(--standard-border-radius) var(--standard-border-radius) 0px;
+}
