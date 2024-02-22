@@ -63,24 +63,29 @@ function showRandomUnits() {
         }
     }
 
-    showUnitList(results);
+    showUnitList(results, true);
 }
 
 function searchUnits() {
     const knownUnits = getKnownUnits();
     const query = $("#search-box").val().toLowerCase();
+    let moreAvailable = false;
 
     let results = [];
     knownUnits.forEach((unit) => {
-        if (results.length < 10 && unit.name.toLowerCase().includes(query)) {
-            results.push(unit);
+        if (!moreAvailable && unit.name.toLowerCase().includes(query)) {
+            if (results.length < 10) {
+                results.push(unit);
+            } else {
+                moreAvailable = true;
+            }
         }
     });
 
-    showUnitList(results);
+    showUnitList(results, moreAvailable);
 }
 
-function showUnitList(list) {
+function showUnitList(list, moreAvailable) {
     $("#search-results").children().remove();
 
     if (list.length == 0) {
@@ -89,6 +94,9 @@ function showUnitList(list) {
         list.forEach((unit) => {
             $("#search-results").append(`<li style="display:flex"><span style="flex:1">${unit.name}</span><button type='button' onclick='addUnitById("${unit.id}")'>➕</button></li>`);
         });
+        if (moreAvailable) {
+            $("#search-results").append(`<li><em>More units available.</em></li>`);
+        }
     }
 }
 
