@@ -41,6 +41,8 @@ function readyInterface() {
             </div>`
         );
     }
+
+    showRandomUnits();
 }
 
 function searchKeyDown(e) {
@@ -49,20 +51,44 @@ function searchKeyDown(e) {
     }
 }
 
+function showRandomUnits() {
+    const knownUnits = getKnownUnits();
+    let results = [];
+
+    while (results.length < 10) {
+        const randomId = Math.floor(Math.random() * knownUnits.length);
+        const randomUnit = knownUnits[randomId];
+        if (!results.find((x) => x.id == randomUnit.id)) {
+            results.push(randomUnit);
+        }
+    }
+
+    showUnitList(results);
+}
+
 function searchUnits() {
-    $("#search-results").children().remove();
     const knownUnits = getKnownUnits();
     const query = $("#search-box").val().toLowerCase();
-    let resultCount = 0;
+
+    let results = [];
     knownUnits.forEach((unit) => {
-        if (resultCount < 10 && unit.name.toLowerCase().includes(query)) {
-            $("#search-results").append(`<li style="display:flex"><span style="flex:1">${unit.name}</span><button type='button' onclick='addUnitById("${unit.id}")'>➕</button></li>`);
-            resultCount += 1;
+        if (results.length < 10 && unit.name.toLowerCase().includes(query)) {
+            results.push(unit);
         }
     });
 
-    if (resultCount == 0) {
+    showUnitList(results);
+}
+
+function showUnitList(list) {
+    $("#search-results").children().remove();
+
+    if (list.length == 0) {
         $("#search-results").append(`<li><em>No units found.</em></li>`);
+    } else {
+        list.forEach((unit) => {
+            $("#search-results").append(`<li style="display:flex"><span style="flex:1">${unit.name}</span><button type='button' onclick='addUnitById("${unit.id}")'>➕</button></li>`);
+        });
     }
 }
 
