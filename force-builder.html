@@ -54,6 +54,26 @@
             <input id="search-box" class="lazy" type="text" placeholder="Unit Name" onkeydown="searchKeyDown(event)" disabled="disabled">
             <button id="search-button" class="lazy" title="Search for matching units" type="button" onclick="searchUnits()" disabled="disabled">Search</button>
         </div>
+        <details>
+            <summary>Advanced Search Parameters</summary>
+            <label>Only return units with:</label>
+            <label>
+                <input type="checkbox" id="search-c3m" value="c3m">
+                C<sup>3</sup>M
+            </label>
+            <label>
+                <input type="checkbox" id="search-c3s" value="c3s">
+                C<sup>3</sup>S
+            </label>
+            <label>
+                <input type="checkbox" id="search-c3i" value="c3i">
+                C<sup>3</sup>i
+            </label>
+            <label>
+                <input type="checkbox" id="search-tag" value="tag">
+                TAG
+            </label>
+        </details>
         <ul id="search-results" class="search-results-list">
         </ul>
         <h3>Selected Force</h3>

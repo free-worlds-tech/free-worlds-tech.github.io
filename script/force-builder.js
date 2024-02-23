@@ -68,9 +68,38 @@ function searchUnits() {
     const query = $("#search-box").val().toLowerCase();
     let moreAvailable = false;
 
+    const requireC3M = $("#search-c3m").is(":checked");
+    const requireC3S = $("#search-c3s").is(":checked");
+    const requireC3i = $("#search-c3i").is(":checked");
+    const requireTAG = $("#search-tag").is(":checked");
+
+    let match = unitProps => {
+        if (!unitProps.name.toLowerCase().includes(query)) {
+            return false;
+        }
+
+        if (requireC3M && !unitProps.specials.includes("c3m")) {
+            return false;
+        }
+
+        if (requireC3S && !unitProps.specials.includes("c3s")) {
+            return false;
+        }
+
+        if (requireC3i && !unitProps.specials.includes("c3i")) {
+            return false;
+        }
+
+        if (requireTAG && !unitProps.specials.includes("tag")) {
+            return false;
+        }
+
+        return true;
+    }
+
     let results = [];
     knownUnits.forEach((unit) => {
-        if (!moreAvailable && unit.name.toLowerCase().includes(query)) {
+        if (!moreAvailable && match(unit)) {
             if (results.length < 10) {
                 results.push(unit);
             } else {
