@@ -318,6 +318,41 @@ const knownWeapons = [
         ]
     },
     {
+        id: "clan:ultraac2",
+        name: "Ultra AC/2",
+        ammoTypes: [
+            {id: "standard", name: "Standard"}
+        ]
+    },
+    {
+        id: "clan:ultraac5",
+        name: "Ultra AC/5",
+        ammoTypes: [
+            {id: "standard", name: "Standard"}
+        ]
+    },
+    {
+        id: "clan:ultraac10",
+        name: "Ultra AC/10",
+        ammoTypes: [
+            {id: "standard", name: "Standard"}
+        ]
+    },
+    {
+        id: "clan:ultraac20",
+        name: "Ultra AC/20",
+        ammoTypes: [
+            {id: "standard", name: "Standard"}
+        ]
+    },
+    {
+        id: "clan:gaussrifle",
+        name: "Gauss Rifle",
+        ammoTypes: [
+            {id: "standard", name: "Standard"},
+        ]
+    },
+    {
         id: "clan:srm2", 
         name: "SRM 2", 
         ammoTypes: [
@@ -636,6 +671,66 @@ const knownUnits = [
             {id: 0, type: "clan:streaksrm6", location: "RT"},
         ],
         specials: ["omni"]
+    },
+    {
+        id: "grendel-a",
+        name: "Grendel A",
+        alternateNames: ["Mongrel A"],
+        tonnage: 45,
+        bv: 2031,
+        ammo: [
+            {id: 0, type: "clan:lrm15", location: "LT"},
+            {id: 1, type: "clan:lrm15", location: "LT"},
+            {id: 2, type: "clan:lrm15", location: "RT"},
+            {id: 3, type: "clan:lrm15", location: "RT"},
+        ],
+        specials: ["omni"]
+    },
+    {
+        id: "grendel-b",
+        name: "Grendel B",
+        alternateNames: ["Mongrel B"],
+        tonnage: 45,
+        bv: 1903,
+        ammo: [
+            {id: 0, type: "clan:ultraac5", location: "RT"},
+        ],
+        specials: ["omni"]
+    },
+    {
+        id: "shadow-cat-prime",
+        name: "Shadow Cat Prime",
+        tonnage: 45,
+        bv: 2156,
+        ammo: [
+            {id: 0, type: "clan:gaussrifle", location: "RT"},
+            {id: 1, type: "clan:gaussrifle", location: "RT"},
+        ],
+        specials: ["omni"]
+    },
+    {
+        id: "shadow-cat-a",
+        name: "Shadow Cat A",
+        tonnage: 45,
+        bv: 2220,
+        ammo: [
+            {id: 0, type: "clan:streaksrm6", location: "RT"},
+            {id: 1, type: "clan:streaksrm6", location: "RT"},
+        ],
+        specials: ["omni"]
+    },
+    {
+        id: "shadow-cat-b",
+        name: "Shadow Cat B",
+        tonnage: 45,
+        bv: 2420,
+        ammo: [
+            {id: 0, type: "clan:lrm15", location: "LT", default: "artemisiv"},
+            {id: 1, type: "clan:lrm15", location: "LT", default: "artemisiv"},
+            {id: 2, type: "clan:lrm15", location: "RT", default: "artemisiv"},
+            {id: 3, type: "clan:lrm15", location: "RT", default: "artemisiv"},
+        ],
+        specials: ["artemisiv", "omni"]
     },
     {
         id: "crb-30",
