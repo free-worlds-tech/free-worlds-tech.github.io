@@ -65,7 +65,7 @@ function showRandomUnits() {
 
 function searchUnits() {
     const knownUnits = getKnownUnits();
-    const query = $("#search-box").val().toLowerCase();
+    const query = $("#search-box").val().toLowerCase().trim();
     let moreAvailable = false;
 
     let minTonnage = 0;
@@ -99,7 +99,17 @@ function searchUnits() {
 
     let match = unitProps => {
         if (!unitProps.name.toLowerCase().includes(query)) {
-            return false;
+            let altNameMatch = false;
+            if (unitProps.alternateNames) {
+                unitProps.alternateNames.forEach((alt) => {
+                    if (alt.toLowerCase().includes(query)) {
+                        altNameMatch = true;
+                    }
+                });
+            }
+            if (!altNameMatch) {
+                return false;
+            }
         }
 
         if (unitProps.tonnage < minTonnage || unitProps.tonnage > maxTonnage) {

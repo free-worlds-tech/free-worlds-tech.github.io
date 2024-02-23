@@ -279,6 +279,45 @@ const knownWeapons = [
         ]
     },
     {
+        id: "clan:machinegun", 
+        name: "Machine Gun", 
+        ammoTypes: [
+            {id: "standard", name: "Standard"}
+        ]
+    },
+    {
+        id: "clan:lb2xac",
+        name: "LB 2-X AC",
+        ammoTypes: [
+            {id: "standard", name: "Standard"},
+            {id: "cluster", name: "Cluster"}
+        ]
+    },
+    {
+        id: "clan:lb5xac",
+        name: "LB 5-X AC",
+        ammoTypes: [
+            {id: "standard", name: "Standard"},
+            {id: "cluster", name: "Cluster"}
+        ]
+    },
+    {
+        id: "clan:lb10xac",
+        name: "LB 10-X AC",
+        ammoTypes: [
+            {id: "standard", name: "Standard"},
+            {id: "cluster", name: "Cluster"}
+        ]
+    },
+    {
+        id: "clan:lb20xac",
+        name: "LB 20-X AC",
+        ammoTypes: [
+            {id: "standard", name: "Standard"},
+            {id: "cluster", name: "Cluster"}
+        ]
+    },
+    {
         id: "clan:srm2", 
         name: "SRM 2", 
         ammoTypes: [
@@ -309,6 +348,27 @@ const knownWeapons = [
             {id: "artemisv", name: "Artemis V-Equipped", requirement:"artemisv"},
             {id: "inferno", name: "Inferno"},
             {id: "narc", name: "Narc-Equipped"}
+        ]
+    },
+    {
+        id: "clan:streaksrm2", 
+        name: "Streak SRM 2", 
+        ammoTypes: [
+            {id: "standard", name: "Standard"}
+        ]
+    },
+    {
+        id: "clan:streaksrm4", 
+        name: "Streak SRM 4", 
+        ammoTypes: [
+            {id: "standard", name: "Standard"}
+        ]
+    },
+    {
+        id: "clan:streaksrm6", 
+        name: "Streak SRM 6", 
+        ammoTypes: [
+            {id: "standard", name: "Standard"}
         ]
     },
     {
@@ -349,6 +409,13 @@ const knownWeapons = [
             {id: "artemisiv", name: "Artemis IV-Equipped", requirement:"artemisiv"},
             {id: "artemisv", name: "Artemis V-Equipped", requirement:"artemisv"},
             {id: "narc", name: "Narc-Equipped"},
+        ]
+    },
+    {
+        id: "clan:ams",
+        name: "AMS",
+        ammoTypes: [
+            {id: "standard", name: "Standard"},
         ]
     },
 ];
@@ -406,12 +473,85 @@ const knownUnits = [
         specials: ["artemisiv"]
     },
     {
+        id: "mist-lynx-prime",
+        name: "Mist Lynx Prime",
+        alternateNames: ["Koshi Prime"],
+        tonnage: 25,
+        bv: 871,
+        ammo: [
+            {id: 0, type: "clan:lrm10", location: "LA"},
+            {id: 1, type: "clan:streaksrm4", location: "RA"},
+            {id: 2, type: "clan:machinegun", location: "RA"},
+        ],
+        specials: ["omni"]
+    },
+    {
+        id: "mist-lynx-a",
+        name: "Mist Lynx A",
+        alternateNames: ["Koshi A"],
+        tonnage: 25,
+        bv: 608,
+        ammo: [
+            {id: 0, type: "clan:ams", location: "LA"},
+            {id: 1, type: "clan:ams", location: "LA"},
+            {id: 2, type: "clan:ams", location: "LA"},
+            {id: 3, type: "clan:machinegun", location: "RA"},      
+        ],
+        specials: ["omni"]
+    },
+    {
+        id: "mist-lynx-b",
+        name: "Mist Lynx B",
+        alternateNames: ["Koshi B"],
+        tonnage: 25,
+        bv: 1209,
+        ammo: [
+            {id: 0, type: "clan:srm6", location: "RA"},
+            {id: 1, type: "clan:srm6", location: "RA"},
+        ],
+        specials: ["omni"]
+    },
+    {
         id: "sdr-c",
         name: "Spider SDR-C",
         tonnage: 30,
         bv: 616,
         ammo: [],
         specials: ["c3s"]
+    },
+    {
+        id: "adder-prime",
+        name: "Adder Prime",
+        alternateNames: ["Puma Prime"],
+        tonnage: 35,
+        bv: 2083,
+        ammo: [],
+        specials: ["omni"]
+    },
+    {
+        id: "adder-a",
+        name: "Adder A",
+        alternateNames: ["Puma A"],
+        tonnage: 35,
+        bv: 1437,
+        ammo: [
+            {id: 0, type: "clan:lrm20", location: "LA"},
+            {id: 1, type: "clan:lrm20", location: "LA"},
+            {id: 2, type: "clan:lrm20", location: "RA"},
+            {id: 3, type: "clan:lrm20", location: "RA"},
+        ],
+        specials: ["omni"]
+    },
+    {
+        id: "adder-b",
+        name: "Adder B",
+        alternateNames: ["Puma B"],
+        tonnage: 35,
+        bv: 1422,
+        ammo: [
+            {id: 0, type: "clan:lb5xac", location: "LA"},
+        ],
+        specials: ["omni"]
     },
     {
         id: "jr7-c",
@@ -452,6 +592,50 @@ const knownUnits = [
             {id: 2, type: "is:narc", location: "LT"}
         ],
         specials: ["tag"]
+    },
+    {
+        id: "viper-prime",
+        name: "Viper Prime",
+        alternateNames: ["Dragonfly Prime"],
+        tonnage: 40,
+        bv: 1450,
+        ammo: [
+            {id: 0, type: "clan:srm4", location: "LA"},
+            {id: 1, type: "clan:ams", location: "LT"},
+            {id: 2, type: "clan:machinegun", location: "RT"},
+        ],
+        specials: ["omni"]
+    },
+    {
+        id: "viper-a",
+        name: "Viper A",
+        alternateNames: ["Dragonfly A"],
+        tonnage: 40,
+        bv: 1989,
+        ammo: [
+            {id: 0, type: "clan:srm6", location: "LA", default: "artemisiv"},
+        ],
+        specials: ["artemisiv", "omni"]
+    },
+    {
+        id: "viper-b",
+        name: "Viper B",
+        alternateNames: ["Dragonfly B"],
+        tonnage: 40,
+        bv: 1830,
+        ammo: [],
+        specials: ["omni"]
+    },
+    {
+        id: "grendel-prime",
+        name: "Grendel Prime",
+        alternateNames: ["Mongrel Prime"],
+        tonnage: 45,
+        bv: 2290,
+        ammo: [
+            {id: 0, type: "clan:streaksrm6", location: "RT"},
+        ],
+        specials: ["omni"]
     },
     {
         id: "crb-30",
