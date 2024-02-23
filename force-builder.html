@@ -56,6 +56,16 @@
         </div>
         <details>
             <summary>Advanced Search Parameters</summary>
+            <div class="min-and-max">
+                <label>Tonnage:</label>
+                <input type="number" id="search-min-tonnage" placeholder="No Minimum" step="5" min="0">
+                <input type="number" id="search-max-tonnage" placeholder="No Maximum" step="5" min="0"> 
+            </div>
+            <div class="min-and-max">
+                <label>Battle Value:</label>
+                <input type="number" id="search-min-bv" placeholder="No Minimum" step="100" min="0">
+                <input type="number" id="search-max-bv" placeholder="No Maximum" step="100" min="0"> 
+            </div>
             <label>Only return units with:</label>
             <label>
                 <input type="checkbox" id="search-c3m" value="c3m">

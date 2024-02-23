@@ -68,6 +68,30 @@ function searchUnits() {
     const query = $("#search-box").val().toLowerCase();
     let moreAvailable = false;
 
+    let minTonnage = 0;
+    let maxTonnage = Number.MAX_VALUE;
+
+    const minTonnageValue = $("#search-min-tonnage").val();
+    const maxTonnageValue = $("#search-max-tonnage").val();
+    if (minTonnageValue != "") {
+        minTonnage = Number(minTonnageValue);
+    }
+    if (maxTonnageValue != "") {
+        maxTonnage = Number(maxTonnageValue);
+    }
+
+    let minBV = 0;
+    let maxBV = Number.MAX_VALUE;
+
+    const minBVValue = $("#search-min-bv").val();
+    const maxBVValue = $("#search-max-bv").val();
+    if (minBVValue != "") {
+        minBV = Number(minBVValue);
+    }
+    if (maxBVValue != "") {
+        maxBV = Number(maxBVValue);
+    }
+
     const requireC3M = $("#search-c3m").is(":checked");
     const requireC3S = $("#search-c3s").is(":checked");
     const requireC3i = $("#search-c3i").is(":checked");
@@ -75,6 +99,14 @@ function searchUnits() {
 
     let match = unitProps => {
         if (!unitProps.name.toLowerCase().includes(query)) {
+            return false;
+        }
+
+        if (unitProps.tonnage < minTonnage || unitProps.tonnage > maxTonnage) {
+            return false;
+        }
+
+        if (unitProps.bv < minBV || unitProps.bv > maxBV) {
             return false;
         }
 
