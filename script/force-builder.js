@@ -25,9 +25,7 @@ function readyInterface() {
 
     $unitPicker.removeAttr("disabled");
 
-    $("#clear-units-button").removeAttr("disabled");
-    $("#download-button").removeAttr("disabled");
-    $("#search-button").removeAttr("disabled");
+    $(".lazy").removeAttr("disabled");
 
     const urlParams = new URLSearchParams(window.location.search);
     const debugParam = urlParams.get('debug');

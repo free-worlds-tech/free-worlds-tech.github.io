@@ -51,15 +51,15 @@
         </p>
         <h3>Search Units</h3>
         <div class="search-bar">
-            <input id="search-box" type="text" placeholder="Unit Name" onkeydown="searchKeyDown(event)">
-            <button id="search-button" title="Search for matching units" type="button" onclick="searchUnits()" disabled="disabled">Search</button>
+            <input id="search-box" class="lazy" type="text" placeholder="Unit Name" onkeydown="searchKeyDown(event)" disabled="disabled">
+            <button id="search-button" class="lazy" title="Search for matching units" type="button" onclick="searchUnits()" disabled="disabled">Search</button>
         </div>
         <ul id="search-results" class="search-results-list">
         </ul>
         <h3>Selected Force</h3>
         <div>
-            <button id="clear-units-button" title="Remove all units from force" type="reset" onclick="clearUnits()" disabled="disabled">Clear</button>
-            <button id="download-button" title="Download force as a markdown file" type="button" onclick="downloadForce()" disabled="disabled">Download</button>
+            <button id="clear-units-button" class="lazy" title="Remove all units from force" type="reset" onclick="clearUnits()" disabled="disabled">Clear</button>
+            <button id="download-button" class="lazy" title="Download force as a markdown file" type="button" onclick="downloadForce()" disabled="disabled">Download</button>
         </div>
         <figure>
             <table id="force-table">
