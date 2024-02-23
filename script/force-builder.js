@@ -25,7 +25,6 @@ function readyInterface() {
 
     $unitPicker.removeAttr("disabled");
 
-    $("#add-unit-button").removeAttr("disabled");
     $("#clear-units-button").removeAttr("disabled");
     $("#download-button").removeAttr("disabled");
     $("#search-button").removeAttr("disabled");
@@ -92,7 +91,7 @@ function showUnitList(list, moreAvailable) {
         $("#search-results").append(`<li><em>No units found.</em></li>`);
     } else {
         list.forEach((unit) => {
-            $("#search-results").append(`<li style="display:flex"><span style="flex:1">${unit.name}</span><button type='button' onclick='addUnitById("${unit.id}")'>➕</button></li>`);
+            $("#search-results").append(`<li><span class="search-result">${unit.name}</span><button title='Add unit to force' type='button' onclick='addUnitById("${unit.id}")'>➕</button></li>`);
         });
         if (moreAvailable) {
             $("#search-results").append(`<li><em>More units available.</em></li>`);
@@ -167,7 +166,7 @@ function addUnitRow(unit)
     $row.append("<td class='tonnage'>" + unit.unitProps.tonnage + "</td>");
     $row.append("<td class='bv'>" + unit.unitProps.bv + "</td>");
     $row.append("<td class='adj-bv'>" + unit.adjustedBV + "</td>");
-    $row.append("<td><button type='button' onclick='removeUnit(" + unit.id + ")'>❌</button></td>");
+    $row.append("<td><button type='button' title='Remove unit from force' onclick='removeUnit(" + unit.id + ")'>❌</button></td>");
     $("#force-table-body").append($row);
     
     updateTotals();
@@ -724,7 +723,7 @@ function addNetworkEditor(network) {
             $linksList.append($linkListItem);
         }
         $networkEditor.append($linksList);
-        $networkEditor.append(`<button type='button' class='network' onclick='removeNetwork(${network.id})'>Remove Nework</button>`);
+        $networkEditor.append(`<button type='button' title='Remove C3 network' class='network' onclick='removeNetwork(${network.id})'>Remove Nework</button>`);
 
     } else {
         $networkEditor.append(`<summary>C<sup>3</sup>i Network #${network.id}</summary>`);
@@ -764,7 +763,7 @@ function addNetworkEditor(network) {
 
             $networkEditor.append($unitSelect);
         }
-        $networkEditor.append(`<button type='button' class='network' onclick='removeNetwork(${network.id})'>Remove Nework</button>`);
+        $networkEditor.append(`<button type='button' title='Remove C3i network' class='network' onclick='removeNetwork(${network.id})'>Remove Nework</button>`);
     }
 
     $("#network-setups").append($networkEditor);

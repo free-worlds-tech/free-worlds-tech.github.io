@@ -49,23 +49,17 @@
             If you notice a bug or have feedback, feel free to open an issue 
             <a href="https://github.com/free-worlds-tech/free-worlds-tech.github.io/issues">here</a>.
         </p>
-        <!-- <div>
-            <select id="unit-picker" disabled="disabled" title="Unit Picker">
-                <option value="unknown">Choose a unit...</option>
-            </select>
-            <button id="add-unit-button" type="button" onclick="addSelectedUnit()" disabled="disabled">Add</button>
-        </div> -->
         <h3>Search Units</h3>
-        <div style="display:flex">
-            <input style="flex:1" id="search-box" type="text" placeholder="Unit Name" onkeydown="searchKeyDown(event)">
-            <button id="search-button" type="button" onclick="searchUnits()" disabled="disabled">Search</button>
+        <div class="search-bar">
+            <input id="search-box" type="text" placeholder="Unit Name" onkeydown="searchKeyDown(event)">
+            <button id="search-button" title="Search for matching units" type="button" onclick="searchUnits()" disabled="disabled">Search</button>
         </div>
-        <ul id="search-results">
+        <ul id="search-results" class="search-results-list">
         </ul>
         <h3>Selected Force</h3>
         <div>
-            <button id="clear-units-button" type="reset" onclick="clearUnits()" disabled="disabled">Clear</button>
-            <button id="download-button" type="button" onclick="downloadForce()" disabled="disabled">Download</button>
+            <button id="clear-units-button" title="Remove all units from force" type="reset" onclick="clearUnits()" disabled="disabled">Clear</button>
+            <button id="download-button" title="Download force as a markdown file" type="button" onclick="downloadForce()" disabled="disabled">Download</button>
         </div>
         <figure>
             <table id="force-table">
@@ -102,8 +96,8 @@
         <h4>Networks</h4>
         <p>Set up C<sup>3</sup> networks for your force.</p>
         <div>
-            <button id="add-c3-network-button" type="button" onclick="addC3Network()" disabled="disabled">Add C<sup>3</sup> network</button>
-            <button id="add-c3i-network-button" type="button" onclick="addC3iNetwork()" disabled="disabled">Add C<sup>3</sup>i network</button>
+            <button id="add-c3-network-button" title="Add a C3 network" type="button" onclick="addC3Network()" disabled="disabled">Add C<sup>3</sup> network</button>
+            <button id="add-c3i-network-button" title="Add a C3i network" type="button" onclick="addC3iNetwork()" disabled="disabled">Add C<sup>3</sup>i network</button>
         </div>
         <div id="network-setups">
         </div>

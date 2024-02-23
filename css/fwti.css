@@ -23,29 +23,39 @@ button.network {
     width: 100%;
 }
 
-ul#search-results {
+.search-results-list {
     list-style-type:none;
     padding: 0;
     margin: 0;
 }
 
-ul#search-results li {
+.search-results-list li {
     padding: 0.3rem;
+    display: flex;
 }
 
-ul#search-results li:nth-child(even) {
+.search-results-list li:nth-child(even) {
     background-color: var(--accent-bg);
 }
 
-ul#search-results button {
+.search-results-list span.search-result {
+    flex: 1;
+}
+
+.search-results-list button {
     padding: 0.3rem;
     margin: 0rem;
 }
 
-input#search-box {
+.search-bar {
+    display: flex;
+}
+
+.search-bar > input {
+    flex: 1;
     border-radius: var(--standard-border-radius) 0px 0px var(--standard-border-radius);
 }
 
-button#search-button {
+.search-bar > button {
     border-radius: 0px var(--standard-border-radius) var(--standard-border-radius) 0px;
 }
