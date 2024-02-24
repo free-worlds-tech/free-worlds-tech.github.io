@@ -95,6 +95,7 @@ function searchUnits() {
     const requireC3M = $("#search-c3m").is(":checked");
     const requireC3S = $("#search-c3s").is(":checked");
     const requireC3i = $("#search-c3i").is(":checked");
+    const requireOmni = $("#search-omni").is(":checked");
     const requireTAG = $("#search-tag").is(":checked");
 
     let match = unitProps => {
@@ -129,6 +130,10 @@ function searchUnits() {
         }
 
         if (requireC3i && !unitProps.specials.includes("c3i")) {
+            return false;
+        }
+
+        if (requireOmni && !unitProps.specials.includes("omni")) {
             return false;
         }
 
