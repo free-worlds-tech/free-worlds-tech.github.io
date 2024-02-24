@@ -353,6 +353,13 @@ const knownWeapons = [
         ]
     },
     {
+        id: "clan:narc", 
+        name: "Narc", 
+        ammoTypes: [
+            {id: "standard", name: "Homing"},
+        ]
+    },
+    {
         id: "clan:srm2", 
         name: "SRM 2", 
         ammoTypes: [
@@ -698,6 +705,41 @@ const knownUnits = [
         specials: ["omni"]
     },
     {
+        id: "ice-ferret-prime",
+        name: "Ice Ferret Prime",
+        alternateNames: ["Fenris Prime"],
+        tonnage: 45,
+        bv: 1678,
+        ammo: [
+            {id: 0, type: "clan:streaksrm2", location: "RA"},
+        ],
+        specials: ["omni"]
+    },
+    {
+        id: "ice-ferret-a",
+        name: "Ice Ferret A",
+        alternateNames: ["Fenris A"],
+        tonnage: 45,
+        bv: 1323,
+        ammo: [
+            {id: 0, type: "clan:lb2xac", location: "LA"},
+            {id: 1, type: "clan:ams", location: "RA"}
+        ],
+        specials: ["omni"]
+    },
+    {
+        id: "ice-ferret-b",
+        name: "Ice Ferret B",
+        alternateNames: ["Fenris B"],
+        tonnage: 45,
+        bv: 1461,
+        ammo: [
+            {id: 0, type: "clan:srm4", location: "LA"},
+            {id: 1, type: "clan:srm6", location: "RA"},
+        ],
+        specials: ["omni"]
+    },
+    {
         id: "shadow-cat-prime",
         name: "Shadow Cat Prime",
         tonnage: 45,
@@ -749,6 +791,38 @@ const knownUnits = [
         specials: ["c3s"]
     },
     {
+        id: "nova-prime",
+        name: "Nova Prime",
+        alternateNames: ["Black Hawk Prime"],
+        tonnage: 50,
+        bv: 2663,
+        ammo: [],
+        specials: ["omni"]
+    },
+    {
+        id: "nova-a",
+        name: "Nova A",
+        alternateNames: ["Black Hawk A"],
+        tonnage: 50,
+        bv: 2422,
+        ammo: [
+            {id: 0, type: "clan:ams", location: "RT"}
+        ],
+        specials: ["omni"]
+    },
+    {
+        id: "nova-b",
+        name: "Nova B",
+        alternateNames: ["Black Hawk B"],
+        tonnage: 50,
+        bv: 1543,
+        ammo: [
+            {id: 0, type: "clan:ultraac5", location: "RA"},
+            {id: 1, type: "clan:machinegun", location: "LT"},
+        ],
+        specials: ["omni"]
+    },
+    {
         id: "grf-1n",
         name: "Griffin GRF-1N",
         tonnage: 55,
@@ -780,6 +854,41 @@ const knownUnits = [
             {id: 2, type: "is:lrm5", location: "RT"}
         ],
         specials: []
+    },
+    {
+        id: "stormcrow-prime",
+        name: "Stormcrow Prime",
+        alternateNames: ["Ryoken Prime"],
+        tonnage: 55,
+        bv: 2073,
+        ammo: [],
+        specials: ["omni"]
+    },
+    {
+        id: "stormcrow-a",
+        name: "Stormcrow A",
+        alternateNames: ["Ryoken A"],
+        tonnage: 55,
+        bv: 2319,
+        ammo: [
+            {id: 0, type: "clan:lrm20", location: "RA"},
+            {id: 1, type: "clan:lrm20", location: "RA"},
+            {id: 2, type: "clan:streaksrm6", location: "LT"},
+            {id: 3, type: "clan:streaksrm6", location: "RT"},
+        ],
+        specials: ["omni"]
+    },
+    {
+        id: "stormcrow-b",
+        name: "Stormcrow B",
+        alternateNames: ["Ryoken B"],
+        tonnage: 55,
+        bv: 2281,
+        ammo: [
+            {id: 0, type: "clan:ultraac20", location: "LT"},
+            {id: 1, type: "clan:ultraac20", location: "LT"},
+        ],
+        specials: ["omni"]
     },
     {
         id: "wvr-6m",
@@ -820,6 +929,46 @@ const knownUnits = [
         bv: 1640,
         ammo: [],
         specials: ["c3i"]
+    },
+    {
+        id: "mad-dog-prime",
+        name: "Mad Dog Prime",
+        alternateNames: ["Vulture Prime"],
+        tonnage: 60,
+        bv: 2351,
+        ammo: [
+            {id: 0, type: "clan:lrm20", location: "LT"},
+            {id: 1, type: "clan:lrm20", location: "RT"},
+        ],
+        specials: ["omni"]
+    },
+    {
+        id: "mad-dog-a",
+        name: "Mad Dog A",
+        alternateNames: ["Vulture A"],
+        tonnage: 60,
+        bv: 1923,
+        ammo: [
+            {id: 0, type: "clan:lb5xac", location: "LA"},
+            {id: 1, type: "clan:lb5xac", location: "LA", default: "cluster"},
+            {id: 2, type: "clan:srm6", location: "LT"},
+            {id: 3, type: "clan:srm6", location: "LT"},
+            {id: 4, type: "clan:srm6", location: "RT"},
+            {id: 5, type: "clan:srm6", location: "RT"},
+        ],
+        specials: ["omni"]
+    },
+    {
+        id: "mad-dog-b",
+        name: "Mad Dog B",
+        alternateNames: ["Vulture B"],
+        tonnage: 60,
+        bv: 2284,
+        ammo: [
+            {id: 0, type: "clan:lrm20", location: "LT", default: "artemisiv"},
+            {id: 1, type: "clan:streaksrm6", location: "RT"},
+        ],
+        specials: ["artemisiv", "omni"]
     },
     {
         id: "cplt-c1",
@@ -867,6 +1016,47 @@ const knownUnits = [
             {id: 3, type: "is:inarc", location: "RT"},
         ],
         specials: ["c3i"]
+    },
+    {
+        id: "hellbringer-prime",
+        name: "Hellbringer Prime",
+        alternateNames: ["Loki Prime"],
+        tonnage: 65,
+        bv: 2654,
+        ammo: [
+            {id: 0, type: "clan:ams", location: "CT"},
+            {id: 1, type: "clan:streaksrm6", location: "RT"},
+            {id: 2, type: "clan:machinegun", location: "RT"},
+        ],
+        specials: ["omni"]
+    },
+    {
+        id: "hellbringer-a",
+        name: "Hellbringer A",
+        alternateNames: ["Loki A"],
+        tonnage: 65,
+        bv: 1948,
+        ammo: [
+            {id: 0, type: "clan:ultraac5", location: "RA"},
+            {id: 1, type: "clan:narc", location: "LT"},
+            {id: 2, type: "clan:machinegun", location: "CT"},
+            {id: 3, type: "clan:lrm20", location: "RT", default: "narc"},
+        ],
+        specials: ["omni"]
+    },
+    {
+        id: "hellbringer-b",
+        name: "Hellbringer B",
+        alternateNames: ["Loki B"],
+        tonnage: 65,
+        bv: 1592,
+        ammo: [
+            {id: 0, type: "clan:lb5xac", location: "LA"},
+            {id: 1, type: "clan:gaussrifle", location: "RA"},
+            {id: 2, type: "clan:srm6", location: "RT", default: "artemisiv"},
+            {id: 3, type: "clan:srm6", location: "RT", default: "artemisiv"},
+        ],
+        specials: ["artemisiv", "omni"]
     },
     {
         id: "tdr-5s",
@@ -919,6 +1109,50 @@ const knownUnits = [
         specials: ["artemisv"]
     },
     {
+        id: "summoner-prime",
+        name: "Summoner Prime",
+        alternateNames: ["Thor Prime"],
+        tonnage: 70,
+        bv: 2298,
+        ammo: [
+            {id: 0, type: "clan:lb10xac", location: "LA"},
+            {id: 1, type: "clan:lrm15", location: "LT"},
+            {id: 2, type: "clan:lrm15", location: "LT"},
+        ],
+        specials: ["omni"]
+    },
+    {
+        id: "summoner-a",
+        name: "Summoner A",
+        alternateNames: ["Thor A"],
+        tonnage: 70,
+        bv: 2145,
+        ammo: [
+            {id: 0, type: "clan:gaussrifle", location: "LA"},
+            {id: 1, type: "clan:srm6", location: "LT"},
+            {id: 2, type: "clan:srm6", location: "LT"},
+        ],
+        specials: ["omni"]
+    },
+    {
+        id: "summoner-b",
+        name: "Summoner B",
+        alternateNames: ["Thor B"],
+        tonnage: 70,
+        bv: 2159,
+        ammo: [
+            {id: 0, type: "clan:lrm20", location: "LA", default: "narc"},
+            {id: 1, type: "clan:lrm20", location: "LA", default: "narc"},
+            {id: 2, type: "clan:lrm20", location: "RA", default: "narc"},
+            {id: 3, type: "clan:lrm20", location: "RA", default: "narc"},
+            {id: 4, type: "clan:srm4", location: "LA", default: "narc"},
+            {id: 5, type: "clan:srm4", location: "LA", default: "narc"},
+            {id: 6, type: "clan:ams", location: "LT"},
+            {id: 7, type: "clan:narc", location: "LT"},
+        ],
+        specials: ["omni"]
+    },
+    {
         id: "fls-9c",
         name: "Flashman FLS-9C",
         tonnage: 75,
@@ -939,6 +1173,19 @@ const knownUnits = [
             {id: 4, type: "is:lb10xac", location: "RT", default: "cluster"},
         ],
         specials: ["c3s"]
+    },
+    {
+        id: "timber-wolf-prime",
+        name: "Timber Wolf Prime",
+        alternateNames: ["Mad Cat Prime"],
+        tonnage: 75,
+        bv: 2737,
+        ammo: [
+            {id: 0, type: "clan:lrm20", location: "LT"},
+            {id: 1, type: "clan:lrm20", location: "RT"},
+            {id: 2, type: "clan:machinegun", location: "RT"},
+        ],
+        specials: ["omni"]
     },
     {
         id: "aws-8q",
