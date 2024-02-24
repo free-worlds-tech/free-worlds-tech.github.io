@@ -460,6 +460,15 @@ const knownWeapons = [
             {id: "standard", name: "Standard"},
         ]
     },
+    {
+        id: "clan:ba-srm2",
+        name: "SRM 2",
+        ammoTypes: [
+            {id: "standard", name: "Standard"},
+            {id: "inferno", name: "Inferno"},
+            {id: "torpedo", name: "Torpedo", requirement:"umu"}
+        ]
+    }
 ];
 
 const knownUnits = [
@@ -1188,12 +1197,85 @@ const knownUnits = [
         specials: ["omni"]
     },
     {
+        id: "timber-wolf-a",
+        name: "Timber Wolf A",
+        alternateNames: ["Mad Cat A"],
+        tonnage: 75,
+        bv: 2854,
+        ammo: [
+            {id: 0, type: "clan:streaksrm6", location: "RT"},
+        ],
+        specials: ["omni"]
+    },
+    {
+        id: "timber-wolf-b",
+        name: "Timber Wolf B",
+        alternateNames: ["Mad Cat B"],
+        tonnage: 75,
+        bv: 2224,
+        ammo: [
+            {id: 0, type: "clan:gaussrifle", location: "RA"},
+            {id: 1, type: "clan:lrm10", location: "LT", default: "artemisiv"},
+            {id: 2, type: "clan:srm4", location: "RT", default: "artemisiv"},
+        ],
+        specials: ["artemisiv", "omni"]
+    },
+    {
+        id: "timber-wolf-pryde",
+        name: "Timber Wolf Pryde",
+        alternateNames: ["Mad Cat Pryde"],
+        tonnage: 75,
+        bv: 2900,
+        ammo: [
+            {id: 0, type: "clan:lrm20", location: "LT"},
+            {id: 1, type: "clan:lrm20", location: "RT"},
+        ],
+        specials: ["omni"]
+    },
+    {
         id: "aws-8q",
         name: "Awesome AWS-8Q",
         tonnage: 80,
         bv: 1605,
         ammo: [],
         specials: []
+    },
+    {
+        id: "gargoyle-prime",
+        name: "Gargoyle Prime",
+        alternateNames: ["Man O' War Prime"],
+        tonnage: 80,
+        bv: 1537,
+        ammo: [
+            {id: 0, type: "clan:lb5xac", location: "LT"},
+            {id: 1, type: "clan:lb5xac", location: "RT", default: "cluster"},
+            {id: 2, type: "clan:srm6", location: "LT"},
+            {id: 3, type: "clan:srm6", location: "RT"},
+        ],
+        specials: ["omni"]
+    },
+    {
+        id: "gargoyle-a",
+        name: "Gargoyle A",
+        alternateNames: ["Man O' War A"],
+        tonnage: 80,
+        bv: 2689,
+        ammo: [],
+        specials: ["omni"]
+    },
+    {
+        id: "gargoyle-b",
+        name: "Gargoyle B",
+        alternateNames: ["Man O' War B"],
+        tonnage: 80,
+        bv: 1843,
+        ammo: [
+            {id: 0, type: "clan:lrm10", location: "LA", default: "artemisiv"},
+            {id: 1, type: "clan:srm4", location: "LA", default: "artemisiv"},
+            {id: 2, type: "clan:gaussrifle", location: "RA"},
+            {id: 3, type: "clan:gaussrifle", location: "RA"},
+        ],
+        specials: ["artemisiv", "omni"]
     },
     {
         id: "thg-12e",
@@ -1243,6 +1325,44 @@ const knownUnits = [
         specials: ["c3m", "tag"]
     },
     {
+        id: "executioner-prime",
+        name: "Executioner Prime",
+        alternateNames: ["Gladiator Prime"],
+        tonnage: 95,
+        bv: 2749,
+        ammo: [
+            {id: 0, type: "clan:gaussrifle", location: "LT"},
+            {id: 1, type: "clan:gaussrifle", location: "LT"},
+            {id: 2, type: "clan:machinegun", location: "RT"},
+        ],
+        specials: ["omni"]
+    },
+    {
+        id: "executioner-a",
+        name: "Executioner A",
+        alternateNames: ["Gladiator A"],
+        tonnage: 95,
+        bv: 3112,
+        ammo: [
+            {id: 0, type: "clan:machinegun", location: "RT"},
+        ],
+        specials: ["omni"]
+    },
+    {
+        id: "executioner-b",
+        name: "Executioner B",
+        alternateNames: ["Gladiator B"],
+        tonnage: 95,
+        bv: 2940,
+        ammo: [
+            {id: 0, type: "clan:ultraac20", location: "LT"},
+            {id: 1, type: "clan:ultraac20", location: "LT"},
+            {id: 2, type: "clan:ultraac20", location: "LT"},
+            {id: 3, type: "clan:ams", location: "RT"},
+        ],
+        specials: ["omni"]
+    },
+    {
         id: "as7-c",
         name: "Atlas AS7-C",
         tonnage: 100,
@@ -1271,6 +1391,63 @@ const knownUnits = [
         specials: ["c3m", "tag"]
     },
     {
+        id: "dire-wolf-prime",
+        name: "Dire Wolf Prime",
+        alternateNames: ["Daishi Prime"],
+        tonnage: 100,
+        bv: 2712,
+        ammo: [
+            {id: 0, type: "clan:ultraac5", location: "LA"},
+            {id: 1, type: "clan:ultraac5", location: "RA"},
+            {id: 2, type: "clan:lrm10", location: "LT"},
+        ],
+        specials: ["omni"]
+    },
+    {
+        id: "dire-wolf-a",
+        name: "Dire Wolf A",
+        alternateNames: ["Daishi A"],
+        tonnage: 100,
+        bv: 2855,
+        ammo: [
+            {id: 0, type: "clan:gaussrifle", location: "LA"},
+            {id: 1, type: "clan:gaussrifle", location: "LA"},
+            {id: 2, type: "clan:gaussrifle", location: "LA"},
+            {id: 3, type: "clan:streaksrm6", location: "LT"},
+            {id: 4, type: "clan:streaksrm6", location: "LT"},
+            {id: 5, type: "clan:ams", location: "RT"},
+            {id: 6, type: "clan:ams", location: "RT"},
+            {id: 7, type: "clan:ams", location: "RT"},
+        ],
+        specials: ["omni"]
+    },
+    {
+        id: "dire-wolf-b",
+        name: "Dire Wolf B",
+        alternateNames: ["Daishi B"],
+        tonnage: 100,
+        bv: 2609,
+        ammo: [
+            {id: 0, type: "clan:lb10xac", location: "RA"},
+            {id: 1, type: "clan:lb10xac", location: "RA", default: "cluster"},
+            {id: 2, type: "clan:ultraac2", location: "LT"},
+            {id: 3, type: "clan:ultraac2", location: "RT"},
+        ],
+        specials: ["omni"]
+    },
+    {
+        id: "dire-wolf-widowmaker",
+        name: "Dire Wolf Widowmaker",
+        alternateNames: ["Daishi Widowmaker"],
+        tonnage: 100,
+        bv: 3041,
+        ammo: [
+            {id: 0, type: "clan:ultraac20", location: "RA"},
+            {id: 1, type: "clan:ultraac20", location: "RA"},
+        ],
+        specials: ["omni"]
+    },
+    {
         id: "kgc-005",
         name: "King Crab KGC-005",
         tonnage: 100,
@@ -1285,7 +1462,40 @@ const knownUnits = [
             {id: 6, type: "is:streaksrm4", location: "LT"},
         ],
         specials: ["c3i"]
-    }
+    },
+    {
+        id: "elemental-laser-5",
+        name: "Elemental Battle Armor [Laser] (Sqd 5)",
+        tonnage: 5,
+        bv: 447,
+        ammo: [
+            {id: 0, type: "clan:ba-srm2", location: "Body"},
+            {id: 1, type: "clan:ba-srm2", location: "Body"},
+        ],
+        specials: []
+    },
+    {
+        id: "elemental-mg-5",
+        name: "Elemental Battle Armor [MG] (Sqd 5)",
+        tonnage: 5,
+        bv: 404,
+        ammo: [
+            {id: 0, type: "clan:ba-srm2", location: "Body"},
+            {id: 1, type: "clan:ba-srm2", location: "Body"},
+        ],
+        specials: []
+    },
+    {
+        id: "elemental-flamer-5",
+        name: "Elemental Battle Armor [Flamer] (Sqd 5)",
+        tonnage: 5,
+        bv: 404,
+        ammo: [
+            {id: 0, type: "clan:ba-srm2", location: "Body"},
+            {id: 1, type: "clan:ba-srm2", location: "Body"},
+        ],
+        specials: []
+    },
 ];
 
 function getSkillMultiplier(gunnery, piloting) {
