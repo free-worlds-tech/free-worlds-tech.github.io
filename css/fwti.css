@@ -53,9 +53,23 @@ button.network {
 
 .search-bar > input {
     flex: 1;
-    border-radius: var(--standard-border-radius) 0px 0px var(--standard-border-radius);
+    border-radius: var(--standard-border-radius) 0 0 var(--standard-border-radius);
 }
 
 .search-bar > button {
-    border-radius: 0px var(--standard-border-radius) var(--standard-border-radius) 0px;
+    border-radius: 0 var(--standard-border-radius) var(--standard-border-radius) 0;
+}
+
+.advanced-search > details {
+    border-radius: 0 0 var(--standard-border-radius) var(--standard-border-radius);
+}
+
+.advanced-search > .search-bar > input {
+    border-radius: var(--standard-border-radius) 0 0 0;
+    margin-bottom: 0;
+}
+
+.advanced-search > .search-bar > button {
+    border-radius: 0 var(--standard-border-radius) 0 0;
+    margin-bottom: 0;
 }
