@@ -22,3 +22,54 @@ select.ammo {
 button.network {
     width: 100%;
 }
+
+.search-results-list {
+    list-style-type:none;
+    padding: 0;
+    margin: 0;
+}
+
+.search-results-list li {
+    padding: 0.3rem;
+    display: flex;
+}
+
+.search-results-list li:nth-child(even) {
+    background-color: var(--accent-bg);
+}
+
+.search-results-list span.search-result {
+    flex: 1;
+}
+
+.search-results-list button {
+    padding: 0.3rem;
+    margin: 0rem;
+}
+
+.search-bar {
+    display: flex;
+}
+
+.search-bar > input {
+    flex: 1;
+    border-radius: var(--standard-border-radius) 0 0 var(--standard-border-radius);
+}
+
+.search-bar > button {
+    border-radius: 0 var(--standard-border-radius) var(--standard-border-radius) 0;
+}
+
+.advanced-search > details {
+    border-radius: 0 0 var(--standard-border-radius) var(--standard-border-radius);
+}
+
+.advanced-search > .search-bar > input {
+    border-radius: var(--standard-border-radius) 0 0 0;
+    margin-bottom: 0;
+}
+
+.advanced-search > .search-bar > button {
+    border-radius: 0 var(--standard-border-radius) 0 0;
+    margin-bottom: 0;
+}

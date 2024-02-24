@@ -49,13 +49,53 @@
             If you notice a bug or have feedback, feel free to open an issue 
             <a href="https://github.com/free-worlds-tech/free-worlds-tech.github.io/issues">here</a>.
         </p>
+        <h3>Search Units</h3>
+        <div class="advanced-search">
+            <div class="search-bar">
+                <input id="search-box" class="lazy" type="text" placeholder="Unit Name" onkeydown="searchKeyDown(event)" disabled="disabled">
+                <button id="search-button" class="lazy" title="Search for matching units" type="button" onclick="searchUnits()" disabled="disabled">Search</button>
+            </div>
+            <details>
+                <summary>Advanced Search Parameters</summary>
+                <div class="min-and-max">
+                    <label>Tonnage:</label>
+                    <input type="number" id="search-min-tonnage" placeholder="No Minimum" step="5" min="0">
+                    <input type="number" id="search-max-tonnage" placeholder="No Maximum" step="5" min="0"> 
+                </div>
+                <div class="min-and-max">
+                    <label>Battle Value:</label>
+                    <input type="number" id="search-min-bv" placeholder="No Minimum" step="100" min="0">
+                    <input type="number" id="search-max-bv" placeholder="No Maximum" step="100" min="0"> 
+                </div>
+                <label>Only return units with:</label>
+                <label>
+                    <input type="checkbox" id="search-c3m" value="c3m">
+                    C<sup>3</sup>M
+                </label>
+                <label>
+                    <input type="checkbox" id="search-c3s" value="c3s">
+                    C<sup>3</sup>S
+                </label>
+                <label>
+                    <input type="checkbox" id="search-c3i" value="c3i">
+                    C<sup>3</sup>i
+                </label>
+                <label>
+                    <input type="checkbox" id="search-omni" value="omni">
+                    Omni
+                </label>
+                <label>
+                    <input type="checkbox" id="search-tag" value="tag">
+                    TAG
+                </label>
+            </details>
+        </div>
+        <ul id="search-results" class="search-results-list">
+        </ul>
+        <h3>Selected Force</h3>
         <div>
-            <select id="unit-picker" disabled="disabled" title="Unit Picker">
-                <option value="unknown">Choose a unit...</option>
-            </select>
-            <button id="add-unit-button" type="button" onclick="addUnit()" disabled="disabled">Add</button>
-            <button id="clear-units-button" type="reset" onclick="clearUnits()" disabled="disabled">Clear</button>
-            <button id="download-button" type="button" onclick="downloadForce()" disabled="disabled">Download</button>
+            <button id="clear-units-button" class="lazy" title="Remove all units from force" type="reset" onclick="clearUnits()" disabled="disabled">Clear</button>
+            <button id="download-button" class="lazy" title="Download force as a markdown file" type="button" onclick="downloadForce()" disabled="disabled">Download</button>
         </div>
         <figure>
             <table id="force-table">
@@ -85,15 +125,15 @@
                 </tfoot>
             </table>
         </figure>
-        <h3>Ammo Selections</h3>
+        <h4>Ammo Selections</h4>
         <p>Select the types of ammunition carried by your units.</p>
         <div id="ammo-selections">
         </div>
-        <h3>Networks</h3>
+        <h4>Networks</h4>
         <p>Set up C<sup>3</sup> networks for your force.</p>
         <div>
-            <button id="add-c3-network-button" type="button" onclick="addC3Network()" disabled="disabled">Add C<sup>3</sup> network</button>
-            <button id="add-c3i-network-button" type="button" onclick="addC3iNetwork()" disabled="disabled">Add C<sup>3</sup>i network</button>
+            <button id="add-c3-network-button" title="Add a C3 network" type="button" onclick="addC3Network()" disabled="disabled">Add C<sup>3</sup> network</button>
+            <button id="add-c3i-network-button" title="Add a C3i network" type="button" onclick="addC3iNetwork()" disabled="disabled">Add C<sup>3</sup>i network</button>
         </div>
         <div id="network-setups">
         </div>

@@ -25,9 +25,7 @@ function readyInterface() {
 
     $unitPicker.removeAttr("disabled");
 
-    $("#add-unit-button").removeAttr("disabled");
-    $("#clear-units-button").removeAttr("disabled");
-    $("#download-button").removeAttr("disabled");
+    $(".lazy").removeAttr("disabled");
 
     const urlParams = new URLSearchParams(window.location.search);
     const debugParam = urlParams.get('debug');
@@ -40,25 +38,166 @@ function readyInterface() {
             </div>`
         );
     }
+
+    showRandomUnits();
 }
 
-function addUnit() {
-    const unit = getUnitProperties();
+function searchKeyDown(e) {
+    if (e.key == "Enter") {
+        searchUnits();
+    }
+}
 
+function showRandomUnits() {
+    const knownUnits = getKnownUnits();
+    let results = [];
+
+    while (results.length < 10) {
+        const randomId = Math.floor(Math.random() * knownUnits.length);
+        const randomUnit = knownUnits[randomId];
+        if (!results.find((x) => x.id == randomUnit.id)) {
+            results.push(randomUnit);
+        }
+    }
+
+    showUnitList(results, true);
+}
+
+function searchUnits() {
+    const knownUnits = getKnownUnits();
+    const query = $("#search-box").val().toLowerCase().trim();
+    let moreAvailable = false;
+
+    let minTonnage = 0;
+    let maxTonnage = Number.MAX_VALUE;
+
+    const minTonnageValue = $("#search-min-tonnage").val();
+    const maxTonnageValue = $("#search-max-tonnage").val();
+    if (minTonnageValue != "") {
+        minTonnage = Number(minTonnageValue);
+    }
+    if (maxTonnageValue != "") {
+        maxTonnage = Number(maxTonnageValue);
+    }
+
+    let minBV = 0;
+    let maxBV = Number.MAX_VALUE;
+
+    const minBVValue = $("#search-min-bv").val();
+    const maxBVValue = $("#search-max-bv").val();
+    if (minBVValue != "") {
+        minBV = Number(minBVValue);
+    }
+    if (maxBVValue != "") {
+        maxBV = Number(maxBVValue);
+    }
+
+    const requireC3M = $("#search-c3m").is(":checked");
+    const requireC3S = $("#search-c3s").is(":checked");
+    const requireC3i = $("#search-c3i").is(":checked");
+    const requireOmni = $("#search-omni").is(":checked");
+    const requireTAG = $("#search-tag").is(":checked");
+
+    let match = unitProps => {
+        if (!unitProps.name.toLowerCase().includes(query)) {
+            let altNameMatch = false;
+            if (unitProps.alternateNames) {
+                unitProps.alternateNames.forEach((alt) => {
+                    if (alt.toLowerCase().includes(query)) {
+                        altNameMatch = true;
+                    }
+                });
+            }
+            if (!altNameMatch) {
+                return false;
+            }
+        }
+
+        if (unitProps.tonnage < minTonnage || unitProps.tonnage > maxTonnage) {
+            return false;
+        }
+
+        if (unitProps.bv < minBV || unitProps.bv > maxBV) {
+            return false;
+        }
+
+        if (requireC3M && !unitProps.specials.includes("c3m")) {
+            return false;
+        }
+
+        if (requireC3S && !unitProps.specials.includes("c3s")) {
+            return false;
+        }
+
+        if (requireC3i && !unitProps.specials.includes("c3i")) {
+            return false;
+        }
+
+        if (requireOmni && !unitProps.specials.includes("omni")) {
+            return false;
+        }
+
+        if (requireTAG && !unitProps.specials.includes("tag")) {
+            return false;
+        }
+
+        return true;
+    }
+
+    let results = [];
+    knownUnits.forEach((unit) => {
+        if (!moreAvailable && match(unit)) {
+            if (results.length < 10) {
+                results.push(unit);
+            } else {
+                moreAvailable = true;
+            }
+        }
+    });
+
+    showUnitList(results, moreAvailable);
+}
+
+function showUnitList(list, moreAvailable) {
+    $("#search-results").children().remove();
+
+    if (list.length == 0) {
+        $("#search-results").append(`<li><em>No units found.</em></li>`);
+    } else {
+        list.forEach((unit) => {
+            $("#search-results").append(`<li><span class="search-result">${unit.name}</span><button title='Add unit to force' type='button' onclick='addUnitById("${unit.id}")'>➕</button></li>`);
+        });
+        if (moreAvailable) {
+            $("#search-results").append(`<li><em>More units available.</em></li>`);
+        }
+    }
+}
+
+function addSelectedUnit() {
+    const unitProps = getUnitProperties();
+    addUnit(unitProps);
+}
+
+function addUnitById(unitId) {
+    const unitProps = getKnownUnit(unitId);
+    addUnit(unitProps);
+}
+
+function addUnit(unitProps) {
     const currentId = nextUnitId++;
 
     const newUnit = {
         id: currentId,
-        unitProps: unit,
+        unitProps: unitProps,
         crew: "",
         gunnery: 4,
         piloting: 5,
-        adjustedBV: unit.bv,
+        adjustedBV: unitProps.bv,
         ammoTypes: new Map(),
         bvNotes: []
     };
 
-    unit.ammo.forEach((ammoBin) => {
+    unitProps.ammo.forEach((ammoBin) => {
         newUnit.ammoTypes.set(ammoBin.id, ammoBin.default ? ammoBin.default : "standard");
     });
 
@@ -67,13 +206,13 @@ function addUnit() {
     addUnitRow(newUnit);
     addUnitAmmoSelector(newUnit);
 
-    if (unit.specials.includes("c3m")) {
+    if (unitProps.specials.includes("c3m")) {
         c3mUnits.push({id: currentId, linked: false});
     }
-    if (unit.specials.includes("c3s")) {
+    if (unitProps.specials.includes("c3s")) {
         c3sUnits.push({id: currentId, linked: false});
     }
-    if (unit.specials.includes("c3i")) {
+    if (unitProps.specials.includes("c3i")) {
         c3iUnits.push({id: currentId, linked: false});
     }
     updateC3Eligibility();
@@ -101,7 +240,7 @@ function addUnitRow(unit)
     $row.append("<td class='tonnage'>" + unit.unitProps.tonnage + "</td>");
     $row.append("<td class='bv'>" + unit.unitProps.bv + "</td>");
     $row.append("<td class='adj-bv'>" + unit.adjustedBV + "</td>");
-    $row.append("<td><button type='button' onclick='removeUnit(" + unit.id + ")'>❌</button></td>");
+    $row.append("<td><button type='button' title='Remove unit from force' onclick='removeUnit(" + unit.id + ")'>❌</button></td>");
     $("#force-table-body").append($row);
     
     updateTotals();
@@ -658,7 +797,7 @@ function addNetworkEditor(network) {
             $linksList.append($linkListItem);
         }
         $networkEditor.append($linksList);
-        $networkEditor.append(`<button type='button' class='network' onclick='removeNetwork(${network.id})'>Remove Nework</button>`);
+        $networkEditor.append(`<button type='button' title='Remove C3 network' class='network' onclick='removeNetwork(${network.id})'>Remove Nework</button>`);
 
     } else {
         $networkEditor.append(`<summary>C<sup>3</sup>i Network #${network.id}</summary>`);
@@ -698,7 +837,7 @@ function addNetworkEditor(network) {
 
             $networkEditor.append($unitSelect);
         }
-        $networkEditor.append(`<button type='button' class='network' onclick='removeNetwork(${network.id})'>Remove Nework</button>`);
+        $networkEditor.append(`<button type='button' title='Remove C3i network' class='network' onclick='removeNetwork(${network.id})'>Remove Nework</button>`);
     }
 
     $("#network-setups").append($networkEditor);
