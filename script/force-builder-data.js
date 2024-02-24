@@ -40,433 +40,447 @@ const knownWeapons = [
         id: "is:machinegun", 
         name: "Machine Gun", 
         ammoTypes: [
-            {id: "standard", name: "Standard"}
+            {id: "standard", name: "Standard (200)"}
+        ]
+    },
+    {
+        id: "is:machinegun:halfton", 
+        name: "Machine Gun", 
+        ammoTypes: [
+            {id: "standard", name: "Standard (100)"}
         ]
     },
     {
         id: "is:ac2", 
         name: "AC/2", 
         ammoTypes: [
-            {id: "standard", name: "Standard"},
-            {id: "ap", name: "Armor-Piercing"},
-            {id: "caseless", name: "Caseless", extraBV: 5},
-            {id: "flechette", name: "Flechette"},
-            {id: "precision", name: "Precision"}
+            {id: "standard", name: "Standard (45)"},
+            {id: "ap", name: "Armor-Piercing (22)"},
+            {id: "caseless", name: "Caseless (90)", extraBV: 5},
+            {id: "flechette", name: "Flechette (45)"},
+            {id: "precision", name: "Precision (22)"}
         ]
     },
     {
         id: "is:ac5", 
         name: "AC/5", 
         ammoTypes: [
-            {id: "standard", name: "Standard"},
-            {id: "ap", name: "Armor-Piercing"},
-            {id: "caseless", name: "Caseless", extraBV: 9},
-            {id: "flechette", name: "Flechette"},
-            {id: "precision", name: "Precision"}
+            {id: "standard", name: "Standard (20)"},
+            {id: "ap", name: "Armor-Piercing (10)"},
+            {id: "caseless", name: "Caseless (40)", extraBV: 9},
+            {id: "flechette", name: "Flechette (20)"},
+            {id: "precision", name: "Precision (10)"}
         ]
     },
     {
         id: "is:ac10", 
         name: "AC/10", 
         ammoTypes: [
-            {id: "standard", name: "Standard"},
-            {id: "ap", name: "Armor-Piercing"},
-            {id: "caseless", name: "Caseless", extraBV: 15},
-            {id: "flechette", name: "Flechette"},
-            {id: "precision", name: "Precision"}
+            {id: "standard", name: "Standard (10)"},
+            {id: "ap", name: "Armor-Piercing (5)"},
+            {id: "caseless", name: "Caseless (20)", extraBV: 15},
+            {id: "flechette", name: "Flechette (10)"},
+            {id: "precision", name: "Precision (5)"}
         ]
     },
     {
         id: "is:ac20", 
         name: "AC/20", 
         ammoTypes: [
-            {id: "standard", name: "Standard"},
-            {id: "ap", name: "Armor-Piercing"},
-            {id: "caseless", name: "Caseless", extraBV: 22},
-            {id: "flechette", name: "Flechette"},
-            {id: "precision", name: "Precision"}
+            {id: "standard", name: "Standard (5)"},
+            {id: "ap", name: "Armor-Piercing (2)"},
+            {id: "caseless", name: "Caseless (10)", extraBV: 22},
+            {id: "flechette", name: "Flechette (5)"},
+            {id: "precision", name: "Precision (2)"}
         ]
     },
     {
         id: "is:lb2xac",
         name: "LB 2-X AC",
         ammoTypes: [
-            {id: "standard", name: "Standard"},
-            {id: "cluster", name: "Cluster"}
+            {id: "standard", name: "Standard (45)"},
+            {id: "cluster", name: "Cluster (45)"}
         ]
     },
     {
         id: "is:lb5xac",
         name: "LB 5-X AC",
         ammoTypes: [
-            {id: "standard", name: "Standard"},
-            {id: "cluster", name: "Cluster"}
+            {id: "standard", name: "Standard (20)"},
+            {id: "cluster", name: "Cluster (20)"}
         ]
     },
     {
         id: "is:lb10xac",
         name: "LB 10-X AC",
         ammoTypes: [
-            {id: "standard", name: "Standard"},
-            {id: "cluster", name: "Cluster"}
+            {id: "standard", name: "Standard (10)"},
+            {id: "cluster", name: "Cluster (10)"}
         ]
     },
     {
         id: "is:lb20xac",
         name: "LB 20-X AC",
         ammoTypes: [
-            {id: "standard", name: "Standard"},
-            {id: "cluster", name: "Cluster"}
+            {id: "standard", name: "Standard (5)"},
+            {id: "cluster", name: "Cluster (5)"}
         ]
     },
     {
         id: "is:gaussrifle",
         name: "Gauss Rifle",
         ammoTypes: [
-            {id: "standard", name: "Standard"},
+            {id: "standard", name: "Standard (8)"},
         ]
     },
     {
         id: "is:narc", 
         name: "Narc", 
         ammoTypes: [
-            {id: "standard", name: "Homing"},
-            {id: "explosive", name: "Explosive"}
+            {id: "standard", name: "Homing (6)"},
+            {id: "explosive", name: "Explosive (6)"}
         ]
     },
     {
         id: "is:inarc", 
         name: "iNarc", 
         ammoTypes: [
-            {id: "standard", name: "Homing"},
-            {id: "ecm", name: "ECM"},
-            {id: "explosive", name: "Explosive"},
-            {id: "haywire", name: "Haywire"},
-            {id: "nemesis", name: "Nemesis"}
+            {id: "standard", name: "Homing (4)"},
+            {id: "ecm", name: "ECM (4)"},
+            {id: "explosive", name: "Explosive (4)"},
+            {id: "haywire", name: "Haywire (4)"},
+            {id: "nemesis", name: "Nemesis (4)"}
         ]
     },
     {
         id: "is:srm2", 
         name: "SRM 2", 
         ammoTypes: [
-            {id: "standard", name: "Standard"},
-            {id: "artemisiv", name: "Artemis IV-Equipped", requirement:"artemisiv"},
-            {id: "fragmentation", name: "Fragmentation"},
-            {id: "inferno", name: "Inferno"},
-            {id: "narc", name: "Narc-Equipped"}
+            {id: "standard", name: "Standard (50)"},
+            {id: "artemisiv", name: "Artemis IV-Equipped (50)", requirement:"artemisiv"},
+            {id: "fragmentation", name: "Fragmentation (50)"},
+            {id: "inferno", name: "Inferno (50)"},
+            {id: "narc", name: "Narc-Equipped (50)"}
         ]
     },
     {
         id: "is:srm4", 
         name: "SRM 4", 
         ammoTypes: [
-            {id: "standard", name: "Standard"},
-            {id: "artemisiv", name: "Artemis IV-Equipped", requirement:"artemisiv"},
-            {id: "fragmentation", name: "Fragmentation"},
-            {id: "inferno", name: "Inferno"},
-            {id: "narc", name: "Narc-Equipped"}
+            {id: "standard", name: "Standard (25)"},
+            {id: "artemisiv", name: "Artemis IV-Equipped (25)", requirement:"artemisiv"},
+            {id: "fragmentation", name: "Fragmentation (25)"},
+            {id: "inferno", name: "Inferno (25)"},
+            {id: "narc", name: "Narc-Equipped (25)"}
         ]
     },
     {
         id: "is:srm6", 
         name: "SRM 6", 
         ammoTypes: [
-            {id: "standard", name: "Standard"},
-            {id: "artemisiv", name: "Artemis IV-Equipped", requirement:"artemisiv"},
-            {id: "fragmentation", name: "Fragmentation"},
-            {id: "inferno", name: "Inferno"},
-            {id: "narc", name: "Narc-Equipped"}
+            {id: "standard", name: "Standard (15)"},
+            {id: "artemisiv", name: "Artemis IV-Equipped (15)", requirement:"artemisiv"},
+            {id: "fragmentation", name: "Fragmentation (15)"},
+            {id: "inferno", name: "Inferno (15)"},
+            {id: "narc", name: "Narc-Equipped (15)"}
         ]
     },
     {
         id: "is:streaksrm2", 
         name: "Streak SRM 2", 
         ammoTypes: [
-            {id: "standard", name: "Standard"}
+            {id: "standard", name: "Standard (50)"}
         ]
     },
     {
         id: "is:streaksrm4", 
         name: "Streak SRM 4", 
         ammoTypes: [
-            {id: "standard", name: "Standard"}
+            {id: "standard", name: "Standard (25)"}
         ]
     },
     {
         id: "is:streaksrm6", 
         name: "Streak SRM 6", 
         ammoTypes: [
-            {id: "standard", name: "Standard"}
+            {id: "standard", name: "Standard (15)"}
         ]
     },
     {
         id: "is:lrm5", 
         name: "LRM 5", 
         ammoTypes: [
-            {id: "standard", name: "Standard"},
-            {id: "artemisiv", name: "Artemis IV-Equipped", requirement:"artemisiv"},
-            {id: "fragmentation", name: "Fragmentation"},
-            {id: "narc", name: "Narc-Equipped"},
-            {id: "semiguided", name: "Semi-Guided", tagBV: 6}
+            {id: "standard", name: "Standard (24)"},
+            {id: "artemisiv", name: "Artemis IV-Equipped (24)", requirement:"artemisiv"},
+            {id: "fragmentation", name: "Fragmentation (24)"},
+            {id: "narc", name: "Narc-Equipped (24)"},
+            {id: "semiguided", name: "Semi-Guided (24)", tagBV: 6}
         ]
     },
     {
         id: "is:lrm10", 
         name: "LRM 10", 
         ammoTypes: [
-            {id: "standard", name: "Standard"},
-            {id: "artemisiv", name: "Artemis IV-Equipped", requirement:"artemisiv"},
-            {id: "fragmentation", name: "Fragmentation"},
-            {id: "narc", name: "Narc-Equipped"},
-            {id: "semiguided", name: "Semi-Guided", tagBV: 11}
+            {id: "standard", name: "Standard (12)"},
+            {id: "artemisiv", name: "Artemis IV-Equipped (12)", requirement:"artemisiv"},
+            {id: "fragmentation", name: "Fragmentation (12)"},
+            {id: "narc", name: "Narc-Equipped (12)"},
+            {id: "semiguided", name: "Semi-Guided (12)", tagBV: 11}
         ]
     },
     {
         id: "is:lrm15", 
         name: "LRM 15", 
         ammoTypes: [
-            {id: "standard", name: "Standard"},
-            {id: "artemisiv", name: "Artemis IV-Equipped", requirement:"artemisiv"},
-            {id: "fragmentation", name: "Fragmentation"},
-            {id: "narc", name: "Narc-Equipped"},
-            {id: "semiguided", name: "Semi-Guided", tagBV: 17}
+            {id: "standard", name: "Standard (8)"},
+            {id: "artemisiv", name: "Artemis IV-Equipped (8)", requirement:"artemisiv"},
+            {id: "fragmentation", name: "Fragmentation (8)"},
+            {id: "narc", name: "Narc-Equipped (8)"},
+            {id: "semiguided", name: "Semi-Guided (8)", tagBV: 17}
         ]
     },
     {
         id: "is:lrm20", 
         name: "LRM 20", 
         ammoTypes: [
-            {id: "standard", name: "Standard"},
-            {id: "artemisiv", name: "Artemis IV-Equipped", requirement:"artemisiv"},
-            {id: "fragmentation", name: "Fragmentation"},
-            {id: "narc", name: "Narc-Equipped"},
-            {id: "semiguided", name: "Semi-Guided", tagBV: 23}
+            {id: "standard", name: "Standard (6)"},
+            {id: "artemisiv", name: "Artemis IV-Equipped (6)", requirement:"artemisiv"},
+            {id: "fragmentation", name: "Fragmentation (6)"},
+            {id: "narc", name: "Narc-Equipped (6)"},
+            {id: "semiguided", name: "Semi-Guided (6)", tagBV: 23}
         ]
     },
     {
         id: "is:mrm10",
         name: "MRM 10",
         ammoTypes: [
-            {id: "standard", name: "Standard"},
+            {id: "standard", name: "Standard (24)"},
         ]
     },
     {
         id: "is:mrm20",
         name: "MRM 20",
         ammoTypes: [
-            {id: "standard", name: "Standard"},
+            {id: "standard", name: "Standard (12)"},
         ]
     },
     {
         id: "is:mrm30",
         name: "MRM 30",
         ammoTypes: [
-            {id: "standard", name: "Standard"},
+            {id: "standard", name: "Standard (8)"},
         ]
     },
     {
         id: "is:mrm40",
         name: "MRM 40",
         ammoTypes: [
-            {id: "standard", name: "Standard"},
+            {id: "standard", name: "Standard (6)"},
         ]
     },
     {
         id: "is:ams",
         name: "AMS",
         ammoTypes: [
-            {id: "standard", name: "Standard"},
+            {id: "standard", name: "Standard (12)"},
         ]
     },
     {
         id: "clan:machinegun", 
         name: "Machine Gun", 
         ammoTypes: [
-            {id: "standard", name: "Standard"}
+            {id: "standard", name: "Standard (200)"}
+        ]
+    },
+    {
+        id: "clan:machinegun:halfton", 
+        name: "Machine Gun", 
+        ammoTypes: [
+            {id: "standard", name: "Standard (100)"}
         ]
     },
     {
         id: "clan:lb2xac",
         name: "LB 2-X AC",
         ammoTypes: [
-            {id: "standard", name: "Standard"},
-            {id: "cluster", name: "Cluster"}
+            {id: "standard", name: "Standard (45)"},
+            {id: "cluster", name: "Cluster (45)"}
         ]
     },
     {
         id: "clan:lb5xac",
         name: "LB 5-X AC",
         ammoTypes: [
-            {id: "standard", name: "Standard"},
-            {id: "cluster", name: "Cluster"}
+            {id: "standard", name: "Standard (20)"},
+            {id: "cluster", name: "Cluster (20)"}
         ]
     },
     {
         id: "clan:lb10xac",
         name: "LB 10-X AC",
         ammoTypes: [
-            {id: "standard", name: "Standard"},
-            {id: "cluster", name: "Cluster"}
+            {id: "standard", name: "Standard (10)"},
+            {id: "cluster", name: "Cluster (10)"}
         ]
     },
     {
         id: "clan:lb20xac",
         name: "LB 20-X AC",
         ammoTypes: [
-            {id: "standard", name: "Standard"},
-            {id: "cluster", name: "Cluster"}
+            {id: "standard", name: "Standard (5)"},
+            {id: "cluster", name: "Cluster (5)"}
         ]
     },
     {
         id: "clan:ultraac2",
         name: "Ultra AC/2",
         ammoTypes: [
-            {id: "standard", name: "Standard"}
+            {id: "standard", name: "Standard (45)"}
         ]
     },
     {
         id: "clan:ultraac5",
         name: "Ultra AC/5",
         ammoTypes: [
-            {id: "standard", name: "Standard"}
+            {id: "standard", name: "Standard (20)"}
         ]
     },
     {
         id: "clan:ultraac10",
         name: "Ultra AC/10",
         ammoTypes: [
-            {id: "standard", name: "Standard"}
+            {id: "standard", name: "Standard (10)"}
         ]
     },
     {
         id: "clan:ultraac20",
         name: "Ultra AC/20",
         ammoTypes: [
-            {id: "standard", name: "Standard"}
+            {id: "standard", name: "Standard (5)"}
         ]
     },
     {
         id: "clan:gaussrifle",
         name: "Gauss Rifle",
         ammoTypes: [
-            {id: "standard", name: "Standard"},
+            {id: "standard", name: "Standard (8)"},
         ]
     },
     {
         id: "clan:narc", 
         name: "Narc", 
         ammoTypes: [
-            {id: "standard", name: "Homing"},
+            {id: "standard", name: "Homing (6)"},
         ]
     },
     {
         id: "clan:srm2", 
         name: "SRM 2", 
         ammoTypes: [
-            {id: "standard", name: "Standard"},
-            {id: "artemisiv", name: "Artemis IV-Equipped", requirement:"artemisiv"},
-            {id: "artemisv", name: "Artemis V-Equipped", requirement:"artemisv"},
-            {id: "inferno", name: "Inferno"},
-            {id: "narc", name: "Narc-Equipped"}
+            {id: "standard", name: "Standard (50)"},
+            {id: "artemisiv", name: "Artemis IV-Equipped (50)", requirement:"artemisiv"},
+            {id: "artemisv", name: "Artemis V-Equipped (50)", requirement:"artemisv"},
+            {id: "inferno", name: "Inferno (50)"},
+            {id: "narc", name: "Narc-Equipped (50)"}
         ]
     },
     {
         id: "clan:srm4", 
         name: "SRM 4", 
         ammoTypes: [
-            {id: "standard", name: "Standard"},
-            {id: "artemisiv", name: "Artemis IV-Equipped", requirement:"artemisiv"},
-            {id: "artemisv", name: "Artemis V-Equipped", requirement:"artemisv"},
-            {id: "inferno", name: "Inferno"},
-            {id: "narc", name: "Narc-Equipped"}
+            {id: "standard", name: "Standard (25)"},
+            {id: "artemisiv", name: "Artemis IV-Equipped (25)", requirement:"artemisiv"},
+            {id: "artemisv", name: "Artemis V-Equipped (25)", requirement:"artemisv"},
+            {id: "inferno", name: "Inferno (25)"},
+            {id: "narc", name: "Narc-Equipped (25)"}
         ]
     },
     {
         id: "clan:srm6", 
         name: "SRM 6", 
         ammoTypes: [
-            {id: "standard", name: "Standard"},
-            {id: "artemisiv", name: "Artemis IV-Equipped", requirement:"artemisiv"},
-            {id: "artemisv", name: "Artemis V-Equipped", requirement:"artemisv"},
-            {id: "inferno", name: "Inferno"},
-            {id: "narc", name: "Narc-Equipped"}
+            {id: "standard", name: "Standard (15)"},
+            {id: "artemisiv", name: "Artemis IV-Equipped (15)", requirement:"artemisiv"},
+            {id: "artemisv", name: "Artemis V-Equipped (15)", requirement:"artemisv"},
+            {id: "inferno", name: "Inferno (15)"},
+            {id: "narc", name: "Narc-Equipped (15)"}
         ]
     },
     {
         id: "clan:streaksrm2", 
         name: "Streak SRM 2", 
         ammoTypes: [
-            {id: "standard", name: "Standard"}
+            {id: "standard", name: "Standard (50)"}
         ]
     },
     {
         id: "clan:streaksrm4", 
         name: "Streak SRM 4", 
         ammoTypes: [
-            {id: "standard", name: "Standard"}
+            {id: "standard", name: "Standard (25)"}
         ]
     },
     {
         id: "clan:streaksrm6", 
         name: "Streak SRM 6", 
         ammoTypes: [
-            {id: "standard", name: "Standard"}
+            {id: "standard", name: "Standard (15)"}
         ]
     },
     {
         id: "clan:lrm5", 
         name: "LRM 5", 
         ammoTypes: [
-            {id: "standard", name: "Standard"},
-            {id: "artemisiv", name: "Artemis IV-Equipped", requirement:"artemisiv"},
-            {id: "artemisv", name: "Artemis V-Equipped", requirement:"artemisv"},
-            {id: "narc", name: "Narc-Equipped"},
+            {id: "standard", name: "Standard (24)"},
+            {id: "artemisiv", name: "Artemis IV-Equipped (24)", requirement:"artemisiv"},
+            {id: "artemisv", name: "Artemis V-Equipped (24)", requirement:"artemisv"},
+            {id: "narc", name: "Narc-Equipped (24)"},
         ]
     },
     {
         id: "clan:lrm10", 
         name: "LRM 10", 
         ammoTypes: [
-            {id: "standard", name: "Standard"},
-            {id: "artemisiv", name: "Artemis IV-Equipped", requirement:"artemisiv"},
-            {id: "artemisv", name: "Artemis V-Equipped", requirement:"artemisv"},
-            {id: "narc", name: "Narc-Equipped"},
+            {id: "standard", name: "Standard (12)"},
+            {id: "artemisiv", name: "Artemis IV-Equipped (12)", requirement:"artemisiv"},
+            {id: "artemisv", name: "Artemis V-Equipped (12)", requirement:"artemisv"},
+            {id: "narc", name: "Narc-Equipped (12)"},
         ]
     },
     {
         id: "clan:lrm15", 
         name: "LRM 15", 
         ammoTypes: [
-            {id: "standard", name: "Standard"},
-            {id: "artemisiv", name: "Artemis IV-Equipped", requirement:"artemisiv"},
-            {id: "artemisv", name: "Artemis V-Equipped", requirement:"artemisv"},
-            {id: "narc", name: "Narc-Equipped"},
+            {id: "standard", name: "Standard (8)"},
+            {id: "artemisiv", name: "Artemis IV-Equipped (8)", requirement:"artemisiv"},
+            {id: "artemisv", name: "Artemis V-Equipped (8)", requirement:"artemisv"},
+            {id: "narc", name: "Narc-Equipped (8)"},
         ]
     },
     {
         id: "clan:lrm20", 
         name: "LRM 20", 
         ammoTypes: [
-            {id: "standard", name: "Standard"},
-            {id: "artemisiv", name: "Artemis IV-Equipped", requirement:"artemisiv"},
-            {id: "artemisv", name: "Artemis V-Equipped", requirement:"artemisv"},
-            {id: "narc", name: "Narc-Equipped"},
+            {id: "standard", name: "Standard (6)"},
+            {id: "artemisiv", name: "Artemis IV-Equipped (6)", requirement:"artemisiv"},
+            {id: "artemisv", name: "Artemis V-Equipped (6)", requirement:"artemisv"},
+            {id: "narc", name: "Narc-Equipped (6)"},
         ]
     },
     {
         id: "clan:ams",
         name: "AMS",
         ammoTypes: [
-            {id: "standard", name: "Standard"},
+            {id: "standard", name: "Standard (24)"},
         ]
     },
     {
         id: "clan:ba-srm2",
         name: "SRM 2",
         ammoTypes: [
-            {id: "standard", name: "Standard"},
-            {id: "inferno", name: "Inferno"},
-            {id: "torpedo", name: "Torpedo", requirement:"umu"}
+            {id: "standard", name: "Standard (1)"},
+            {id: "inferno", name: "Inferno (1)"},
+            {id: "torpedo", name: "Torpedo (1)", requirement:"umu"}
         ]
     }
 ];
@@ -532,7 +546,7 @@ const knownUnits = [
         ammo: [
             {id: 0, type: "clan:lrm10", location: "LA"},
             {id: 1, type: "clan:streaksrm4", location: "RA"},
-            {id: 2, type: "clan:machinegun", location: "RA"},
+            {id: 2, type: "clan:machinegun:halfton", location: "RA"},
         ],
         specials: ["omni"]
     },
@@ -546,7 +560,7 @@ const knownUnits = [
             {id: 0, type: "clan:ams", location: "LA"},
             {id: 1, type: "clan:ams", location: "LA"},
             {id: 2, type: "clan:ams", location: "LA"},
-            {id: 3, type: "clan:machinegun", location: "RA"},      
+            {id: 3, type: "clan:machinegun:halfton", location: "RA"},      
         ],
         specials: ["omni"]
     },
@@ -653,7 +667,7 @@ const knownUnits = [
         ammo: [
             {id: 0, type: "clan:srm4", location: "LA"},
             {id: 1, type: "clan:ams", location: "LT"},
-            {id: 2, type: "clan:machinegun", location: "RT"},
+            {id: 2, type: "clan:machinegun:halfton", location: "RT"},
         ],
         specials: ["omni"]
     },
@@ -1035,7 +1049,7 @@ const knownUnits = [
         ammo: [
             {id: 0, type: "clan:ams", location: "CT"},
             {id: 1, type: "clan:streaksrm6", location: "RT"},
-            {id: 2, type: "clan:machinegun", location: "RT"},
+            {id: 2, type: "clan:machinegun:halfton", location: "RT"},
         ],
         specials: ["omni"]
     },
