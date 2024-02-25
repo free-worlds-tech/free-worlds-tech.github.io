@@ -165,7 +165,7 @@ function showUnitList(list, moreAvailable) {
         $("#search-results").append(`<li><em>No units found.</em></li>`);
     } else {
         list.forEach((unit) => {
-            $("#search-results").append(`<li><span class="search-result">${unit.name}</span><button title='Add unit to force' type='button' onclick='addUnitById("${unit.id}")'>➕</button></li>`);
+            $("#search-results").append(`<li><span class="search-result">${unit.name}</span><button title='Add unit to force' type='button' onclick='addUnitById("${unit.id}")'><span class="material-symbols-outlined">add</span></button></li>`);
         });
         if (moreAvailable) {
             $("#search-results").append(`<li><em>More units available.</em></li>`);
@@ -240,7 +240,7 @@ function addUnitRow(unit)
     $row.append("<td class='tonnage'>" + unit.unitProps.tonnage + "</td>");
     $row.append("<td class='bv'>" + unit.unitProps.bv + "</td>");
     $row.append("<td class='adj-bv'>" + unit.adjustedBV + "</td>");
-    $row.append("<td><button type='button' title='Remove unit from force' onclick='removeUnit(" + unit.id + ")'>❌</button></td>");
+    $row.append("<td><button type='button' title='Remove unit from force' onclick='removeUnit(" + unit.id + ")'><span class='material-symbols-outlined'>delete</span></button></td>");
     $("#force-table-body").append($row);
     
     updateTotals();
