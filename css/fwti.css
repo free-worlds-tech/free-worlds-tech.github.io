@@ -35,20 +35,17 @@ button.network {
 
 .search-results-list li {
     padding: 0.3rem;
-    display: flex;
+    overflow: hidden;
 }
 
 .search-results-list li:nth-child(even) {
     background-color: var(--accent-bg);
 }
 
-.search-results-list span.search-result {
-    flex: 1;
-}
-
 .search-results-list button {
     padding: 0.3rem;
     margin: 0rem;
+    float: right;
 }
 
 .search-bar {
