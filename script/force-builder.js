@@ -232,17 +232,29 @@ function getUnitFullName(unit) {
 
 function addUnitRow(unit)
 {
-    const $row = $("<tr>", {id: "unit-" + unit.id});
-    $row.append("<td class='unit-name'>" + unit.unitProps.name + "</td");
-    $row.append("<td><input type='text' placeholder='Name' onchange='updateCrewName(" + unit.id + ")'></td>");
-    $row.append(createSkillPicker(unit.id, "gunnery-skill", unit.gunnery));
-    $row.append(createSkillPicker(unit.id, "piloting-skill", unit.piloting));
-    $row.append("<td class='tonnage'>" + unit.unitProps.tonnage + "</td>");
-    $row.append("<td class='bv'>" + unit.unitProps.bv + "</td>");
-    $row.append("<td class='adj-bv'>" + unit.adjustedBV + "</td>");
-    $row.append("<td><button type='button' title='Remove unit from force' onclick='removeUnit(" + unit.id + ")'><span class='material-symbols-outlined'>delete</span></button></td>");
-    $("#force-table-body").append($row);
+    const $li = $("<li>", {id: `unit-${unit.id}`, class: "unit-entry"});
     
+    const $headerRow = $("<div>", {class: "unit-entry-header"});
+    $headerRow.append("<button class='remove-button' type='button' title='Remove unit from force' onclick='removeUnit(" + unit.id + ")'><span class='material-symbols-outlined'>delete</span></button>");
+    $headerRow.append(`<h4>${unit.unitProps.name}</h4>`);
+    $li.append($headerRow);
+
+    const $costsDiv = $("<div>", {class: "unit-costs"});
+    $costsDiv.append(`<span>Tonnage: <span class='tonnage'>${unit.unitProps.tonnage}</span></span>`);
+    $costsDiv.append(`<span>Base BV: <span class='bv'>${unit.unitProps.bv}</span></span>`);
+    $costsDiv.append(`<span>Adjusted BV: <span class='adj-bv'>${unit.adjustedBV}</span></span>`);
+    $li.append($costsDiv);
+
+    const $crewDiv = $("<div>", {class: "unit-crew"});
+    $crewDiv.append(`<input class='crew-name' type='text' placeholder='Crew Name' onchange='updateCrewName(${unit.id})'>`);
+    $crewDiv.append(createSkillPicker(unit.id, "gunnery-skill", unit.gunnery));
+    $crewDiv.append(createSkillPicker(unit.id, "piloting-skill", unit.piloting));
+    $li.append($crewDiv);
+
+    
+
+    $("#force-list").append($li);
+
     updateTotals();
 }
 
@@ -253,7 +265,7 @@ function addUnitAmmoSelector(unit)
     {
         const unitLabel = "ammo-" + unit.id;
         const $ammoSelections = $("<details>", {id: unitLabel});
-        $ammoSelections.append(`<summary>${getUnitFullName(unit)}</summary>`)
+        $ammoSelections.append(`<summary>Ammo Selections</summary>`)
         unit.unitProps.ammo.forEach(element => {
             const slotLabel = unitLabel + "-slot-" + element.id;
             const selectLabel = slotLabel + "-sel";
@@ -295,7 +307,7 @@ function addUnitAmmoSelector(unit)
             $ammoSelections.append($selection);
         });
 
-        $("#ammo-selections").append($ammoSelections);
+        $(`#unit-${unit.id}`).append($ammoSelections);
     }
 }
 
@@ -476,16 +488,20 @@ function createSkillPicker(id, type, initialRating)
         updateUnitBV(unit);
     });
 
-    const $td = $("<td>");
-    $td.addClass("skill");
-    $td.addClass(type);
-    $td.append($select);
-    return $td;
+    const $label = $("<label>");
+    $label.addClass("crew-skill");
+    $label.addClass(type);
+    if (type === "gunnery-skill") {
+        $label.text("Gunnery:");
+    } else if (type === "piloting-skill") {
+        $label.text("Piloting:");
+    }
+    $label.append($select);
+    return $label;
 }
 
 function removeUnit(id) {
     $("#unit-" + id).remove();
-    $("#ammo-" + id).remove();
 
     force.delete(id);
 
@@ -518,8 +534,7 @@ function removeUnit(id) {
 }
 
 function clearUnits() {
-    $("#force-table-body").children().remove();
-    $("#ammo-selections").children().remove();
+    $("#force-list").children().remove();
     $("#network-setups").children().remove();
 
     force.clear();
@@ -554,8 +569,6 @@ function updateCrewName(id) {
     const crewName = $("#unit-" + id + " input").val();
     
     unit.crew = crewName;
-
-    $("#ammo-" + id + " summary").text(getUnitFullName(unit));
 
     $(`option.network[value='${id}']`).text(getUnitFullName(unit));
 }

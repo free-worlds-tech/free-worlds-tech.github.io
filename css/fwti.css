@@ -77,3 +77,96 @@ button.network {
     border-radius: 0 var(--standard-border-radius) 0 0;
     margin-bottom: 0;
 }
+
+.unit-crew {
+    display: flex;
+}
+
+.crew-name {
+    flex: 1;
+}
+
+.crew-skill {
+    margin-left: 0.5rem;
+}
+
+@media only screen and (max-width: 720px) {
+    .unit-crew {
+        display: block;
+    }
+    
+    .crew-name {
+        flex: 0;
+    }
+    
+    .crew-skill {
+        margin-left: 0;
+        overflow: hidden;
+    }
+
+    .crew-skill > select {
+        width: auto; 
+        float: right;
+    }
+}
+
+.unit-costs {
+    display: flex;
+}
+
+.unit-costs > span {
+    flex: 1;
+}
+
+@media only screen and (max-width: 720px) {
+    .unit-costs {
+        display: inherit;
+    }
+    
+    .unit-costs > span {
+        display: block;
+    }
+}
+
+.force-list {
+    list-style-type:none;
+    padding: 0;
+    margin: 0;
+}
+
+.force-list > li {
+    padding: 0.3rem;
+}
+
+.force-list summary {
+    font-weight: inherit;
+}
+
+.force-list h4 {
+    margin-top: 0;
+}
+
+.force-list > li:nth-child(even) {
+    background-color: var(--accent-bg);
+}
+
+.force-list > li:nth-child(odd) > details {
+    background-color: var(--bg);
+}
+
+.force-totals {
+    background-color: var(--accent-bg);
+    border: 1px solid var(--border);
+    border-radius: var(--standard-border-radius);
+    margin-bottom: 1rem;
+    padding: 0.3rem;
+    font-weight: bold;
+}
+
+.unit-entry-header {
+    overflow: hidden;
+}
+
+.unit-entry-header .remove-button {
+    float: right;
+}

@@ -28,115 +28,89 @@
 <script charset="UTF-8" src="script/force-builder.js" defer></script>
 </head>
 <body>
+    <header>
+        <img class="logo" src="assets/fwti-256.png" alt="FWTI logo">
+        <h1>Free Worlds Technical Institute</h1>
+        <nav>
+            <a href="index.html">Home</a>
+            <a class="current" href="#">Force Builder</a>
+            <a href="firing-arcs-diagram.html">Firing Arcs</a>
+            <a href="the-inner-sphere.html">Inner Sphere</a>
+        </nav>
+    </header>
 
-<header>
-    <img class="logo" src="assets/fwti-256.png" alt="FWTI logo">
-    <h1>Free Worlds Technical Institute</h1>
-    <nav>
-        <a href="index.html">Home</a>
-        <a class="current" href="#">Force Builder</a>
-        <a href="firing-arcs-diagram.html">Firing Arcs</a>
-        <a href="the-inner-sphere.html">Inner Sphere</a>
-    </nav>
-</header>
-
-        <h2 id="page-title">Force Builder</h2>
-        <p class="notice">
-            This is a prototype for a BattleTech force builder.
-            The set of mechs to choose from is very limited and focused on letting me experiment with the user interface. 
-            I intend to iterate on it and gradually add more functionality and units.
-            <br>
-            <br>
-            If you notice a bug or have feedback, feel free to open an issue 
-            <a href="https://github.com/free-worlds-tech/free-worlds-tech.github.io/issues">here</a>.
-        </p>
-        <h3>Search Units</h3>
-        <div class="advanced-search">
-            <div class="search-bar">
-                <input id="search-box" class="lazy" type="text" placeholder="Unit Name" onkeydown="searchKeyDown(event)" disabled="disabled">
-                <button id="search-button" class="lazy" title="Search for matching units" type="button" onclick="searchUnits()" disabled="disabled">Search</button>
+    <h2 id="page-title">Force Builder</h2>
+    <p class="notice">
+        This is a prototype for a BattleTech force builder.
+        The set of mechs to choose from is very limited and focused on letting me experiment with the user interface. 
+        I intend to iterate on it and gradually add more functionality and units.
+        <br>
+        <br>
+        If you notice a bug or have feedback, feel free to open an issue 
+        <a href="https://github.com/free-worlds-tech/free-worlds-tech.github.io/issues">here</a>.
+    </p>
+    <h3>Search Units</h3>
+    <div class="advanced-search">
+        <div class="search-bar">
+            <input id="search-box" class="lazy" type="text" placeholder="Unit Name" onkeydown="searchKeyDown(event)" disabled="disabled">
+            <button id="search-button" class="lazy" title="Search for matching units" type="button" onclick="searchUnits()" disabled="disabled">Search</button>
+        </div>
+        <details>
+            <summary>Advanced Search Parameters</summary>
+            <div class="min-and-max">
+                <label>Tonnage:</label>
+                <input type="number" id="search-min-tonnage" placeholder="No Minimum" step="5" min="0">
+                <input type="number" id="search-max-tonnage" placeholder="No Maximum" step="5" min="0"> 
             </div>
-            <details>
-                <summary>Advanced Search Parameters</summary>
-                <div class="min-and-max">
-                    <label>Tonnage:</label>
-                    <input type="number" id="search-min-tonnage" placeholder="No Minimum" step="5" min="0">
-                    <input type="number" id="search-max-tonnage" placeholder="No Maximum" step="5" min="0"> 
-                </div>
-                <div class="min-and-max">
-                    <label>Battle Value:</label>
-                    <input type="number" id="search-min-bv" placeholder="No Minimum" step="100" min="0">
-                    <input type="number" id="search-max-bv" placeholder="No Maximum" step="100" min="0"> 
-                </div>
-                <label>Only return units with:</label>
-                <label>
-                    <input type="checkbox" id="search-c3m" value="c3m">
-                    C<sup>3</sup>M
-                </label>
-                <label>
-                    <input type="checkbox" id="search-c3s" value="c3s">
-                    C<sup>3</sup>S
-                </label>
-                <label>
-                    <input type="checkbox" id="search-c3i" value="c3i">
-                    C<sup>3</sup>i
-                </label>
-                <label>
-                    <input type="checkbox" id="search-omni" value="omni">
-                    Omni
-                </label>
-                <label>
-                    <input type="checkbox" id="search-tag" value="tag">
-                    TAG
-                </label>
-            </details>
-        </div>
-        <ul id="search-results" class="search-results-list">
-        </ul>
-        <h3>Selected Force</h3>
-        <div>
-            <button id="clear-units-button" class="lazy" title="Remove all units from force" type="reset" onclick="clearUnits()" disabled="disabled">Clear</button>
-            <button id="download-button" class="lazy" title="Download force as a markdown file" type="button" onclick="downloadForce()" disabled="disabled">Download</button>
-        </div>
-        <figure>
-            <table id="force-table">
-                <thead>
-                    <th>Unit</th>
-                    <th>Crew</th>
-                    <th>Gunnery</th>
-                    <th>Piloting</th>
-                    <th>Tonnage</th>
-                    <th>BV</th>
-                    <th>Adjusted BV</th>
-                    <th></th>
-                </thead>
-                <tbody id="force-table-body">
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <th>Total</th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th id="tonnage-total" class="right aligned">0</th>
-                        <th id="bv-total" class="right aligned">0</th>
-                        <th id="adj-bv-total" class="right aligned">0</th>
-                        <th></th>
-                    </tr>
-                </tfoot>
-            </table>
-        </figure>
-        <h4>Ammo Selections</h4>
-        <p>Select the types of ammunition carried by your units.</p>
-        <div id="ammo-selections">
-        </div>
-        <h4>Networks</h4>
-        <p>Set up C<sup>3</sup> networks for your force.</p>
-        <div>
-            <button id="add-c3-network-button" title="Add a C3 network" type="button" onclick="addC3Network()" disabled="disabled">Add C<sup>3</sup> network</button>
-            <button id="add-c3i-network-button" title="Add a C3i network" type="button" onclick="addC3iNetwork()" disabled="disabled">Add C<sup>3</sup>i network</button>
-        </div>
-        <div id="network-setups">
-        </div>
-    </body>
+            <div class="min-and-max">
+                <label>Battle Value:</label>
+                <input type="number" id="search-min-bv" placeholder="No Minimum" step="100" min="0">
+                <input type="number" id="search-max-bv" placeholder="No Maximum" step="100" min="0"> 
+            </div>
+            <label>Only return units with:</label>
+            <label>
+                <input type="checkbox" id="search-c3m" value="c3m">
+                C<sup>3</sup>M
+            </label>
+            <label>
+                <input type="checkbox" id="search-c3s" value="c3s">
+                C<sup>3</sup>S
+            </label>
+            <label>
+                <input type="checkbox" id="search-c3i" value="c3i">
+                C<sup>3</sup>i
+            </label>
+            <label>
+                <input type="checkbox" id="search-omni" value="omni">
+                Omni
+            </label>
+            <label>
+                <input type="checkbox" id="search-tag" value="tag">
+                TAG
+            </label>
+        </details>
+    </div>
+    <ul id="search-results" class="search-results-list">
+    </ul>
+    <h3>Selected Force</h3>
+    <div>
+        <button id="clear-units-button" class="lazy" title="Remove all units from force" type="reset" onclick="clearUnits()" disabled="disabled">Clear Force List</button>
+        <button id="download-button" class="lazy" title="Download force as a markdown file" type="button" onclick="downloadForce()" disabled="disabled">Download Force List</button>
+    </div>
+    <div class="unit-costs force-totals">
+        <span>Tonnage: <span id="tonnage-total">0</span></span>
+        <span>Base BV: <span id="bv-total">0</span></span>
+        <span>Adjusted BV: <span id="adj-bv-total">0</span></span>
+    </div>
+    <ul id="force-list" class="force-list">
+    </ul>
+    <h4>Networks</h4>
+    <p>Set up C<sup>3</sup> networks for your force.</p>
+    <div>
+        <button id="add-c3-network-button" title="Add a C3 network" type="button" onclick="addC3Network()" disabled="disabled">Add C<sup>3</sup> network</button>
+        <button id="add-c3i-network-button" title="Add a C3i network" type="button" onclick="addC3iNetwork()" disabled="disabled">Add C<sup>3</sup>i network</button>
+    </div>
+    <div id="network-setups">
+    </div>
+</body>
 </html>
