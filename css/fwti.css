@@ -10,11 +10,6 @@ p {
     margin: 1rem 0;
 }
 
-#force-table {
-    font-size: 8pt;
-    min-width: 100%;
-}
-
 select.network {
     width: 100%;
 }
