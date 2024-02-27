@@ -68,6 +68,9 @@ function searchUnits() {
     const query = $("#search-box").val().toLowerCase().trim();
     let moreAvailable = false;
 
+    const searchEra = $("#search-era").val();
+    const searchFaction = $("#search-faction").val();
+
     let minTonnage = 0;
     let maxTonnage = Number.MAX_VALUE;
 
@@ -118,6 +121,29 @@ function searchUnits() {
         }
 
         if (unitProps.bv < minBV || unitProps.bv > maxBV) {
+            return false;
+        }
+
+        let availabilityMatch = false;
+        if (searchEra == "any" && searchFaction == "any") {
+            availabilityMatch = true;
+        }
+        if (!availabilityMatch) {
+            unitProps.availability.forEach(availability => {
+                if (!availabilityMatch) {
+                    if (searchEra == "any" && searchFaction == availability.faction) {
+                        availabilityMatch = true;
+                    }
+                    else if (searchEra == availability.era && searchFaction == "any") {
+                        availabilityMatch = true;
+                    }
+                    else if (searchEra == availability.era && searchFaction == availability.faction) {
+                        availabilityMatch = true;
+                    }
+                }
+            });
+        }
+        if (!availabilityMatch) {
             return false;
         }
 
