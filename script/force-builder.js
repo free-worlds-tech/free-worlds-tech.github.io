@@ -197,8 +197,8 @@ function addUnit(unitProps) {
         bvNotes: []
     };
 
-    unitProps.ammo.forEach((ammoBin) => {
-        newUnit.ammoTypes.set(ammoBin.id, ammoBin.default ? ammoBin.default : "standard");
+    unitProps.ammo.forEach((ammoBin, index) => {
+        newUnit.ammoTypes.set(index, ammoBin.default ? ammoBin.default : "standard");
     });
 
     force.set(currentId, newUnit);
@@ -266,8 +266,8 @@ function addUnitAmmoSelector(unit)
         const unitLabel = "ammo-" + unit.id;
         const $ammoSelections = $("<details>", {id: unitLabel});
         $ammoSelections.append(`<summary>Ammo Selections</summary>`)
-        unit.unitProps.ammo.forEach(element => {
-            const slotLabel = unitLabel + "-slot-" + element.id;
+        unit.unitProps.ammo.forEach((element, index) => {
+            const slotLabel = unitLabel + "-slot-" + index;
             const selectLabel = slotLabel + "-sel";
             const $selection = $("<div>", {id: slotLabel});
             
@@ -296,7 +296,7 @@ function addUnitAmmoSelector(unit)
             $ammoSelect.on("change", function(e) {
                 const ammoType = e.target.value;
         
-                unit.ammoTypes.set(element.id, ammoType);
+                unit.ammoTypes.set(index, ammoType);
         
                 updateUnitBV(unit);
                 adjustTAGUnitsBV();
@@ -386,8 +386,8 @@ function updateUnitBV(unit, fromNetworkChange) {
 
 function getAlternateAmmoBV(unit) {
     let alternateAmmoBV = 0;
-    unit.unitProps.ammo.forEach((ammoBin) => {
-        const addedValue = getAmmoAdditionalBV(ammoBin.type, unit.ammoTypes.get(ammoBin.id));
+    unit.unitProps.ammo.forEach((ammoBin, index) => {
+        const addedValue = getAmmoAdditionalBV(ammoBin.type, unit.ammoTypes.get(index));
         alternateAmmoBV += addedValue;
     });
     return Math.round(alternateAmmoBV);
@@ -455,8 +455,8 @@ function getSemiGuidedAmmoValueForForce()
 {
     let total = 0;
     force.forEach((unit) => {
-        unit.unitProps.ammo.forEach((ammoBin) => {
-            const addedValue = getTAGAdditionalBV(ammoBin.type, unit.ammoTypes.get(ammoBin.id));
+        unit.unitProps.ammo.forEach((ammoBin, index) => {
+            const addedValue = getTAGAdditionalBV(ammoBin.type, unit.ammoTypes.get(index));
             total += addedValue;
         });
     });
@@ -594,9 +594,9 @@ function downloadForce() {
         if (unit.unitProps.ammo.length > 0) {
             contents += `### ${getUnitFullName(unit)}\n`;
             
-            unit.unitProps.ammo.forEach((ammoBin) => {
+            unit.unitProps.ammo.forEach((ammoBin, index) => {
                 const weaponName = getWeaponName(ammoBin.type);
-                const ammoName = getAmmoName(ammoBin.type, unit.ammoTypes.get(ammoBin.id));
+                const ammoName = getAmmoName(ammoBin.type, unit.ammoTypes.get(index));
                 contents += `- ${weaponName} (${ammoBin.location}): ${ammoName}\n`;
             });
         }
