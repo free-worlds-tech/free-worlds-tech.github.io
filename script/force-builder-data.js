@@ -279,7 +279,7 @@ const knownWeapons = [
         ]
     },
     {
-        id: "is:ams",
+        id: "is:antimissilesystem",
         name: "AMS",
         ammoTypes: [
             {id: "standard", name: "Standard (12)"},
@@ -468,7 +468,7 @@ const knownWeapons = [
         ]
     },
     {
-        id: "clan:ams",
+        id: "clan:antimissilesystem",
         name: "AMS",
         ammoTypes: [
             {id: "standard", name: "Standard (24)"},
@@ -500,7 +500,7 @@ const knownUnits = [
         tonnage: 20,
         bv: 432,
         ammo: [
-            {id: 0, type: "is:machinegun", location: "CT"}
+            {type: "is:machinegun", location: "CT"}
         ],
         specials: []
     },
@@ -510,8 +510,8 @@ const knownUnits = [
         tonnage: 25,
         bv: 541,
         ammo: [
-            {id: 0, type: "is:srm6", location: "LT"},
-            {id: 1, type: "is:srm4", location: "RT"}
+            {type: "is:srm6", location: "LT"},
+            {type: "is:srm4", location: "RT"}
         ],
         specials: []
     },
@@ -521,7 +521,7 @@ const knownUnits = [
         tonnage: 25,
         bv: 540,
         ammo: [
-            {id: 0, type: "is:srm6", location: "RT"}
+            {type: "is:srm6", location: "RT"}
         ],
         specials: []
     },
@@ -531,9 +531,9 @@ const knownUnits = [
         tonnage: 25,
         bv: 557,
         ammo: [
-            {id: 0, type: "is:srm6", location: "RT", default: "artemisiv"},
-            {id: 1, type: "is:srm6", location: "RT", default: "artemisiv"},
-            {id: 2, type: "is:streaksrm2", location: "RT"}
+            {type: "is:srm6", location: "RT", default: "artemisiv"},
+            {type: "is:srm6", location: "RT", default: "artemisiv"},
+            {type: "is:streaksrm2", location: "RT"}
         ],
         specials: ["artemisiv"]
     },
@@ -544,9 +544,9 @@ const knownUnits = [
         tonnage: 25,
         bv: 871,
         ammo: [
-            {id: 0, type: "clan:lrm10", location: "LA"},
-            {id: 1, type: "clan:streaksrm4", location: "RA"},
-            {id: 2, type: "clan:machinegun:halfton", location: "RA"},
+            {type: "clan:lrm10", location: "LA"},
+            {type: "clan:streaksrm4", location: "RA"},
+            {type: "clan:machinegun:halfton", location: "RA"},
         ],
         specials: ["omni"]
     },
@@ -557,10 +557,10 @@ const knownUnits = [
         tonnage: 25,
         bv: 608,
         ammo: [
-            {id: 0, type: "clan:ams", location: "LA"},
-            {id: 1, type: "clan:ams", location: "LA"},
-            {id: 2, type: "clan:ams", location: "LA"},
-            {id: 3, type: "clan:machinegun:halfton", location: "RA"},      
+            {type: "clan:antimissilesystem", location: "LA"},
+            {type: "clan:antimissilesystem", location: "LA"},
+            {type: "clan:antimissilesystem", location: "LA"},
+            {type: "clan:machinegun:halfton", location: "RA"},      
         ],
         specials: ["omni"]
     },
@@ -571,8 +571,8 @@ const knownUnits = [
         tonnage: 25,
         bv: 1209,
         ammo: [
-            {id: 0, type: "clan:srm6", location: "RA"},
-            {id: 1, type: "clan:srm6", location: "RA"},
+            {type: "clan:srm6", location: "RA"},
+            {type: "clan:srm6", location: "RA"},
         ],
         specials: ["omni"]
     },
@@ -600,10 +600,10 @@ const knownUnits = [
         tonnage: 35,
         bv: 1437,
         ammo: [
-            {id: 0, type: "clan:lrm20", location: "LA"},
-            {id: 1, type: "clan:lrm20", location: "LA"},
-            {id: 2, type: "clan:lrm20", location: "RA"},
-            {id: 3, type: "clan:lrm20", location: "RA"},
+            {type: "clan:lrm20", location: "LA"},
+            {type: "clan:lrm20", location: "LA"},
+            {type: "clan:lrm20", location: "RA"},
+            {type: "clan:lrm20", location: "RA"},
         ],
         specials: ["omni"]
     },
@@ -614,7 +614,7 @@ const knownUnits = [
         tonnage: 35,
         bv: 1422,
         ammo: [
-            {id: 0, type: "clan:lb5xac", location: "LA"},
+            {type: "clan:lb5xac", location: "LA"},
         ],
         specials: ["omni"]
     },
@@ -624,7 +624,7 @@ const knownUnits = [
         tonnage: 35,
         bv: 832,
         ammo: [
-            {id: 0, type: "is:srm4", location: "RT"},
+            {type: "is:srm4", location: "RT"},
         ],
         specials: ["c3s"]
     },
@@ -642,7 +642,7 @@ const knownUnits = [
         tonnage: 35,
         bv: 833,
         ammo: [
-            {id: 0, type: "is:srm4", location: "LT"},
+            {type: "is:srm4", location: "LT"},
         ],
         specials: ["c3s"]
     },
@@ -652,9 +652,9 @@ const knownUnits = [
         tonnage: 35,
         bv: 708,
         ammo: [
-            {id: 0, type: "is:srm6", location: "LT", default: "narc"},
-            {id: 1, type: "is:narc", location: "LT"},
-            {id: 2, type: "is:narc", location: "LT"}
+            {type: "is:srm6", location: "LT", default: "narc"},
+            {type: "is:narc", location: "LT"},
+            {type: "is:narc", location: "LT"}
         ],
         specials: ["tag"]
     },
@@ -665,9 +665,9 @@ const knownUnits = [
         tonnage: 40,
         bv: 1450,
         ammo: [
-            {id: 0, type: "clan:srm4", location: "LA"},
-            {id: 1, type: "clan:ams", location: "LT"},
-            {id: 2, type: "clan:machinegun:halfton", location: "RT"},
+            {type: "clan:srm4", location: "LA"},
+            {type: "clan:antimissilesystem", location: "LT"},
+            {type: "clan:machinegun:halfton", location: "RT"},
         ],
         specials: ["omni"]
     },
@@ -678,7 +678,7 @@ const knownUnits = [
         tonnage: 40,
         bv: 1989,
         ammo: [
-            {id: 0, type: "clan:srm6", location: "LA", default: "artemisiv"},
+            {type: "clan:srm6", location: "LA", default: "artemisiv"},
         ],
         specials: ["artemisiv", "omni"]
     },
@@ -698,7 +698,7 @@ const knownUnits = [
         tonnage: 45,
         bv: 2290,
         ammo: [
-            {id: 0, type: "clan:streaksrm6", location: "RT"},
+            {type: "clan:streaksrm6", location: "RT"},
         ],
         specials: ["omni"]
     },
@@ -709,10 +709,10 @@ const knownUnits = [
         tonnage: 45,
         bv: 2031,
         ammo: [
-            {id: 0, type: "clan:lrm15", location: "LT"},
-            {id: 1, type: "clan:lrm15", location: "LT"},
-            {id: 2, type: "clan:lrm15", location: "RT"},
-            {id: 3, type: "clan:lrm15", location: "RT"},
+            {type: "clan:lrm15", location: "LT"},
+            {type: "clan:lrm15", location: "LT"},
+            {type: "clan:lrm15", location: "RT"},
+            {type: "clan:lrm15", location: "RT"},
         ],
         specials: ["omni"]
     },
@@ -723,7 +723,7 @@ const knownUnits = [
         tonnage: 45,
         bv: 1903,
         ammo: [
-            {id: 0, type: "clan:ultraac5", location: "RT"},
+            {type: "clan:ultraac5", location: "RT"},
         ],
         specials: ["omni"]
     },
@@ -734,7 +734,7 @@ const knownUnits = [
         tonnage: 45,
         bv: 1678,
         ammo: [
-            {id: 0, type: "clan:streaksrm2", location: "RA"},
+            {type: "clan:streaksrm2", location: "RA"},
         ],
         specials: ["omni"]
     },
@@ -745,8 +745,8 @@ const knownUnits = [
         tonnage: 45,
         bv: 1323,
         ammo: [
-            {id: 0, type: "clan:lb2xac", location: "LA"},
-            {id: 1, type: "clan:ams", location: "RA"}
+            {type: "clan:lb2xac", location: "LA"},
+            {type: "clan:antimissilesystem", location: "RA"}
         ],
         specials: ["omni"]
     },
@@ -757,8 +757,8 @@ const knownUnits = [
         tonnage: 45,
         bv: 1461,
         ammo: [
-            {id: 0, type: "clan:srm4", location: "LA"},
-            {id: 1, type: "clan:srm6", location: "RA"},
+            {type: "clan:srm4", location: "LA"},
+            {type: "clan:srm6", location: "RA"},
         ],
         specials: ["omni"]
     },
@@ -768,8 +768,8 @@ const knownUnits = [
         tonnage: 45,
         bv: 2156,
         ammo: [
-            {id: 0, type: "clan:gaussrifle", location: "RT"},
-            {id: 1, type: "clan:gaussrifle", location: "RT"},
+            {type: "clan:gaussrifle", location: "RT"},
+            {type: "clan:gaussrifle", location: "RT"},
         ],
         specials: ["omni"]
     },
@@ -779,8 +779,8 @@ const knownUnits = [
         tonnage: 45,
         bv: 2220,
         ammo: [
-            {id: 0, type: "clan:streaksrm6", location: "RT"},
-            {id: 1, type: "clan:streaksrm6", location: "RT"},
+            {type: "clan:streaksrm6", location: "RT"},
+            {type: "clan:streaksrm6", location: "RT"},
         ],
         specials: ["omni"]
     },
@@ -790,10 +790,10 @@ const knownUnits = [
         tonnage: 45,
         bv: 2420,
         ammo: [
-            {id: 0, type: "clan:lrm15", location: "LT", default: "artemisiv"},
-            {id: 1, type: "clan:lrm15", location: "LT", default: "artemisiv"},
-            {id: 2, type: "clan:lrm15", location: "RT", default: "artemisiv"},
-            {id: 3, type: "clan:lrm15", location: "RT", default: "artemisiv"},
+            {type: "clan:lrm15", location: "LT", default: "artemisiv"},
+            {type: "clan:lrm15", location: "LT", default: "artemisiv"},
+            {type: "clan:lrm15", location: "RT", default: "artemisiv"},
+            {type: "clan:lrm15", location: "RT", default: "artemisiv"},
         ],
         specials: ["artemisiv", "omni"]
     },
@@ -829,7 +829,7 @@ const knownUnits = [
         tonnage: 50,
         bv: 2422,
         ammo: [
-            {id: 0, type: "clan:ams", location: "RT"}
+            {type: "clan:antimissilesystem", location: "RT"}
         ],
         specials: ["omni"]
     },
@@ -840,8 +840,8 @@ const knownUnits = [
         tonnage: 50,
         bv: 1543,
         ammo: [
-            {id: 0, type: "clan:ultraac5", location: "RA"},
-            {id: 1, type: "clan:machinegun", location: "LT"},
+            {type: "clan:ultraac5", location: "RA"},
+            {type: "clan:machinegun", location: "LT"},
         ],
         specials: ["omni"]
     },
@@ -851,8 +851,8 @@ const knownUnits = [
         tonnage: 55,
         bv: 1272,
         ammo: [
-            {id: 0, type: "is:lrm10", location: "RT"},
-            {id: 1, type: "is:lrm10", location: "RT"}
+            {type: "is:lrm10", location: "RT"},
+            {type: "is:lrm10", location: "RT"}
         ],
         specials: []
     },
@@ -862,7 +862,7 @@ const knownUnits = [
         tonnage: 55,
         bv: 1253,
         ammo: [
-            {id: 0, type: "is:lrm5", location: "RT"}
+            {type: "is:lrm5", location: "RT"}
         ],
         specials: []
     },
@@ -872,9 +872,9 @@ const knownUnits = [
         tonnage: 55,
         bv: 1064,
         ammo: [
-            {id: 0, type: "is:ac5", location: "LT"},
-            {id: 1, type: "is:srm2", location: "CT"},
-            {id: 2, type: "is:lrm5", location: "RT"}
+            {type: "is:ac5", location: "LT"},
+            {type: "is:srm2", location: "CT"},
+            {type: "is:lrm5", location: "RT"}
         ],
         specials: []
     },
@@ -894,10 +894,10 @@ const knownUnits = [
         tonnage: 55,
         bv: 2319,
         ammo: [
-            {id: 0, type: "clan:lrm20", location: "RA"},
-            {id: 1, type: "clan:lrm20", location: "RA"},
-            {id: 2, type: "clan:streaksrm6", location: "LT"},
-            {id: 3, type: "clan:streaksrm6", location: "RT"},
+            {type: "clan:lrm20", location: "RA"},
+            {type: "clan:lrm20", location: "RA"},
+            {type: "clan:streaksrm6", location: "LT"},
+            {type: "clan:streaksrm6", location: "RT"},
         ],
         specials: ["omni"]
     },
@@ -908,8 +908,8 @@ const knownUnits = [
         tonnage: 55,
         bv: 2281,
         ammo: [
-            {id: 0, type: "clan:ultraac20", location: "LT"},
-            {id: 1, type: "clan:ultraac20", location: "LT"},
+            {type: "clan:ultraac20", location: "LT"},
+            {type: "clan:ultraac20", location: "LT"},
         ],
         specials: ["omni"]
     },
@@ -919,7 +919,7 @@ const knownUnits = [
         tonnage: 55,
         bv: 1291,
         ammo: [
-            {id: 0, type: "is:srm6", location: "RT"}
+            {type: "is:srm6", location: "RT"}
         ],
         specials: []
     },
@@ -929,8 +929,8 @@ const knownUnits = [
         tonnage: 55,
         bv: 1101,
         ammo: [
-            {id: 0, type: "is:ac5", location: "RA"},
-            {id: 1, type: "is:srm6", location: "LT"}
+            {type: "is:ac5", location: "RA"},
+            {type: "is:srm6", location: "LT"}
         ],
         specials: []
     },
@@ -940,8 +940,8 @@ const knownUnits = [
         tonnage: 60,
         bv: 1322,
         ammo: [
-            {id: 0, type: "is:lrm10", location: "LT"},
-            {id: 1, type: "is:lrm10", location: "LT"},
+            {type: "is:lrm10", location: "LT"},
+            {type: "is:lrm10", location: "LT"},
         ],
         specials: ["c3s"]
     },
@@ -960,8 +960,8 @@ const knownUnits = [
         tonnage: 60,
         bv: 2351,
         ammo: [
-            {id: 0, type: "clan:lrm20", location: "LT"},
-            {id: 1, type: "clan:lrm20", location: "RT"},
+            {type: "clan:lrm20", location: "LT"},
+            {type: "clan:lrm20", location: "RT"},
         ],
         specials: ["omni"]
     },
@@ -972,12 +972,12 @@ const knownUnits = [
         tonnage: 60,
         bv: 1923,
         ammo: [
-            {id: 0, type: "clan:lb5xac", location: "LA"},
-            {id: 1, type: "clan:lb5xac", location: "LA", default: "cluster"},
-            {id: 2, type: "clan:srm6", location: "LT"},
-            {id: 3, type: "clan:srm6", location: "LT"},
-            {id: 4, type: "clan:srm6", location: "RT"},
-            {id: 5, type: "clan:srm6", location: "RT"},
+            {type: "clan:lb5xac", location: "LA"},
+            {type: "clan:lb5xac", location: "LA", default: "cluster"},
+            {type: "clan:srm6", location: "LT"},
+            {type: "clan:srm6", location: "LT"},
+            {type: "clan:srm6", location: "RT"},
+            {type: "clan:srm6", location: "RT"},
         ],
         specials: ["omni"]
     },
@@ -988,8 +988,8 @@ const knownUnits = [
         tonnage: 60,
         bv: 2284,
         ammo: [
-            {id: 0, type: "clan:lrm20", location: "LT", default: "artemisiv"},
-            {id: 1, type: "clan:streaksrm6", location: "RT"},
+            {type: "clan:lrm20", location: "LT", default: "artemisiv"},
+            {type: "clan:streaksrm6", location: "RT"},
         ],
         specials: ["artemisiv", "omni"]
     },
@@ -999,8 +999,8 @@ const knownUnits = [
         tonnage: 65,
         bv: 1399,
         ammo: [
-            {id: 0, type: "is:lrm15", location: "LT"},
-            {id: 1, type: "is:lrm15", location: "RT"}
+            {type: "is:lrm15", location: "LT"},
+            {type: "is:lrm15", location: "RT"}
         ],
         specials: []
     },
@@ -1010,7 +1010,7 @@ const knownUnits = [
         tonnage: 65,
         bv: 1319,
         ammo: [
-            {id: 0, type: "is:machinegun", location: "CT"}
+            {type: "is:machinegun", location: "CT"}
         ],
         specials: []
     },
@@ -1020,10 +1020,10 @@ const knownUnits = [
         tonnage: 65,
         bv: 1457,
         ammo: [
-            {id: 0, type: "is:mrm30", location: "LT"},
-            {id: 1, type: "is:mrm30", location: "LT"},
-            {id: 2, type: "is:mrm30", location: "RT"},
-            {id: 3, type: "is:mrm30", location: "RT"},
+            {type: "is:mrm30", location: "LT"},
+            {type: "is:mrm30", location: "LT"},
+            {type: "is:mrm30", location: "RT"},
+            {type: "is:mrm30", location: "RT"},
         ],
         specials: ["c3s"]
     },
@@ -1033,10 +1033,10 @@ const knownUnits = [
         tonnage: 65,
         bv: 1532,
         ammo: [
-            {id: 0, type: "is:inarc", location: "RT"},
-            {id: 1, type: "is:inarc", location: "RT"},
-            {id: 2, type: "is:inarc", location: "RT"},
-            {id: 3, type: "is:inarc", location: "RT"},
+            {type: "is:inarc", location: "RT"},
+            {type: "is:inarc", location: "RT"},
+            {type: "is:inarc", location: "RT"},
+            {type: "is:inarc", location: "RT"},
         ],
         specials: ["c3i"]
     },
@@ -1047,9 +1047,9 @@ const knownUnits = [
         tonnage: 65,
         bv: 2654,
         ammo: [
-            {id: 0, type: "clan:ams", location: "CT"},
-            {id: 1, type: "clan:streaksrm6", location: "RT"},
-            {id: 2, type: "clan:machinegun:halfton", location: "RT"},
+            {type: "clan:antimissilesystem", location: "CT"},
+            {type: "clan:streaksrm6", location: "RT"},
+            {type: "clan:machinegun:halfton", location: "RT"},
         ],
         specials: ["omni"]
     },
@@ -1060,10 +1060,10 @@ const knownUnits = [
         tonnage: 65,
         bv: 1948,
         ammo: [
-            {id: 0, type: "clan:ultraac5", location: "RA"},
-            {id: 1, type: "clan:narc", location: "LT"},
-            {id: 2, type: "clan:machinegun", location: "CT"},
-            {id: 3, type: "clan:lrm20", location: "RT", default: "narc"},
+            {type: "clan:ultraac5", location: "RA"},
+            {type: "clan:narc", location: "LT"},
+            {type: "clan:machinegun", location: "CT"},
+            {type: "clan:lrm20", location: "RT", default: "narc"},
         ],
         specials: ["omni"]
     },
@@ -1074,10 +1074,10 @@ const knownUnits = [
         tonnage: 65,
         bv: 1592,
         ammo: [
-            {id: 0, type: "clan:lb5xac", location: "LA"},
-            {id: 1, type: "clan:gaussrifle", location: "RA"},
-            {id: 2, type: "clan:srm6", location: "RT", default: "artemisiv"},
-            {id: 3, type: "clan:srm6", location: "RT", default: "artemisiv"},
+            {type: "clan:lb5xac", location: "LA"},
+            {type: "clan:gaussrifle", location: "RA"},
+            {type: "clan:srm6", location: "RT", default: "artemisiv"},
+            {type: "clan:srm6", location: "RT", default: "artemisiv"},
         ],
         specials: ["artemisiv", "omni"]
     },
@@ -1087,10 +1087,10 @@ const knownUnits = [
         tonnage: 65,
         bv: 1335,
         ammo: [
-            {id: 0, type: "is:lrm15", location: "CT"},
-            {id: 1, type: "is:lrm15", location: "CT"},
-            {id: 2, type: "is:srm2", location: "RT"},
-            {id: 3, type: "is:machinegun", location: "LA"}
+            {type: "is:lrm15", location: "CT"},
+            {type: "is:lrm15", location: "CT"},
+            {type: "is:srm2", location: "RT"},
+            {type: "is:machinegun", location: "LA"}
         ],
         specials: []
     },
@@ -1100,8 +1100,8 @@ const knownUnits = [
         tonnage: 65,
         bv: 1414,
         ammo: [
-            {id: 0, type: "is:lrm10", location: "CT"},
-            {id: 1, type: "is:lrm10", location: "CT"}
+            {type: "is:lrm10", location: "CT"},
+            {type: "is:lrm10", location: "CT"}
         ],
         specials: []
     },
@@ -1111,10 +1111,10 @@ const knownUnits = [
         tonnage: 70,
         bv: 1705,
         ammo: [
-            {id: 0, type: "is:lrm20", location: "LT", default: "artemisiv"},
-            {id: 1, type: "is:lrm20", location: "LT", default: "artemisiv"},
-            {id: 2, type: "is:lrm20", location: "RT", default: "artemisiv"},
-            {id: 3, type: "is:lrm20", location: "RT", default: "artemisiv"},
+            {type: "is:lrm20", location: "LT", default: "artemisiv"},
+            {type: "is:lrm20", location: "LT", default: "artemisiv"},
+            {type: "is:lrm20", location: "RT", default: "artemisiv"},
+            {type: "is:lrm20", location: "RT", default: "artemisiv"},
         ],
         specials: ["artemisiv"]
     },
@@ -1124,10 +1124,10 @@ const knownUnits = [
         tonnage: 70,
         bv: 2408,
         ammo: [
-            {id: 0, type: "clan:lrm20", location: "LT", default: "artemisv"},
-            {id: 1, type: "clan:lrm20", location: "LT", default: "artemisv"},
-            {id: 2, type: "clan:lrm20", location: "RT", default: "artemisv"},
-            {id: 3, type: "clan:lrm20", location: "RT", default: "artemisv"},
+            {type: "clan:lrm20", location: "LT", default: "artemisv"},
+            {type: "clan:lrm20", location: "LT", default: "artemisv"},
+            {type: "clan:lrm20", location: "RT", default: "artemisv"},
+            {type: "clan:lrm20", location: "RT", default: "artemisv"},
         ],
         specials: ["artemisv"]
     },
@@ -1138,9 +1138,9 @@ const knownUnits = [
         tonnage: 70,
         bv: 2298,
         ammo: [
-            {id: 0, type: "clan:lb10xac", location: "LA"},
-            {id: 1, type: "clan:lrm15", location: "LT"},
-            {id: 2, type: "clan:lrm15", location: "LT"},
+            {type: "clan:lb10xac", location: "LA"},
+            {type: "clan:lrm15", location: "LT"},
+            {type: "clan:lrm15", location: "LT"},
         ],
         specials: ["omni"]
     },
@@ -1151,9 +1151,9 @@ const knownUnits = [
         tonnage: 70,
         bv: 2145,
         ammo: [
-            {id: 0, type: "clan:gaussrifle", location: "LA"},
-            {id: 1, type: "clan:srm6", location: "LT"},
-            {id: 2, type: "clan:srm6", location: "LT"},
+            {type: "clan:gaussrifle", location: "LA"},
+            {type: "clan:srm6", location: "LT"},
+            {type: "clan:srm6", location: "LT"},
         ],
         specials: ["omni"]
     },
@@ -1164,14 +1164,14 @@ const knownUnits = [
         tonnage: 70,
         bv: 2159,
         ammo: [
-            {id: 0, type: "clan:lrm20", location: "LA", default: "narc"},
-            {id: 1, type: "clan:lrm20", location: "LA", default: "narc"},
-            {id: 2, type: "clan:lrm20", location: "RA", default: "narc"},
-            {id: 3, type: "clan:lrm20", location: "RA", default: "narc"},
-            {id: 4, type: "clan:srm4", location: "LA", default: "narc"},
-            {id: 5, type: "clan:srm4", location: "LA", default: "narc"},
-            {id: 6, type: "clan:ams", location: "LT"},
-            {id: 7, type: "clan:narc", location: "LT"},
+            {type: "clan:lrm20", location: "LA", default: "narc"},
+            {type: "clan:lrm20", location: "LA", default: "narc"},
+            {type: "clan:lrm20", location: "RA", default: "narc"},
+            {type: "clan:lrm20", location: "RA", default: "narc"},
+            {type: "clan:srm4", location: "LA", default: "narc"},
+            {type: "clan:srm4", location: "LA", default: "narc"},
+            {type: "clan:antimissilesystem", location: "LT"},
+            {type: "clan:narc", location: "LT"},
         ],
         specials: ["omni"]
     },
@@ -1189,11 +1189,11 @@ const knownUnits = [
         tonnage: 75,
         bv: 1501,
         ammo: [
-            {id: 0, type: "is:mrm30", location: "LT"},
-            {id: 1, type: "is:mrm30", location: "LT"},
-            {id: 2, type: "is:mrm20", location: "LT"},
-            {id: 3, type: "is:lb10xac", location: "RT"},
-            {id: 4, type: "is:lb10xac", location: "RT", default: "cluster"},
+            {type: "is:mrm30", location: "LT"},
+            {type: "is:mrm30", location: "LT"},
+            {type: "is:mrm20", location: "LT"},
+            {type: "is:lb10xac", location: "RT"},
+            {type: "is:lb10xac", location: "RT", default: "cluster"},
         ],
         specials: ["c3s"]
     },
@@ -1204,9 +1204,9 @@ const knownUnits = [
         tonnage: 75,
         bv: 2737,
         ammo: [
-            {id: 0, type: "clan:lrm20", location: "LT"},
-            {id: 1, type: "clan:lrm20", location: "RT"},
-            {id: 2, type: "clan:machinegun", location: "RT"},
+            {type: "clan:lrm20", location: "LT"},
+            {type: "clan:lrm20", location: "RT"},
+            {type: "clan:machinegun", location: "RT"},
         ],
         specials: ["omni"]
     },
@@ -1217,7 +1217,7 @@ const knownUnits = [
         tonnage: 75,
         bv: 2854,
         ammo: [
-            {id: 0, type: "clan:streaksrm6", location: "RT"},
+            {type: "clan:streaksrm6", location: "RT"},
         ],
         specials: ["omni"]
     },
@@ -1228,9 +1228,9 @@ const knownUnits = [
         tonnage: 75,
         bv: 2224,
         ammo: [
-            {id: 0, type: "clan:gaussrifle", location: "RA"},
-            {id: 1, type: "clan:lrm10", location: "LT", default: "artemisiv"},
-            {id: 2, type: "clan:srm4", location: "RT", default: "artemisiv"},
+            {type: "clan:gaussrifle", location: "RA"},
+            {type: "clan:lrm10", location: "LT", default: "artemisiv"},
+            {type: "clan:srm4", location: "RT", default: "artemisiv"},
         ],
         specials: ["artemisiv", "omni"]
     },
@@ -1241,8 +1241,8 @@ const knownUnits = [
         tonnage: 75,
         bv: 2900,
         ammo: [
-            {id: 0, type: "clan:lrm20", location: "LT"},
-            {id: 1, type: "clan:lrm20", location: "RT"},
+            {type: "clan:lrm20", location: "LT"},
+            {type: "clan:lrm20", location: "RT"},
         ],
         specials: ["omni"]
     },
@@ -1261,10 +1261,10 @@ const knownUnits = [
         tonnage: 80,
         bv: 1537,
         ammo: [
-            {id: 0, type: "clan:lb5xac", location: "LT"},
-            {id: 1, type: "clan:lb5xac", location: "RT", default: "cluster"},
-            {id: 2, type: "clan:srm6", location: "LT"},
-            {id: 3, type: "clan:srm6", location: "RT"},
+            {type: "clan:lb5xac", location: "LT"},
+            {type: "clan:lb5xac", location: "RT", default: "cluster"},
+            {type: "clan:srm6", location: "LT"},
+            {type: "clan:srm6", location: "RT"},
         ],
         specials: ["omni"]
     },
@@ -1284,10 +1284,10 @@ const knownUnits = [
         tonnage: 80,
         bv: 1843,
         ammo: [
-            {id: 0, type: "clan:lrm10", location: "LA", default: "artemisiv"},
-            {id: 1, type: "clan:srm4", location: "LA", default: "artemisiv"},
-            {id: 2, type: "clan:gaussrifle", location: "RA"},
-            {id: 3, type: "clan:gaussrifle", location: "RA"},
+            {type: "clan:lrm10", location: "LA", default: "artemisiv"},
+            {type: "clan:srm4", location: "LA", default: "artemisiv"},
+            {type: "clan:gaussrifle", location: "RA"},
+            {type: "clan:gaussrifle", location: "RA"},
         ],
         specials: ["artemisiv", "omni"]
     },
@@ -1297,7 +1297,7 @@ const knownUnits = [
         tonnage: 80,
         bv: 1751,
         ammo: [
-            {id: 0, type: "is:streaksrm6", location: "RT"}
+            {type: "is:streaksrm6", location: "RT"}
         ],
         specials: ["c3i"]
     },
@@ -1307,9 +1307,9 @@ const knownUnits = [
         tonnage: 85,
         bv: 1519,
         ammo: [
-            {id: 0, type: "is:srm6", location: "LT"},
-            {id: 1, type: "is:srm6", location: "LT"},
-            {id: 2, type: "is:machinegun", location: "LT"}
+            {type: "is:srm6", location: "LT"},
+            {type: "is:srm6", location: "LT"},
+            {type: "is:machinegun", location: "LT"}
         ],
         specials: []
     },
@@ -1319,10 +1319,10 @@ const knownUnits = [
         tonnage: 85,
         bv: 1618,
         ammo: [
-            {id: 0, type: "is:srm6", location: "RT"},
-            {id: 1, type: "is:srm6", location: "RT"},
-            {id: 2, type: "is:lb10xac", location: "RT"},
-            {id: 3, type: "is:lb10xac", location: "RT", default: "cluster"},
+            {type: "is:srm6", location: "RT"},
+            {type: "is:srm6", location: "RT"},
+            {type: "is:lb10xac", location: "RT"},
+            {type: "is:lb10xac", location: "RT", default: "cluster"},
         ],
         specials: ["c3s"]
     },
@@ -1332,9 +1332,9 @@ const knownUnits = [
         tonnage: 85,
         bv: 1554,
         ammo: [
-            {id: 0, type: "is:srm6", location: "RT"},
-            {id: 1, type: "is:lb10xac", location: "RT"},
-            {id: 2, type: "is:lb10xac", location: "RT", default: "cluster"},
+            {type: "is:srm6", location: "RT"},
+            {type: "is:lb10xac", location: "RT"},
+            {type: "is:lb10xac", location: "RT", default: "cluster"},
         ],
         specials: ["c3m", "tag"]
     },
@@ -1345,9 +1345,9 @@ const knownUnits = [
         tonnage: 95,
         bv: 2749,
         ammo: [
-            {id: 0, type: "clan:gaussrifle", location: "LT"},
-            {id: 1, type: "clan:gaussrifle", location: "LT"},
-            {id: 2, type: "clan:machinegun", location: "RT"},
+            {type: "clan:gaussrifle", location: "LT"},
+            {type: "clan:gaussrifle", location: "LT"},
+            {type: "clan:machinegun", location: "RT"},
         ],
         specials: ["omni"]
     },
@@ -1358,7 +1358,7 @@ const knownUnits = [
         tonnage: 95,
         bv: 3112,
         ammo: [
-            {id: 0, type: "clan:machinegun", location: "RT"},
+            {type: "clan:machinegun", location: "RT"},
         ],
         specials: ["omni"]
     },
@@ -1369,10 +1369,10 @@ const knownUnits = [
         tonnage: 95,
         bv: 2940,
         ammo: [
-            {id: 0, type: "clan:ultraac20", location: "LT"},
-            {id: 1, type: "clan:ultraac20", location: "LT"},
-            {id: 2, type: "clan:ultraac20", location: "LT"},
-            {id: 3, type: "clan:ams", location: "RT"},
+            {type: "clan:ultraac20", location: "LT"},
+            {type: "clan:ultraac20", location: "LT"},
+            {type: "clan:ultraac20", location: "LT"},
+            {type: "clan:antimissilesystem", location: "RT"},
         ],
         specials: ["omni"]
     },
@@ -1382,11 +1382,11 @@ const knownUnits = [
         tonnage: 100,
         bv: 2163,
         ammo: [
-            {id: 0, type: "is:gaussrifle", location: "RA"},
-            {id: 1, type: "is:gaussrifle", location: "RA"},
-            {id: 2, type: "is:lrm20", location: "LT"},
-            {id: 3, type: "is:lrm20", location: "LT"},
-            {id: 4, type: "is:ams", location: "LT"},
+            {type: "is:gaussrifle", location: "RA"},
+            {type: "is:gaussrifle", location: "RA"},
+            {type: "is:lrm20", location: "LT"},
+            {type: "is:lrm20", location: "LT"},
+            {type: "is:antimissilesystem", location: "LT"},
         ],
         specials: ["c3s"]
     },
@@ -1396,11 +1396,11 @@ const knownUnits = [
         tonnage: 100,
         bv: 2036,
         ammo: [
-            {id: 0, type: "is:gaussrifle", location: "RA"},
-            {id: 1, type: "is:gaussrifle", location: "RA"},
-            {id: 2, type: "is:lrm20", location: "LT"},
-            {id: 3, type: "is:lrm20", location: "LT"},
-            {id: 4, type: "is:ams", location: "LT"},
+            {type: "is:gaussrifle", location: "RA"},
+            {type: "is:gaussrifle", location: "RA"},
+            {type: "is:lrm20", location: "LT"},
+            {type: "is:lrm20", location: "LT"},
+            {type: "is:antimissilesystem", location: "LT"},
         ],
         specials: ["c3m", "tag"]
     },
@@ -1411,9 +1411,9 @@ const knownUnits = [
         tonnage: 100,
         bv: 2712,
         ammo: [
-            {id: 0, type: "clan:ultraac5", location: "LA"},
-            {id: 1, type: "clan:ultraac5", location: "RA"},
-            {id: 2, type: "clan:lrm10", location: "LT"},
+            {type: "clan:ultraac5", location: "LA"},
+            {type: "clan:ultraac5", location: "RA"},
+            {type: "clan:lrm10", location: "LT"},
         ],
         specials: ["omni"]
     },
@@ -1424,14 +1424,14 @@ const knownUnits = [
         tonnage: 100,
         bv: 2855,
         ammo: [
-            {id: 0, type: "clan:gaussrifle", location: "LA"},
-            {id: 1, type: "clan:gaussrifle", location: "LA"},
-            {id: 2, type: "clan:gaussrifle", location: "LA"},
-            {id: 3, type: "clan:streaksrm6", location: "LT"},
-            {id: 4, type: "clan:streaksrm6", location: "LT"},
-            {id: 5, type: "clan:ams", location: "RT"},
-            {id: 6, type: "clan:ams", location: "RT"},
-            {id: 7, type: "clan:ams", location: "RT"},
+            {type: "clan:gaussrifle", location: "LA"},
+            {type: "clan:gaussrifle", location: "LA"},
+            {type: "clan:gaussrifle", location: "LA"},
+            {type: "clan:streaksrm6", location: "LT"},
+            {type: "clan:streaksrm6", location: "LT"},
+            {type: "clan:antimissilesystem", location: "RT"},
+            {type: "clan:antimissilesystem", location: "RT"},
+            {type: "clan:antimissilesystem", location: "RT"},
         ],
         specials: ["omni"]
     },
@@ -1442,10 +1442,10 @@ const knownUnits = [
         tonnage: 100,
         bv: 2609,
         ammo: [
-            {id: 0, type: "clan:lb10xac", location: "RA"},
-            {id: 1, type: "clan:lb10xac", location: "RA", default: "cluster"},
-            {id: 2, type: "clan:ultraac2", location: "LT"},
-            {id: 3, type: "clan:ultraac2", location: "RT"},
+            {type: "clan:lb10xac", location: "RA"},
+            {type: "clan:lb10xac", location: "RA", default: "cluster"},
+            {type: "clan:ultraac2", location: "LT"},
+            {type: "clan:ultraac2", location: "RT"},
         ],
         specials: ["omni"]
     },
@@ -1456,8 +1456,8 @@ const knownUnits = [
         tonnage: 100,
         bv: 3041,
         ammo: [
-            {id: 0, type: "clan:ultraac20", location: "RA"},
-            {id: 1, type: "clan:ultraac20", location: "RA"},
+            {type: "clan:ultraac20", location: "RA"},
+            {type: "clan:ultraac20", location: "RA"},
         ],
         specials: ["omni"]
     },
@@ -1467,13 +1467,13 @@ const knownUnits = [
         tonnage: 100,
         bv: 2264,
         ammo: [
-            {id: 0, type: "is:lb20xac", location: "LT"},
-            {id: 1, type: "is:lb20xac", location: "LT"},
-            {id: 2, type: "is:lb20xac", location: "LT", default: "cluster"},
-            {id: 3, type: "is:lb20xac", location: "RT"},
-            {id: 4, type: "is:lb20xac", location: "RT", default: "cluster"},
-            {id: 5, type: "is:lb20xac", location: "RT", default: "cluster"},
-            {id: 6, type: "is:streaksrm4", location: "LT"},
+            {type: "is:lb20xac", location: "LT"},
+            {type: "is:lb20xac", location: "LT"},
+            {type: "is:lb20xac", location: "LT", default: "cluster"},
+            {type: "is:lb20xac", location: "RT"},
+            {type: "is:lb20xac", location: "RT", default: "cluster"},
+            {type: "is:lb20xac", location: "RT", default: "cluster"},
+            {type: "is:streaksrm4", location: "LT"},
         ],
         specials: ["c3i"]
     },
@@ -1483,8 +1483,8 @@ const knownUnits = [
         tonnage: 5,
         bv: 447,
         ammo: [
-            {id: 0, type: "clan:ba-srm2", location: "Body"},
-            {id: 1, type: "clan:ba-srm2", location: "Body"},
+            {type: "clan:ba-srm2", location: "Body"},
+            {type: "clan:ba-srm2", location: "Body"},
         ],
         specials: []
     },
@@ -1494,8 +1494,8 @@ const knownUnits = [
         tonnage: 5,
         bv: 404,
         ammo: [
-            {id: 0, type: "clan:ba-srm2", location: "Body"},
-            {id: 1, type: "clan:ba-srm2", location: "Body"},
+            {type: "clan:ba-srm2", location: "Body"},
+            {type: "clan:ba-srm2", location: "Body"},
         ],
         specials: []
     },
@@ -1505,8 +1505,8 @@ const knownUnits = [
         tonnage: 5,
         bv: 404,
         ammo: [
-            {id: 0, type: "clan:ba-srm2", location: "Body"},
-            {id: 1, type: "clan:ba-srm2", location: "Body"},
+            {type: "clan:ba-srm2", location: "Body"},
+            {type: "clan:ba-srm2", location: "Body"},
         ],
         specials: []
     },
