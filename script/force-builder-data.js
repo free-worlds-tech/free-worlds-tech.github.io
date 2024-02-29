@@ -35,6 +35,8 @@ function getKnownUnit(unitId)
     return knownUnits.find((x) => x.id == unitId);
 }
 
+let knownUnits = [];
+
 const knownWeapons = [
     {
         id: "is:lightmachinegun", 
