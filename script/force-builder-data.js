@@ -35,7 +35,23 @@ function getKnownUnit(unitId)
     return knownUnits.find((x) => x.id == unitId);
 }
 
+let knownUnits = [];
+
 const knownWeapons = [
+    {
+        id: "is:lightmachinegun", 
+        name: "Light Machine Gun", 
+        ammoTypes: [
+            {id: "standard", name: "Standard (200)"}
+        ]
+    },
+    {
+        id: "is:lightmachinegun:halfton", 
+        name: "Light Machine Gun", 
+        ammoTypes: [
+            {id: "standard", name: "Standard (100)"}
+        ]
+    },
     {
         id: "is:machinegun", 
         name: "Machine Gun", 
@@ -48,6 +64,20 @@ const knownWeapons = [
         name: "Machine Gun", 
         ammoTypes: [
             {id: "standard", name: "Standard (100)"}
+        ]
+    },
+    {
+        id: "is:heavymachinegun", 
+        name: "Heavy Machine Gun", 
+        ammoTypes: [
+            {id: "standard", name: "Standard (100)"}
+        ]
+    },
+    {
+        id: "is:heavymachinegun:halfton", 
+        name: "Heavy Machine Gun", 
+        ammoTypes: [
+            {id: "standard", name: "Standard (50)"}
         ]
     },
     {
@@ -127,10 +157,73 @@ const knownWeapons = [
         ]
     },
     {
+        id: "is:ultraac2",
+        name: "Ultra AC/2",
+        ammoTypes: [
+            {id: "standard", name: "Standard (45)"}
+        ]
+    },
+    {
+        id: "is:ultraac5",
+        name: "Ultra AC/5",
+        ammoTypes: [
+            {id: "standard", name: "Standard (20)"}
+        ]
+    },
+    {
+        id: "is:ultraac10",
+        name: "Ultra AC/10",
+        ammoTypes: [
+            {id: "standard", name: "Standard (10)"}
+        ]
+    },
+    {
+        id: "is:ultraac20",
+        name: "Ultra AC/20",
+        ammoTypes: [
+            {id: "standard", name: "Standard (5)"}
+        ]
+    },
+    {
+        id: "is:rac2",
+        name: "Rotary AC/2",
+        ammoTypes: [
+            {id: "standard", name: "Standard (45)"}
+        ]
+    },
+    {
+        id: "is:rac5",
+        name: "Rotary AC/5",
+        ammoTypes: [
+            {id: "standard", name: "Standard (20)"}
+        ]
+    },
+    {
+        id: "is:lightgaussrifle",
+        name: "Light Gauss Rifle",
+        ammoTypes: [
+            {id: "standard", name: "Standard (16)"},
+        ]
+    },
+    {
         id: "is:gaussrifle",
         name: "Gauss Rifle",
         ammoTypes: [
             {id: "standard", name: "Standard (8)"},
+        ]
+    },
+    {
+        id: "is:heavygaussrifle",
+        name: "Heavy Gauss Rifle",
+        ammoTypes: [
+            {id: "standard", name: "Standard (4)"},
+        ]
+    },
+    {
+        id: "is:improvedheavygaussrifle",
+        name: "Improved Heavy Gauss Rifle",
+        ammoTypes: [
+            {id: "standard", name: "Standard (4)"},
         ]
     },
     {
@@ -279,10 +372,88 @@ const knownWeapons = [
         ]
     },
     {
+        id: "is:mml3",
+        name: "MML 3",
+        ammoTypes: [
+            {id: "lrm", name: "LRM (40)"},
+            {id: "lrm-artemisiv", name: "Artemis IV-Equipped LRM (40)", requirement:"artemisiv"},
+            {id: "lrm-fragmentation", name: "Fragmentation LRM (40)"},
+            {id: "lrm-narc", name: "Narc-Equipped LRM (40)"},
+            {id: "lrm-semiguided", name: "Semi-Guided LRM (40)", tagBV: 4},
+            {id: "srm", name: "SRM (33)"},
+            {id: "srm-artemisiv", name: "Artemis IV-Equipped SRM (33)", requirement:"artemisiv"},
+            {id: "srm-fragmentation", name: "Fragmentation SRM (33)"},
+            {id: "srm-inferno", name: "Inferno SRM (33)"},
+            {id: "srm-narc", name: "Narc-Equipped SRM (33)"}
+        ]
+    },
+    {
+        id: "is:mml5",
+        name: "MML 5",
+        ammoTypes: [
+            {id: "lrm", name: "LRM (24)"},
+            {id: "lrm-artemisiv", name: "Artemis IV-Equipped LRM (24)", requirement:"artemisiv"},
+            {id: "lrm-fragmentation", name: "Fragmentation LRM (24)"},
+            {id: "lrm-narc", name: "Narc-Equipped LRM (24)"},
+            {id: "lrm-semiguided", name: "Semi-Guided LRM (24)", tagBV: 6},
+            {id: "srm", name: "SRM (20)"},
+            {id: "srm-artemisiv", name: "Artemis IV-Equipped SRM (20)", requirement:"artemisiv"},
+            {id: "srm-fragmentation", name: "Fragmentation SRM (20)"},
+            {id: "srm-inferno", name: "Inferno SRM (20)"},
+            {id: "srm-narc", name: "Narc-Equipped SRM (20)"}
+        ]
+    },
+    {
+        id: "is:mml7",
+        name: "MML 7",
+        ammoTypes: [
+            {id: "lrm", name: "LRM (17)"},
+            {id: "lrm-artemisiv", name: "Artemis IV-Equipped LRM (17)", requirement:"artemisiv"},
+            {id: "lrm-fragmentation", name: "Fragmentation LRM (17)"},
+            {id: "lrm-narc", name: "Narc-Equipped LRM (17)"},
+            {id: "lrm-semiguided", name: "Semi-Guided LRM (17)", tagBV: 8},
+            {id: "srm", name: "SRM (14)"},
+            {id: "srm-artemisiv", name: "Artemis IV-Equipped SRM (14)", requirement:"artemisiv"},
+            {id: "srm-fragmentation", name: "Fragmentation SRM (14)"},
+            {id: "srm-inferno", name: "Inferno SRM (14)"},
+            {id: "srm-narc", name: "Narc-Equipped SRM (14)"}
+        ]
+    },
+    {
+        id: "is:mml9",
+        name: "MML 9",
+        ammoTypes: [
+            {id: "lrm", name: "LRM (13)"},
+            {id: "lrm-artemisiv", name: "Artemis IV-Equipped LRM (13)", requirement:"artemisiv"},
+            {id: "lrm-fragmentation", name: "Fragmentation LRM (13)"},
+            {id: "lrm-narc", name: "Narc-Equipped LRM (13)"},
+            {id: "lrm-semiguided", name: "Semi-Guided LRM (13)", tagBV: 11},
+            {id: "srm", name: "SRM (11)"},
+            {id: "srm-artemisiv", name: "Artemis IV-Equipped SRM (11)", requirement:"artemisiv"},
+            {id: "srm-fragmentation", name: "Fragmentation SRM (11)"},
+            {id: "srm-inferno", name: "Inferno SRM (11)"},
+            {id: "srm-narc", name: "Narc-Equipped SRM (11)"}
+        ]
+    },
+    {
         id: "is:antimissilesystem",
         name: "AMS",
         ammoTypes: [
             {id: "standard", name: "Standard (12)"},
+        ]
+    },
+    {
+        id: "clan:lightmachinegun", 
+        name: "Light Machine Gun", 
+        ammoTypes: [
+            {id: "standard", name: "Standard (200)"}
+        ]
+    },
+    {
+        id: "clan:lightmachinegun:halfton", 
+        name: "Light Machine Gun", 
+        ammoTypes: [
+            {id: "standard", name: "Standard (100)"}
         ]
     },
     {
@@ -297,6 +468,20 @@ const knownWeapons = [
         name: "Machine Gun", 
         ammoTypes: [
             {id: "standard", name: "Standard (100)"}
+        ]
+    },
+    {
+        id: "clan:heavymachinegun", 
+        name: "Heavy Machine Gun", 
+        ammoTypes: [
+            {id: "standard", name: "Standard (100)"}
+        ]
+    },
+    {
+        id: "clan:heavymachinegun:halfton", 
+        name: "Heavy Machine Gun", 
+        ammoTypes: [
+            {id: "standard", name: "Standard (50)"}
         ]
     },
     {
@@ -357,6 +542,20 @@ const knownWeapons = [
         name: "Ultra AC/20",
         ammoTypes: [
             {id: "standard", name: "Standard (5)"}
+        ]
+    },
+    {
+        id: "clan:rac2",
+        name: "Rotary AC/2",
+        ammoTypes: [
+            {id: "standard", name: "Standard (45)"}
+        ]
+    },
+    {
+        id: "clan:rac5",
+        name: "Rotary AC/5",
+        ammoTypes: [
+            {id: "standard", name: "Standard (20)"}
         ]
     },
     {
@@ -483,1033 +682,6 @@ const knownWeapons = [
             {id: "torpedo", name: "Torpedo (1)", requirement:"umu"}
         ]
     }
-];
-
-const knownUnits = [
-    {
-        id: "lct-1e",
-        name: "Locust LCT-1E",
-        tonnage: 20,
-        bv: 553,
-        ammo: [],
-        specials: []
-    },
-    {
-        id: "lct-1v",
-        name: "Locust LCT-1V",
-        tonnage: 20,
-        bv: 432,
-        ammo: [
-            {type: "is:machinegun", location: "CT"}
-        ],
-        specials: []
-    },
-    {
-        id: "com-2d",
-        name: "Commando COM-2D",
-        tonnage: 25,
-        bv: 541,
-        ammo: [
-            {type: "is:srm6", location: "LT"},
-            {type: "is:srm4", location: "RT"}
-        ],
-        specials: []
-    },
-    {
-        id: "com-3a",
-        name: "Commando COM-3A",
-        tonnage: 25,
-        bv: 540,
-        ammo: [
-            {type: "is:srm6", location: "RT"}
-        ],
-        specials: []
-    },
-    {
-        id: "com-5s",
-        name: "Commando COM-5S",
-        tonnage: 25,
-        bv: 557,
-        ammo: [
-            {type: "is:srm6", location: "RT", default: "artemisiv"},
-            {type: "is:srm6", location: "RT", default: "artemisiv"},
-            {type: "is:streaksrm2", location: "RT"}
-        ],
-        specials: ["artemisiv"]
-    },
-    {
-        id: "mist-lynx-prime",
-        name: "Mist Lynx Prime",
-        alternateNames: ["Koshi Prime"],
-        tonnage: 25,
-        bv: 871,
-        ammo: [
-            {type: "clan:lrm10", location: "LA"},
-            {type: "clan:streaksrm4", location: "RA"},
-            {type: "clan:machinegun:halfton", location: "RA"},
-        ],
-        specials: ["omni"]
-    },
-    {
-        id: "mist-lynx-a",
-        name: "Mist Lynx A",
-        alternateNames: ["Koshi A"],
-        tonnage: 25,
-        bv: 608,
-        ammo: [
-            {type: "clan:antimissilesystem", location: "LA"},
-            {type: "clan:antimissilesystem", location: "LA"},
-            {type: "clan:antimissilesystem", location: "LA"},
-            {type: "clan:machinegun:halfton", location: "RA"},      
-        ],
-        specials: ["omni"]
-    },
-    {
-        id: "mist-lynx-b",
-        name: "Mist Lynx B",
-        alternateNames: ["Koshi B"],
-        tonnage: 25,
-        bv: 1209,
-        ammo: [
-            {type: "clan:srm6", location: "RA"},
-            {type: "clan:srm6", location: "RA"},
-        ],
-        specials: ["omni"]
-    },
-    {
-        id: "sdr-c",
-        name: "Spider SDR-C",
-        tonnage: 30,
-        bv: 616,
-        ammo: [],
-        specials: ["c3s"]
-    },
-    {
-        id: "adder-prime",
-        name: "Adder Prime",
-        alternateNames: ["Puma Prime"],
-        tonnage: 35,
-        bv: 2083,
-        ammo: [],
-        specials: ["omni"]
-    },
-    {
-        id: "adder-a",
-        name: "Adder A",
-        alternateNames: ["Puma A"],
-        tonnage: 35,
-        bv: 1437,
-        ammo: [
-            {type: "clan:lrm20", location: "LA"},
-            {type: "clan:lrm20", location: "LA"},
-            {type: "clan:lrm20", location: "RA"},
-            {type: "clan:lrm20", location: "RA"},
-        ],
-        specials: ["omni"]
-    },
-    {
-        id: "adder-b",
-        name: "Adder B",
-        alternateNames: ["Puma B"],
-        tonnage: 35,
-        bv: 1422,
-        ammo: [
-            {type: "clan:lb5xac", location: "LA"},
-        ],
-        specials: ["omni"]
-    },
-    {
-        id: "jr7-c",
-        name: "Jenner JR7-C",
-        tonnage: 35,
-        bv: 832,
-        ammo: [
-            {type: "is:srm4", location: "RT"},
-        ],
-        specials: ["c3s"]
-    },
-    {
-        id: "ott-7k",
-        name: "Ostscout OTT-7K",
-        tonnage: 35,
-        bv: 484,
-        ammo: [],
-        specials: ["tag"]
-    },
-    {
-        id: "pnt-c",
-        name: "Panther PNT-C",
-        tonnage: 35,
-        bv: 833,
-        ammo: [
-            {type: "is:srm4", location: "LT"},
-        ],
-        specials: ["c3s"]
-    },
-    {
-        id: "rvn-3l",
-        name: "Raven RVN-3L",
-        tonnage: 35,
-        bv: 708,
-        ammo: [
-            {type: "is:srm6", location: "LT", default: "narc"},
-            {type: "is:narc", location: "LT"},
-            {type: "is:narc", location: "LT"}
-        ],
-        specials: ["tag"]
-    },
-    {
-        id: "viper-prime",
-        name: "Viper Prime",
-        alternateNames: ["Dragonfly Prime"],
-        tonnage: 40,
-        bv: 1450,
-        ammo: [
-            {type: "clan:srm4", location: "LA"},
-            {type: "clan:antimissilesystem", location: "LT"},
-            {type: "clan:machinegun:halfton", location: "RT"},
-        ],
-        specials: ["omni"]
-    },
-    {
-        id: "viper-a",
-        name: "Viper A",
-        alternateNames: ["Dragonfly A"],
-        tonnage: 40,
-        bv: 1989,
-        ammo: [
-            {type: "clan:srm6", location: "LA", default: "artemisiv"},
-        ],
-        specials: ["artemisiv", "omni"]
-    },
-    {
-        id: "viper-b",
-        name: "Viper B",
-        alternateNames: ["Dragonfly B"],
-        tonnage: 40,
-        bv: 1830,
-        ammo: [],
-        specials: ["omni"]
-    },
-    {
-        id: "grendel-prime",
-        name: "Grendel Prime",
-        alternateNames: ["Mongrel Prime"],
-        tonnage: 45,
-        bv: 2290,
-        ammo: [
-            {type: "clan:streaksrm6", location: "RT"},
-        ],
-        specials: ["omni"]
-    },
-    {
-        id: "grendel-a",
-        name: "Grendel A",
-        alternateNames: ["Mongrel A"],
-        tonnage: 45,
-        bv: 2031,
-        ammo: [
-            {type: "clan:lrm15", location: "LT"},
-            {type: "clan:lrm15", location: "LT"},
-            {type: "clan:lrm15", location: "RT"},
-            {type: "clan:lrm15", location: "RT"},
-        ],
-        specials: ["omni"]
-    },
-    {
-        id: "grendel-b",
-        name: "Grendel B",
-        alternateNames: ["Mongrel B"],
-        tonnage: 45,
-        bv: 1903,
-        ammo: [
-            {type: "clan:ultraac5", location: "RT"},
-        ],
-        specials: ["omni"]
-    },
-    {
-        id: "ice-ferret-prime",
-        name: "Ice Ferret Prime",
-        alternateNames: ["Fenris Prime"],
-        tonnage: 45,
-        bv: 1678,
-        ammo: [
-            {type: "clan:streaksrm2", location: "RA"},
-        ],
-        specials: ["omni"]
-    },
-    {
-        id: "ice-ferret-a",
-        name: "Ice Ferret A",
-        alternateNames: ["Fenris A"],
-        tonnage: 45,
-        bv: 1323,
-        ammo: [
-            {type: "clan:lb2xac", location: "LA"},
-            {type: "clan:antimissilesystem", location: "RA"}
-        ],
-        specials: ["omni"]
-    },
-    {
-        id: "ice-ferret-b",
-        name: "Ice Ferret B",
-        alternateNames: ["Fenris B"],
-        tonnage: 45,
-        bv: 1461,
-        ammo: [
-            {type: "clan:srm4", location: "LA"},
-            {type: "clan:srm6", location: "RA"},
-        ],
-        specials: ["omni"]
-    },
-    {
-        id: "shadow-cat-prime",
-        name: "Shadow Cat Prime",
-        tonnage: 45,
-        bv: 2156,
-        ammo: [
-            {type: "clan:gaussrifle", location: "RT"},
-            {type: "clan:gaussrifle", location: "RT"},
-        ],
-        specials: ["omni"]
-    },
-    {
-        id: "shadow-cat-a",
-        name: "Shadow Cat A",
-        tonnage: 45,
-        bv: 2220,
-        ammo: [
-            {type: "clan:streaksrm6", location: "RT"},
-            {type: "clan:streaksrm6", location: "RT"},
-        ],
-        specials: ["omni"]
-    },
-    {
-        id: "shadow-cat-b",
-        name: "Shadow Cat B",
-        tonnage: 45,
-        bv: 2420,
-        ammo: [
-            {type: "clan:lrm15", location: "LT", default: "artemisiv"},
-            {type: "clan:lrm15", location: "LT", default: "artemisiv"},
-            {type: "clan:lrm15", location: "RT", default: "artemisiv"},
-            {type: "clan:lrm15", location: "RT", default: "artemisiv"},
-        ],
-        specials: ["artemisiv", "omni"]
-    },
-    {
-        id: "crb-30",
-        name: "Crab CRB-30",
-        tonnage: 50,
-        bv: 1509,
-        ammo: [],
-        specials: ["c3i"]
-    },
-    {
-        id: "crb-c",
-        name: "Crab CRB-C",
-        tonnage: 50,
-        bv: 1135,
-        ammo: [],
-        specials: ["c3s"]
-    },
-    {
-        id: "nova-prime",
-        name: "Nova Prime",
-        alternateNames: ["Black Hawk Prime"],
-        tonnage: 50,
-        bv: 2663,
-        ammo: [],
-        specials: ["omni"]
-    },
-    {
-        id: "nova-a",
-        name: "Nova A",
-        alternateNames: ["Black Hawk A"],
-        tonnage: 50,
-        bv: 2422,
-        ammo: [
-            {type: "clan:antimissilesystem", location: "RT"}
-        ],
-        specials: ["omni"]
-    },
-    {
-        id: "nova-b",
-        name: "Nova B",
-        alternateNames: ["Black Hawk B"],
-        tonnage: 50,
-        bv: 1543,
-        ammo: [
-            {type: "clan:ultraac5", location: "RA"},
-            {type: "clan:machinegun", location: "LT"},
-        ],
-        specials: ["omni"]
-    },
-    {
-        id: "grf-1n",
-        name: "Griffin GRF-1N",
-        tonnage: 55,
-        bv: 1272,
-        ammo: [
-            {type: "is:lrm10", location: "RT"},
-            {type: "is:lrm10", location: "RT"}
-        ],
-        specials: []
-    },
-    {
-        id: "grf-1s",
-        name: "Griffin GRF-1S",
-        tonnage: 55,
-        bv: 1253,
-        ammo: [
-            {type: "is:lrm5", location: "RT"}
-        ],
-        specials: []
-    },
-    {
-        id: "shd-2h",
-        name: "Shadow Hawk SHD-2H",
-        tonnage: 55,
-        bv: 1064,
-        ammo: [
-            {type: "is:ac5", location: "LT"},
-            {type: "is:srm2", location: "CT"},
-            {type: "is:lrm5", location: "RT"}
-        ],
-        specials: []
-    },
-    {
-        id: "stormcrow-prime",
-        name: "Stormcrow Prime",
-        alternateNames: ["Ryoken Prime"],
-        tonnage: 55,
-        bv: 2073,
-        ammo: [],
-        specials: ["omni"]
-    },
-    {
-        id: "stormcrow-a",
-        name: "Stormcrow A",
-        alternateNames: ["Ryoken A"],
-        tonnage: 55,
-        bv: 2319,
-        ammo: [
-            {type: "clan:lrm20", location: "RA"},
-            {type: "clan:lrm20", location: "RA"},
-            {type: "clan:streaksrm6", location: "LT"},
-            {type: "clan:streaksrm6", location: "RT"},
-        ],
-        specials: ["omni"]
-    },
-    {
-        id: "stormcrow-b",
-        name: "Stormcrow B",
-        alternateNames: ["Ryoken B"],
-        tonnage: 55,
-        bv: 2281,
-        ammo: [
-            {type: "clan:ultraac20", location: "LT"},
-            {type: "clan:ultraac20", location: "LT"},
-        ],
-        specials: ["omni"]
-    },
-    {
-        id: "wvr-6m",
-        name: "Wolverine WVR-6M",
-        tonnage: 55,
-        bv: 1291,
-        ammo: [
-            {type: "is:srm6", location: "RT"}
-        ],
-        specials: []
-    },
-    {
-        id: "wvr-6r",
-        name: "Wolverine WVR-6R",
-        tonnage: 55,
-        bv: 1101,
-        ammo: [
-            {type: "is:ac5", location: "RA"},
-            {type: "is:srm6", location: "LT"}
-        ],
-        specials: []
-    },
-    {
-        id: "drg-c",
-        name: "Grand Dragon DRG-C",
-        tonnage: 60,
-        bv: 1322,
-        ammo: [
-            {type: "is:lrm10", location: "LT"},
-            {type: "is:lrm10", location: "LT"},
-        ],
-        specials: ["c3s"]
-    },
-    {
-        id: "lnc25-04",
-        name: "Lancelot LNC25-04",
-        tonnage: 60,
-        bv: 1640,
-        ammo: [],
-        specials: ["c3i"]
-    },
-    {
-        id: "mad-dog-prime",
-        name: "Mad Dog Prime",
-        alternateNames: ["Vulture Prime"],
-        tonnage: 60,
-        bv: 2351,
-        ammo: [
-            {type: "clan:lrm20", location: "LT"},
-            {type: "clan:lrm20", location: "RT"},
-        ],
-        specials: ["omni"]
-    },
-    {
-        id: "mad-dog-a",
-        name: "Mad Dog A",
-        alternateNames: ["Vulture A"],
-        tonnage: 60,
-        bv: 1923,
-        ammo: [
-            {type: "clan:lb5xac", location: "LA"},
-            {type: "clan:lb5xac", location: "LA", default: "cluster"},
-            {type: "clan:srm6", location: "LT"},
-            {type: "clan:srm6", location: "LT"},
-            {type: "clan:srm6", location: "RT"},
-            {type: "clan:srm6", location: "RT"},
-        ],
-        specials: ["omni"]
-    },
-    {
-        id: "mad-dog-b",
-        name: "Mad Dog B",
-        alternateNames: ["Vulture B"],
-        tonnage: 60,
-        bv: 2284,
-        ammo: [
-            {type: "clan:lrm20", location: "LT", default: "artemisiv"},
-            {type: "clan:streaksrm6", location: "RT"},
-        ],
-        specials: ["artemisiv", "omni"]
-    },
-    {
-        id: "cplt-c1",
-        name: "Catapult CPLT-C1",
-        tonnage: 65,
-        bv: 1399,
-        ammo: [
-            {type: "is:lrm15", location: "LT"},
-            {type: "is:lrm15", location: "RT"}
-        ],
-        specials: []
-    },
-    {
-        id: "cplt-k2",
-        name: "Catapult CPLT-K2",
-        tonnage: 65,
-        bv: 1319,
-        ammo: [
-            {type: "is:machinegun", location: "CT"}
-        ],
-        specials: []
-    },
-    {
-        id: "cplt-k5",
-        name: "Catapult CPLT-K5",
-        tonnage: 65,
-        bv: 1457,
-        ammo: [
-            {type: "is:mrm30", location: "LT"},
-            {type: "is:mrm30", location: "LT"},
-            {type: "is:mrm30", location: "RT"},
-            {type: "is:mrm30", location: "RT"},
-        ],
-        specials: ["c3s"]
-    },
-    {
-        id: "ext-5e",
-        name: "Exterminator EXT-5E",
-        tonnage: 65,
-        bv: 1532,
-        ammo: [
-            {type: "is:inarc", location: "RT"},
-            {type: "is:inarc", location: "RT"},
-            {type: "is:inarc", location: "RT"},
-            {type: "is:inarc", location: "RT"},
-        ],
-        specials: ["c3i"]
-    },
-    {
-        id: "hellbringer-prime",
-        name: "Hellbringer Prime",
-        alternateNames: ["Loki Prime"],
-        tonnage: 65,
-        bv: 2654,
-        ammo: [
-            {type: "clan:antimissilesystem", location: "CT"},
-            {type: "clan:streaksrm6", location: "RT"},
-            {type: "clan:machinegun:halfton", location: "RT"},
-        ],
-        specials: ["omni"]
-    },
-    {
-        id: "hellbringer-a",
-        name: "Hellbringer A",
-        alternateNames: ["Loki A"],
-        tonnage: 65,
-        bv: 1948,
-        ammo: [
-            {type: "clan:ultraac5", location: "RA"},
-            {type: "clan:narc", location: "LT"},
-            {type: "clan:machinegun", location: "CT"},
-            {type: "clan:lrm20", location: "RT", default: "narc"},
-        ],
-        specials: ["omni"]
-    },
-    {
-        id: "hellbringer-b",
-        name: "Hellbringer B",
-        alternateNames: ["Loki B"],
-        tonnage: 65,
-        bv: 1592,
-        ammo: [
-            {type: "clan:lb5xac", location: "LA"},
-            {type: "clan:gaussrifle", location: "RA"},
-            {type: "clan:srm6", location: "RT", default: "artemisiv"},
-            {type: "clan:srm6", location: "RT", default: "artemisiv"},
-        ],
-        specials: ["artemisiv", "omni"]
-    },
-    {
-        id: "tdr-5s",
-        name: "Thunderbolt TDR-5S",
-        tonnage: 65,
-        bv: 1335,
-        ammo: [
-            {type: "is:lrm15", location: "CT"},
-            {type: "is:lrm15", location: "CT"},
-            {type: "is:srm2", location: "RT"},
-            {type: "is:machinegun", location: "LA"}
-        ],
-        specials: []
-    },
-    {
-        id: "tdr-5se",
-        name: "Thunderbolt TDR-5SE",
-        tonnage: 65,
-        bv: 1414,
-        ammo: [
-            {type: "is:lrm10", location: "CT"},
-            {type: "is:lrm10", location: "CT"}
-        ],
-        specials: []
-    },
-    {
-        id: "arc-4m",
-        name: "Archer ARC-4M",
-        tonnage: 70,
-        bv: 1705,
-        ammo: [
-            {type: "is:lrm20", location: "LT", default: "artemisiv"},
-            {type: "is:lrm20", location: "LT", default: "artemisiv"},
-            {type: "is:lrm20", location: "RT", default: "artemisiv"},
-            {type: "is:lrm20", location: "RT", default: "artemisiv"},
-        ],
-        specials: ["artemisiv"]
-    },
-    {
-        id: "arc-7c",
-        name: "Archer ARC-7C",
-        tonnage: 70,
-        bv: 2408,
-        ammo: [
-            {type: "clan:lrm20", location: "LT", default: "artemisv"},
-            {type: "clan:lrm20", location: "LT", default: "artemisv"},
-            {type: "clan:lrm20", location: "RT", default: "artemisv"},
-            {type: "clan:lrm20", location: "RT", default: "artemisv"},
-        ],
-        specials: ["artemisv"]
-    },
-    {
-        id: "summoner-prime",
-        name: "Summoner Prime",
-        alternateNames: ["Thor Prime"],
-        tonnage: 70,
-        bv: 2298,
-        ammo: [
-            {type: "clan:lb10xac", location: "LA"},
-            {type: "clan:lrm15", location: "LT"},
-            {type: "clan:lrm15", location: "LT"},
-        ],
-        specials: ["omni"]
-    },
-    {
-        id: "summoner-a",
-        name: "Summoner A",
-        alternateNames: ["Thor A"],
-        tonnage: 70,
-        bv: 2145,
-        ammo: [
-            {type: "clan:gaussrifle", location: "LA"},
-            {type: "clan:srm6", location: "LT"},
-            {type: "clan:srm6", location: "LT"},
-        ],
-        specials: ["omni"]
-    },
-    {
-        id: "summoner-b",
-        name: "Summoner B",
-        alternateNames: ["Thor B"],
-        tonnage: 70,
-        bv: 2159,
-        ammo: [
-            {type: "clan:lrm20", location: "LA", default: "narc"},
-            {type: "clan:lrm20", location: "LA", default: "narc"},
-            {type: "clan:lrm20", location: "RA", default: "narc"},
-            {type: "clan:lrm20", location: "RA", default: "narc"},
-            {type: "clan:srm4", location: "LA", default: "narc"},
-            {type: "clan:srm4", location: "LA", default: "narc"},
-            {type: "clan:antimissilesystem", location: "LT"},
-            {type: "clan:narc", location: "LT"},
-        ],
-        specials: ["omni"]
-    },
-    {
-        id: "fls-9c",
-        name: "Flashman FLS-9C",
-        tonnage: 75,
-        bv: 1779,
-        ammo: [],
-        specials: ["c3i"]
-    },
-    {
-        id: "on1-mc",
-        name: "Orion ON1-MC",
-        tonnage: 75,
-        bv: 1501,
-        ammo: [
-            {type: "is:mrm30", location: "LT"},
-            {type: "is:mrm30", location: "LT"},
-            {type: "is:mrm20", location: "LT"},
-            {type: "is:lb10xac", location: "RT"},
-            {type: "is:lb10xac", location: "RT", default: "cluster"},
-        ],
-        specials: ["c3s"]
-    },
-    {
-        id: "timber-wolf-prime",
-        name: "Timber Wolf Prime",
-        alternateNames: ["Mad Cat Prime"],
-        tonnage: 75,
-        bv: 2737,
-        ammo: [
-            {type: "clan:lrm20", location: "LT"},
-            {type: "clan:lrm20", location: "RT"},
-            {type: "clan:machinegun", location: "RT"},
-        ],
-        specials: ["omni"]
-    },
-    {
-        id: "timber-wolf-a",
-        name: "Timber Wolf A",
-        alternateNames: ["Mad Cat A"],
-        tonnage: 75,
-        bv: 2854,
-        ammo: [
-            {type: "clan:streaksrm6", location: "RT"},
-        ],
-        specials: ["omni"]
-    },
-    {
-        id: "timber-wolf-b",
-        name: "Timber Wolf B",
-        alternateNames: ["Mad Cat B"],
-        tonnage: 75,
-        bv: 2224,
-        ammo: [
-            {type: "clan:gaussrifle", location: "RA"},
-            {type: "clan:lrm10", location: "LT", default: "artemisiv"},
-            {type: "clan:srm4", location: "RT", default: "artemisiv"},
-        ],
-        specials: ["artemisiv", "omni"]
-    },
-    {
-        id: "timber-wolf-pryde",
-        name: "Timber Wolf Pryde",
-        alternateNames: ["Mad Cat Pryde"],
-        tonnage: 75,
-        bv: 2900,
-        ammo: [
-            {type: "clan:lrm20", location: "LT"},
-            {type: "clan:lrm20", location: "RT"},
-        ],
-        specials: ["omni"]
-    },
-    {
-        id: "aws-8q",
-        name: "Awesome AWS-8Q",
-        tonnage: 80,
-        bv: 1605,
-        ammo: [],
-        specials: []
-    },
-    {
-        id: "gargoyle-prime",
-        name: "Gargoyle Prime",
-        alternateNames: ["Man O' War Prime"],
-        tonnage: 80,
-        bv: 1537,
-        ammo: [
-            {type: "clan:lb5xac", location: "LT"},
-            {type: "clan:lb5xac", location: "RT", default: "cluster"},
-            {type: "clan:srm6", location: "LT"},
-            {type: "clan:srm6", location: "RT"},
-        ],
-        specials: ["omni"]
-    },
-    {
-        id: "gargoyle-a",
-        name: "Gargoyle A",
-        alternateNames: ["Man O' War A"],
-        tonnage: 80,
-        bv: 2689,
-        ammo: [],
-        specials: ["omni"]
-    },
-    {
-        id: "gargoyle-b",
-        name: "Gargoyle B",
-        alternateNames: ["Man O' War B"],
-        tonnage: 80,
-        bv: 1843,
-        ammo: [
-            {type: "clan:lrm10", location: "LA", default: "artemisiv"},
-            {type: "clan:srm4", location: "LA", default: "artemisiv"},
-            {type: "clan:gaussrifle", location: "RA"},
-            {type: "clan:gaussrifle", location: "RA"},
-        ],
-        specials: ["artemisiv", "omni"]
-    },
-    {
-        id: "thg-12e",
-        name: "Thug THG-12E",
-        tonnage: 80,
-        bv: 1751,
-        ammo: [
-            {type: "is:streaksrm6", location: "RT"}
-        ],
-        specials: ["c3i"]
-    },
-    {
-        id: "blr-1g",
-        name: "BattleMaster BLR-1G",
-        tonnage: 85,
-        bv: 1519,
-        ammo: [
-            {type: "is:srm6", location: "LT"},
-            {type: "is:srm6", location: "LT"},
-            {type: "is:machinegun", location: "LT"}
-        ],
-        specials: []
-    },
-    {
-        id: "crk-5003-c",
-        name: "Katana CRK-5003-C",
-        tonnage: 85,
-        bv: 1618,
-        ammo: [
-            {type: "is:srm6", location: "RT"},
-            {type: "is:srm6", location: "RT"},
-            {type: "is:lb10xac", location: "RT"},
-            {type: "is:lb10xac", location: "RT", default: "cluster"},
-        ],
-        specials: ["c3s"]
-    },
-    {
-        id: "crk-5003-cm",
-        name: "Katana CRK-5003-CM",
-        tonnage: 85,
-        bv: 1554,
-        ammo: [
-            {type: "is:srm6", location: "RT"},
-            {type: "is:lb10xac", location: "RT"},
-            {type: "is:lb10xac", location: "RT", default: "cluster"},
-        ],
-        specials: ["c3m", "tag"]
-    },
-    {
-        id: "executioner-prime",
-        name: "Executioner Prime",
-        alternateNames: ["Gladiator Prime"],
-        tonnage: 95,
-        bv: 2749,
-        ammo: [
-            {type: "clan:gaussrifle", location: "LT"},
-            {type: "clan:gaussrifle", location: "LT"},
-            {type: "clan:machinegun", location: "RT"},
-        ],
-        specials: ["omni"]
-    },
-    {
-        id: "executioner-a",
-        name: "Executioner A",
-        alternateNames: ["Gladiator A"],
-        tonnage: 95,
-        bv: 3112,
-        ammo: [
-            {type: "clan:machinegun", location: "RT"},
-        ],
-        specials: ["omni"]
-    },
-    {
-        id: "executioner-b",
-        name: "Executioner B",
-        alternateNames: ["Gladiator B"],
-        tonnage: 95,
-        bv: 2940,
-        ammo: [
-            {type: "clan:ultraac20", location: "LT"},
-            {type: "clan:ultraac20", location: "LT"},
-            {type: "clan:ultraac20", location: "LT"},
-            {type: "clan:antimissilesystem", location: "RT"},
-        ],
-        specials: ["omni"]
-    },
-    {
-        id: "as7-c",
-        name: "Atlas AS7-C",
-        tonnage: 100,
-        bv: 2163,
-        ammo: [
-            {type: "is:gaussrifle", location: "RA"},
-            {type: "is:gaussrifle", location: "RA"},
-            {type: "is:lrm20", location: "LT"},
-            {type: "is:lrm20", location: "LT"},
-            {type: "is:antimissilesystem", location: "LT"},
-        ],
-        specials: ["c3s"]
-    },
-    {
-        id: "as7-cm",
-        name: "Atlas AS7-CM",
-        tonnage: 100,
-        bv: 2036,
-        ammo: [
-            {type: "is:gaussrifle", location: "RA"},
-            {type: "is:gaussrifle", location: "RA"},
-            {type: "is:lrm20", location: "LT"},
-            {type: "is:lrm20", location: "LT"},
-            {type: "is:antimissilesystem", location: "LT"},
-        ],
-        specials: ["c3m", "tag"]
-    },
-    {
-        id: "dire-wolf-prime",
-        name: "Dire Wolf Prime",
-        alternateNames: ["Daishi Prime"],
-        tonnage: 100,
-        bv: 2712,
-        ammo: [
-            {type: "clan:ultraac5", location: "LA"},
-            {type: "clan:ultraac5", location: "RA"},
-            {type: "clan:lrm10", location: "LT"},
-        ],
-        specials: ["omni"]
-    },
-    {
-        id: "dire-wolf-a",
-        name: "Dire Wolf A",
-        alternateNames: ["Daishi A"],
-        tonnage: 100,
-        bv: 2855,
-        ammo: [
-            {type: "clan:gaussrifle", location: "LA"},
-            {type: "clan:gaussrifle", location: "LA"},
-            {type: "clan:gaussrifle", location: "LA"},
-            {type: "clan:streaksrm6", location: "LT"},
-            {type: "clan:streaksrm6", location: "LT"},
-            {type: "clan:antimissilesystem", location: "RT"},
-            {type: "clan:antimissilesystem", location: "RT"},
-            {type: "clan:antimissilesystem", location: "RT"},
-        ],
-        specials: ["omni"]
-    },
-    {
-        id: "dire-wolf-b",
-        name: "Dire Wolf B",
-        alternateNames: ["Daishi B"],
-        tonnage: 100,
-        bv: 2609,
-        ammo: [
-            {type: "clan:lb10xac", location: "RA"},
-            {type: "clan:lb10xac", location: "RA", default: "cluster"},
-            {type: "clan:ultraac2", location: "LT"},
-            {type: "clan:ultraac2", location: "RT"},
-        ],
-        specials: ["omni"]
-    },
-    {
-        id: "dire-wolf-widowmaker",
-        name: "Dire Wolf Widowmaker",
-        alternateNames: ["Daishi Widowmaker"],
-        tonnage: 100,
-        bv: 3041,
-        ammo: [
-            {type: "clan:ultraac20", location: "RA"},
-            {type: "clan:ultraac20", location: "RA"},
-        ],
-        specials: ["omni"]
-    },
-    {
-        id: "kgc-005",
-        name: "King Crab KGC-005",
-        tonnage: 100,
-        bv: 2264,
-        ammo: [
-            {type: "is:lb20xac", location: "LT"},
-            {type: "is:lb20xac", location: "LT"},
-            {type: "is:lb20xac", location: "LT", default: "cluster"},
-            {type: "is:lb20xac", location: "RT"},
-            {type: "is:lb20xac", location: "RT", default: "cluster"},
-            {type: "is:lb20xac", location: "RT", default: "cluster"},
-            {type: "is:streaksrm4", location: "LT"},
-        ],
-        specials: ["c3i"]
-    },
-    {
-        id: "elemental-laser-5",
-        name: "Elemental Battle Armor [Laser] (Sqd 5)",
-        tonnage: 5,
-        bv: 447,
-        ammo: [
-            {type: "clan:ba-srm2", location: "Body"},
-            {type: "clan:ba-srm2", location: "Body"},
-        ],
-        specials: []
-    },
-    {
-        id: "elemental-mg-5",
-        name: "Elemental Battle Armor [MG] (Sqd 5)",
-        tonnage: 5,
-        bv: 404,
-        ammo: [
-            {type: "clan:ba-srm2", location: "Body"},
-            {type: "clan:ba-srm2", location: "Body"},
-        ],
-        specials: []
-    },
-    {
-        id: "elemental-flamer-5",
-        name: "Elemental Battle Armor [Flamer] (Sqd 5)",
-        tonnage: 5,
-        bv: 404,
-        ammo: [
-            {type: "clan:ba-srm2", location: "Body"},
-            {type: "clan:ba-srm2", location: "Body"},
-        ],
-        specials: []
-    },
 ];
 
 function getSkillMultiplier(gunnery, piloting) {

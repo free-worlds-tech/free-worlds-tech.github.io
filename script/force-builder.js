@@ -1,6 +1,9 @@
 let nextUnitId = 1;
 let nextNetworkId = 1;
 
+let debugMode = false;
+let searchInProgress = false;
+
 const force = new Map();
 const networks = new Map();
 
@@ -11,25 +14,12 @@ const c3iUnits = [];
 readyInterface();
 
 function readyInterface() {
-    const units = getKnownUnits();
-
-    const $unitPicker = $("#unit-picker");
-
-    $unitPicker.children().remove();
-
-    units.forEach((unit) => {
-        $unitPicker.append(`<option value='${unit.id}'>${unit.name}</option>`);
-    });
-
-    $unitPicker.first().attr("selected", "selected");
-
-    $unitPicker.removeAttr("disabled");
-
     $(".lazy").removeAttr("disabled");
 
     const urlParams = new URLSearchParams(window.location.search);
     const debugParam = urlParams.get('debug');
     if (debugParam == "true") {
+        debugMode = true;
         $("body").append("<h3>Debug</h3>");
         $("body").append(
             `<div>
@@ -38,8 +28,6 @@ function readyInterface() {
             </div>`
         );
     }
-
-    showRandomUnits();
 }
 
 function searchKeyDown(e) {
@@ -48,25 +36,17 @@ function searchKeyDown(e) {
     }
 }
 
-function showRandomUnits() {
-    const knownUnits = getKnownUnits();
-    let results = [];
-
-    while (results.length < 10) {
-        const randomId = Math.floor(Math.random() * knownUnits.length);
-        const randomUnit = knownUnits[randomId];
-        if (!results.find((x) => x.id == randomUnit.id)) {
-            results.push(randomUnit);
-        }
+function searchUnits() {
+    if (searchInProgress) {
+        // Avoid starting a new search while waiting for results
+        return;
     }
 
-    showUnitList(results, true);
-}
-
-function searchUnits() {
-    const knownUnits = getKnownUnits();
     const query = $("#search-box").val().toLowerCase().trim();
     let moreAvailable = false;
+
+    const searchEra = $("#search-era").val();
+    const searchFaction = $("#search-faction").val();
 
     let minTonnage = 0;
     let maxTonnage = Number.MAX_VALUE;
@@ -98,64 +78,79 @@ function searchUnits() {
     const requireOmni = $("#search-omni").is(":checked");
     const requireTAG = $("#search-tag").is(":checked");
 
-    let match = unitProps => {
-        if (!unitProps.name.toLowerCase().includes(query)) {
-            let altNameMatch = false;
-            if (unitProps.alternateNames) {
-                unitProps.alternateNames.forEach((alt) => {
-                    if (alt.toLowerCase().includes(query)) {
-                        altNameMatch = true;
-                    }
-                });
-            }
-            if (!altNameMatch) {
-                return false;
-            }
-        }
-
-        if (unitProps.tonnage < minTonnage || unitProps.tonnage > maxTonnage) {
-            return false;
-        }
-
-        if (unitProps.bv < minBV || unitProps.bv > maxBV) {
-            return false;
-        }
-
-        if (requireC3M && !unitProps.specials.includes("c3m")) {
-            return false;
-        }
-
-        if (requireC3S && !unitProps.specials.includes("c3s")) {
-            return false;
-        }
-
-        if (requireC3i && !unitProps.specials.includes("c3i")) {
-            return false;
-        }
-
-        if (requireOmni && !unitProps.specials.includes("omni")) {
-            return false;
-        }
-
-        if (requireTAG && !unitProps.specials.includes("tag")) {
-            return false;
-        }
-
-        return true;
+    let searchParams = new URLSearchParams();
+    if (query.length > 0) {
+        searchParams.append("name", query);
+    }
+    if (searchEra != "any") {
+        searchParams.append("era", searchEra);
+    }
+    if (searchFaction != "any") {
+        searchParams.append("faction", searchFaction);
+    }
+    if (minBV != 0) {
+        searchParams.append("minBV", minBV);
+    }
+    if (maxBV != Number.MAX_VALUE) {
+        searchParams.append("maxBV", maxBV);
+    }
+    if (minTonnage != 0) {
+        searchParams.append("minTon", minTonnage);
+    }
+    if (maxTonnage != Number.MAX_VALUE) {
+        searchParams.append("maxTon", maxTonnage);
+    }
+    if (requireC3M) {
+        searchParams.append("c3m", "1");
+    }
+    if (requireC3S) {
+        searchParams.append("c3s", "1");
+    }
+    if (requireC3i) {
+        searchParams.append("c3i", "1");
+    }
+    if (requireOmni) {
+        searchParams.append("omni", "1");
+    }
+    if (requireTAG) {
+        searchParams.append("tag", "1");
     }
 
     let results = [];
-    knownUnits.forEach((unit) => {
-        if (!moreAvailable && match(unit)) {
-            if (results.length < 10) {
-                results.push(unit);
-            } else {
-                moreAvailable = true;
+
+    showSearchStatus("Searching...");
+    searchInProgress = true;
+
+    let searchUri = "https://fwti-unitsearch.azurewebsites.net/api/search?";
+    if (debugMode) {
+        searchUri = "http://localhost:7071/api/search?";
+    }
+    searchUri += searchParams.toString();
+
+    $.ajax({
+        url: searchUri,
+        dataType: "json",
+        success: (result) => {
+            let more = false;
+            if (result.length > 10)
+            {
+                result.pop();
+                more = true;
             }
+            knownUnits = result;
+            showUnitList(result, more);
+            searchInProgress = false;
+        },
+        error: () => {
+            showSearchStatus("Request failed!");
+            searchInProgress = false;
         }
     });
+}
 
-    showUnitList(results, moreAvailable);
+function showSearchStatus(message) {
+    $("#search-results").children().remove();
+    $("#search-results").append(`<li><em>${message}</em></li>`);
 }
 
 function showUnitList(list, moreAvailable) {
