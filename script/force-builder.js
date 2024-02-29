@@ -2,6 +2,7 @@ let nextUnitId = 1;
 let nextNetworkId = 1;
 
 let debugMode = false;
+let searchInProgress = false;
 
 const force = new Map();
 const networks = new Map();
@@ -36,6 +37,11 @@ function searchKeyDown(e) {
 }
 
 function searchUnits() {
+    if (searchInProgress) {
+        // Avoid starting a new search while waiting for results
+        return;
+    }
+
     const query = $("#search-box").val().toLowerCase().trim();
     let moreAvailable = false;
 
@@ -112,7 +118,8 @@ function searchUnits() {
 
     let results = [];
 
-    showUnitList(results, moreAvailable);
+    showSearchStatus("Searching...");
+    searchInProgress = true;
 
     let searchUri = "https://fwti-unitsearch.azurewebsites.net/api/search?";
     if (debugMode) {
@@ -132,13 +139,18 @@ function searchUnits() {
             }
             knownUnits = result;
             showUnitList(result, more);
+            searchInProgress = false;
         },
         error: () => {
-            if (debugMode) {
-                alert("Search request failed!");
-            }
+            showSearchStatus("Request failed!");
+            searchInProgress = false;
         }
     });
+}
+
+function showSearchStatus(message) {
+    $("#search-results").children().remove();
+    $("#search-results").append(`<li><em>${message}</em></li>`);
 }
 
 function showUnitList(list, moreAvailable) {
