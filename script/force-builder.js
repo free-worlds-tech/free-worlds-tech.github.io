@@ -134,7 +134,9 @@ function searchUnits() {
             showUnitList(result, more);
         },
         error: () => {
-            alert("Failed!");
+            if (debugMode) {
+                alert("Search request failed!");
+            }
         }
     });
 }
