@@ -125,6 +125,28 @@ const knownWeapons = [
         ]
     },
     {
+        id: "is:lac2", 
+        name: "Light AC/2", 
+        ammoTypes: [
+            {id: "standard", name: "Standard (45)"},
+            {id: "ap", name: "Armor-Piercing (22)"},
+            {id: "caseless", name: "Caseless (90)", extraBV: 4},
+            {id: "flechette", name: "Flechette (45)"},
+            {id: "precision", name: "Precision (22)"}
+        ]
+    },
+    {
+        id: "is:lac5", 
+        name: "Light AC/5", 
+        ammoTypes: [
+            {id: "standard", name: "Standard (20)"},
+            {id: "ap", name: "Armor-Piercing (10)"},
+            {id: "caseless", name: "Caseless (40)", extraBV: 8},
+            {id: "flechette", name: "Flechette (20)"},
+            {id: "precision", name: "Precision (10)"}
+        ]
+    },
+    {
         id: "is:lb2xac",
         name: "LB 2-X AC",
         ammoTypes: [
@@ -224,6 +246,13 @@ const knownWeapons = [
         name: "Improved Heavy Gauss Rifle",
         ammoTypes: [
             {id: "standard", name: "Standard (4)"},
+        ]
+    },
+    {
+        id: "is:plasmarifle",
+        name: "Plasma Rifle",
+        ammoTypes: [
+            {id: "standard", name: "Standard (10)"}
         ]
     },
     {
@@ -566,10 +595,88 @@ const knownWeapons = [
         ]
     },
     {
+        id: "clan:improvedgaussrifle",
+        name: "Improved Gauss Rifle",
+        ammoTypes: [
+            {id: "standard", name: "Standard (8)"},
+        ]
+    },
+    {
+        id: "clan:hag20",
+        name: "HAG 20",
+        ammoTypes: [
+            {id: "standard", name: "Standard (6)"},
+        ]
+    },
+    {
+        id: "clan:hag30",
+        name: "HAG 30",
+        ammoTypes: [
+            {id: "standard", name: "Standard (4)"},
+        ]
+    },
+    {
+        id: "clan:hag40",
+        name: "HAG 40",
+        ammoTypes: [
+            {id: "standard", name: "Standard (3)"},
+        ]
+    },
+    {
+        id: "clan:apgaussrifle",
+        name: "AP Gauss Rifle",
+        ammoTypes: [
+            {id: "standard", name: "Standard (40)"},
+        ]
+    },
+    {
+        id: "clan:plasmacannon",
+        name: "Plasma Cannon",
+        ammoTypes: [
+            {id: "standard", name: "Standard (10)"}
+        ]
+    },
+    {
         id: "clan:narc", 
         name: "Narc", 
         ammoTypes: [
             {id: "standard", name: "Homing (6)"},
+        ]
+    },
+    {
+        id: "clan:atm3", 
+        name: "ATM 3", 
+        ammoTypes: [
+            {id: "standard", name: "Standard (20)"},
+            {id: "er", name: "ER (20)"},
+            {id: "he", name: "HE (20)"},
+        ]
+    },
+    {
+        id: "clan:atm6", 
+        name: "ATM 6", 
+        ammoTypes: [
+            {id: "standard", name: "Standard (10)"},
+            {id: "er", name: "ER (10)"},
+            {id: "he", name: "HE (10)"},
+        ]
+    },
+    {
+        id: "clan:atm9", 
+        name: "ATM 9", 
+        ammoTypes: [
+            {id: "standard", name: "Standard (7)"},
+            {id: "er", name: "ER (7)"},
+            {id: "he", name: "HE (7)"},
+        ]
+    },
+    {
+        id: "clan:atm12", 
+        name: "ATM 12", 
+        ammoTypes: [
+            {id: "standard", name: "Standard (5)"},
+            {id: "er", name: "ER (5)"},
+            {id: "he", name: "HE (5)"},
         ]
     },
     {
@@ -624,6 +731,34 @@ const knownWeapons = [
         name: "Streak SRM 6", 
         ammoTypes: [
             {id: "standard", name: "Standard (15)"}
+        ]
+    },
+    {
+        id: "clan:streaklrm5", 
+        name: "Streak LRM 5", 
+        ammoTypes: [
+            {id: "standard", name: "Standard (24)"}
+        ]
+    },
+    {
+        id: "clan:streaklrm10", 
+        name: "Streak LRM 10", 
+        ammoTypes: [
+            {id: "standard", name: "Standard (12)"}
+        ]
+    },
+    {
+        id: "clan:streaklrm15", 
+        name: "Streak LRM 15", 
+        ammoTypes: [
+            {id: "standard", name: "Standard (8)"}
+        ]
+    },
+    {
+        id: "clan:streaklrm20", 
+        name: "Streak LRM 20", 
+        ammoTypes: [
+            {id: "standard", name: "Standard (6)"}
         ]
     },
     {
