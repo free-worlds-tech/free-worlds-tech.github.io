@@ -258,51 +258,58 @@ function addUnitAmmoSelector(unit)
     // Check if the unit uses any ammo
     if (unit.unitProps.ammo.length > 0)
     {
+        let hasChoices = false;
+
         const unitLabel = "ammo-" + unit.id;
         const $ammoSelections = $("<details>", {id: unitLabel});
         $ammoSelections.append(`<summary>Ammo Selections</summary>`)
         unit.unitProps.ammo.forEach((element, index) => {
             const slotLabel = unitLabel + "-slot-" + index;
             const selectLabel = slotLabel + "-sel";
-            const $selection = $("<div>", {id: slotLabel});
             
             let slotTitle = getWeaponName(element.type);
             slotTitle += " (" + element.location + ")";
             
             let ammoOptions = getAmmoTypes(element.type);
 
-            $selection.append("<label for='" + selectLabel + "'>" + slotTitle + "</label>");
-            
-            $ammoSelect = $("<select>", { id: selectLabel, class: "ammo" });
+            if (ammoOptions.length > 1) {
+                hasChoices = true;
+                const $selection = $("<div>", {id: slotLabel});
+                $selection.append("<label for='" + selectLabel + "'>" + slotTitle + "</label>");
+                
+                $ammoSelect = $("<select>", { id: selectLabel, class: "ammo" });
 
-            ammoOptions.forEach(option => {
-                if (option.requirement) {
-                    if (!unit.unitProps.specials.includes(option.requirement)) {
-                        return;
+                ammoOptions.forEach(option => {
+                    if (option.requirement) {
+                        if (!unit.unitProps.specials.includes(option.requirement)) {
+                            return;
+                        }
                     }
-                }
-                if (element.default ? option.id == element.default : option.id == "standard") {
-                    $ammoSelect.append(`<option value='${option.id}' selected='selected'>${option.name}</option>`);
-                } else {
-                    $ammoSelect.append(`<option value='${option.id}'>${option.name}</option>`);
-                }
-            });
+                    if (element.default ? option.id == element.default : option.id == "standard") {
+                        $ammoSelect.append(`<option value='${option.id}' selected='selected'>${option.name}</option>`);
+                    } else {
+                        $ammoSelect.append(`<option value='${option.id}'>${option.name}</option>`);
+                    }
+                });
 
-            $ammoSelect.on("change", function(e) {
-                const ammoType = e.target.value;
-        
-                unit.ammoTypes.set(index, ammoType);
-        
-                updateUnitBV(unit);
-                adjustTAGUnitsBV();
-            });
+                $ammoSelect.on("change", function(e) {
+                    const ammoType = e.target.value;
+            
+                    unit.ammoTypes.set(index, ammoType);
+            
+                    updateUnitBV(unit);
+                    adjustTAGUnitsBV();
+                });
 
-            $selection.append($ammoSelect);
+                $selection.append($ammoSelect);
 
-            $ammoSelections.append($selection);
+                $ammoSelections.append($selection);
+            }
         });
 
-        $(`#unit-${unit.id}`).append($ammoSelections);
+        if (hasChoices) {
+            $(`#unit-${unit.id}`).append($ammoSelections);
+        }
     }
 }
 
