@@ -212,6 +212,10 @@ function addUnit(unitProps) {
     }
     updateC3Eligibility();
     addUnitToAllNetworks(newUnit);
+
+    if (unitProps.specials.includes("tag")) {
+        updateUnitBV(newUnit);
+    }
 }
 
 function getUnitFullName(unit) {

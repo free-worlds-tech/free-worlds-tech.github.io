@@ -373,6 +373,34 @@ const knownWeapons = [
         ]
     },
     {
+        id: "is:elrm5", 
+        name: "ELRM 5", 
+        ammoTypes: [
+            {id: "standard", name: "Standard (18)"},
+        ]
+    },
+    {
+        id: "is:elrm10", 
+        name: "ELRM 10", 
+        ammoTypes: [
+            {id: "standard", name: "Standard (9)"},
+        ]
+    },
+    {
+        id: "is:elrm15", 
+        name: "ELRM 15", 
+        ammoTypes: [
+            {id: "standard", name: "Standard (6)"},
+        ]
+    },
+    {
+        id: "is:elrm20", 
+        name: "ELRM 20", 
+        ammoTypes: [
+            {id: "standard", name: "Standard (4)"},
+        ]
+    },
+    {
         id: "is:mrm10",
         name: "MRM 10",
         ammoTypes: [
@@ -462,6 +490,42 @@ const knownWeapons = [
             {id: "srm-fragmentation", name: "Fragmentation SRM (11)"},
             {id: "srm-inferno", name: "Inferno SRM (11)"},
             {id: "srm-narc", name: "Narc-Equipped SRM (11)"}
+        ]
+    },
+    {
+        id: "is:thunderbolt5", 
+        name: "Thunderbolt 5", 
+        ammoTypes: [
+            {id: "standard", name: "Standard (12)"},
+        ]
+    },
+    {
+        id: "is:thunderbolt10", 
+        name: "Thunderbolt 10", 
+        ammoTypes: [
+            {id: "standard", name: "Standard (6)"},
+        ]
+    },
+    {
+        id: "is:thunderbolt15", 
+        name: "Thunderbolt 15", 
+        ammoTypes: [
+            {id: "standard", name: "Standard (4)"},
+        ]
+    },
+    {
+        id: "is:thunderbolt20", 
+        name: "Thunderbolt 20", 
+        ammoTypes: [
+            {id: "standard", name: "Standard (3)"},
+        ]
+    },
+    {
+        id: "is:arrowiv", 
+        name: "Arrow IV", 
+        ammoTypes: [
+            {id: "standard", name: "Standard (5)"},
+            {id: "homing", name: "Homing (5)", tagBV: 30},
         ]
     },
     {
@@ -799,6 +863,14 @@ const knownWeapons = [
             {id: "artemisiv", name: "Artemis IV-Equipped (6)", requirement:"artemisiv"},
             {id: "artemisv", name: "Artemis V-Equipped (6)", requirement:"artemisv"},
             {id: "narc", name: "Narc-Equipped (6)"},
+        ]
+    },
+    {
+        id: "clan:arrowiv", 
+        name: "Arrow IV", 
+        ammoTypes: [
+            {id: "standard", name: "Standard (5)"},
+            {id: "homing", name: "Homing (5)", tagBV: 30},
         ]
     },
     {
