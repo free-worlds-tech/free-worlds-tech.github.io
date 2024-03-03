@@ -310,8 +310,24 @@ function addUnitAmmoSelector(unit)
 
                 $ammoSelect.on("change", function(e) {
                     const ammoType = e.target.value;
+
+                    const previousAmmoType = unit.ammoTypes.get(index);
             
                     unit.ammoTypes.set(index, ammoType);
+
+                    if (previousAmmoType == "caseless" || ammoType == "caseless") {
+                        // Need to ensure exclusivity of caseless ammo
+                        
+                        // If switching from other to "caseless", switch all other ammo entries for the same weapon type to "caseless"
+                        if (previousAmmoType == "caseless" && ammoType != "caseless") {
+                            clearExclusiveAmmo(unit, element.type, "caseless", "standard");
+                        }
+
+                        // If switching from "caseless" to other, switch all other ammo entries for the same weapon from "caseless" to "standard"
+                        if (previousAmmoType != "caseless" && ammoType == "caseless") {
+                            setExclusiveAmmo(unit, element.type, "caseless");
+                        }
+                    }
             
                     updateUnitBV(unit);
                     adjustTAGUnitsBV();
@@ -327,6 +343,38 @@ function addUnitAmmoSelector(unit)
             $(`#unit-${unit.id}`).append($ammoSelections);
         }
     }
+}
+
+function clearExclusiveAmmo(unit, weaponType, exclusiveAmmoType, defaultAmmoType) {
+    const unitLabel = "ammo-" + unit.id;
+    unit.unitProps.ammo.forEach((ammoBin, index) => {
+        const slotLabel = unitLabel + "-slot-" + index;
+        const selectLabel = slotLabel + "-sel";
+
+        if (ammoBin.type == weaponType) {
+            const currentType = unit.ammoTypes.get(index);
+            if (currentType == exclusiveAmmoType) {
+                unit.ammoTypes.set(index, defaultAmmoType);
+                $(`#${selectLabel}`).val(defaultAmmoType);
+            }
+        }
+    });
+}
+
+function setExclusiveAmmo(unit, weaponType, exclusiveAmmoType) {
+    const unitLabel = "ammo-" + unit.id;
+    unit.unitProps.ammo.forEach((ammoBin, index) => {
+        const slotLabel = unitLabel + "-slot-" + index;
+        const selectLabel = slotLabel + "-sel";
+
+        if (ammoBin.type == weaponType) {
+            const currentType = unit.ammoTypes.get(index);
+            if (currentType != exclusiveAmmoType) {
+                unit.ammoTypes.set(index, exclusiveAmmoType);
+                $(`#${selectLabel}`).val(exclusiveAmmoType);
+            }
+        }
+    });
 }
 
 function getUnitProperties() {
