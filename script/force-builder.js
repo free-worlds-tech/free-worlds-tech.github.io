@@ -301,15 +301,23 @@ function addUnitRow(unit)
     $costsDiv.append(`<span>Adjusted BV: <span class='adj-bv'>${unit.adjustedBV}</span></span>`);
     $li.append($costsDiv);
 
+    let secondarySkillName = "Piloting";
+    let crewPlaceholder = "MechWarrior";
+
+    if (unit.unitProps.unitType == "BA") {
+        secondarySkillName = "Anti-’Mech";
+        crewPlaceholder = "Squad Name";
+    }
+
     const $crewDiv = $("<div>", {class: "unit-crew"});
-    $crewDiv.append(`<input class='crew-name crew1' type='text' placeholder='Crew Name' onchange='updateCrewName(${unit.id})'>`);
+    $crewDiv.append(`<input class='crew-name crew1' type='text' placeholder='${crewPlaceholder}' onchange='updateCrewName(${unit.id})'>`);
     $crewDiv.append(createSkillPicker(unit.id, "g", "Gunnery", unit.gunnery));
-    $crewDiv.append(createSkillPicker(unit.id, "p", "Piloting", unit.piloting));
+    $crewDiv.append(createSkillPicker(unit.id, "p", secondarySkillName, unit.piloting));
     $li.append($crewDiv);
 
     if (unit.unitProps.specials.includes("commandconsole")) {
         const $crewDiv2 = $("<div>", {class: "unit-crew"});
-        $crewDiv2.append(`<input class='crew-name crew2' type='text' placeholder='Command Console Crew Name' onchange='updateCrewName(${unit.id},"cc")'>`);
+        $crewDiv2.append(`<input class='crew-name crew2' type='text' placeholder='Command Console MechWarrior' onchange='updateCrewName(${unit.id},"cc")'>`);
         $crewDiv2.append(createSkillPicker(unit.id, "g2", "Gunnery", unit.gunnery));
         $crewDiv2.append(createSkillPicker(unit.id, "p2", "Piloting", unit.piloting));
         $li.append($crewDiv2);
