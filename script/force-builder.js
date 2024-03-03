@@ -827,13 +827,12 @@ function addC3Network() {
         id: currentId,
         type: "c3",
         rootUnit: {
-            id: defaultRoot.id, 
-            type: "m", 
+            id: defaultRoot.id,  
             linkType: "s", 
             links: [
-                {id: 0, type: "s"},
-                {id: 0, type: "s"},
-                {id: 0, type: "s"}
+                {id: 0},
+                {id: 0},
+                {id: 0},
             ]
         }
     };
@@ -870,48 +869,128 @@ function addC3iNetwork() {
     updateC3Eligibility();
 }
 
-function addNetworkEditor(network) {
+function rebuildC3NetworkEditor(network) {
     const networkLabel = `network-${network.id}`;
-    const $networkEditor = $("<details>", {id: networkLabel});
-    if (network.type == "c3") {
-        $networkEditor.append(`<summary>C<sup>3</sup> Network #${network.id}</summary>`);
+    const $networkEditor = $(`#${networkLabel}`);
 
-        $networkEditor.append("<p><strong>Work in Progress: </strong> C<sup>3</sup>M to C<sup>3</sup>M links are not supported yet.</p>")
+    $networkEditor.children().remove();
 
-        const $rootSelect = $("<select>", {class: "network c3m"});
-        c3mUnits.forEach((c3mLink) => {
-            const c3mUnit = force.get(c3mLink.id);
-            const $c3mUnitOption = $("<option>", {
-                class: "network c3m", 
-                value: `${c3mLink.id}`,
-                text: getUnitFullName(c3mUnit)
+    $networkEditor.append(`<summary>C<sup>3</sup> Network #${network.id}</summary>`);
+
+    const $rootSelect = $("<select>", {class: "network c3m"});
+    c3mUnits.forEach((c3mLink) => {
+        const c3mUnit = force.get(c3mLink.id);
+        const $c3mUnitOption = $("<option>", {
+            class: "network c3m", 
+            value: `${c3mLink.id}`,
+            text: getUnitFullName(c3mUnit)
+        });
+        if (c3mLink.linked && c3mLink.id != network.rootUnit.id) {
+            $c3mUnitOption.attr("disabled", "disabled");
+            $c3mUnitOption.attr("hidden", "hidden");
+        }
+        $rootSelect.append($c3mUnitOption);
+    });
+    $rootSelect.on("change", function(e) {
+        const previousUnitId = network.rootUnit.id;
+        network.rootUnit.id = Number(e.target.value);
+        c3mUnits.find((x) => x.id == network.rootUnit.id).linked = true;
+
+        // Update BV to reflect network change
+        updateNetworkBV(network);
+        const previousUnit = force.get(previousUnitId);
+        if (previousUnit) {
+            c3mUnits.find((x) => x.id == previousUnitId).linked = false;
+            updateUnitBV(previousUnit, true);
+        }
+        updateC3Eligibility();
+    });
+    $networkEditor.append($rootSelect);
+    
+    $networkEditor.append(`<label><input type='checkbox' id='${networkLabel}-type' ${network.rootUnit.linkType == "m" ? "checked" : ""}>Link to additional C<sup>3</sup>M computers</label>`);
+    $networkEditor.find(`#${networkLabel}-type`).on("change", function() {
+        if (this.checked) {
+            network.rootUnit.linkType = "m";
+            network.rootUnit.links[0] = {id: 0, links: [{id: 0},{id: 0},{id: 0},]};
+            network.rootUnit.links[1] = {id: 0, links: [{id: 0},{id: 0},{id: 0},]};
+            network.rootUnit.links[2] = {id: 0, links: [{id: 0},{id: 0},{id: 0},]};
+        } else {
+            network.rootUnit.linkType = "s";
+            network.rootUnit.links[0] = {id: 0};
+            network.rootUnit.links[1] = {id: 0};
+            network.rootUnit.links[2] = {id: 0};
+        }
+        
+        rebuildC3NetworkEditor(network);
+    });
+
+    const $linksList = $("<ul>");
+    if (network.rootUnit.linkType == "m") {
+        for (let i = 0; i < 3; i++) {
+            const $linkListItem = $("<li>");
+            const $linkSelect = $("<select>", {id: `${networkLabel}-${i}`, class: "network c3m"});
+            $linkSelect.append(`<option class='network' value='0' selected>~EMPTY~</option>`);
+            c3mUnits.forEach((c3m) => {
+                const c3mUnit = force.get(c3m.id);
+                const $c3mUnitOption = $("<option>", {
+                    class: "network c3m",
+                    value: `${c3m.id}`,
+                    text: getUnitFullName(c3mUnit)
+                });
+                if (c3m.linked) {
+                    $c3mUnitOption.attr("disabled", "disabled");
+                    $c3mUnitOption.attr("hidden", "hidden");
+                }
+                $linkSelect.append($c3mUnitOption);
             });
-            if (c3mLink.linked && c3mLink.id != network.rootUnit.id) {
-                $c3mUnitOption.attr("disabled", "disabled");
-                $c3mUnitOption.attr("hidden", "hidden");
+            $linkSelect.on("change", function(e) {
+                const previousUnitId = network.rootUnit.links[i].id;
+                const newUnitId = Number(e.target.value);
+                network.rootUnit.links[i].id = newUnitId;
+                if (newUnitId != 0) {
+                    c3mUnits.find((x) => x.id == newUnitId).linked = true;
+                    markNetworkUnitAsLinked(newUnitId);
+                }
+
+                // Update BV to reflect network change
+                updateNetworkBV(network);
+                const previousUnit = force.get(previousUnitId);
+                if (previousUnit) {
+                    c3mUnits.find((x) => x.id == previousUnitId).linked = false;
+                    updateUnitBV(previousUnit, true);
+                    markNetworkUnitAsUnlinked(previousUnitId);
+                }
+                updateC3Eligibility();
+            });
+            $linkListItem.append($linkSelect);
+
+            const $sublinkList = $("<ul>");
+            for (let j = 0; j < network.rootUnit.links[i].links.length; j++) {
+                const $sublinkListItem = $("<li>");
+                const $sublinkSelect = $("<select>", {id: `${networkLabel}-${i}-${j}`, class: "network c3s"});
+                $sublinkSelect.append(`<option class='network' value='0' selected>~EMPTY~</option>`);
+                c3sUnits.forEach((c3s) => {
+                    const c3sUnit = force.get(c3s.id);
+                    const $c3sUnitOption = $("<option>", {
+                        class: "network c3s",
+                        value: `${c3s.id}`,
+                        text: getUnitFullName(c3sUnit)
+                    });
+                    if (c3s.linked) {
+                        $c3sUnitOption.attr("disabled", "disabled");
+                        $c3sUnitOption.attr("hidden", "hidden");
+                    }
+                    $sublinkSelect.append($c3sUnitOption);
+                });
+                $sublinkListItem.append($sublinkSelect);
+                $sublinkList.append($sublinkListItem);
             }
-            $rootSelect.append($c3mUnitOption);
-        });
-        $rootSelect.on("change", function(e) {
-            const previousUnitId = network.rootUnit.id;
-            network.rootUnit.id = Number(e.target.value);
-            c3mUnits.find((x) => x.id == network.rootUnit.id).linked = true;
 
-            // Update BV to reflect network change
-            updateNetworkBV(network);
-            const previousUnit = force.get(previousUnitId);
-            if (previousUnit) {
-                c3mUnits.find((x) => x.id == previousUnitId).linked = false;
-                updateUnitBV(previousUnit, true);
-            }
-            updateC3Eligibility();
-        });
-        $networkEditor.append($rootSelect);
+            $linkListItem.append($sublinkList);
 
-        // TODO: Support c3m->c3m links...
-        // $networkEditor.append(`<label><input type='checkbox' id='${networkLabel}-type'>Link to additional C<sup>3</sup>M computers</label>`);
-
-        const $linksList = $("<ul>");
+            $linksList.append($linkListItem);
+        }
+    } else {
         for (let i = 0; i < 3; i++) {
             const $linkListItem = $("<li>");
             const $linkSelect = $("<select>", {id: `${networkLabel}-${i}`, class: "network c3s"});
@@ -951,8 +1030,17 @@ function addNetworkEditor(network) {
             $linkListItem.append($linkSelect);
             $linksList.append($linkListItem);
         }
-        $networkEditor.append($linksList);
-        $networkEditor.append(`<button type='button' title='Remove C3 network' class='network' onclick='removeNetwork(${network.id})'>Remove Nework</button>`);
+    }
+    $networkEditor.append($linksList);
+    $networkEditor.append(`<button type='button' title='Remove C3 network' class='network' onclick='removeNetwork(${network.id})'>Remove Nework</button>`);
+}
+
+function addNetworkEditor(network) {
+    const networkLabel = `network-${network.id}`;
+    const $networkEditor = $("<details>", {id: networkLabel});
+    if (network.type == "c3") {
+        $("#network-setups").append($networkEditor);
+        rebuildC3NetworkEditor(network);
 
     } else {
         $networkEditor.append(`<summary>C<sup>3</sup>i Network #${network.id}</summary>`);
@@ -993,9 +1081,8 @@ function addNetworkEditor(network) {
             $networkEditor.append($unitSelect);
         }
         $networkEditor.append(`<button type='button' title='Remove C3i network' class='network' onclick='removeNetwork(${network.id})'>Remove Nework</button>`);
+        $("#network-setups").append($networkEditor);
     }
-
-    $("#network-setups").append($networkEditor);
 }
 
 function markNetworkUnitAsLinked(unitId) {
