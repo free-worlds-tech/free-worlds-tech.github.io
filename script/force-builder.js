@@ -196,6 +196,12 @@ function addUnit(unitProps) {
         newUnit.ammoTypes.set(index, ammoBin.default ? ammoBin.default : "standard");
     });
 
+    if (unitProps.specials.includes("commandconsole")) {
+        newUnit.crew2 = "";
+        newUnit.gunnery2 = 4;
+        newUnit.piloting2 = 5;
+    }
+
     force.set(currentId, newUnit);
 
     addUnitRow(newUnit);
@@ -245,12 +251,18 @@ function addUnitRow(unit)
     $li.append($costsDiv);
 
     const $crewDiv = $("<div>", {class: "unit-crew"});
-    $crewDiv.append(`<input class='crew-name' type='text' placeholder='Crew Name' onchange='updateCrewName(${unit.id})'>`);
-    $crewDiv.append(createSkillPicker(unit.id, "gunnery-skill", unit.gunnery));
-    $crewDiv.append(createSkillPicker(unit.id, "piloting-skill", unit.piloting));
+    $crewDiv.append(`<input class='crew-name crew1' type='text' placeholder='Crew Name' onchange='updateCrewName(${unit.id})'>`);
+    $crewDiv.append(createSkillPicker(unit.id, "g", "Gunnery", unit.gunnery));
+    $crewDiv.append(createSkillPicker(unit.id, "p", "Piloting", unit.piloting));
     $li.append($crewDiv);
 
-    
+    if (unit.unitProps.specials.includes("commandconsole")) {
+        const $crewDiv2 = $("<div>", {class: "unit-crew"});
+        $crewDiv2.append(`<input class='crew-name crew2' type='text' placeholder='Command Console Crew Name' onchange='updateCrewName(${unit.id},"cc")'>`);
+        $crewDiv2.append(createSkillPicker(unit.id, "g2", "Gunnery", unit.gunnery));
+        $crewDiv2.append(createSkillPicker(unit.id, "p2", "Piloting", unit.piloting));
+        $li.append($crewDiv2);
+    }
 
     $("#force-list").append($li);
 
@@ -376,7 +388,13 @@ function updateUnitBV(unit, fromNetworkChange) {
         updateNetworkBV(connectedNetwork);
     }
 
-    const multiplier = getSkillMultiplier(g,p);
+    let multiplier = getSkillMultiplier(g,p);
+    if (unit.unitProps.specials.includes("commandconsole")) {
+        const ccMultiplier = getSkillMultiplier(unit.gunnery2, unit.piloting2);
+        if (ccMultiplier > multiplier) {
+            multiplier = ccMultiplier;
+        }
+    }
     unit.adjustedBV = Math.round(modifiedBV * multiplier);
     if (multiplier != 1) {
         bvNotes.push({note: `Skills ×${multiplier}`, amount:(unit.adjustedBV - modifiedBV)});
@@ -469,7 +487,7 @@ function getSemiGuidedAmmoValueForForce()
     return total;
 }
 
-function createSkillPicker(id, type, initialRating)
+function createSkillPicker(id, type, label, initialRating)
 {
     const $select = $("<select>");
     for (let i = 0; i <= 8; i++) {
@@ -485,10 +503,14 @@ function createSkillPicker(id, type, initialRating)
         const skill = Number(e.target.value);
 
         const unit = force.get(id);
-        if (type === "gunnery-skill") {
+        if (type === "g") {
             unit.gunnery = skill;
-        } else if (type === "piloting-skill") {
+        } else if (type === "p") {
             unit.piloting = skill;
+        } else if (type === "g2") {
+            unit.gunnery2 = skill;
+        } else if (type === "p2") {
+            unit.piloting2 = skill;
         }
 
         updateUnitBV(unit);
@@ -496,12 +518,7 @@ function createSkillPicker(id, type, initialRating)
 
     const $label = $("<label>");
     $label.addClass("crew-skill");
-    $label.addClass(type);
-    if (type === "gunnery-skill") {
-        $label.text("Gunnery:");
-    } else if (type === "piloting-skill") {
-        $label.text("Piloting:");
-    }
+    $label.text(`${label}:`);
     $label.append($select);
     return $label;
 }
@@ -570,13 +587,17 @@ function updateTotals() {
     $("#adj-bv-total").text(totalAdjBV);
 }
 
-function updateCrewName(id) {
+function updateCrewName(id, position) {
     const unit = force.get(id);
-    const crewName = $("#unit-" + id + " input").val();
     
-    unit.crew = crewName;
-
-    $(`option.network[value='${id}']`).text(getUnitFullName(unit));
+    if (position == "cc") {
+        const crewName = $("#unit-" + id + " .crew-name.crew2").val();
+        unit.crew2 = crewName;
+    } else {
+        const crewName = $("#unit-" + id + " .crew-name.crew1").val();
+        unit.crew = crewName;
+        $(`option.network[value='${id}']`).text(getUnitFullName(unit));
+    }
 }
 
 function downloadForce() {
@@ -588,7 +609,15 @@ function downloadForce() {
     let totalBV = 0;
     let totalAdjBV = 0;
     force.forEach((unit) => {
-        contents += `| ${unit.unitProps.name} | ${unit.crew} | ${unit.gunnery} | ${unit.piloting} | ${unit.unitProps.tonnage} | ${unit.unitProps.bv} | ${unit.adjustedBV} |\n`;
+        let crewName = unit.crew;
+        let gunnery = `${unit.gunnery}`;
+        let piloting = `${unit.piloting}`;
+        if (unit.unitProps.specials.includes("commandconsole")) {
+            crewName += `, ${unit.crew2}`;
+            gunnery += `, ${unit.gunnery2}`;
+            piloting += `, ${unit.piloting2}`;
+        }
+        contents += `| ${unit.unitProps.name} | ${crewName} | ${gunnery} | ${piloting} | ${unit.unitProps.tonnage} | ${unit.unitProps.bv} | ${unit.adjustedBV} |\n`;
         totalTonnage += unit.unitProps.tonnage;
         totalBV += unit.unitProps.bv;
         totalAdjBV += unit.adjustedBV;
