@@ -7,6 +7,9 @@ let searchInProgress = false;
 const force = new Map();
 const networks = new Map();
 
+let previousSearchQuery = "";
+let searchResumeToken = 0;
+
 const c3mUnits = [];
 const c3sUnits = [];
 const c3iUnits = [];
@@ -116,8 +119,6 @@ function searchUnits() {
         searchParams.append("tag", "1");
     }
 
-    let results = [];
-
     showSearchStatus("Searching...");
     searchInProgress = true;
 
@@ -125,24 +126,67 @@ function searchUnits() {
     if (debugMode) {
         searchUri = "http://localhost:7071/api/search?";
     }
-    searchUri += searchParams.toString();
+    previousSearchQuery = searchParams.toString();
+    searchUri += previousSearchQuery;
 
     $.ajax({
         url: searchUri,
         dataType: "json",
         success: (result) => {
             let more = false;
-            if (result.length > 10)
-            {
-                result.pop();
-                more = true;
+            if (result.units) {
+                knownUnits = result.units;
+                more = result.resume > 0;
+                searchResumeToken = result.resume;
+            } else {
+                if (result.length > 10)
+                {
+                    result.pop();
+                    more = true;
+                }
+                knownUnits = result;
             }
-            knownUnits = result;
-            showUnitList(result, more);
+            showUnitList(knownUnits, more, false);
             searchInProgress = false;
         },
         error: () => {
             showSearchStatus("Request failed!");
+            searchInProgress = false;
+        }
+    });
+}
+
+function resumeSearch() {
+    let searchUri = "https://fwti-unitsearch.azurewebsites.net/api/search?";
+    if (debugMode) {
+        searchUri = "http://localhost:7071/api/search?";
+    }
+    searchUri += previousSearchQuery;
+    if (previousSearchQuery.length > 0) {
+        searchUri += "&";
+    }
+    searchUri += `r=${searchResumeToken}`;
+
+    searchInProgress = true;
+    showUnitList(knownUnits, false, true);
+
+    $.ajax({
+        url: searchUri,
+        dataType: "json",
+        success: (result) => {
+            let more = false;
+            if (result.units) {
+                result.units.forEach((unit) => {
+                    knownUnits.push(unit);
+                });
+                more = result.resume > 0;
+                searchResumeToken = result.resume;
+            }
+            showUnitList(knownUnits, more, false);
+            searchInProgress = false;
+        },
+        error: () => {
+            showUnitList(knownUnits, false, false);
             searchInProgress = false;
         }
     });
@@ -153,7 +197,7 @@ function showSearchStatus(message) {
     $("#search-results").append(`<li><em>${message}</em></li>`);
 }
 
-function showUnitList(list, moreAvailable) {
+function showUnitList(list, moreAvailable, searching) {
     $("#search-results").children().remove();
 
     if (list.length == 0) {
@@ -163,7 +207,14 @@ function showUnitList(list, moreAvailable) {
             $("#search-results").append(`<li><button title='Add unit to force' type='button' onclick='addUnitById("${unit.id}")'><span class="material-symbols-outlined">add</span></button><span class="search-result">${unit.name}</span></li>`);
         });
         if (moreAvailable) {
-            $("#search-results").append(`<li><em>More units available.</em></li>`);
+            if (searchResumeToken) {
+                $("#search-results").append(`<li><button title='Show more' type='button' onclick='resumeSearch()'>Show More</button><em>More units available.</em></li>`);
+            } else {
+                $("#search-results").append(`<li><em>More units available.</em></li>`);
+            }
+        }
+        if (searching) {
+            $("#search-results").append(`<li><em>Searching...</em></li>`);
         }
     }
 }
