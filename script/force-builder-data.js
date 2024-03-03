@@ -221,10 +221,45 @@ const knownWeapons = [
         ]
     },
     {
+        id: "is:hvac2",
+        name: "Hyper-Velocity AC/2",
+        ammoTypes: [
+            {id: "standard", name: "Standard (30)"}
+        ]
+    },
+    {
+        id: "is:hvac5",
+        name: "Hyper-Velocity AC/5",
+        ammoTypes: [
+            {id: "standard", name: "Standard (15)"}
+        ]
+    },
+    {
+        id: "is:hvac10",
+        name: "Hyper-Velocity AC/10",
+        ammoTypes: [
+            {id: "standard", name: "Standard (8)"}
+        ]
+    },
+    {
         id: "is:lightgaussrifle",
         name: "Light Gauss Rifle",
         ammoTypes: [
             {id: "standard", name: "Standard (16)"},
+        ]
+    },
+    {
+        id: "is:magshot",
+        name: "Magshot Gauss Rifle",
+        ammoTypes: [
+            {id: "standard", name: "Standard (50)"},
+        ]
+    },
+    {
+        id: "is:gaussrifleprototype",
+        name: "Prototype Gauss Rifle",
+        ammoTypes: [
+            {id: "standard", name: "Standard (8)"},
         ]
     },
     {
@@ -246,6 +281,27 @@ const knownWeapons = [
         name: "Improved Heavy Gauss Rifle",
         ammoTypes: [
             {id: "standard", name: "Standard (4)"},
+        ]
+    },
+    {
+        id: "is:silverbullet",
+        name: "Silver Bullet Gauss",
+        ammoTypes: [
+            {id: "standard", name: "Standard (8)"},
+        ]
+    },
+    {
+        id: "is:vehicleflamer",
+        name: "Vehicle Flamer",
+        ammoTypes: [
+            {id: "standard", name: "Standard (20)"}
+        ]
+    },
+    {
+        id: "is:heavyflamer",
+        name: "Heavy Flamer",
+        ammoTypes: [
+            {id: "standard", name: "Standard (10)"}
         ]
     },
     {
@@ -370,6 +426,50 @@ const knownWeapons = [
             {id: "fragmentation", name: "Fragmentation (6)"},
             {id: "narc", name: "Narc-Equipped (6)"},
             {id: "semiguided", name: "Semi-Guided (6)", tagBV: 23}
+        ]
+    },
+    {
+        id: "is:nlrm5", 
+        name: "Enhanced LRM 5", 
+        ammoTypes: [
+            {id: "standard", name: "Standard (24)"},
+            {id: "artemisiv", name: "Artemis IV-Equipped (24)", requirement:"artemisiv"},
+            {id: "fragmentation", name: "Fragmentation (24)"},
+            {id: "narc", name: "Narc-Equipped (24)"},
+            {id: "semiguided", name: "Semi-Guided (24)", tagBV: 7}
+        ]
+    },
+    {
+        id: "is:nlrm10", 
+        name: "Enhanced LRM 10", 
+        ammoTypes: [
+            {id: "standard", name: "Standard (12)"},
+            {id: "artemisiv", name: "Artemis IV-Equipped (12)", requirement:"artemisiv"},
+            {id: "fragmentation", name: "Fragmentation (12)"},
+            {id: "narc", name: "Narc-Equipped (12)"},
+            {id: "semiguided", name: "Semi-Guided (12)", tagBV: 13}
+        ]
+    },
+    {
+        id: "is:nlrm15", 
+        name: "Enhanced LRM 15", 
+        ammoTypes: [
+            {id: "standard", name: "Standard (8)"},
+            {id: "artemisiv", name: "Artemis IV-Equipped (8)", requirement:"artemisiv"},
+            {id: "fragmentation", name: "Fragmentation (8)"},
+            {id: "narc", name: "Narc-Equipped (8)"},
+            {id: "semiguided", name: "Semi-Guided (8)", tagBV: 20}
+        ]
+    },
+    {
+        id: "is:nlrm20", 
+        name: "Enhanced LRM 20", 
+        ammoTypes: [
+            {id: "standard", name: "Standard (6)"},
+            {id: "artemisiv", name: "Artemis IV-Equipped (6)", requirement:"artemisiv"},
+            {id: "fragmentation", name: "Fragmentation (6)"},
+            {id: "narc", name: "Narc-Equipped (6)"},
+            {id: "semiguided", name: "Semi-Guided (6)", tagBV: 26}
         ]
     },
     {
@@ -652,6 +752,33 @@ const knownWeapons = [
         ]
     },
     {
+        id: "clan:protomechac2",
+        name: "ProtoMech AC/2",
+        ammoTypes: [
+            {id: "standard", name: "Standard (40)"},
+            {id: "ap", name: "Armor-Piercing (20)"},
+            {id: "flechette", name: "Flechette (40)"},
+        ]
+    },
+    {
+        id: "clan:protomechac4",
+        name: "ProtoMech AC/4",
+        ammoTypes: [
+            {id: "standard", name: "Standard (20)"},
+            {id: "ap", name: "Armor-Piercing (10)"},
+            {id: "flechette", name: "Flechette (20)"},
+        ]
+    },
+    {
+        id: "clan:protomechac8",
+        name: "ProtoMech AC/8",
+        ammoTypes: [
+            {id: "standard", name: "Standard (10)"},
+            {id: "ap", name: "Armor-Piercing (5)"},
+            {id: "flechette", name: "Flechette (10)"},
+        ]
+    },
+    {
         id: "clan:gaussrifle",
         name: "Gauss Rifle",
         ammoTypes: [
@@ -691,6 +818,13 @@ const knownWeapons = [
         name: "AP Gauss Rifle",
         ammoTypes: [
             {id: "standard", name: "Standard (40)"},
+        ]
+    },
+    {
+        id: "clan:heavyflamer",
+        name: "Heavy Flamer",
+        ammoTypes: [
+            {id: "standard", name: "Standard (10)"}
         ]
     },
     {
