@@ -268,7 +268,7 @@ function addUnit(unitProps) {
         c3iUnits.push({id: currentId, linked: false});
     }
     updateC3Eligibility();
-    addUnitToAllNetworks(newUnit);
+    addUnitToAllNetworkSelects(newUnit);
 
     if (unitProps.specials.includes("tag")) {
         updateUnitBV(newUnit);
@@ -470,24 +470,28 @@ function updateUnitBV(unit, fromNetworkChange) {
     if (unit.unitProps.specials.includes("c3m") || unit.unitProps.specials.includes("c3s")) {
         networks.forEach((network) => {
             if (network.type == "c3") {
-                if (network.rootUnit.id == unit.id || network.rootUnit.links.find((x) => x.id == unit.id)) {
-                    connectedNetwork = network;
-                    const networkBV = Math.round(getNetworkBV(network.id));
-                    modifiedBV += networkBV;
-                    bvNotes.push({note: "C3", amount: networkBV});
-                }
+                forEachNetworkUnit(network, (networkUnit) => {
+                    if (unit.id == networkUnit.id) {
+                        connectedNetwork = network;
+                        const networkBV = Math.round(getNetworkBV(network.id));
+                        modifiedBV += networkBV;
+                        bvNotes.push({note: "C3", amount: networkBV});
+                    }
+                });
             }
         });
     }
     if (unit.unitProps.specials.includes("c3i")) {
         networks.forEach((network) => {
             if (network.type == "c3i") {
-                if (network.units.find((x) => x.id == unit.id)) {
-                    connectedNetwork = network;
-                    const networkBV = Math.round(getNetworkBV(network.id));
-                    modifiedBV += networkBV;
-                    bvNotes.push({note: "C3i", amount: networkBV});
-                }
+                forEachNetworkUnit(newtork, (networkUnit) => {
+                    if (unit.id == networkUnit.id) {
+                        connectedNetwork = network;
+                        const networkBV = Math.round(getNetworkBV(network.id));
+                        modifiedBV += networkBV;
+                        bvNotes.push({note: "C3i", amount: networkBV});
+                    }
+                });
             }
         });
     }
@@ -540,38 +544,17 @@ function getNetworkBVforUnit(unit) {
 }
 
 function getNetworkBV(networkId) {
+    let networkBV = 0;
+    let unitCount = 0;
     const network = networks.get(networkId);
-    if (network.type == "c3") {
-        let networkBV = 0;
-        let unitCount = 1;
-        const rootUnit = force.get(network.rootUnit.id);
 
-        networkBV += getNetworkBVforUnit(rootUnit) * 0.05;
+    forEachNetworkUnit(network, (unit) => {
+        networkBV += getNetworkBVforUnit(unit) * 0.05;
+        unitCount += 1;
+    });
 
-        network.rootUnit.links.forEach((link) => {
-            const linkedUnit = force.get(link.id);
-            if (linkedUnit) {
-                networkBV += getNetworkBVforUnit(linkedUnit) * 0.05;
-                unitCount += 1;
-            }
-        });
-
-        return unitCount > 1 ? networkBV : 0;
-    } else if (network.type == "c3i") {
-        let networkBV = 0
-        let unitCount = 0;
-        network.units.forEach((link) => {
-            const linkedUnit = force.get(link.id);
-            if (linkedUnit) {
-                networkBV += getNetworkBVforUnit(linkedUnit) * 0.05;
-                unitCount += 1;
-            }
-        });
-
-        return unitCount > 1 ? networkBV : 0;
-    }
-
-    return 0;
+    // TODO: This should check for the network being valid
+    return unitCount > 1 ? networkBV : 0;
 }
 
 function adjustTAGUnitsBV() {
@@ -794,9 +777,7 @@ function downloadForce() {
 }
 
 function updateC3Eligibility() {
-    // TODO: Once c3m->c3m links are supported, update this...
     let c3mAvailable = c3mUnits.find((x) => !x.linked) != undefined;
-    let c3sAvailable = c3sUnits.find((x) => !x.linked) != undefined;
 
     let c3iAvailableCount = 0;
     c3iUnits.forEach((c3i) => {
@@ -805,7 +786,7 @@ function updateC3Eligibility() {
         }
     });
 
-    if (c3mAvailable && c3sAvailable) {
+    if (c3mAvailable) {
         $("#add-c3-network-button").removeAttr("disabled");
     } else {
         $("#add-c3-network-button").attr("disabled", "disabled");
@@ -909,6 +890,12 @@ function rebuildC3NetworkEditor(network) {
     
     $networkEditor.append(`<label><input type='checkbox' id='${networkLabel}-type' ${network.rootUnit.linkType == "m" ? "checked" : ""}>Link to additional C<sup>3</sup>M computers</label>`);
     $networkEditor.find(`#${networkLabel}-type`).on("change", function() {
+        const unitsToRemove = [];
+        forEachNetworkUnit(network, (networkUnit) => {
+            if (network.rootUnit.id != networkUnit.id) {
+                unitsToRemove.push(networkUnit);
+            }
+        });
         if (this.checked) {
             network.rootUnit.linkType = "m";
             network.rootUnit.links[0] = {id: 0, links: [{id: 0},{id: 0},{id: 0},]};
@@ -920,6 +907,23 @@ function rebuildC3NetworkEditor(network) {
             network.rootUnit.links[1] = {id: 0};
             network.rootUnit.links[2] = {id: 0};
         }
+        unitsToRemove.forEach((unitToRemove) => {
+            const c3m = c3mUnits.find((x) => x.id == unitToRemove.id);
+            if (c3m) {
+                c3m.linked = false;
+            }
+            const c3s = c3sUnits.find((x) => x.id == unitToRemove.id);
+            if (c3s) {
+                c3s.linked = false;
+            }
+            const c3i = c3iUnits.find((x) => x.id == unitToRemove.id);
+            if (c3i) {
+                c3i.linked = false;
+            }
+            markNetworkUnitAsUnlinked(unitToRemove.id);
+            updateUnitBV(unitToRemove);
+        });
+        updateNetworkBV(network);
         
         rebuildC3NetworkEditor(network);
     });
@@ -950,6 +954,28 @@ function rebuildC3NetworkEditor(network) {
                 if (newUnitId != 0) {
                     c3mUnits.find((x) => x.id == newUnitId).linked = true;
                     markNetworkUnitAsLinked(newUnitId);
+
+                    for (let j = 0; j < 3; j++) {
+                        $(`#${networkLabel}-${i}-${j}`).removeAttr("disabled");
+                    }
+                } else {
+                    for (let j = 0; j < 3; j++) {
+                        $(`#${networkLabel}-${i}-${j}`).attr("disabled", "disabled");
+                        $(`#${networkLabel}-${i}-${j}`).val(0);
+                        const idToRemove = network.rootUnit.links[i].links[j].id;
+                        if (idToRemove != 0) {
+                            network.rootUnit.links[i].links[j].id = 0;
+                            const c3s = c3sUnits.find((x) => x.id == idToRemove);
+                            if (c3s) {
+                                c3s.linked = false;
+                            }
+                            markNetworkUnitAsUnlinked(idToRemove);
+                            const unitToRemove = force.get(idToRemove);
+                            if (unitToRemove) {
+                                updateUnitBV(unitToRemove);
+                            }
+                        }
+                    }
                 }
 
                 // Update BV to reflect network change
@@ -967,7 +993,7 @@ function rebuildC3NetworkEditor(network) {
             const $sublinkList = $("<ul>");
             for (let j = 0; j < network.rootUnit.links[i].links.length; j++) {
                 const $sublinkListItem = $("<li>");
-                const $sublinkSelect = $("<select>", {id: `${networkLabel}-${i}-${j}`, class: "network c3s"});
+                const $sublinkSelect = $("<select>", {id: `${networkLabel}-${i}-${j}`, class: "network c3s", disabled: "disabled"});
                 $sublinkSelect.append(`<option class='network' value='0' selected>~EMPTY~</option>`);
                 c3sUnits.forEach((c3s) => {
                     const c3sUnit = force.get(c3s.id);
@@ -981,6 +1007,25 @@ function rebuildC3NetworkEditor(network) {
                         $c3sUnitOption.attr("hidden", "hidden");
                     }
                     $sublinkSelect.append($c3sUnitOption);
+                });
+                $sublinkSelect.on("change", function(e) {
+                    const previousUnitId = network.rootUnit.links[i].links[j].id;
+                    const newUnitId = Number(e.target.value);
+                    network.rootUnit.links[i].links[j].id = newUnitId;
+                    if (newUnitId != 0) {
+                        c3sUnits.find((x) => x.id == newUnitId).linked = true;
+                        markNetworkUnitAsLinked(newUnitId);
+                    }
+    
+                    // Update BV to reflect network change
+                    updateNetworkBV(network);
+                    const previousUnit = force.get(previousUnitId);
+                    if (previousUnit) {
+                        c3sUnits.find((x) => x.id == previousUnitId).linked = false;
+                        updateUnitBV(previousUnit, true);
+                        markNetworkUnitAsUnlinked(previousUnitId);
+                    }
+                    updateC3Eligibility();
                 });
                 $sublinkListItem.append($sublinkSelect);
                 $sublinkList.append($sublinkListItem);
@@ -1097,8 +1142,8 @@ function markNetworkUnitAsUnlinked(unitId) {
     $c3SelectMatches.removeAttr("hidden");
 }
 
-function addUnitToAllNetworks(addedUnit) {
-    // Add new unit to network UIs
+function addUnitToAllNetworkSelects(addedUnit) {
+    // Add new unit as an option in network UIs
     if (addedUnit.unitProps.specials.includes("c3m")) {
         $(`select.network.c3m`).append(`<option class='network c3m' value='${addedUnit.id}'>${getUnitFullName(addedUnit)}</option>`);
     }
@@ -1124,16 +1169,7 @@ function removeUnitFromNetwork(network, removedUnitId) {
         const rootUnitId = network.rootUnit.id;
         if (rootUnitId == removedUnitId) {
             // Delete network since its root is gone
-            $(`#network-${network.id}`).remove();
-            networks.delete(network.id);
-            updateNetworkBV(network);
-            network.rootUnit.links.forEach((link) => {
-                const linkedUnit = c3sUnits.find((x) => x.id == link.id);
-                if (linkedUnit) {
-                    linkedUnit.linked = false;
-                }
-                markNetworkUnitAsUnlinked(link.id);
-            });
+            removeNetwork(network.id);
             return;
         }
 
@@ -1143,6 +1179,34 @@ function removeUnitFromNetwork(network, removedUnitId) {
                 link.id = 0;
                 $(`#network-${network.id}-${index}`).val(0);
                 updateNetworkBV(network);
+
+                if (link.links) {
+                    for (let j = 0; j < 3; j++) {
+                        $(`#network-${network.id}-${index}-${j}`).attr("disabled", "disabled");
+                        const idToRemove = network.rootUnit.links[index].links[j].id;
+                        if (idToRemove != 0) {
+                            network.rootUnit.links[index].links[j].id = 0;
+                            const c3s = c3sUnits.find((x) => x.id == idToRemove);
+                            if (c3s) {
+                                c3s.linked = false;
+                            }
+                            markNetworkUnitAsUnlinked(idToRemove);
+                            const unitToRemove = force.get(idToRemove);
+                            if (unitToRemove) {
+                                updateUnitBV(unitToRemove);
+                            }
+                        }
+                    }
+                }
+            }
+            if (link.links) {
+                link.links.forEach((sublink, subindex) => {
+                    if (sublink.id == removedUnitId) {
+                        sublink.id = 0;
+                        $(`#network-${network.id}-${index}-${subindex}`).val(0);
+                        updateNetworkBV(network);
+                    }
+                });
             }
         });
     } else if (network.type == "c3i") {
@@ -1162,49 +1226,55 @@ function removeNetwork(networkId) {
     const network = networks.get(networkId);
     networks.delete(networkId);
     updateNetworkBV(network);
-    if (network.type == "c3") {
-        const rootUnit = c3mUnits.find((x) => x.id == network.rootUnit.id);
-        if (rootUnit) {
-            rootUnit.linked = false;
+    forEachNetworkUnit(network, (unit) => {
+        const c3m = c3mUnits.find((x) => x.id == unit.id);
+        if (c3m) {
+            c3m.linked = false;
         }
-        markNetworkUnitAsUnlinked(rootUnit.id);
-        network.rootUnit.links.forEach((link) => {
-            const linkedUnit = c3sUnits.find((x) => x.id == link.id);
-            if (linkedUnit) {
-                linkedUnit.linked = false;
-            }
-            markNetworkUnitAsUnlinked(link.id);
-        });
-    } else if (network.type == "c3i") {
-        network.units.forEach((link) => {
-            const linkedUnit = c3iUnits.find((x) => x.id == link.id);
-            if (linkedUnit) {
-                linkedUnit.linked = false;
-            }
-            markNetworkUnitAsUnlinked(link.id);
-        });
-    }
+        const c3s = c3sUnits.find((x) => x.id == unit.id);
+        if (c3s) {
+            c3s.linked = false;
+        }
+        const c3i = c3iUnits.find((x) => x.id == unit.id);
+        if (c3i) {
+            c3i.linked = false;
+        }
+        markNetworkUnitAsUnlinked(unit.id);
+    });
     updateC3Eligibility();
 }
 
 function updateNetworkBV(network) {
+    forEachNetworkUnit(network, (unit) => {
+        updateUnitBV(unit, true);
+    });
+}
+
+function forEachNetworkUnit(network, f) {
     if (network.type == "c3") {
         const rootUnit = force.get(network.rootUnit.id);
         if (rootUnit) {
-            updateUnitBV(rootUnit, true);
+            f(rootUnit);
         }
-
         network.rootUnit.links.forEach((link) => {
             const linkedUnit = force.get(link.id);
             if (linkedUnit) {
-                updateUnitBV(linkedUnit, true);
+                f(linkedUnit);
+            }
+            if (link.links) {
+                link.links.forEach((sublink) => {
+                    const sublinkedUnit = force.get(sublink.id);
+                    if (sublinkedUnit) {
+                        f(sublinkedUnit);
+                    }
+                });
             }
         });
     } else if (network.type == "c3i") {
         network.units.forEach((link) => {
             const linkedUnit = force.get(link.id);
             if (linkedUnit) {
-                updateUnitBV(linkedUnit, true);
+                f(linkedUnit);
             }
         });
     }
@@ -1229,6 +1299,11 @@ function dumpDebugData() {
             data += `- ${network.rootUnit.id}\n`;
             network.rootUnit.links.forEach((link) => {
                 data += `  - ${link.id}\n`;
+                if (link.links) {
+                    link.links.forEach((sublink) => {
+                        data += `    - ${sublink.id}\n`;
+                    });
+                }
             });
         } else if (network.type == "c3i") {
             network.units.forEach((link) => {
