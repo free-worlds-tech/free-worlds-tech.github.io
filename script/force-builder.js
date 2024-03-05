@@ -738,6 +738,14 @@ function downloadForce() {
                 if (linkedUnit) {
                     contents += `  - ${getUnitFullName(linkedUnit)}\n`
                 }
+                if (link.links) {
+                    link.links.forEach((sublink) => {
+                        const sublinkedUnit = force.get(sublink.id);
+                        if (sublinkedUnit) {
+                            contents += `    - ${getUnitFullName(sublinkedUnit)}\n`
+                        }
+                    });
+                }
             });
         } else if (network.type == "c3i") {
             contents += "### C3i Network\n";
