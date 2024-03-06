@@ -81,6 +81,27 @@ const knownWeapons = [
         ]
     },
     {
+        id: "is:lightrifle", 
+        name: "Light Rifle", 
+        ammoTypes: [
+            {id: "standard", name: "Standard (18)"}
+        ]
+    },
+    {
+        id: "is:mediumrifle", 
+        name: "Medium Rifle", 
+        ammoTypes: [
+            {id: "standard", name: "Standard (9)"}
+        ]
+    },
+    {
+        id: "is:heavyrifle", 
+        name: "Heavy Rifle", 
+        ammoTypes: [
+            {id: "standard", name: "Standard (6)"}
+        ]
+    },
+    {
         id: "is:ac2", 
         name: "AC/2", 
         ammoTypes: [
@@ -291,6 +312,51 @@ const knownWeapons = [
         ]
     },
     {
+        id: "is:thumper",
+        name: "Thumper",
+        ammoTypes: [
+            {id: "standard", name: "Standard (20)"},
+            {id: "copperhead", name: "Copperhead (20)", tagBV: 5},
+        ]
+    },
+    {
+        id: "is:sniper",
+        name: "Sniper",
+        ammoTypes: [
+            {id: "standard", name: "Standard (10)"},
+            {id: "copperhead", name: "Copperhead (10)", tagBV: 11},
+        ]
+    },
+    {
+        id: "is:longtom",
+        name: "Long Tom",
+        ammoTypes: [
+            {id: "standard", name: "Standard (5)"},
+            {id: "copperhead", name: "Copperhead (5)", tagBV: 46},
+        ]
+    },
+    {
+        id: "is:thumpercannon",
+        name: "Thumper Cannon",
+        ammoTypes: [
+            {id: "standard", name: "Standard (20)"},
+        ]
+    },
+    {
+        id: "is:snipercannon",
+        name: "Sniper Cannon",
+        ammoTypes: [
+            {id: "standard", name: "Standard (10)"},
+        ]
+    },
+    {
+        id: "is:longtomcannon",
+        name: "Long Tom Cannon",
+        ammoTypes: [
+            {id: "standard", name: "Standard (5)"},
+        ]
+    },
+    {
         id: "is:vehicleflamer",
         name: "Vehicle Flamer",
         ammoTypes: [
@@ -364,6 +430,39 @@ const knownWeapons = [
         ]
     },
     {
+        id: "is:srm2:os", 
+        name: "SRM 2 (OS)", 
+        ammoTypes: [
+            {id: "standard", name: "Standard"},
+            {id: "artemisiv", name: "Artemis IV-Equipped", requirement:"artemisiv"},
+            {id: "fragmentation", name: "Fragmentation"},
+            {id: "inferno", name: "Inferno"},
+            {id: "narc", name: "Narc-Equipped"}
+        ]
+    },
+    {
+        id: "is:srm4:os", 
+        name: "SRM 4 (OS)", 
+        ammoTypes: [
+            {id: "standard", name: "Standard"},
+            {id: "artemisiv", name: "Artemis IV-Equipped", requirement:"artemisiv"},
+            {id: "fragmentation", name: "Fragmentation"},
+            {id: "inferno", name: "Inferno"},
+            {id: "narc", name: "Narc-Equipped"}
+        ]
+    },
+    {
+        id: "is:srm6:os", 
+        name: "SRM 6 (OS)", 
+        ammoTypes: [
+            {id: "standard", name: "Standard"},
+            {id: "artemisiv", name: "Artemis IV-Equipped", requirement:"artemisiv"},
+            {id: "fragmentation", name: "Fragmentation"},
+            {id: "inferno", name: "Inferno"},
+            {id: "narc", name: "Narc-Equipped"}
+        ]
+    },
+    {
         id: "is:streaksrm2", 
         name: "Streak SRM 2", 
         ammoTypes: [
@@ -382,6 +481,27 @@ const knownWeapons = [
         name: "Streak SRM 6", 
         ammoTypes: [
             {id: "standard", name: "Standard (15)"}
+        ]
+    },
+    {
+        id: "is:streaksrm2:os", 
+        name: "Streak SRM 2 (OS)", 
+        ammoTypes: [
+            {id: "standard", name: "Standard"}
+        ]
+    },
+    {
+        id: "is:streaksrm4:os", 
+        name: "Streak SRM 4 (OS)", 
+        ammoTypes: [
+            {id: "standard", name: "Standard"}
+        ]
+    },
+    {
+        id: "is:streaksrm6:os", 
+        name: "Streak SRM 6 (OS)", 
+        ammoTypes: [
+            {id: "standard", name: "Standard"}
         ]
     },
     {
@@ -636,6 +756,20 @@ const knownWeapons = [
         ]
     },
     {
+        id: "is:apds",
+        name: "APDS",
+        ammoTypes: [
+            {id: "standard", name: "Standard (12)"},
+        ]
+    },
+    {
+        id: "is:mechtaser",
+        name: "BattleMech Taser",
+        ammoTypes: [
+            {id: "standard", name: "Standard (5)"},
+        ]
+    },
+    {
         id: "clan:lightmachinegun", 
         name: "Light Machine Gun", 
         ammoTypes: [
@@ -842,6 +976,13 @@ const knownWeapons = [
         ]
     },
     {
+        id: "clan:narc:os", 
+        name: "Narc (OS)", 
+        ammoTypes: [
+            {id: "standard", name: "Homing"},
+        ]
+    },
+    {
         id: "clan:atm3", 
         name: "ATM 3", 
         ammoTypes: [
@@ -911,6 +1052,39 @@ const knownWeapons = [
         ]
     },
     {
+        id: "clan:srm2:os", 
+        name: "SRM 2 (OS)", 
+        ammoTypes: [
+            {id: "standard", name: "Standard"},
+            {id: "artemisiv", name: "Artemis IV-Equipped", requirement:"artemisiv"},
+            {id: "artemisv", name: "Artemis V-Equipped", requirement:"artemisv"},
+            {id: "inferno", name: "Inferno"},
+            {id: "narc", name: "Narc-Equipped"}
+        ]
+    },
+    {
+        id: "clan:srm4:os", 
+        name: "SRM 4 (OS)", 
+        ammoTypes: [
+            {id: "standard", name: "Standard"},
+            {id: "artemisiv", name: "Artemis IV-Equipped", requirement:"artemisiv"},
+            {id: "artemisv", name: "Artemis V-Equipped", requirement:"artemisv"},
+            {id: "inferno", name: "Inferno"},
+            {id: "narc", name: "Narc-Equipped"}
+        ]
+    },
+    {
+        id: "clan:srm6:os", 
+        name: "SRM 6 (OS)", 
+        ammoTypes: [
+            {id: "standard", name: "Standard"},
+            {id: "artemisiv", name: "Artemis IV-Equipped", requirement:"artemisiv"},
+            {id: "artemisv", name: "Artemis V-Equipped", requirement:"artemisv"},
+            {id: "inferno", name: "Inferno"},
+            {id: "narc", name: "Narc-Equipped"}
+        ]
+    },
+    {
         id: "clan:streaksrm2", 
         name: "Streak SRM 2", 
         ammoTypes: [
@@ -929,6 +1103,27 @@ const knownWeapons = [
         name: "Streak SRM 6", 
         ammoTypes: [
             {id: "standard", name: "Standard (15)"}
+        ]
+    },
+    {
+        id: "clan:streaksrm2:os", 
+        name: "Streak SRM 2 (OS)", 
+        ammoTypes: [
+            {id: "standard", name: "Standard"}
+        ]
+    },
+    {
+        id: "clan:streaksrm4:os", 
+        name: "Streak SRM 4 (OS)", 
+        ammoTypes: [
+            {id: "standard", name: "Standard"}
+        ]
+    },
+    {
+        id: "clan:streaksrm6:os", 
+        name: "Streak SRM 6 (OS)", 
+        ammoTypes: [
+            {id: "standard", name: "Standard"}
         ]
     },
     {
