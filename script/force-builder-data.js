@@ -1015,6 +1015,398 @@ const knownWeapons = [
         ]
     },
     {
+        id: "is:ba-lrm1",
+        name: "LRM 1",
+        ammoTypes: [
+            {id: "standard", name: "Standard (1)"},
+            {id: "torpedo", name: "Torpedo (1)", requirement:"umu"}
+        ]
+    },
+    {
+        id: "is:ba-lrm2",
+        name: "LRM 2",
+        ammoTypes: [
+            {id: "standard", name: "Standard (1)"},
+            {id: "torpedo", name: "Torpedo (1)", requirement:"umu"}
+        ]
+    },
+    {
+        id: "is:ba-lrm3",
+        name: "LRM 3",
+        ammoTypes: [
+            {id: "standard", name: "Standard (1)"},
+            {id: "torpedo", name: "Torpedo (1)", requirement:"umu"}
+        ]
+    },
+    {
+        id: "is:ba-lrm4",
+        name: "LRM 4",
+        ammoTypes: [
+            {id: "standard", name: "Standard (1)"},
+            {id: "torpedo", name: "Torpedo (1)", requirement:"umu"}
+        ]
+    },
+    {
+        id: "is:ba-lrm5",
+        name: "LRM 5",
+        ammoTypes: [
+            {id: "standard", name: "Standard (1)"},
+            {id: "torpedo", name: "Torpedo (1)", requirement:"umu"}
+        ]
+    },
+    {
+        id: "is:ba-lrm1:os",
+        name: "LRM 1 (OS)",
+        ammoTypes: [
+            {id: "standard", name: "Standard"},
+            {id: "torpedo", name: "Torpedo", requirement:"umu"}
+        ]
+    },
+    {
+        id: "is:ba-lrm2:os",
+        name: "LRM 2 (OS)",
+        ammoTypes: [
+            {id: "standard", name: "Standard"},
+            {id: "torpedo", name: "Torpedo", requirement:"umu"}
+        ]
+    },
+    {
+        id: "is:ba-lrm3:os",
+        name: "LRM 3 (OS)",
+        ammoTypes: [
+            {id: "standard", name: "Standard"},
+            {id: "torpedo", name: "Torpedo", requirement:"umu"}
+        ]
+    },
+    {
+        id: "is:ba-lrm4:os",
+        name: "LRM 4 (OS)",
+        ammoTypes: [
+            {id: "standard", name: "Standard"},
+            {id: "torpedo", name: "Torpedo", requirement:"umu"}
+        ]
+    },
+    {
+        id: "is:ba-lrm5:os",
+        name: "LRM 5 (OS)",
+        ammoTypes: [
+            {id: "standard", name: "Standard"},
+            {id: "torpedo", name: "Torpedo", requirement:"umu"}
+        ]
+    },
+    {
+        id: "is:ba-mrm1",
+        name: "MRM 1",
+        ammoTypes: [
+            {id: "standard", name: "Standard (1)"}
+        ]
+    },
+    {
+        id: "is:ba-mrm2",
+        name: "MRM 2",
+        ammoTypes: [
+            {id: "standard", name: "Standard (1)"}
+        ]
+    },
+    {
+        id: "is:ba-mrm3",
+        name: "MRM 3",
+        ammoTypes: [
+            {id: "standard", name: "Standard (1)"}
+        ]
+    },
+    {
+        id: "is:ba-mrm4",
+        name: "MRM 4",
+        ammoTypes: [
+            {id: "standard", name: "Standard (1)"}
+        ]
+    },
+    {
+        id: "is:ba-mrm5",
+        name: "MRM 5",
+        ammoTypes: [
+            {id: "standard", name: "Standard (1)"}
+        ]
+    },
+    {
+        id: "is:ba-mrm1:os",
+        name: "MRM 1 (OS)",
+        ammoTypes: [
+            {id: "standard", name: "Standard"}
+        ]
+    },
+    {
+        id: "is:ba-mrm2:os",
+        name: "MRM 2 (OS)",
+        ammoTypes: [
+            {id: "standard", name: "Standard"}
+        ]
+    },
+    {
+        id: "is:ba-mrm3:os",
+        name: "MRM 3 (OS)",
+        ammoTypes: [
+            {id: "standard", name: "Standard"}
+        ]
+    },
+    {
+        id: "is:ba-mrm4:os",
+        name: "MRM 4 (OS)",
+        ammoTypes: [
+            {id: "standard", name: "Standard"}
+        ]
+    },
+    {
+        id: "is:ba-mrm5:os",
+        name: "MRM 5 (OS)",
+        ammoTypes: [
+            {id: "standard", name: "Standard"}
+        ]
+    },
+    {
+        id: "is:ba-rl1",
+        name: "RL 1",
+        ammoTypes: [
+            {id: "standard", name: "Standard"}
+        ]
+    },
+    {
+        id: "is:ba-rl2",
+        name: "RL 2",
+        ammoTypes: [
+            {id: "standard", name: "Standard"}
+        ]
+    },
+    {
+        id: "is:ba-rl3",
+        name: "RL 3",
+        ammoTypes: [
+            {id: "standard", name: "Standard"}
+        ]
+    },
+    {
+        id: "is:ba-rl4",
+        name: "RL 4",
+        ammoTypes: [
+            {id: "standard", name: "Standard"}
+        ]
+    },
+    {
+        id: "is:ba-rl5",
+        name: "RL 5",
+        ammoTypes: [
+            {id: "standard", name: "Standard"}
+        ]
+    },
+    {
+        id: "is:ba-srm1",
+        name: "SRM 1",
+        ammoTypes: [
+            {id: "standard", name: "Standard (1)"},
+            {id: "inferno", name: "Inferno (1)"},
+            {id: "torpedo", name: "Torpedo (1)", requirement:"umu"}
+        ]
+    },
+    {
+        id: "is:ba-srm2",
+        name: "SRM 2",
+        ammoTypes: [
+            {id: "standard", name: "Standard (1)"},
+            {id: "inferno", name: "Inferno (1)"},
+            {id: "torpedo", name: "Torpedo (1)", requirement:"umu"}
+        ]
+    },
+    {
+        id: "is:ba-srm3",
+        name: "SRM 3",
+        ammoTypes: [
+            {id: "standard", name: "Standard (1)"},
+            {id: "inferno", name: "Inferno (1)"},
+            {id: "torpedo", name: "Torpedo (1)", requirement:"umu"}
+        ]
+    },
+    {
+        id: "is:ba-srm4",
+        name: "SRM 4",
+        ammoTypes: [
+            {id: "standard", name: "Standard (1)"},
+            {id: "inferno", name: "Inferno (1)"},
+            {id: "torpedo", name: "Torpedo (1)", requirement:"umu"}
+        ]
+    },
+    {
+        id: "is:ba-srm5",
+        name: "SRM 5",
+        ammoTypes: [
+            {id: "standard", name: "Standard (1)"},
+            {id: "inferno", name: "Inferno (1)"},
+            {id: "torpedo", name: "Torpedo (1)", requirement:"umu"}
+        ]
+    },
+    {
+        id: "is:ba-srm6",
+        name: "SRM 6",
+        ammoTypes: [
+            {id: "standard", name: "Standard (1)"},
+            {id: "inferno", name: "Inferno (1)"},
+            {id: "torpedo", name: "Torpedo (1)", requirement:"umu"}
+        ]
+    },
+    {
+        id: "is:ba-srm1:os",
+        name: "SRM 1 (OS)",
+        ammoTypes: [
+            {id: "standard", name: "Standard"},
+            {id: "inferno", name: "Inferno"},
+            {id: "torpedo", name: "Torpedo", requirement:"umu"}
+        ]
+    },
+    {
+        id: "is:ba-srm2:os",
+        name: "SRM 2 (OS)",
+        ammoTypes: [
+            {id: "standard", name: "Standard"},
+            {id: "inferno", name: "Inferno"},
+            {id: "torpedo", name: "Torpedo", requirement:"umu"}
+        ]
+    },
+    {
+        id: "is:ba-srm3:os",
+        name: "SRM 3 (OS)",
+        ammoTypes: [
+            {id: "standard", name: "Standard"},
+            {id: "inferno", name: "Inferno"},
+            {id: "torpedo", name: "Torpedo", requirement:"umu"}
+        ]
+    },
+    {
+        id: "is:ba-srm4:os",
+        name: "SRM 4 (OS)",
+        ammoTypes: [
+            {id: "standard", name: "Standard"},
+            {id: "inferno", name: "Inferno"},
+            {id: "torpedo", name: "Torpedo", requirement:"umu"}
+        ]
+    },
+    {
+        id: "is:ba-srm5:os",
+        name: "SRM 5 (OS)",
+        ammoTypes: [
+            {id: "standard", name: "Standard"},
+            {id: "inferno", name: "Inferno"},
+            {id: "torpedo", name: "Torpedo", requirement:"umu"}
+        ]
+    },
+    {
+        id: "is:ba-srm6:os",
+        name: "SRM 6 (OS)",
+        ammoTypes: [
+            {id: "standard", name: "Standard"},
+            {id: "inferno", name: "Inferno"},
+            {id: "torpedo", name: "Torpedo", requirement:"umu"}
+        ]
+    },
+    {
+        id: "clan:ba-lrm1",
+        name: "LRM 1",
+        ammoTypes: [
+            {id: "standard", name: "Standard (1)"},
+            {id: "multipurpose", name: "Multi-Purpose (1)", requirement:"umu"},
+            {id: "torpedo", name: "Torpedo (1)", requirement:"umu"}
+        ]
+    },
+    {
+        id: "clan:ba-lrm2",
+        name: "LRM 2",
+        ammoTypes: [
+            {id: "standard", name: "Standard (1)"},
+            {id: "multipurpose", name: "Multi-Purpose (1)", requirement:"umu"},
+            {id: "torpedo", name: "Torpedo (1)", requirement:"umu"}
+        ]
+    },
+    {
+        id: "clan:ba-lrm3",
+        name: "LRM 3",
+        ammoTypes: [
+            {id: "standard", name: "Standard (1)"},
+            {id: "multipurpose", name: "Multi-Purpose (1)", requirement:"umu"},
+            {id: "torpedo", name: "Torpedo (1)", requirement:"umu"}
+        ]
+    },
+    {
+        id: "clan:ba-lrm4",
+        name: "LRM 4",
+        ammoTypes: [
+            {id: "standard", name: "Standard (1)"},
+            {id: "multipurpose", name: "Multi-Purpose (1)", requirement:"umu"},
+            {id: "torpedo", name: "Torpedo (1)", requirement:"umu"}
+        ]
+    },
+    {
+        id: "clan:ba-lrm5",
+        name: "LRM 5",
+        ammoTypes: [
+            {id: "standard", name: "Standard (1)"},
+            {id: "multipurpose", name: "Multi-Purpose (1)", requirement:"umu"},
+            {id: "torpedo", name: "Torpedo (1)", requirement:"umu"}
+        ]
+    },
+    {
+        id: "clan:ba-lrm1:os",
+        name: "LRM 1 (OS)",
+        ammoTypes: [
+            {id: "standard", name: "Standard"},
+            {id: "multipurpose", name: "Multi-Purpose", requirement:"umu"},
+            {id: "torpedo", name: "Torpedo", requirement:"umu"}
+        ]
+    },
+    {
+        id: "clan:ba-lrm2:os",
+        name: "LRM 2 (OS)",
+        ammoTypes: [
+            {id: "standard", name: "Standard"},
+            {id: "multipurpose", name: "Multi-Purpose", requirement:"umu"},
+            {id: "torpedo", name: "Torpedo", requirement:"umu"}
+        ]
+    },
+    {
+        id: "clan:ba-lrm3:os",
+        name: "LRM 3 (OS)",
+        ammoTypes: [
+            {id: "standard", name: "Standard"},
+            {id: "multipurpose", name: "Multi-Purpose", requirement:"umu"},
+            {id: "torpedo", name: "Torpedo", requirement:"umu"}
+        ]
+    },
+    {
+        id: "clan:ba-lrm4:os",
+        name: "LRM 4 (OS)",
+        ammoTypes: [
+            {id: "standard", name: "Standard"},
+            {id: "multipurpose", name: "Multi-Purpose", requirement:"umu"},
+            {id: "torpedo", name: "Torpedo", requirement:"umu"}
+        ]
+    },
+    {
+        id: "clan:ba-lrm5:os",
+        name: "LRM 5 (OS)",
+        ammoTypes: [
+            {id: "standard", name: "Standard"},
+            {id: "multipurpose", name: "Multi-Purpose", requirement:"umu"},
+            {id: "torpedo", name: "Torpedo", requirement:"umu"}
+        ]
+    },
+    {
+        id: "clan:ba-srm1",
+        name: "SRM 1",
+        ammoTypes: [
+            {id: "standard", name: "Standard (1)"},
+            {id: "inferno", name: "Inferno (1)"},
+            {id: "torpedo", name: "Torpedo (1)", requirement:"umu"}
+        ]
+    },
+    {
         id: "clan:ba-srm2",
         name: "SRM 2",
         ammoTypes: [
@@ -1022,7 +1414,181 @@ const knownWeapons = [
             {id: "inferno", name: "Inferno (1)"},
             {id: "torpedo", name: "Torpedo (1)", requirement:"umu"}
         ]
-    }
+    },
+    {
+        id: "clan:ba-srm3",
+        name: "SRM 3",
+        ammoTypes: [
+            {id: "standard", name: "Standard (1)"},
+            {id: "inferno", name: "Inferno (1)"},
+            {id: "torpedo", name: "Torpedo (1)", requirement:"umu"}
+        ]
+    },
+    {
+        id: "clan:ba-srm4",
+        name: "SRM 4",
+        ammoTypes: [
+            {id: "standard", name: "Standard (1)"},
+            {id: "inferno", name: "Inferno (1)"},
+            {id: "torpedo", name: "Torpedo (1)", requirement:"umu"}
+        ]
+    },
+    {
+        id: "clan:ba-srm5",
+        name: "SRM 5",
+        ammoTypes: [
+            {id: "standard", name: "Standard (1)"},
+            {id: "inferno", name: "Inferno (1)"},
+            {id: "torpedo", name: "Torpedo (1)", requirement:"umu"}
+        ]
+    },
+    {
+        id: "clan:ba-srm6",
+        name: "SRM 6",
+        ammoTypes: [
+            {id: "standard", name: "Standard (1)"},
+            {id: "inferno", name: "Inferno (1)"},
+            {id: "torpedo", name: "Torpedo (1)", requirement:"umu"}
+        ]
+    },
+    {
+        id: "clan:ba-srm1:os",
+        name: "SRM 1 (OS)",
+        ammoTypes: [
+            {id: "standard", name: "Standard"},
+            {id: "inferno", name: "Inferno"},
+            {id: "torpedo", name: "Torpedo", requirement:"umu"}
+        ]
+    },
+    {
+        id: "clan:ba-srm2:os",
+        name: "SRM 2 (OS)",
+        ammoTypes: [
+            {id: "standard", name: "Standard"},
+            {id: "inferno", name: "Inferno"},
+            {id: "torpedo", name: "Torpedo", requirement:"umu"}
+        ]
+    },
+    {
+        id: "clan:ba-srm3:os",
+        name: "SRM 3 (OS)",
+        ammoTypes: [
+            {id: "standard", name: "Standard"},
+            {id: "inferno", name: "Inferno"},
+            {id: "torpedo", name: "Torpedo", requirement:"umu"}
+        ]
+    },
+    {
+        id: "clan:ba-srm4:os",
+        name: "SRM 4 (OS)",
+        ammoTypes: [
+            {id: "standard", name: "Standard"},
+            {id: "inferno", name: "Inferno"},
+            {id: "torpedo", name: "Torpedo", requirement:"umu"}
+        ]
+    },
+    {
+        id: "clan:ba-srm5:os",
+        name: "SRM 5 (OS)",
+        ammoTypes: [
+            {id: "standard", name: "Standard"},
+            {id: "inferno", name: "Inferno"},
+            {id: "torpedo", name: "Torpedo", requirement:"umu"}
+        ]
+    },
+    {
+        id: "clan:ba-srm6:os",
+        name: "SRM 6 (OS)",
+        ammoTypes: [
+            {id: "standard", name: "Standard"},
+            {id: "inferno", name: "Inferno"},
+            {id: "torpedo", name: "Torpedo", requirement:"umu"}
+        ]
+    },
+    {
+        id: "clan:ba-advancedsrm1",
+        name: "Advanced SRM 1",
+        ammoTypes: [
+            {id: "standard", name: "Standard (1)"},
+        ]
+    },
+    {
+        id: "clan:ba-advancedsrm2",
+        name: "Advanced SRM 2",
+        ammoTypes: [
+            {id: "standard", name: "Standard (1)"},
+        ]
+    },
+    {
+        id: "clan:ba-advancedsrm3",
+        name: "Advanced SRM 3",
+        ammoTypes: [
+            {id: "standard", name: "Standard (1)"},
+        ]
+    },
+    {
+        id: "clan:ba-advancedsrm4",
+        name: "Advanced SRM 4",
+        ammoTypes: [
+            {id: "standard", name: "Standard (1)"},
+        ]
+    },
+    {
+        id: "clan:ba-advancedsrm5",
+        name: "Advanced SRM 5",
+        ammoTypes: [
+            {id: "standard", name: "Standard (1)"},
+        ]
+    },
+    {
+        id: "clan:ba-advancedsrm6",
+        name: "Advanced SRM 6",
+        ammoTypes: [
+            {id: "standard", name: "Standard (1)"},
+        ]
+    },
+    {
+        id: "clan:ba-advancedsrm1:os",
+        name: "Advanced SRM 1 (OS)",
+        ammoTypes: [
+            {id: "standard", name: "Standard"},
+        ]
+    },
+    {
+        id: "clan:ba-advancedsrm2:os",
+        name: "Advanced SRM 2 (OS)",
+        ammoTypes: [
+            {id: "standard", name: "Standard"},
+        ]
+    },
+    {
+        id: "clan:ba-advancedsrm3:os",
+        name: "Advanced SRM 3 (OS)",
+        ammoTypes: [
+            {id: "standard", name: "Standard"},
+        ]
+    },
+    {
+        id: "clan:ba-advancedsrm4:os",
+        name: "Advanced SRM 4 (OS)",
+        ammoTypes: [
+            {id: "standard", name: "Standard"},
+        ]
+    },
+    {
+        id: "clan:ba-advancedsrm5:os",
+        name: "Advanced SRM 5 (OS)",
+        ammoTypes: [
+            {id: "standard", name: "Standard"},
+        ]
+    },
+    {
+        id: "clan:ba-advancedsrm6:os",
+        name: "Advanced SRM 6 (OS)",
+        ammoTypes: [
+            {id: "standard", name: "Standard"},
+        ]
+    },
 ];
 
 function getSkillMultiplier(gunnery, piloting) {
