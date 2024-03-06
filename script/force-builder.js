@@ -348,24 +348,28 @@ function addUnitAmmoSelector(unit)
             let ammoOptions = getAmmoTypes(element.type);
 
             if (ammoOptions.length > 1) {
-                hasChoices = true;
                 const $selection = $("<div>", {id: slotLabel});
                 $selection.append("<label for='" + selectLabel + "'>" + slotTitle + "</label>");
                 
                 $ammoSelect = $("<select>", { id: selectLabel, class: "ammo" });
 
+                let availableOptions = 0;
                 ammoOptions.forEach(option => {
                     if (option.requirement) {
                         if (!unit.unitProps.specials.includes(option.requirement)) {
                             return;
                         }
                     }
+                    availableOptions += 1;
                     if (element.default ? option.id == element.default : option.id == "standard") {
                         $ammoSelect.append(`<option value='${option.id}' selected='selected'>${option.name}</option>`);
                     } else {
                         $ammoSelect.append(`<option value='${option.id}'>${option.name}</option>`);
                     }
                 });
+                if (availableOptions > 1) {
+                    hasChoices = true;
+                }
 
                 $ammoSelect.on("change", function(e) {
                     const ammoType = e.target.value;
