@@ -463,6 +463,30 @@ const knownWeapons = [
         ]
     },
     {
+        id: "is:srt2", 
+        name: "SRT 2", 
+        ammoTypes: [
+            {id: "standard", name: "Standard (50)"},
+            {id: "artemisiv", name: "Artemis IV-Equipped (50)", requirement:"artemisiv"},
+        ]
+    },
+    {
+        id: "is:srt4", 
+        name: "SRT 4", 
+        ammoTypes: [
+            {id: "standard", name: "Standard (25)"},
+            {id: "artemisiv", name: "Artemis IV-Equipped (25)", requirement:"artemisiv"},
+        ]
+    },
+    {
+        id: "is:srt6", 
+        name: "SRT 6", 
+        ammoTypes: [
+            {id: "standard", name: "Standard (15)"},
+            {id: "artemisiv", name: "Artemis IV-Equipped (15)", requirement:"artemisiv"},
+        ]
+    },
+    {
         id: "is:streaksrm2", 
         name: "Streak SRM 2", 
         ammoTypes: [
@@ -546,6 +570,38 @@ const knownWeapons = [
             {id: "fragmentation", name: "Fragmentation (6)"},
             {id: "narc", name: "Narc-Equipped (6)"},
             {id: "semiguided", name: "Semi-Guided (6)", tagBV: 23}
+        ]
+    },
+    {
+        id: "is:lrt5", 
+        name: "LRT 5", 
+        ammoTypes: [
+            {id: "standard", name: "Standard (24)"},
+            {id: "artemisiv", name: "Artemis IV-Equipped (24)", requirement:"artemisiv"},
+        ]
+    },
+    {
+        id: "is:lrt10", 
+        name: "LRT 10", 
+        ammoTypes: [
+            {id: "standard", name: "Standard (12)"},
+            {id: "artemisiv", name: "Artemis IV-Equipped (12)", requirement:"artemisiv"},
+        ]
+    },
+    {
+        id: "is:lrt15", 
+        name: "LRT 15", 
+        ammoTypes: [
+            {id: "standard", name: "Standard (8)"},
+            {id: "artemisiv", name: "Artemis IV-Equipped (8)", requirement:"artemisiv"},
+        ]
+    },
+    {
+        id: "is:lrt20", 
+        name: "LRT 20", 
+        ammoTypes: [
+            {id: "standard", name: "Standard (6)"},
+            {id: "artemisiv", name: "Artemis IV-Equipped (6)", requirement:"artemisiv"},
         ]
     },
     {
@@ -1084,6 +1140,33 @@ const knownWeapons = [
             {id: "narc", name: "Narc-Equipped"}
         ]
     },
+    { 
+        id: "clan:srt2", 
+        name: "SRT 2", 
+        ammoTypes: [
+            {id: "standard", name: "Standard (50)"},
+            {id: "artemisiv", name: "Artemis IV-Equipped (50)", requirement:"artemisiv"},
+            {id: "artemisv", name: "Artemis V-Equipped (50)", requirement:"artemisv"},
+        ]
+    },
+    {
+        id: "clan:srt4", 
+        name: "SRT 4", 
+        ammoTypes: [
+            {id: "standard", name: "Standard (25)"},
+            {id: "artemisiv", name: "Artemis IV-Equipped (25)", requirement:"artemisiv"},
+            {id: "artemisv", name: "Artemis V-Equipped (25)", requirement:"artemisv"},
+        ]
+    },
+    {
+        id: "clan:srt6", 
+        name: "SRT 6", 
+        ammoTypes: [
+            {id: "standard", name: "Standard (15)"},
+            {id: "artemisiv", name: "Artemis IV-Equipped (15)", requirement:"artemisiv"},
+            {id: "artemisv", name: "Artemis V-Equipped (15)", requirement:"artemisv"},
+        ]
+    },
     {
         id: "clan:streaksrm2", 
         name: "Streak SRM 2", 
@@ -1192,6 +1275,42 @@ const knownWeapons = [
             {id: "artemisiv", name: "Artemis IV-Equipped (6)", requirement:"artemisiv"},
             {id: "artemisv", name: "Artemis V-Equipped (6)", requirement:"artemisv"},
             {id: "narc", name: "Narc-Equipped (6)"},
+        ]
+    },
+    {
+        id: "clan:lrt5", 
+        name: "LRT 5", 
+        ammoTypes: [
+            {id: "standard", name: "Standard (24)"},
+            {id: "artemisiv", name: "Artemis IV-Equipped (24)", requirement:"artemisiv"},
+            {id: "artemisv", name: "Artemis V-Equipped (24)", requirement:"artemisv"},
+        ]
+    },
+    {
+        id: "clan:lrt10", 
+        name: "LRT 10", 
+        ammoTypes: [
+            {id: "standard", name: "Standard (12)"},
+            {id: "artemisiv", name: "Artemis IV-Equipped (12)", requirement:"artemisiv"},
+            {id: "artemisv", name: "Artemis V-Equipped (12)", requirement:"artemisv"},
+        ]
+    },
+    {
+        id: "clan:lrt15", 
+        name: "LRT 15", 
+        ammoTypes: [
+            {id: "standard", name: "Standard (8)"},
+            {id: "artemisiv", name: "Artemis IV-Equipped (8)", requirement:"artemisiv"},
+            {id: "artemisv", name: "Artemis V-Equipped (8)", requirement:"artemisv"},
+        ]
+    },
+    {
+        id: "clan:lrt20", 
+        name: "LRT 20", 
+        ammoTypes: [
+            {id: "standard", name: "Standard (6)"},
+            {id: "artemisiv", name: "Artemis IV-Equipped (6)", requirement:"artemisiv"},
+            {id: "artemisv", name: "Artemis V-Equipped (6)", requirement:"artemisv"},
         ]
     },
     {
