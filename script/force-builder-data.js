@@ -1025,10 +1025,62 @@ const knownWeapons = [
         ]
     },
     {
+        id: "clan:thumper",
+        name: "Thumper",
+        ammoTypes: [
+            {id: "standard", name: "Standard (20)"},
+            {id: "copperhead", name: "Copperhead (20)", tagBV: 5},
+        ]
+    },
+    {
+        id: "clan:sniper",
+        name: "Sniper",
+        ammoTypes: [
+            {id: "standard", name: "Standard (10)"},
+            {id: "copperhead", name: "Copperhead (10)", tagBV: 11},
+        ]
+    },
+    {
+        id: "clan:longtom",
+        name: "Long Tom",
+        ammoTypes: [
+            {id: "standard", name: "Standard (5)"},
+            {id: "copperhead", name: "Copperhead (5)", tagBV: 46},
+        ]
+    },
+    {
+        id: "clan:thumpercannon",
+        name: "Thumper Cannon",
+        ammoTypes: [
+            {id: "standard", name: "Standard (20)"},
+        ]
+    },
+    {
+        id: "clan:snipercannon",
+        name: "Sniper Cannon",
+        ammoTypes: [
+            {id: "standard", name: "Standard (10)"},
+        ]
+    },
+    {
+        id: "clan:longtomcannon",
+        name: "Long Tom Cannon",
+        ammoTypes: [
+            {id: "standard", name: "Standard (5)"},
+        ]
+    },
+    {
         id: "clan:apgaussrifle",
         name: "AP Gauss Rifle",
         ammoTypes: [
             {id: "standard", name: "Standard (40)"},
+        ]
+    },
+    {
+        id: "clan:vehicleflamer",
+        name: "Vehicle Flamer",
+        ammoTypes: [
+            {id: "standard", name: "Standard (20)"}
         ]
     },
     {
