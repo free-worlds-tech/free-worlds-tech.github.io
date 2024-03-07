@@ -533,8 +533,14 @@ function getAlternateAmmoBV(unit) {
 }
 
 function getAdditionalBVforTAG(unit) {
-    if (unit.unitProps.specials.includes("tag")) {
-        const semiGuidedAmmoBV = Math.round(getSemiGuidedAmmoValueForForce());
+    let tagCount = 0;
+    unit.unitProps.specials.forEach((special) => {
+        if (special == "tag") {
+            tagCount += 1;
+        }
+    });
+    if (tagCount > 0) {
+        const semiGuidedAmmoBV = Math.round(tagCount * getSemiGuidedAmmoValueForForce());
         return semiGuidedAmmoBV;
     }
     return 0;
