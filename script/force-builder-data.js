@@ -263,6 +263,13 @@ const knownWeapons = [
         ]
     },
     {
+        id: "is:primitiveac10", 
+        name: "Primitive AC/10", 
+        ammoTypes: [
+            {id: "standard", name: "Standard (8)"},
+        ]
+    },
+    {
         id: "is:lightgaussrifle",
         name: "Light Gauss Rifle",
         ammoTypes: [
@@ -309,6 +316,13 @@ const knownWeapons = [
         name: "Silver Bullet Gauss",
         ammoTypes: [
             {id: "standard", name: "Standard (8)"},
+        ]
+    },
+    {
+        id: "is:ba-tubeartillery",
+        name: "Tube Artillery",
+        ammoTypes: [
+            {id: "standard", name: "Standard (1)"},
         ]
     },
     {
@@ -383,6 +397,13 @@ const knownWeapons = [
         ammoTypes: [
             {id: "standard", name: "Homing (6)"},
             {id: "explosive", name: "Explosive (6)"}
+        ]
+    },
+    {
+        id: "is:ba-narc", 
+        name: "Narc", 
+        ammoTypes: [
+            {id: "standard", name: "Homing (1)"},
         ]
     },
     {
@@ -1018,6 +1039,27 @@ const knownWeapons = [
         ]
     },
     {
+        id: "clan:smallchemlaser",
+        name: "Small Chemical Laser",
+        ammoTypes: [
+            {id: "standard", name: "Standard (60)"},
+        ]
+    },
+    {
+        id: "clan:mediumchemlaser",
+        name: "Medium Chemical Laser",
+        ammoTypes: [
+            {id: "standard", name: "Standard (30)"},
+        ]
+    },
+    {
+        id: "clan:largechemlaser",
+        name: "Large Chemical Laser",
+        ammoTypes: [
+            {id: "standard", name: "Standard (10)"},
+        ]
+    },
+    {
         id: "clan:plasmacannon",
         name: "Plasma Cannon",
         ammoTypes: [
@@ -1043,8 +1085,8 @@ const knownWeapons = [
         name: "ATM 3", 
         ammoTypes: [
             {id: "standard", name: "Standard (20)"},
-            {id: "er", name: "ER (20)"},
-            {id: "he", name: "HE (20)"},
+            {id: "er", name: "Extended-Range (20)"},
+            {id: "he", name: "High-Explosive (20)"},
         ]
     },
     {
@@ -1052,8 +1094,8 @@ const knownWeapons = [
         name: "ATM 6", 
         ammoTypes: [
             {id: "standard", name: "Standard (10)"},
-            {id: "er", name: "ER (10)"},
-            {id: "he", name: "HE (10)"},
+            {id: "er", name: "Extended-Range (10)"},
+            {id: "he", name: "High-Explosive (10)"},
         ]
     },
     {
@@ -1061,8 +1103,8 @@ const knownWeapons = [
         name: "ATM 9", 
         ammoTypes: [
             {id: "standard", name: "Standard (7)"},
-            {id: "er", name: "ER (7)"},
-            {id: "he", name: "HE (7)"},
+            {id: "er", name: "Extended-Range (7)"},
+            {id: "he", name: "High-Explosive (7)"},
         ]
     },
     {
@@ -1070,8 +1112,52 @@ const knownWeapons = [
         name: "ATM 12", 
         ammoTypes: [
             {id: "standard", name: "Standard (5)"},
-            {id: "er", name: "ER (5)"},
-            {id: "he", name: "HE (5)"},
+            {id: "er", name: "Extended-Range (5)"},
+            {id: "he", name: "High-Explosive (5)"},
+        ]
+    },
+    {
+        id: "clan:iatm3", 
+        name: "Improved ATM 3", 
+        ammoTypes: [
+            {id: "standard", name: "Standard (20)"},
+            {id: "er", name: "Extended-Range (20)"},
+            {id: "he", name: "High-Explosive (20)"},
+            {id: "imp", name: "Improved Magnetic Pulse (20)", extraBV: 21},
+            {id: "iiw", name: "Improved Inferno (20)", extraBV: 6.3},
+        ]
+    },
+    {
+        id: "clan:iatm6", 
+        name: "Improved ATM 6", 
+        ammoTypes: [
+            {id: "standard", name: "Standard (10)"},
+            {id: "er", name: "Extended-Range (10)"},
+            {id: "he", name: "High-Explosive (10)"},
+            {id: "imp", name: "Improved Magnetic Pulse (10)", extraBV: 39},
+            {id: "iiw", name: "Improved Inferno (10)", extraBV: 11.7},
+        ]
+    },
+    {
+        id: "clan:iatm9", 
+        name: "Improved ATM 9", 
+        ammoTypes: [
+            {id: "standard", name: "Standard (7)"},
+            {id: "er", name: "Extended-Range (7)"},
+            {id: "he", name: "High-Explosive (7)"},
+            {id: "imp", name: "Improved Magnetic Pulse (7)", extraBV: 54},
+            {id: "iiw", name: "Improved Inferno (7)", extraBV: 16.2},
+        ]
+    },
+    {
+        id: "clan:iatm12", 
+        name: "Improved ATM 12", 
+        ammoTypes: [
+            {id: "standard", name: "Standard (5)"},
+            {id: "er", name: "Extended-Range (5)"},
+            {id: "he", name: "High-Explosive (5)"},
+            {id: "imp", name: "Improved Magnetic Pulse (5)", extraBV: 78},
+            {id: "iiw", name: "Improved Inferno (5)", extraBV: 23.4},
         ]
     },
     {
@@ -1099,6 +1185,39 @@ const knownWeapons = [
     {
         id: "clan:srm6", 
         name: "SRM 6", 
+        ammoTypes: [
+            {id: "standard", name: "Standard (15)"},
+            {id: "artemisiv", name: "Artemis IV-Equipped (15)", requirement:"artemisiv"},
+            {id: "artemisv", name: "Artemis V-Equipped (15)", requirement:"artemisv"},
+            {id: "inferno", name: "Inferno (15)"},
+            {id: "narc", name: "Narc-Equipped (15)"}
+        ]
+    },
+    {
+        id: "clan:improvedsrm2", 
+        name: "Improved SRM 2", 
+        ammoTypes: [
+            {id: "standard", name: "Standard (50)"},
+            {id: "artemisiv", name: "Artemis IV-Equipped (50)", requirement:"artemisiv"},
+            {id: "artemisv", name: "Artemis V-Equipped (50)", requirement:"artemisv"},
+            {id: "inferno", name: "Inferno (50)"},
+            {id: "narc", name: "Narc-Equipped (50)"}
+        ]
+    },
+    {
+        id: "clan:improvedsrm4", 
+        name: "Improved SRM 4", 
+        ammoTypes: [
+            {id: "standard", name: "Standard (25)"},
+            {id: "artemisiv", name: "Artemis IV-Equipped (25)", requirement:"artemisiv"},
+            {id: "artemisv", name: "Artemis V-Equipped (25)", requirement:"artemisv"},
+            {id: "inferno", name: "Inferno (25)"},
+            {id: "narc", name: "Narc-Equipped (25)"}
+        ]
+    },
+    {
+        id: "clan:improvedsrm6", 
+        name: "Improved SRM 6", 
         ammoTypes: [
             {id: "standard", name: "Standard (15)"},
             {id: "artemisiv", name: "Artemis IV-Equipped (15)", requirement:"artemisiv"},
@@ -1270,6 +1389,46 @@ const knownWeapons = [
     {
         id: "clan:lrm20", 
         name: "LRM 20", 
+        ammoTypes: [
+            {id: "standard", name: "Standard (6)"},
+            {id: "artemisiv", name: "Artemis IV-Equipped (6)", requirement:"artemisiv"},
+            {id: "artemisv", name: "Artemis V-Equipped (6)", requirement:"artemisv"},
+            {id: "narc", name: "Narc-Equipped (6)"},
+        ]
+    },
+    {
+        id: "clan:improvedlrm5", 
+        name: "Improved LRM 5", 
+        ammoTypes: [
+            {id: "standard", name: "Standard (24)"},
+            {id: "artemisiv", name: "Artemis IV-Equipped (24)", requirement:"artemisiv"},
+            {id: "artemisv", name: "Artemis V-Equipped (24)", requirement:"artemisv"},
+            {id: "narc", name: "Narc-Equipped (24)"},
+        ]
+    },
+    {
+        id: "clan:improvedlrm10", 
+        name: "Improved LRM 10", 
+        ammoTypes: [
+            {id: "standard", name: "Standard (12)"},
+            {id: "artemisiv", name: "Artemis IV-Equipped (12)", requirement:"artemisiv"},
+            {id: "artemisv", name: "Artemis V-Equipped (12)", requirement:"artemisv"},
+            {id: "narc", name: "Narc-Equipped (12)"},
+        ]
+    },
+    {
+        id: "clan:improvedlrm15", 
+        name: "Improved LRM 15", 
+        ammoTypes: [
+            {id: "standard", name: "Standard (8)"},
+            {id: "artemisiv", name: "Artemis IV-Equipped (8)", requirement:"artemisiv"},
+            {id: "artemisv", name: "Artemis V-Equipped (8)", requirement:"artemisv"},
+            {id: "narc", name: "Narc-Equipped (8)"},
+        ]
+    },
+    {
+        id: "clan:improvedlrm20", 
+        name: "Improved LRM 20", 
         ammoTypes: [
             {id: "standard", name: "Standard (6)"},
             {id: "artemisiv", name: "Artemis IV-Equipped (6)", requirement:"artemisiv"},
