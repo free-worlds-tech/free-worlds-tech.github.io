@@ -302,11 +302,16 @@ function addUnitRow(unit)
     $li.append($costsDiv);
 
     let secondarySkillName = "Piloting";
-    let crewPlaceholder = "MechWarrior";
+    let crewPlaceholder = "MechWarrior Name";
 
     if (unit.unitProps.unitType == "BA") {
         secondarySkillName = "Anti-’Mech";
         crewPlaceholder = "Squad Name";
+    } else if (unit.unitProps.unitType.startsWith("CV")) {
+        crewPlaceholder = "Crew Name";
+        if (unit.unitProps.unitType != "CV:VTOL" && unit.unitProps.unitType != "CV:WiGE") {
+            secondarySkillName = "Driving";
+        }
     }
 
     const $crewDiv = $("<div>", {class: "unit-crew"});
@@ -317,7 +322,7 @@ function addUnitRow(unit)
 
     if (unit.unitProps.specials.includes("commandconsole")) {
         const $crewDiv2 = $("<div>", {class: "unit-crew"});
-        $crewDiv2.append(`<input class='crew-name crew2' type='text' placeholder='Command Console MechWarrior' onchange='updateCrewName(${unit.id},"cc")'>`);
+        $crewDiv2.append(`<input class='crew-name crew2' type='text' placeholder='Command Console MechWarrior Name' onchange='updateCrewName(${unit.id},"cc")'>`);
         $crewDiv2.append(createSkillPicker(unit.id, "g2", "Gunnery", unit.gunnery));
         $crewDiv2.append(createSkillPicker(unit.id, "p2", "Piloting", unit.piloting));
         $li.append($crewDiv2);
