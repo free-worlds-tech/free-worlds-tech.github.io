@@ -3,10 +3,22 @@ function getWeaponName(weaponId) {
     return weapon ? weapon.name : weaponId;
 }
 
-function getAmmoName(weaponId, ammoId) {
+function getAmmoName(weaponId, ammoId, count) {
     const weapon = knownWeapons.find((x) => x.id == weaponId);
     const ammo = weapon ? weapon.ammoTypes.find((x) => x.id == ammoId) : undefined;
-    return ammo ? ammo.name : ammoId;
+    if (ammo) {
+        let name = ammo.name;
+        if (count) {
+            let shotCount = count;
+            if (ammo.shotMultiplier) {
+                shotCount = Math.floor(shotCount * ammo.shotMultiplier);
+            }
+            name = `${name} (${shotCount})`;
+        }
+        return name;
+    } else {
+        return ammoId;
+    }
 }
 
 function getAmmoAdditionalBV(weaponId, ammoId) {
@@ -897,6 +909,14 @@ const knownWeapons = [
         ]
     },
     {
+        id: "clan:pm-lb2xac",
+        name: "LB 2-X AC",
+        ammoTypes: [
+            {id: "standard", name: "Standard"},
+            {id: "cluster", name: "Cluster"}
+        ]
+    },
+    {
         id: "clan:lb5xac",
         name: "LB 5-X AC",
         ammoTypes: [
@@ -969,6 +989,15 @@ const knownWeapons = [
             {id: "standard", name: "Standard (40)"},
             {id: "ap", name: "Armor-Piercing (20)"},
             {id: "flechette", name: "Flechette (40)"},
+        ]
+    },
+    {
+        id: "clan:pm-protomechac2",
+        name: "ProtoMech AC/2",
+        ammoTypes: [
+            {id: "standard", name: "Standard"},
+            {id: "ap", name: "Armor-Piercing", shotMultiplier: 0.5},
+            {id: "flechette", name: "Flechette"},
         ]
     },
     {
@@ -1210,6 +1239,17 @@ const knownWeapons = [
             {id: "he", name: "High-Explosive (5)"},
             {id: "imp", name: "Improved Magnetic Pulse (5)", extraBV: 78},
             {id: "iiw", name: "Improved Inferno (5)", extraBV: 23.4},
+        ]
+    },
+    {
+        id: "clan:fusillade", 
+        name: "Fusillade", 
+        ammoTypes: [
+            {id: "standard", name: "Standard (1)"},
+            {id: "er", name: "Extended-Range (1)"},
+            {id: "he", name: "High-Explosive (1)"},
+            {id: "imp", name: "Improved Magnetic Pulse (1)", extraBV: 5.5},
+            {id: "iiw", name: "Improved Inferno (1)", extraBV: 1.65},
         ]
     },
     {
@@ -2110,6 +2150,264 @@ const knownWeapons = [
     {
         id: "clan:ba-advancedsrm6:os",
         name: "Advanced SRM 6 (OS)",
+        ammoTypes: [
+            {id: "standard", name: "Standard"},
+        ]
+    },
+    {
+        id: "clan:pm-machinegun",
+        name: "Machine Gun",
+        ammoTypes: [
+            {id: "standard", name: "Standard"},
+        ]
+    },
+    {
+        id: "clan:pm-lightmachinegun",
+        name: "Light Machine Gun",
+        ammoTypes: [
+            {id: "standard", name: "Standard"},
+        ]
+    },
+    {
+        id: "clan:pm-apgaussrifle",
+        name: "AP Gauss Rifle",
+        ammoTypes: [
+            {id: "standard", name: "Standard"},
+        ]
+    },
+    {
+        id: "clan:pm-mediumchemlaser",
+        name: "Medium Chemical Laser",
+        ammoTypes: [
+            {id: "standard", name: "Standard"},
+        ]
+    },
+    {
+        id: "clan:pm-plasmacannon",
+        name: "Plasma Cannon",
+        ammoTypes: [
+            {id: "standard", name: "Standard"},
+        ]
+    },
+    {
+        id: "clan:pm-lrm1",
+        name: "LRM 1",
+        ammoTypes: [
+            {id: "standard", name: "Standard"},
+            {id: "narc", name: "Narc-Equipped"}
+        ]
+    },
+    {
+        id: "clan:pm-lrm2",
+        name: "LRM 2",
+        ammoTypes: [
+            {id: "standard", name: "Standard"},
+            {id: "narc", name: "Narc-Equipped"}
+        ]
+    },
+    {
+        id: "clan:pm-lrm3",
+        name: "LRM 3",
+        ammoTypes: [
+            {id: "standard", name: "Standard"},
+            {id: "narc", name: "Narc-Equipped"}
+        ]
+    },
+    {
+        id: "clan:pm-lrm4",
+        name: "LRM 4",
+        ammoTypes: [
+            {id: "standard", name: "Standard"},
+            {id: "narc", name: "Narc-Equipped"}
+        ]
+    },
+    {
+        id: "clan:pm-lrm5",
+        name: "LRM 5",
+        ammoTypes: [
+            {id: "standard", name: "Standard"},
+            {id: "narc", name: "Narc-Equipped"}
+        ]
+    },
+    {
+        id: "clan:pm-lrm6",
+        name: "LRM 6",
+        ammoTypes: [
+            {id: "standard", name: "Standard"},
+            {id: "narc", name: "Narc-Equipped"}
+        ]
+    },
+    {
+        id: "clan:pm-lrm7",
+        name: "LRM 7",
+        ammoTypes: [
+            {id: "standard", name: "Standard"},
+            {id: "narc", name: "Narc-Equipped"}
+        ]
+    },
+    {
+        id: "clan:pm-lrm8",
+        name: "LRM 8",
+        ammoTypes: [
+            {id: "standard", name: "Standard"},
+            {id: "narc", name: "Narc-Equipped"}
+        ]
+    },
+    {
+        id: "clan:pm-lrm9",
+        name: "LRM 9",
+        ammoTypes: [
+            {id: "standard", name: "Standard"},
+            {id: "narc", name: "Narc-Equipped"}
+        ]
+    },
+    {
+        id: "clan:pm-lrm10",
+        name: "LRM 10",
+        ammoTypes: [
+            {id: "standard", name: "Standard"},
+            {id: "narc", name: "Narc-Equipped"}
+        ]
+    },
+    {
+        id: "clan:pm-lrm11",
+        name: "LRM 11",
+        ammoTypes: [
+            {id: "standard", name: "Standard"},
+            {id: "narc", name: "Narc-Equipped"}
+        ]
+    },
+    {
+        id: "clan:pm-lrm12",
+        name: "LRM 12",
+        ammoTypes: [
+            {id: "standard", name: "Standard"},
+            {id: "narc", name: "Narc-Equipped"}
+        ]
+    },
+    {
+        id: "clan:pm-lrm13",
+        name: "LRM 13",
+        ammoTypes: [
+            {id: "standard", name: "Standard"},
+            {id: "narc", name: "Narc-Equipped"}
+        ]
+    },
+    {
+        id: "clan:pm-lrm14",
+        name: "LRM 14",
+        ammoTypes: [
+            {id: "standard", name: "Standard"},
+            {id: "narc", name: "Narc-Equipped"}
+        ]
+    },
+    {
+        id: "clan:pm-lrm15",
+        name: "LRM 15",
+        ammoTypes: [
+            {id: "standard", name: "Standard"},
+            {id: "narc", name: "Narc-Equipped"}
+        ]
+    },
+    {
+        id: "clan:pm-streaklrm5",
+        name: "Streak LRM 5",
+        ammoTypes: [
+            {id: "standard", name: "Standard"},
+        ]
+    },
+    {
+        id: "clan:pm-srm1",
+        name: "SRM 1",
+        ammoTypes: [
+            {id: "standard", name: "Standard"},
+            {id: "inferno", name: "Inferno"},
+            {id: "narc", name: "Narc-Equipped"}
+        ]
+    },
+    {
+        id: "clan:pm-srm2",
+        name: "SRM 2",
+        ammoTypes: [
+            {id: "standard", name: "Standard"},
+            {id: "inferno", name: "Inferno"},
+            {id: "narc", name: "Narc-Equipped"}
+        ]
+    },
+    {
+        id: "clan:pm-srm3",
+        name: "SRM 3",
+        ammoTypes: [
+            {id: "standard", name: "Standard"},
+            {id: "inferno", name: "Inferno"},
+            {id: "narc", name: "Narc-Equipped"}
+        ]
+    },
+    {
+        id: "clan:pm-srm4",
+        name: "SRM 4",
+        ammoTypes: [
+            {id: "standard", name: "Standard"},
+            {id: "inferno", name: "Inferno"},
+            {id: "narc", name: "Narc-Equipped"}
+        ]
+    },
+    {
+        id: "clan:pm-srm5",
+        name: "SRM 5",
+        ammoTypes: [
+            {id: "standard", name: "Standard"},
+            {id: "inferno", name: "Inferno"},
+            {id: "narc", name: "Narc-Equipped"}
+        ]
+    },
+    {
+        id: "clan:pm-srm6",
+        name: "SRM 6",
+        ammoTypes: [
+            {id: "standard", name: "Standard"},
+            {id: "inferno", name: "Inferno"},
+            {id: "narc", name: "Narc-Equipped"}
+        ]
+    },
+    {
+        id: "clan:pm-streaksrm1",
+        name: "Streak SRM 1",
+        ammoTypes: [
+            {id: "standard", name: "Standard"},
+        ]
+    },
+    {
+        id: "clan:pm-streaksrm2",
+        name: "Streak SRM 2",
+        ammoTypes: [
+            {id: "standard", name: "Standard"},
+        ]
+    },
+    {
+        id: "clan:pm-streaksrm3",
+        name: "Streak SRM 3",
+        ammoTypes: [
+            {id: "standard", name: "Standard"},
+        ]
+    },
+    {
+        id: "clan:pm-streaksrm4",
+        name: "Streak SRM 4",
+        ammoTypes: [
+            {id: "standard", name: "Standard"},
+        ]
+    },
+    {
+        id: "clan:pm-streaksrm5",
+        name: "Streak SRM 5",
+        ammoTypes: [
+            {id: "standard", name: "Standard"},
+        ]
+    },
+    {
+        id: "clan:pm-streaksrm6",
+        name: "Streak SRM 6",
         ammoTypes: [
             {id: "standard", name: "Standard"},
         ]

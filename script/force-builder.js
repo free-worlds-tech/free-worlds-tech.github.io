@@ -312,12 +312,17 @@ function addUnitRow(unit)
         if (unit.unitProps.unitType != "CV:VTOL" && unit.unitProps.unitType != "CV:WiGE") {
             secondarySkillName = "Driving";
         }
+    } else if (unit.unitProps.unitType == "PM") {
+        crewPlaceholder = "Pilot Name";
+        secondarySkillName = "";
     }
 
     const $crewDiv = $("<div>", {class: "unit-crew"});
     $crewDiv.append(`<input class='crew-name crew1' type='text' placeholder='${crewPlaceholder}' onchange='updateCrewName(${unit.id})'>`);
     $crewDiv.append(createSkillPicker(unit.id, "g", "Gunnery", unit.gunnery));
-    $crewDiv.append(createSkillPicker(unit.id, "p", secondarySkillName, unit.piloting));
+    if (secondarySkillName.length > 0) {
+        $crewDiv.append(createSkillPicker(unit.id, "p", secondarySkillName, unit.piloting));
+    }
     $li.append($crewDiv);
 
     if (unit.unitProps.specials.includes("commandconsole")) {
@@ -366,10 +371,11 @@ function addUnitAmmoSelector(unit)
                         }
                     }
                     availableOptions += 1;
+                    const ammoName = getAmmoName(element.type, option.id, element.shots);
                     if (element.default ? option.id == element.default : option.id == "standard") {
-                        $ammoSelect.append(`<option value='${option.id}' selected='selected'>${option.name}</option>`);
+                        $ammoSelect.append(`<option value='${option.id}' selected='selected'>${ammoName}</option>`);
                     } else {
-                        $ammoSelect.append(`<option value='${option.id}'>${option.name}</option>`);
+                        $ammoSelect.append(`<option value='${option.id}'>${ammoName}</option>`);
                     }
                 });
                 if (availableOptions > 1) {
@@ -736,7 +742,7 @@ function downloadForce() {
             
             unit.unitProps.ammo.forEach((ammoBin, index) => {
                 const weaponName = getWeaponName(ammoBin.type);
-                const ammoName = getAmmoName(ammoBin.type, unit.ammoTypes.get(index));
+                const ammoName = getAmmoName(ammoBin.type, unit.ammoTypes.get(index), ammoBin.shots);
                 contents += `- ${weaponName} (${ammoBin.location}): ${ammoName}\n`;
             });
         }
