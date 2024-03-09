@@ -231,6 +231,7 @@ function addUnitById(unitId) {
 
 function addUnit(unitProps) {
     const currentId = nextUnitId++;
+    let nonStandardSkills = false;
 
     const newUnit = {
         id: currentId,
@@ -246,6 +247,14 @@ function addUnit(unitProps) {
     unitProps.ammo.forEach((ammoBin, index) => {
         newUnit.ammoTypes.set(index, ammoBin.default ? ammoBin.default : "standard");
     });
+
+    if (unitProps.unitType.startsWith("CI")) {
+        if (!unitProps.specials.includes("anti-mech")) {
+            // Conventional infantry without Anti-Mech training have their skill fixed at 8
+            newUnit.piloting = 8;
+            nonStandardSkills = true;
+        }
+    }
 
     let crewCount = 1;
     if (unitProps.specials.includes("commandconsole")) {
@@ -288,7 +297,7 @@ function addUnit(unitProps) {
     updateC3Eligibility();
     addUnitToAllNetworkSelects(newUnit);
 
-    if (unitProps.specials.includes("tag")) {
+    if (unitProps.specials.includes("tag") || nonStandardSkills) {
         updateUnitBV(newUnit);
     }
 }
@@ -321,10 +330,11 @@ function addUnitRow(unit)
 
     let secondarySkillName = "Piloting";
     let crewPlaceholder = "MechWarrior Name";
+    let fixedSecondarySkill = false;
 
     if (unit.unitProps.unitType == "BA") {
         secondarySkillName = "Anti-’Mech";
-        crewPlaceholder = "Squad Name";
+        crewPlaceholder = "Unit Name";
     } else if (unit.unitProps.unitType.startsWith("CV")) {
         crewPlaceholder = "Crew Name";
         if (unit.unitProps.unitType != "CV:VTOL" && unit.unitProps.unitType != "CV:WiGE") {
@@ -337,13 +347,22 @@ function addUnitRow(unit)
         crewPlaceholder = "Pilot Name";
     } else if (unit.unitProps.unitType == "BM:Tripod" || unit.unitProps.unitType == "IM:Tripod") {
         crewPlaceholder = "Pilot Name";
+    } else if (unit.unitProps.unitType.startsWith("CI")) {
+        crewPlaceholder = "Unit Name";
+        secondarySkillName = "";
+        if (unit.unitProps.unitType != "CI:Mechanized") {
+            secondarySkillName = "Anti-’Mech";
+            if (!unit.unitProps.specials.includes("anti-mech")) {
+                fixedSecondarySkill = true;
+            }
+        }
     }
 
     const $crewDiv = $("<div>", {class: "unit-crew"});
     $crewDiv.append(`<input class='crew-name crew1' type='text' placeholder='${crewPlaceholder}' onchange='updateCrewName(${unit.id})'>`);
     $crewDiv.append(createSkillPicker(unit.id, "g", "Gunnery", unit.gunnery));
     if (secondarySkillName.length > 0) {
-        $crewDiv.append(createSkillPicker(unit.id, "p", secondarySkillName, unit.piloting));
+        $crewDiv.append(createSkillPicker(unit.id, "p", secondarySkillName, unit.piloting, fixedSecondarySkill));
     }
     $li.append($crewDiv);
 
@@ -659,7 +678,7 @@ function getSemiGuidedAmmoValueForForce()
     return total;
 }
 
-function createSkillPicker(id, type, label, initialRating)
+function createSkillPicker(id, type, label, initialRating, fixedSkill)
 {
     const $select = $("<select>");
     for (let i = 0; i <= 8; i++) {
@@ -691,6 +710,10 @@ function createSkillPicker(id, type, label, initialRating)
 
         updateUnitBV(unit);
     });
+
+    if (fixedSkill) {
+        $select.attr("disabled", "disabled");
+    }
 
     const $label = $("<label>");
     $label.addClass("crew-skill");
