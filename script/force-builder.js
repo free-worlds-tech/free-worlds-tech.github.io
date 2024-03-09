@@ -247,10 +247,28 @@ function addUnit(unitProps) {
         newUnit.ammoTypes.set(index, ammoBin.default ? ammoBin.default : "standard");
     });
 
+    let crewCount = 1;
     if (unitProps.specials.includes("commandconsole")) {
+        crewCount = 2;
+    } else if (unitProps.unitType == "QV") {
+        crewCount = 2;
+    } else if (unitProps.unitType == "BM:Tripod" || unitProps.unitType == "IM:Tripod") {
+        crewCount = 2;
+        if (unitProps.tonnage > 100) {
+            crewCount = 3;
+        }
+    }
+
+    if (crewCount >= 2) {
         newUnit.crew2 = "";
         newUnit.gunnery2 = 4;
         newUnit.piloting2 = 5;
+    }
+
+    if (crewCount >= 3) {
+        newUnit.crew3 = "";
+        newUnit.gunnery3 = 4;
+        newUnit.piloting3 = 5;
     }
 
     force.set(currentId, newUnit);
@@ -315,6 +333,10 @@ function addUnitRow(unit)
     } else if (unit.unitProps.unitType == "PM") {
         crewPlaceholder = "Pilot Name";
         secondarySkillName = "";
+    } else if (unit.unitProps.unitType == "QV") {
+        crewPlaceholder = "Pilot Name";
+    } else if (unit.unitProps.unitType == "BM:Tripod" || unit.unitProps.unitType == "IM:Tripod") {
+        crewPlaceholder = "Pilot Name";
     }
 
     const $crewDiv = $("<div>", {class: "unit-crew"});
@@ -325,12 +347,37 @@ function addUnitRow(unit)
     }
     $li.append($crewDiv);
 
+    let secondCrewPlaceholder = "";
+    let secondCrewSecondarySkillName = "Piloting";
+
+    let thirdCrewPlaceholder = "";
+    let thirdCrewSecondarySkillName = "Piloting";
+
     if (unit.unitProps.specials.includes("commandconsole")) {
+        secondCrewPlaceholder = "Command Console MechWarrior Name";
+    } else if (unit.unitProps.unitType == "QV") {
+        secondCrewPlaceholder = "Gunner Name";
+    } else if (unit.unitProps.unitType == "BM:Tripod" || unit.unitProps.unitType == "IM:Tripod") {
+        secondCrewPlaceholder = "Equipment/Gunnery Officer Name";
+        if (unit.unitProps.tonnage > 100) {
+            thirdCrewPlaceholder = "Technical Officer Name";
+        }
+    }
+
+    if (secondCrewPlaceholder.length > 0) {
         const $crewDiv2 = $("<div>", {class: "unit-crew"});
-        $crewDiv2.append(`<input class='crew-name crew2' type='text' placeholder='Command Console MechWarrior Name' onchange='updateCrewName(${unit.id},"cc")'>`);
+        $crewDiv2.append(`<input class='crew-name crew2' type='text' placeholder='${secondCrewPlaceholder}' onchange='updateCrewName(${unit.id},"second")'>`);
         $crewDiv2.append(createSkillPicker(unit.id, "g2", "Gunnery", unit.gunnery));
-        $crewDiv2.append(createSkillPicker(unit.id, "p2", "Piloting", unit.piloting));
+        $crewDiv2.append(createSkillPicker(unit.id, "p2", secondCrewSecondarySkillName, unit.piloting));
         $li.append($crewDiv2);
+    }
+
+    if (thirdCrewPlaceholder.length > 0) {
+        const $crewDiv3 = $("<div>", {class: "unit-crew"});
+        $crewDiv3.append(`<input class='crew-name crew3' type='text' placeholder='${thirdCrewPlaceholder}' onchange='updateCrewName(${unit.id},"third")'>`);
+        $crewDiv3.append(createSkillPicker(unit.id, "g3", "Gunnery", unit.gunnery));
+        $crewDiv3.append(createSkillPicker(unit.id, "p3", thirdCrewSecondarySkillName, unit.piloting));
+        $li.append($crewDiv3);
     }
 
     $("#force-list").append($li);
@@ -520,6 +567,20 @@ function updateUnitBV(unit, fromNetworkChange) {
         if (ccMultiplier > multiplier) {
             multiplier = ccMultiplier;
         }
+    } else if (unit.unitProps.unitType == "QV") {
+        const avgGunnery = Math.round((unit.gunnery + unit.gunnery2) / 2.0);
+        const avgPiloting = Math.round((unit.piloting + unit.piloting2) / 2.0);
+        multiplier = getSkillMultiplier(avgGunnery, avgPiloting);
+    } else if (unit.unitProps.unitType == "BM:Tripod" || unit.unitProps.unitType == "IM:Tripod") {
+        if (unit.unitProps.tonnage > 100) {
+            const avgGunnery = Math.round((unit.gunnery + unit.gunnery2 + unit.gunnery3) / 3.0);
+            const avgPiloting = Math.round((unit.piloting + unit.piloting2 + unit.piloting3) / 3.0);
+            multiplier = getSkillMultiplier(avgGunnery, avgPiloting);
+        } else {
+            const avgGunnery = Math.round((unit.gunnery + unit.gunnery2) / 2.0);
+            const avgPiloting = Math.round((unit.piloting + unit.piloting2) / 2.0);
+            multiplier = getSkillMultiplier(avgGunnery, avgPiloting);
+        }
     }
     unit.adjustedBV = Math.round(modifiedBV * multiplier);
     if (multiplier != 1) {
@@ -622,6 +683,10 @@ function createSkillPicker(id, type, label, initialRating)
             unit.gunnery2 = skill;
         } else if (type === "p2") {
             unit.piloting2 = skill;
+        } else if (type === "g3") {
+            unit.gunnery3 = skill;
+        } else if (type === "p3") {
+            unit.piloting3 = skill;
         }
 
         updateUnitBV(unit);
@@ -701,9 +766,12 @@ function updateTotals() {
 function updateCrewName(id, position) {
     const unit = force.get(id);
     
-    if (position == "cc") {
+    if (position == "second") {
         const crewName = $("#unit-" + id + " .crew-name.crew2").val();
         unit.crew2 = crewName;
+    } else if (position == "third") {
+        const crewName = $("#unit-" + id + " .crew-name.crew3").val();
+        unit.crew3 = crewName;
     } else {
         const crewName = $("#unit-" + id + " .crew-name.crew1").val();
         unit.crew = crewName;
@@ -723,10 +791,15 @@ function downloadForce() {
         let crewName = unit.crew;
         let gunnery = `${unit.gunnery}`;
         let piloting = `${unit.piloting}`;
-        if (unit.unitProps.specials.includes("commandconsole")) {
+        if (unit.crew2 != undefined) {
             crewName += `, ${unit.crew2}`;
             gunnery += `, ${unit.gunnery2}`;
             piloting += `, ${unit.piloting2}`;
+        }
+        if (unit.crew3 != undefined) {
+            crewName += `, ${unit.crew3}`;
+            gunnery += `, ${unit.gunnery3}`;
+            piloting += `, ${unit.piloting3}`;
         }
         contents += `| ${unit.unitProps.name} | ${crewName} | ${gunnery} | ${piloting} | ${unit.unitProps.tonnage} | ${unit.unitProps.bv} | ${unit.adjustedBV} |\n`;
         totalTonnage += unit.unitProps.tonnage;
