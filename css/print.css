@@ -21,11 +21,19 @@
         visibility: visible !important;
     }
 
+    .new-page {
+        break-before: page;
+    }
+
     .flex-row {
         display: flex;
     }
     
     .flex-item {
         flex: 1;
+    }
+
+    .multi-column {
+        column-count: 2;
     }
 }

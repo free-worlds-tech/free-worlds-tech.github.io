@@ -407,8 +407,7 @@ function addUnitRow(unit)
 function addUnitAmmoSelector(unit)
 {
     // Check if the unit uses any ammo
-    if (unit.unitProps.ammo.length > 0)
-    {
+    if (unit.unitProps.ammo.length > 0) {
         let hasChoices = false;
 
         const unitLabel = "ammo-" + unit.id;
@@ -926,7 +925,7 @@ function printForce() {
     $forceList.append($totalsDiv);
 
     force.forEach((unit) => {
-        const $unitDiv = $("<div>");
+        const $unitDiv = $("<div>", {class: "new-page"});
         $unitDiv.append(`<h4>${unit.unitProps.name}</h4>`);
 
         const $costsDiv = $("<div>", {class: "flex-row"});
@@ -935,18 +934,44 @@ function printForce() {
         $costsDiv.append(`<span class="flex-item">Adjusted BV: <span class='adj-bv'>${unit.adjustedBV}</span></span>`);
         $unitDiv.append($costsDiv);
 
+        // TODO: Alternate skills and unnamed placeholders
         let crewName = unit.crew;
         if (unit.crew.length == 0) {
-            crewName = "MechWarrior";
+            crewName = "Unnamed MechWarrior";
         }
         const $crewDiv = $("<div>", {class: "flex-row"});
         $crewDiv.append(`<span class="flex-item">${crewName}</span>`);
-        $crewDiv.append(`<span>Gunnery: ${unit.gunnery}</span>`);
-        $crewDiv.append(`<span>Piloting: ${unit.piloting}</span>`);
+        $crewDiv.append(`<span class="flex-item">Gunnery: ${unit.gunnery}</span>`);
+        $crewDiv.append(`<span class="flex-item">Piloting: ${unit.piloting}</span>`);
         $unitDiv.append($crewDiv);
+
+        // TODO: 2nd and 3rd crew sets
+
+        let ammoSelectionCount = 0;
+        const $ammoList = $("<ul>", {class: "multi-column"});
+        unit.unitProps.ammo.forEach((ammoBin, ammoIndex) => {
+            const weaponName = getWeaponName(ammoBin.type);
+            const selectedAmmoType = unit.ammoTypes.get(ammoIndex);
+            const ammoName = getAmmoName(ammoBin.type, selectedAmmoType, ammoBin.shots);
+            let isDefault = selectedAmmoType == "standard";
+            if (ammoBin.default) {
+                isDefault = selectedAmmoType == ammoBin.default;
+            }
+            //if (!isDefault) {
+                $ammoList.append(`<li>${weaponName} (${ammoBin.location}): ${ammoName}</li>`);
+                ammoSelectionCount += 1;
+            //}
+        });
+        if (ammoSelectionCount > 0) {
+            $unitDiv.append($ammoList);
+        }
 
         $forceList.append($unitDiv);
     });
+
+    // TODO: Add C3 networks
+
+    // TODO: Detailed BV calculations
 
     window.print();
 
