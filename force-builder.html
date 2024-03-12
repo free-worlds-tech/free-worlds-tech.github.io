@@ -22,6 +22,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
 <link rel="stylesheet" href="ext/simple.min.css">
 <link rel="stylesheet" href="css/fwti.css">
+<link rel="stylesheet" href="css/print.css">
 
 <script src="ext/jquery-3.7.1.min.js"></script>
 <script charset="UTF-8" src="script/force-builder-data.js" defer></script>
@@ -39,8 +40,8 @@
         </nav>
     </header>
 
-    <h2 id="page-title">Force Builder</h2>
-    <p class="notice">
+    <h2 class="no-print" id="page-title">Force Builder</h2>
+    <p class="notice no-print">
         This force builder for BattleTech is a work-in-progress.
         The set of units and alternate munitions available is incomplete.
         <br>
@@ -48,8 +49,8 @@
         If you notice a bug or have feedback, feel free to open an issue 
         <a href="https://github.com/free-worlds-tech/free-worlds-tech.github.io/issues">here</a>.
     </p>
-    <h3>Search Units</h3>
-    <div class="advanced-search">
+    <h3 class="no-print">Search Units</h3>
+    <div class="advanced-search no-print">
         <div class="search-bar">
             <input id="search-box" class="lazy" type="text" placeholder="Unit Name" onkeydown="searchKeyDown(event)" disabled="disabled">
             <button id="search-button" class="lazy" title="Search for matching units" type="button" onclick="searchUnits()" disabled="disabled">Search</button>
@@ -184,12 +185,13 @@
             </label>
         </details>
     </div>
-    <ul id="search-results" class="search-results-list">
+    <ul id="search-results" class="search-results-list no-print">
     </ul>
     <h3>Selected Force</h3>
-    <div>
+    <div class="no-print">
         <button id="clear-units-button" class="lazy" title="Remove all units from force" type="reset" onclick="clearUnits()" disabled="disabled">Clear Force List</button>
         <button id="download-button" class="lazy" title="Download force as a markdown file" type="button" onclick="downloadForce()" disabled="disabled">Download Force List</button>
+        <button id="print-button" class="lazy" title="Print force" type="button" onclick="window.print()">Print Force List</button>
     </div>
     <div class="unit-costs force-totals">
         <span>Tonnage: <span id="tonnage-total">0</span></span>
@@ -199,8 +201,8 @@
     <ul id="force-list" class="force-list">
     </ul>
     <h4>Networks</h4>
-    <p>Set up C<sup>3</sup> networks for your force.</p>
-    <div>
+    <p class="no-print">Set up C<sup>3</sup> networks for your force.</p>
+    <div class="no-print">
         <button id="add-c3-network-button" title="Add a C3 network" type="button" onclick="addC3Network()" disabled="disabled">Add C<sup>3</sup> network</button>
         <button id="add-c3i-network-button" title="Add a C3i network" type="button" onclick="addC3iNetwork()" disabled="disabled">Add C<sup>3</sup>i network</button>
     </div>
