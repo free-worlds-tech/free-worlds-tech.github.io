@@ -23,9 +23,9 @@ function readyInterface() {
     const debugParam = urlParams.get('debug');
     if (debugParam == "true") {
         debugMode = true;
-        $("body").append("<h3>Debug</h3>");
+        $("body").append("<h3 class='no-print'>Debug</h3>");
         $("body").append(
-            `<div>
+            `<div class="no-print">
                 <button type="button" onclick="dumpDebugData()">Dump Debug Data</button>
                 <pre id="debug-output"></pre>
             </div>`
@@ -901,6 +901,57 @@ function downloadForce() {
     tempElement.click();
 
     document.body.removeChild(tempElement);
+}
+
+function printForce() {
+    let totalTonnage = 0;
+    let totalBV = 0;
+    let totalAdjBV = 0;
+    let unitCount = 0;
+
+    force.forEach((unit) => {
+        totalTonnage += unit.unitProps.tonnage;
+        totalBV += unit.unitProps.bv;
+        totalAdjBV += unit.adjustedBV;
+        unitCount += 1;
+    });
+
+    const $forceList = $("#force-list-print");
+
+    $forceList.append(`<h3>${unitCount} Unit${unitCount == 1 ? "" : "s"}</h3>`);
+    const $totalsDiv = $("<div>", {class: "flex-row"});
+    $totalsDiv.append(`<span class="flex-item"><b>Tonnage:</b> ${totalTonnage}</span>`);
+    $totalsDiv.append(`<span class="flex-item"><b>Base BV:</b> ${totalBV}</span>`);
+    $totalsDiv.append(`<span class="flex-item"><b>Adjusted BV:</b> ${totalAdjBV}</span>`);
+    $forceList.append($totalsDiv);
+
+    force.forEach((unit) => {
+        const $unitDiv = $("<div>");
+        $unitDiv.append(`<h4>${unit.unitProps.name}</h4>`);
+
+        const $costsDiv = $("<div>", {class: "flex-row"});
+        $costsDiv.append(`<span class="flex-item">Tonnage: <span class='tonnage'>${unit.unitProps.tonnage}</span></span>`);
+        $costsDiv.append(`<span class="flex-item">Base BV: <span class='bv'>${unit.unitProps.bv}</span></span>`);
+        $costsDiv.append(`<span class="flex-item">Adjusted BV: <span class='adj-bv'>${unit.adjustedBV}</span></span>`);
+        $unitDiv.append($costsDiv);
+
+        let crewName = unit.crew;
+        if (unit.crew.length == 0) {
+            crewName = "MechWarrior";
+        }
+        const $crewDiv = $("<div>", {class: "flex-row"});
+        $crewDiv.append(`<span class="flex-item">${crewName}</span>`);
+        $crewDiv.append(`<span>Gunnery: ${unit.gunnery}</span>`);
+        $crewDiv.append(`<span>Piloting: ${unit.piloting}</span>`);
+        $unitDiv.append($crewDiv);
+
+        $forceList.append($unitDiv);
+    });
+
+    window.print();
+
+    // Empty temporary print contents
+    $forceList.children().remove();
 }
 
 function updateC3Eligibility() {

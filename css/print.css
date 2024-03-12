@@ -1,7 +1,31 @@
+.print-only {
+    visibility: collapse;
+}
+
 @media print {
+    html {
+        font-size: 12px;
+    }
+
+    body {
+        display: unset;
+    }
+
     header,
     footer,
     .no-print {
         display: none;
+    }
+
+    .print-only {
+        visibility: visible !important;
+    }
+
+    .flex-row {
+        display: flex;
+    }
+    
+    .flex-item {
+        flex: 1;
     }
 }

@@ -187,26 +187,28 @@
     </div>
     <ul id="search-results" class="search-results-list no-print">
     </ul>
-    <h3>Selected Force</h3>
+    <h3 class="no-print">Selected Force</h3>
     <div class="no-print">
         <button id="clear-units-button" class="lazy" title="Remove all units from force" type="reset" onclick="clearUnits()" disabled="disabled">Clear Force List</button>
         <button id="download-button" class="lazy" title="Download force as a markdown file" type="button" onclick="downloadForce()" disabled="disabled">Download Force List</button>
-        <button id="print-button" class="lazy" title="Print force" type="button" onclick="window.print()">Print Force List</button>
+        <button id="print-button" class="lazy" title="Print force" type="button" onclick="printForce()">Print Force List</button>
     </div>
-    <div class="unit-costs force-totals">
+    <div class="unit-costs force-totals no-print">
         <span>Tonnage: <span id="tonnage-total">0</span></span>
         <span>Base BV: <span id="bv-total">0</span></span>
         <span>Adjusted BV: <span id="adj-bv-total">0</span></span>
     </div>
-    <ul id="force-list" class="force-list">
+    <ul id="force-list" class="force-list no-print">
     </ul>
-    <h4>Networks</h4>
+    <h4 class="no-print">Networks</h4>
     <p class="no-print">Set up C<sup>3</sup> networks for your force.</p>
     <div class="no-print">
         <button id="add-c3-network-button" title="Add a C3 network" type="button" onclick="addC3Network()" disabled="disabled">Add C<sup>3</sup> network</button>
         <button id="add-c3i-network-button" title="Add a C3i network" type="button" onclick="addC3iNetwork()" disabled="disabled">Add C<sup>3</sup>i network</button>
     </div>
-    <div id="network-setups">
+    <div id="network-setups" class="no-print">
+    </div>
+    <div id="force-list-print" class="force-list print-only">
     </div>
     <footer>
         <p>Maintained by <a href="https://github.com/scottboehmer">Scott Boehmer</a>.</p>
