@@ -902,29 +902,88 @@ function downloadForce() {
     document.body.removeChild(tempElement);
 }
 
-function printForce() {
+function readyPrintContent() {
+    const $forceList = $("#force-list-print");
+
     let totalTonnage = 0;
     let totalBV = 0;
     let totalAdjBV = 0;
     let unitCount = 0;
 
+    const $unitTable = $("<table>", {class: "full-width small-font"});
+    const $headerRow = $("<tr>");
+    $headerRow.append("<th>Unit</th>");
+    $headerRow.append("<th>Type</th>"); 
+    $headerRow.append("<th class='center-align'>Skill</th>"); 
+    $headerRow.append("<th class='right-align'>Tonnage</th>"); 
+    $headerRow.append("<th class='right-align'>Base BV</th>"); 
+    $headerRow.append("<th class='right-align'>Adjusted BV</th>"); 
+    $unitTable.append($headerRow);
+
     force.forEach((unit) => {
-        totalTonnage += unit.unitProps.tonnage;
-        totalBV += unit.unitProps.bv;
-        totalAdjBV += unit.adjustedBV;
+        const unitName = getUnitFullName(unit);
+
+        const unitTonnage = unit.unitProps.tonnage;
+        const unitBaseBV = unit.unitProps.bv;
+        const unitAdjBV = unit.adjustedBV;
+
+        const $unitRow = $("<tr>");
+
+        let unitType = "BattleMech";
+        let unitSkills = `${unit.gunnery}/${unit.piloting}`;
+
+        if (unit.unitProps.unitType.startsWith("CV")) {
+            unitType = "Vehicle";
+        } else if (unit.unitProps.unitType.startsWith("BA")) {
+            unitType = "Battle Armor";
+        } else if (unit.unitProps.unitType.startsWith("PM")) {
+            unitType = "ProtoMech";
+            unitSkills = `${unit.gunnery}`;
+        } else if (unit.unitProps.unitType.startsWith("CI")) {
+            unitType = "Infantry";
+            if (unit.unitProps.unitType == "CI:Mechanized") {
+                unitSkills = `${unit.gunnery}`;
+            }
+        }
+
+        if (unit.crew2 != undefined) {
+            if (unit.gunnery != unit.gunnery2 || unit.piloting != unit.piloting2) {
+                unitSkills = "*";
+            }
+        }
+        if (unit.crew3 != undefined) {
+            if (unit.gunnery != unit.gunnery3 || unit.piloting != unit.piloting3) {
+                unitSkills = "*";
+            }
+        }
+
+        $unitRow.append(`<td>${unitName}</td>`);
+        $unitRow.append(`<td>${unitType}</td>`);
+        $unitRow.append(`<td class="center-align">${unitSkills}</td>`);
+        $unitRow.append(`<td class="right-align">${unitTonnage.toLocaleString("en-us")}</td>`);
+        $unitRow.append(`<td class="right-align">${unitBaseBV.toLocaleString("en-us")}</td>`);
+        $unitRow.append(`<td class="right-align">${unitAdjBV.toLocaleString("en-us")}</td>`);
+
+        $unitTable.append($unitRow);
+
+        totalTonnage += unitTonnage;
+        totalBV += unitBaseBV;
+        totalAdjBV += unitAdjBV;
         unitCount += 1;
     });
 
-    const $forceList = $("#force-list-print");
+    const $footerRow = $("<tr>");
+    $footerRow.append(`<th>${unitCount} Unit${unitCount == 1 ? "" : "s"}</th>`);
+    $footerRow.append("<th></th>"); 
+    $footerRow.append("<th></th>"); 
+    $footerRow.append(`<th class="right-align">${totalTonnage.toLocaleString("en-us")}</th>`); 
+    $footerRow.append(`<th class="right-align">${totalBV.toLocaleString("en-us")}</th>`); 
+    $footerRow.append(`<th class="right-align">${totalAdjBV.toLocaleString("en-us")}</th>`); 
+    $unitTable.append($footerRow);
 
-    $forceList.append(`<h3>${unitCount} Unit${unitCount == 1 ? "" : "s"}</h3>`);
-    const $totalsDiv = $("<div>", {class: "flex-row"});
-    $totalsDiv.append(`<span class="flex-item"><b>Tonnage:</b> ${totalTonnage}</span>`);
-    $totalsDiv.append(`<span class="flex-item"><b>Base BV:</b> ${totalBV}</span>`);
-    $totalsDiv.append(`<span class="flex-item"><b>Adjusted BV:</b> ${totalAdjBV}</span>`);
-    $forceList.append($totalsDiv);
+    $forceList.append($unitTable);
 
-    force.forEach((unit) => {
+    /*force.forEach((unit) => {
         const $unitDiv = $("<div>", {class: "new-page"});
         $unitDiv.append(`<h4>${unit.unitProps.name}</h4>`);
 
@@ -953,30 +1012,30 @@ function printForce() {
             const weaponName = getWeaponName(ammoBin.type);
             const selectedAmmoType = unit.ammoTypes.get(ammoIndex);
             const ammoName = getAmmoName(ammoBin.type, selectedAmmoType, ammoBin.shots);
-            let isDefault = selectedAmmoType == "standard";
-            if (ammoBin.default) {
-                isDefault = selectedAmmoType == ammoBin.default;
-            }
-            //if (!isDefault) {
-                $ammoList.append(`<li>${weaponName} (${ammoBin.location}): ${ammoName}</li>`);
-                ammoSelectionCount += 1;
-            //}
+            $ammoList.append(`<li>${weaponName} (${ammoBin.location}): ${ammoName}</li>`);
+            ammoSelectionCount += 1;
         });
         if (ammoSelectionCount > 0) {
             $unitDiv.append($ammoList);
         }
 
         $forceList.append($unitDiv);
-    });
+    });*/
 
     // TODO: Add C3 networks
 
     // TODO: Detailed BV calculations
+}
 
-    window.print();
+function cleanUpPrintContent() {
+    const $forceList = $("#force-list-print");
 
-    // Empty temporary print contents
+    // Remove any old print contents
     $forceList.children().remove();
+}
+
+function printForce() {
+    window.print();
 }
 
 function updateC3Eligibility() {

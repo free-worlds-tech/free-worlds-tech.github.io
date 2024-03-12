@@ -3,10 +3,6 @@
 }
 
 @media print {
-    html {
-        font-size: 12px;
-    }
-
     body {
         display: unset;
     }
@@ -35,5 +31,21 @@
 
     .multi-column {
         column-count: 2;
+    }
+
+    .full-width {
+        width: 100%;
+    }
+
+    .small-font {
+        font-size: 10pt;
+    }
+
+    .center-align {
+        text-align: center;
+    }
+
+    .right-align {
+        text-align: right;
     }
 }

@@ -28,7 +28,7 @@
 <script charset="UTF-8" src="script/force-builder-data.js" defer></script>
 <script charset="UTF-8" src="script/force-builder.js" defer></script>
 </head>
-<body>
+<body onbeforeprint="readyPrintContent()" onafterprint="cleanUpPrintContent()">
     <header>
         <img class="logo" src="assets/fwti-256.png" alt="FWTI logo">
         <h1>Free Worlds Technical Institute</h1>
