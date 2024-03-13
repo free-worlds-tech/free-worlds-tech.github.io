@@ -93,6 +93,17 @@ const knownWeapons = [
         ]
     },
     {
+        id: "is:grenadelauncher", 
+        name: "Vehicular Grenade Launcher", 
+        ammoTypes: [
+            {id: "standard", name: "Standard"},
+            {id: "chaff", name: "Chaff"},
+            {id: "fragmentation", name: "Fragmentation"},
+            {id: "incendiary", name: "Incendiary", extraBV: 7.5},
+            {id: "smoke", name: "Smoke"},
+        ]
+    },
+    {
         id: "is:lightrifle", 
         name: "Light Rifle", 
         ammoTypes: [
@@ -386,14 +397,33 @@ const knownWeapons = [
         id: "is:vehicleflamer",
         name: "Vehicle Flamer",
         ammoTypes: [
-            {id: "standard", name: "Standard (20)"}
+            {id: "standard", name: "Standard (20)"},
+            {id: "coolant", name: "Coolant (20)"},
+            {id: "inferno", name: "Inferno Fuel (20)", extraBV: 2},
+            {id: "water", name: "Water (20)"},
         ]
     },
     {
         id: "is:heavyflamer",
         name: "Heavy Flamer",
         ammoTypes: [
-            {id: "standard", name: "Standard (10)"}
+            {id: "standard", name: "Standard (10)"},
+            {id: "coolant", name: "Coolant (10)"},
+            {id: "inferno", name: "Inferno Fuel (10)", extraBV: 4},
+            {id: "water", name: "Water (10)"},
+        ]
+    },
+    {
+        id: "is:fluidgun",
+        name: "Fluid Gun",
+        ammoTypes: [
+            {id: "standard", name: "Water (20)"},
+            {id: "coolant", name: "Coolant (20)"},
+            {id: "corrosive", name: "Corrosive (20)", extraBV: 2},
+            {id: "flameretardant", name: "Flame-Retardant Foam (20)"},
+            {id: "inferno", name: "Inferno Fuel (20)", extraBV: 2},
+            {id: "oilslick", name: "Oil Slick (20)"},
+            {id: "obscurant", name: "Obscurant (20)"},
         ]
     },
     {
@@ -517,6 +547,30 @@ const knownWeapons = [
         ammoTypes: [
             {id: "standard", name: "Standard (15)"},
             {id: "artemisiv", name: "Artemis IV-Equipped (15)", requirement:"artemisiv"},
+        ]
+    },
+    {
+        id: "is:srt2:os", 
+        name: "SRT 2 (OS)", 
+        ammoTypes: [
+            {id: "standard", name: "Standard"},
+            {id: "artemisiv", name: "Artemis IV-Equipped", requirement:"artemisiv"},
+        ]
+    },
+    {
+        id: "is:srt4:os", 
+        name: "SRT 4 (OS)", 
+        ammoTypes: [
+            {id: "standard", name: "Standard"},
+            {id: "artemisiv", name: "Artemis IV-Equipped", requirement:"artemisiv"},
+        ]
+    },
+    {
+        id: "is:srt6:os", 
+        name: "SRT 6 (OS)", 
+        ammoTypes: [
+            {id: "standard", name: "Standard"},
+            {id: "artemisiv", name: "Artemis IV-Equipped", requirement:"artemisiv"},
         ]
     },
     {
@@ -710,6 +764,54 @@ const knownWeapons = [
         ]
     },
     {
+        id: "is:mechmortar1", 
+        name: "’Mech Mortar/1", 
+        ammoTypes: [
+            {id: "standard", name: "Armor Piercing (24)"},
+            {id: "airburst", name: "Airburst (24)"},
+            {id: "antipersonnel", name: "Anti-Personnel (24)"},
+            {id: "flare", name: "Flare (24)"},
+            {id: "semiguided", name: "Semi-Guided (24)", tagBV: 1},
+            {id: "smoke", name: "Smoke (24)"},
+        ]
+    },
+    {
+        id: "is:mechmortar2", 
+        name: "’Mech Mortar/2", 
+        ammoTypes: [
+            {id: "standard", name: "Armor Piercing (12)"},
+            {id: "airburst", name: "Airburst (12)"},
+            {id: "antipersonnel", name: "Anti-Personnel (12)"},
+            {id: "flare", name: "Flare (12)"},
+            {id: "semiguided", name: "Semi-Guided (12)", tagBV: 2},
+            {id: "smoke", name: "Smoke (12)"},
+        ]
+    },
+    {
+        id: "is:mechmortar4", 
+        name: "’Mech Mortar/4", 
+        ammoTypes: [
+            {id: "standard", name: "Armor Piercing (6)"},
+            {id: "airburst", name: "Airburst (6)"},
+            {id: "antipersonnel", name: "Anti-Personnel (6)"},
+            {id: "flare", name: "Flare (6)"},
+            {id: "semiguided", name: "Semi-Guided (6)", tagBV: 3},
+            {id: "smoke", name: "Smoke (6)"},
+        ]
+    },
+    {
+        id: "is:mechmortar8", 
+        name: "’Mech Mortar/8", 
+        ammoTypes: [
+            {id: "standard", name: "Armor Piercing (4)"},
+            {id: "airburst", name: "Airburst (4)"},
+            {id: "antipersonnel", name: "Anti-Personnel (4)"},
+            {id: "flare", name: "Flare (4)"},
+            {id: "semiguided", name: "Semi-Guided (4)", tagBV: 6},
+            {id: "smoke", name: "Smoke (4)"},
+        ]
+    },
+    {
         id: "is:mrm10",
         name: "MRM 10",
         ammoTypes: [
@@ -835,6 +937,13 @@ const knownWeapons = [
         ammoTypes: [
             {id: "standard", name: "Standard (5)"},
             {id: "homing", name: "Homing (5)", tagBV: 30},
+        ]
+    },
+    {
+        id: "is:cruisemissile50", 
+        name: "Cruise Missile/50", 
+        ammoTypes: [
+            {id: "standard", name: "Standard (1)"},
         ]
     },
     {
@@ -1109,14 +1218,20 @@ const knownWeapons = [
         id: "clan:vehicleflamer",
         name: "Vehicle Flamer",
         ammoTypes: [
-            {id: "standard", name: "Standard (20)"}
+            {id: "standard", name: "Standard (20)"},
+            {id: "coolant", name: "Coolant (20)"},
+            {id: "inferno", name: "Inferno Fuel (20)", extraBV: 2},
+            {id: "water", name: "Water (20)"},
         ]
     },
     {
         id: "clan:heavyflamer",
         name: "Heavy Flamer",
         ammoTypes: [
-            {id: "standard", name: "Standard (10)"}
+            {id: "standard", name: "Standard (10)"},
+            {id: "coolant", name: "Coolant (10)"},
+            {id: "inferno", name: "Inferno Fuel (10)", extraBV: 4},
+            {id: "water", name: "Water (10)"},
         ]
     },
     {
@@ -1562,6 +1677,50 @@ const knownWeapons = [
             {id: "standard", name: "Standard (6)"},
             {id: "artemisiv", name: "Artemis IV-Equipped (6)", requirement:"artemisiv"},
             {id: "artemisv", name: "Artemis V-Equipped (6)", requirement:"artemisv"},
+        ]
+    },
+    {
+        id: "clan:mechmortar1", 
+        name: "’Mech Mortar/1", 
+        ammoTypes: [
+            {id: "standard", name: "Armor Piercing (24)"},
+            {id: "airburst", name: "Airburst (24)"},
+            {id: "antipersonnel", name: "Anti-Personnel (24)"},
+            {id: "flare", name: "Flare (24)"},
+            {id: "smoke", name: "Smoke (24)"},
+        ]
+    },
+    {
+        id: "clan:mechmortar2", 
+        name: "’Mech Mortar/2", 
+        ammoTypes: [
+            {id: "standard", name: "Armor Piercing (12)"},
+            {id: "airburst", name: "Airburst (12)"},
+            {id: "antipersonnel", name: "Anti-Personnel (12)"},
+            {id: "flare", name: "Flare (12)"},
+            {id: "smoke", name: "Smoke (12)"},
+        ]
+    },
+    {
+        id: "clan:mechmortar4", 
+        name: "’Mech Mortar/4", 
+        ammoTypes: [
+            {id: "standard", name: "Armor Piercing (6)"},
+            {id: "airburst", name: "Airburst (6)"},
+            {id: "antipersonnel", name: "Anti-Personnel (6)"},
+            {id: "flare", name: "Flare (6)"},
+            {id: "smoke", name: "Smoke (6)"},
+        ]
+    },
+    {
+        id: "clan:mechmortar8", 
+        name: "’Mech Mortar/8", 
+        ammoTypes: [
+            {id: "standard", name: "Armor Piercing (4)"},
+            {id: "airburst", name: "Airburst (4)"},
+            {id: "antipersonnel", name: "Anti-Personnel (4)"},
+            {id: "flare", name: "Flare (4)"},
+            {id: "smoke", name: "Smoke (4)"},
         ]
     },
     {
@@ -2412,6 +2571,20 @@ const knownWeapons = [
             {id: "standard", name: "Standard"},
         ]
     },
+    {
+        id: "minedispenser",
+        name: "Mine Dispenser",
+        ammoTypes: [
+            {id: "standard", name: "Standard (2)"},
+        ]
+    },
+    {
+        id: "ba-minedispenser",
+        name: "Mine Dispenser",
+        ammoTypes: [
+            {id: "standard", name: "Standard (2)"},
+        ]
+    }
 ];
 
 function getSkillMultiplier(gunnery, piloting) {

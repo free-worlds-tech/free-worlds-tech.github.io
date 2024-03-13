@@ -204,7 +204,7 @@ function showUnitList(list, moreAvailable, searching) {
         $("#search-results").append(`<li><em>No units found.</em></li>`);
     } else {
         list.forEach((unit) => {
-            $("#search-results").append(`<li><button title='Add unit to force' type='button' onclick='addUnitById("${unit.id}")'><span class="material-symbols-outlined">add</span></button><span class="search-result">${unit.name}</span></li>`);
+            $("#search-results").append(`<li><button title='Add unit to force' type='button' onclick='addUnitById("${unit.id}")'><span class="material-symbols-outlined">add</span></button><span class="search-result">${unit.name}<span class="subtle"> - ${unit.bv.toLocaleString("en-us")}&nbsp;BV</span></span></li>`);
         });
         if (moreAvailable) {
             if (searchResumeToken) {
@@ -546,7 +546,7 @@ function updateUnitBV(unit, fromNetworkChange) {
                 forEachNetworkUnit(network, (networkUnit) => {
                     if (unit.id == networkUnit.id) {
                         connectedNetwork = network;
-                        const networkBV = Math.round(getNetworkBV(network.id));
+                        const networkBV = Math.round(getNetworkBV(network.id, unit.unitProps.specials.includes("boostedc3")));
                         modifiedBV += networkBV;
                         bvNotes.push({note: "C3", amount: networkBV});
                     }
@@ -560,7 +560,7 @@ function updateUnitBV(unit, fromNetworkChange) {
                 forEachNetworkUnit(network, (networkUnit) => {
                     if (unit.id == networkUnit.id) {
                         connectedNetwork = network;
-                        const networkBV = Math.round(getNetworkBV(network.id));
+                        const networkBV = Math.round(getNetworkBV(network.id, false));
                         modifiedBV += networkBV;
                         bvNotes.push({note: "C3i", amount: networkBV});
                     }
@@ -636,17 +636,21 @@ function getNetworkBVforUnit(unit) {
     return unitBV;
 }
 
-function getNetworkBV(networkId) {
+function getNetworkBV(networkId, isBoosted) {
     let networkBV = 0;
     let unitCount = 0;
     const network = networks.get(networkId);
 
+    let multiplier = 0.05;
+    if (isBoosted) {
+        multiplier = 0.07;
+    }
+
     forEachNetworkUnit(network, (unit) => {
-        networkBV += getNetworkBVforUnit(unit) * 0.05;
+        networkBV += getNetworkBVforUnit(unit) * multiplier;
         unitCount += 1;
     });
 
-    // TODO: This should check for the network being valid
     return unitCount > 1 ? networkBV : 0;
 }
 
@@ -904,6 +908,7 @@ function readyPrintContent() {
     let unitCount = 0;
 
     $forceList.append("<h1>BattleTech Force</h1>");
+    $forceList.append("<em>Built with the FWTI force builder</em>");
 
     const $unitTable = $("<table>", {class: "full-width small-font"});
     const $headerRow = $("<tr>");
