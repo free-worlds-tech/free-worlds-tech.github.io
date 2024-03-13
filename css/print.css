@@ -5,6 +5,7 @@
 @media print {
     body {
         display: unset;
+        font-size: 12pt;
     }
 
     header,
@@ -19,6 +20,10 @@
 
     .new-page {
         break-before: page;
+    }
+
+    .avoid-break {
+        break-inside: avoid;
     }
 
     .flex-row {
@@ -47,5 +52,17 @@
 
     .right-align {
         text-align: right;
+    }
+
+    h1 {
+        font-size: 18pt;
+    }
+
+    h2 {
+        font-size: 16pt;
+    }
+
+    h3 {
+        font-size: 14pt;
     }
 }

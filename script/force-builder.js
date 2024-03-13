@@ -328,30 +328,23 @@ function addUnitRow(unit)
     $costsDiv.append(`<span>Adjusted BV: <span class='adj-bv'>${unit.adjustedBV}</span></span>`);
     $li.append($costsDiv);
 
-    let secondarySkillName = "Piloting";
+    let secondarySkillName = getSecondarySkillName(unit);
     let crewPlaceholder = "MechWarrior Name";
     let fixedSecondarySkill = false;
 
     if (unit.unitProps.unitType == "BA") {
-        secondarySkillName = "Anti-’Mech";
         crewPlaceholder = "Unit Name";
     } else if (unit.unitProps.unitType.startsWith("CV")) {
         crewPlaceholder = "Crew Name";
-        if (unit.unitProps.unitType != "CV:VTOL" && unit.unitProps.unitType != "CV:WiGE") {
-            secondarySkillName = "Driving";
-        }
     } else if (unit.unitProps.unitType == "PM") {
         crewPlaceholder = "Pilot Name";
-        secondarySkillName = "";
     } else if (unit.unitProps.unitType == "QV") {
         crewPlaceholder = "Pilot Name";
     } else if (unit.unitProps.unitType == "BM:Tripod" || unit.unitProps.unitType == "IM:Tripod") {
         crewPlaceholder = "Pilot Name";
     } else if (unit.unitProps.unitType.startsWith("CI")) {
         crewPlaceholder = "Unit Name";
-        secondarySkillName = "";
         if (unit.unitProps.unitType != "CI:Mechanized") {
-            secondarySkillName = "Anti-’Mech";
             if (!unit.unitProps.specials.includes("anti-mech")) {
                 fixedSecondarySkill = true;
             }
@@ -564,7 +557,7 @@ function updateUnitBV(unit, fromNetworkChange) {
     if (unit.unitProps.specials.includes("c3i")) {
         networks.forEach((network) => {
             if (network.type == "c3i") {
-                forEachNetworkUnit(newtork, (networkUnit) => {
+                forEachNetworkUnit(network, (networkUnit) => {
                     if (unit.id == networkUnit.id) {
                         connectedNetwork = network;
                         const networkBV = Math.round(getNetworkBV(network.id));
@@ -602,7 +595,7 @@ function updateUnitBV(unit, fromNetworkChange) {
     }
     unit.adjustedBV = Math.round(modifiedBV * multiplier);
     if (multiplier != 1) {
-        bvNotes.push({note: `Skills ×${multiplier}`, amount:(unit.adjustedBV - modifiedBV)});
+        bvNotes.push({note: `Skills ×${multiplier}`, amount:(unit.adjustedBV - modifiedBV), multiplier: multiplier});
     }
 
     unit.bvNotes = bvNotes;
@@ -910,6 +903,8 @@ function readyPrintContent() {
     let totalAdjBV = 0;
     let unitCount = 0;
 
+    $forceList.append("<h1>BattleTech Force</h1>");
+
     const $unitTable = $("<table>", {class: "full-width small-font"});
     const $headerRow = $("<tr>");
     $headerRow.append("<th>Unit</th>");
@@ -983,28 +978,137 @@ function readyPrintContent() {
 
     $forceList.append($unitTable);
 
-    /*force.forEach((unit) => {
-        const $unitDiv = $("<div>", {class: "new-page"});
-        $unitDiv.append(`<h4>${unit.unitProps.name}</h4>`);
+    if (networks.size > 0) {
+        networks.forEach((network) => {
+            const $networkList = $("<ul>");
+
+            if (network.type == "c3") {
+                $forceList.append("<h3>C<sup>3</sup> Network</h3>");
+                const $rootListItem = $("<li>");
+                const rootUnit = force.get(network.rootUnit.id);
+                $rootListItem.text(getUnitFullName(rootUnit));
+
+                const $linkList = $("<ul>");
+                let linkCount = 0;
+
+                network.rootUnit.links.forEach((link) => {
+                    const $linkItem = $("<li>");
+                    if (link.id > 0) {
+                        const linkUnit = force.get(link.id);
+                        $linkItem.text(getUnitFullName(linkUnit));
+
+                        if (link.links) {
+                            const $sublinkList = $("<ul>");
+                            let sublinkCount = 0;
+                            link.links.forEach((sublink) => {
+                                if (sublink.id > 0) {
+                                    const sublinkUnit = force.get(sublink.id);
+                                    $sublinkList.append(`<li>${getUnitFullName(sublinkUnit)}</li>`);
+                                    sublinkCount += 1;
+                                }
+                            });
+                            if (sublinkCount > 0) {
+                                $linkItem.append($sublinkList);
+                            }
+                        }
+
+                        $linkList.append($linkItem);
+                        linkCount += 1;
+                    } else if (link.id == -1) {
+                        $linkItem.text("Self-Link");
+
+                        if (link.links) {
+                            const $sublinkList = $("<ul>");
+                            let sublinkCount = 0;
+                            link.links.forEach((sublink) => {
+                                if (sublink.id > 0) {
+                                    const sublinkUnit = force.get(sublink.id);
+                                    $sublinkList.append(`<li>${getUnitFullName(sublinkUnit)}</li>`);
+                                    sublinkCount += 1;
+                                }
+                            });
+                            if (sublinkCount > 0) {
+                                $linkItem.append($sublinkList);
+                            }
+                        }
+
+                        $linkList.append($linkItem);
+                        linkCount += 1;
+                    } 
+                });
+
+                if (linkCount > 0) {
+                    $rootListItem.append($linkList);
+                }
+
+                $networkList.append($rootListItem);
+            }
+            else if (network.type == "c3i") {
+                $forceList.append("<h3>C<sup>3</sup>i Network</h3>");
+                network.units.forEach((link) => {
+                    const linkedUnit = force.get(link.id);
+                    if (linkedUnit) {
+                        $networkList.append(`<li>${getUnitFullName(linkedUnit)}</li>`);
+                    }
+                });
+            }
+
+            $forceList.append($networkList);
+        });
+    }
+
+    const $pageBreakDiv = $("<div>", {class: "new-page"});
+    $forceList.append($pageBreakDiv);
+
+    force.forEach((unit) => {
+        const $unitDiv = $("<div>", {class: "small-font avoid-break"});
+        $unitDiv.append(`<h2>${getUnitFullName(unit)}</h2>`);
 
         const $costsDiv = $("<div>", {class: "flex-row"});
-        $costsDiv.append(`<span class="flex-item">Tonnage: <span class='tonnage'>${unit.unitProps.tonnage}</span></span>`);
-        $costsDiv.append(`<span class="flex-item">Base BV: <span class='bv'>${unit.unitProps.bv}</span></span>`);
-        $costsDiv.append(`<span class="flex-item">Adjusted BV: <span class='adj-bv'>${unit.adjustedBV}</span></span>`);
+        $costsDiv.append(`<span class="flex-item"><b>Tonnage:</b> ${unit.unitProps.tonnage.toLocaleString("en-us")}</span>`);
+        $costsDiv.append(`<span class="flex-item"><b>Base BV:</b> ${unit.unitProps.bv.toLocaleString("en-us")}</span>`);
+        $costsDiv.append(`<span class="flex-item"><b>Adjusted BV:</b> ${unit.adjustedBV.toLocaleString("en-us")}</span>`);
         $unitDiv.append($costsDiv);
 
-        // TODO: Alternate skills and unnamed placeholders
         let crewName = unit.crew;
-        if (unit.crew.length == 0) {
-            crewName = "Unnamed MechWarrior";
-        }
+        let secondarySkill = getSecondarySkillName(unit);
+        const positionName = getCrewPositionName(unit, 1);
+
         const $crewDiv = $("<div>", {class: "flex-row"});
-        $crewDiv.append(`<span class="flex-item">${crewName}</span>`);
-        $crewDiv.append(`<span class="flex-item">Gunnery: ${unit.gunnery}</span>`);
-        $crewDiv.append(`<span class="flex-item">Piloting: ${unit.piloting}</span>`);
+        $crewDiv.append(`<span class="flex-item"><b>${positionName}:</b> ${crewName}</span>`);
+        $crewDiv.append(`<span class="flex-item"><b>Gunnery:</b> ${unit.gunnery}</span>`);
+        if (secondarySkill.length > 0) {
+            $crewDiv.append(`<span class="flex-item"><b>${secondarySkill}:</b> ${unit.piloting}</span>`);
+        } else {
+            $crewDiv.append(`<span class="flex-item"></span>`);
+        }
         $unitDiv.append($crewDiv);
 
-        // TODO: 2nd and 3rd crew sets
+        if (unit.crew2 != undefined) {
+            const $crew2Div = $("<div>", {class: "flex-row"});
+            const position2Name = getCrewPositionName(unit, 2);
+            $crew2Div.append(`<span class="flex-item"><b>${position2Name}:</b> ${unit.crew2}</span>`);
+            $crew2Div.append(`<span class="flex-item"><b>Gunnery:</b> ${unit.gunnery2}</span>`);
+            if (secondarySkill.length > 0) {
+                $crew2Div.append(`<span class="flex-item"><b>${secondarySkill}:</b> ${unit.piloting2}</span>`);
+            } else {
+                $crew2Div.append(`<span class="flex-item"></span>`);
+            }
+            $unitDiv.append($crew2Div);
+        }
+
+        if (unit.crew3 != undefined) {
+            const $crew3Div = $("<div>", {class: "flex-row"});
+            const position3Name = getCrewPositionName(unit, 3);
+            $crew3Div.append(`<span class="flex-item"><b>${position3Name}:</b> ${unit.crew3}</span>`);
+            $crew3Div.append(`<span class="flex-item"><b>Gunnery:</b> ${unit.gunnery3}</span>`);
+            if (secondarySkill.length > 0) {
+                $crew3Div.append(`<span class="flex-item"><b>${secondarySkill}:</b> ${unit.piloting3}</span>`);
+            } else {
+                $crew3Div.append(`<span class="flex-item"></span>`);
+            }
+            $unitDiv.append($crew3Div);
+        }
 
         let ammoSelectionCount = 0;
         const $ammoList = $("<ul>", {class: "multi-column"});
@@ -1019,12 +1123,25 @@ function readyPrintContent() {
             $unitDiv.append($ammoList);
         }
 
+        let bvCalculation = `${unit.unitProps.bv.toLocaleString("en-us")}`;
+        let skillMultiplier = 1;
+        unit.bvNotes.forEach((note) => {
+            if (note.multiplier != undefined) {
+                skillMultiplier = note.multiplier;
+            } else {
+                if (note.amount >= 0) {
+                    bvCalculation += ` + ${note.amount.toLocaleString("en-us")} (${note.note})`;
+                } else {
+                    bvCalculation += ` - ${Math.abs(note.amount).toLocaleString("en-us")} (${note.note})`;
+                }
+            }
+        });
+        bvCalculation = `(${bvCalculation}) × ${skillMultiplier}`
+        bvCalculation += ` = ${unit.adjustedBV.toLocaleString("en-us")}`;
+        $unitDiv.append(`<p><b>Battle Value Calculation:</b> ${bvCalculation}</p>`);
+
         $forceList.append($unitDiv);
-    });*/
-
-    // TODO: Add C3 networks
-
-    // TODO: Detailed BV calculations
+    });
 }
 
 function cleanUpPrintContent() {
@@ -1194,6 +1311,9 @@ function rebuildC3NetworkEditor(network) {
             value: `${c3mLink.id}`,
             text: getUnitFullName(c3mUnit)
         });
+        if (c3mLink.id == network.rootUnit.id) {
+            $c3mUnitOption.attr("selected", "selected");
+        }
         if (c3mLink.linked && c3mLink.id != network.rootUnit.id) {
             $c3mUnitOption.attr("disabled", "disabled");
             $c3mUnitOption.attr("hidden", "hidden");
@@ -1666,4 +1786,53 @@ function dumpDebugData() {
     data += "\n";
 
     $("#debug-output").text(data);
+}
+
+function getSecondarySkillName(unit) {
+    let secondarySkillName = "Piloting";
+    if (unit.unitProps.unitType == "BA") {
+        secondarySkillName = "Anti-’Mech";
+    } else if (unit.unitProps.unitType.startsWith("CV")) {
+        if (unit.unitProps.unitType != "CV:VTOL" && unit.unitProps.unitType != "CV:WiGE") {
+            secondarySkillName = "Driving";
+        }
+    } else if (unit.unitProps.unitType == "PM") {
+        secondarySkillName = "";
+    } else if (unit.unitProps.unitType.startsWith("CI")) {
+        secondarySkillName = "";
+        if (unit.unitProps.unitType != "CI:Mechanized") {
+            secondarySkillName = "Anti-’Mech";
+        }
+    }
+    return secondarySkillName;
+}
+
+function getCrewPositionName(unit, slot) {
+    let positionName = "MechWarrior";
+    if (slot == 2) {
+        positionName = "Command Console MechWarrior";
+    }
+    if (unit.unitProps.unitType == "BA") {
+        positionName = "Unit";
+    } else if (unit.unitProps.unitType.startsWith("CV")) {
+        positionName = "Crew";
+    } else if (unit.unitProps.unitType == "PM") {
+        positionName = "Pilot";
+    } else if (unit.unitProps.unitType == "QV") {
+        positionName = "Pilot";
+        if (slot == 2) {
+            positionName = "Gunner";
+        } 
+    } else if (unit.unitProps.unitType == "BM:Tripod" || unit.unitProps.unitType == "IM:Tripod") {
+        positionName = "Pilot";
+        if (slot == 2) {
+            positionName = "Equipment/Gunnery Officer";
+        } else if (slot == 3) {
+            positionName = "Technical Officer";
+        }
+    } else if (unit.unitProps.unitType.startsWith("CI")) {
+        positionName = "Unit";
+    }
+
+    return positionName;
 }
