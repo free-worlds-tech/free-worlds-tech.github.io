@@ -6,6 +6,7 @@ let searchInProgress = false;
 
 const force = new Map();
 const networks = new Map();
+let novaInUse = false;
 
 let previousSearchQuery = "";
 let searchResumeToken = 0;
@@ -351,6 +352,10 @@ function addUnitRow(unit)
         }
     }
 
+    if (unit.unitProps.specials.includes("drone")) {
+        crewPlaceholder = "Drone Operator Name";
+    }
+
     const $crewDiv = $("<div>", {class: "unit-crew"});
     $crewDiv.append(`<input class='crew-name crew1' type='text' placeholder='${crewPlaceholder}' onchange='updateCrewName(${unit.id})'>`);
     $crewDiv.append(createSkillPicker(unit.id, "g", "Gunnery", unit.gunnery));
@@ -568,8 +573,32 @@ function updateUnitBV(unit, fromNetworkChange) {
             }
         });
     }
+    if (unit.unitProps.specials.includes("nova")) {
+        networks.forEach((network) => {
+            if (network.type == "nova") {
+                forEachNetworkUnit(network, (networkUnit) => {
+                    if (unit.id == networkUnit.id) {
+                        connectedNetwork = network;
+                        let networkBV = Math.round(getNetworkBV(network.id, false));
+                        const maxNovaBV = Math.round(getNovaNetworkCap());
+                        if (networkBV > maxNovaBV) {
+                            networkBV = maxNovaBV;
+                        }
+                        modifiedBV += networkBV;
+                        bvNotes.push({note: "Nova CEWS", amount: networkBV});
+                    }
+                });
+            }
+        });
+    }
     if (connectedNetwork && !fromNetworkChange) {
         updateNetworkBV(connectedNetwork);
+    } else if (novaInUse && !fromNetworkChange) {
+        networks.forEach((network) => {
+            if (network.type == "nova") {
+                updateNetworkBV(network);
+            }
+        });
     }
 
     let multiplier = getSkillMultiplier(g,p);
@@ -652,6 +681,19 @@ function getNetworkBV(networkId, isBoosted) {
     });
 
     return unitCount > 1 ? networkBV : 0;
+}
+
+function getNovaNetworkCap() {
+    let forceBaseBV = 0;
+    let novaCount = 0;
+    force.forEach((unit) => {
+        forceBaseBV += getNetworkBVforUnit(unit);
+        if (unit.unitProps.specials.includes("nova")) {
+            novaCount += 1;
+        }
+    });
+    const maxAddedNovaBV = forceBaseBV * 0.35;
+    return maxAddedNovaBV / novaCount;
 }
 
 function adjustTAGUnitsBV() {
@@ -1238,6 +1280,24 @@ function addC3iNetwork() {
     updateC3Eligibility();
 }
 
+function addNovaNetwork() {
+    const currentId = nextNetworkId++;
+
+    const network = {
+        id: currentId,
+        type: "nova",
+        units: []
+    }
+
+    networks.set(currentId, network);
+    novaInUse = true;
+
+    addNetworkEditor(network);
+    updateNetworkBV(network);
+
+    return network;
+}
+
 function updateSelfLinksForC3Editor(network) {
     if (network.type == "c3" && network.rootUnit.linkType == "m") {
         const networkLabel = `network-${network.id}`;
@@ -1543,7 +1603,7 @@ function addNetworkEditor(network) {
     if (network.type == "c3") {
         $("#network-setups").append($networkEditor);
         rebuildC3NetworkEditor(network);
-    } else {
+    } else if (network.type == "c3i") {
         $networkEditor.append(`<summary>C<sup>3</sup>i Network #${network.id}</summary>`);
         for (let i = 0; i < 6; i++) {
             const $unitSelect = $("<select>", {id: `${networkLabel}-${i}`, class: "network c3i"});
@@ -1583,6 +1643,11 @@ function addNetworkEditor(network) {
         }
         $networkEditor.append(`<button type='button' title='Remove C3i network' class='network' onclick='removeNetwork(${network.id})'>Remove Nework</button>`);
         $("#network-setups").append($networkEditor);
+    } else if (network.type == "nova") {
+        $networkEditor.append(`<summary>Nova CEWS Units</summary>`);
+        $networkEditor.append(`<ul class="network nova"></<ul>`)
+        $("#network-setups").append($networkEditor);
+
     }
 }
 
@@ -1610,6 +1675,21 @@ function addUnitToAllNetworkSelects(addedUnit) {
 
     if (addedUnit.unitProps.specials.includes("c3i")) {
         $(`select.network.c3i`).append(`<option class='network c3i' value='${addedUnit.id}'>${getUnitFullName(addedUnit)}</option>`);
+    }
+
+    if (addedUnit.unitProps.specials.includes("nova")) {
+        // Get or create nova network and add unit to it...
+        let novaNetwork = undefined;
+        networks.forEach((network, key) => {
+            if (network.type == "nova") {
+                novaNetwork = network;
+            }
+        });
+        if (novaNetwork == undefined) {
+            novaNetwork = addNovaNetwork();
+        }
+        novaNetwork.units.push({ id: addedUnit.id });
+        $(`ul.network.nova`).append(`<li id='nova-${addedUnit.id}' class='network nova'>${getUnitFullName(addedUnit)}</li>`);
     }
 }
 
@@ -1675,6 +1755,14 @@ function removeUnitFromNetwork(network, removedUnitId) {
                 updateNetworkBV(network);
             }
         });
+    } else if (network.type == "nova") {
+        network.units.splice(network.units.findIndex((x) => x.id == removedUnitId), 1);
+        $(`#nova-${removedUnitId}`).remove();
+
+        if (network.units.length == 0) {
+            removeNetwork(networkId);
+            novaInUse = false;
+        }
     }
 }
 
@@ -1728,6 +1816,13 @@ function forEachNetworkUnit(network, f) {
             }
         });
     } else if (network.type == "c3i") {
+        network.units.forEach((link) => {
+            const linkedUnit = force.get(link.id);
+            if (linkedUnit) {
+                f(linkedUnit);
+            }
+        });
+    } else if (network.type == "nova") {
         network.units.forEach((link) => {
             const linkedUnit = force.get(link.id);
             if (linkedUnit) {
@@ -1837,6 +1932,10 @@ function getCrewPositionName(unit, slot) {
         }
     } else if (unit.unitProps.unitType.startsWith("CI")) {
         positionName = "Unit";
+    }
+
+    if (unit.unitProps.specials.includes("drone")) {
+        positionName = "Drone Operator";
     }
 
     return positionName;
