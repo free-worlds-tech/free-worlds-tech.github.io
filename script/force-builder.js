@@ -204,7 +204,7 @@ function showUnitList(list, moreAvailable, searching) {
         $("#search-results").append(`<li><em>No units found.</em></li>`);
     } else {
         list.forEach((unit) => {
-            $("#search-results").append(`<li><button title='Add unit to force' type='button' onclick='addUnitById("${unit.id}")'><span class="material-symbols-outlined">add</span></button><span class="search-result">${unit.name}</span></li>`);
+            $("#search-results").append(`<li><button title='Add unit to force' type='button' onclick='addUnitById("${unit.id}")'><span class="material-symbols-outlined">add</span></button><span class="search-result">${unit.name}<span class="subtle"> - ${unit.bv.toLocaleString("en-us")} BV</span></span></li>`);
         });
         if (moreAvailable) {
             if (searchResumeToken) {

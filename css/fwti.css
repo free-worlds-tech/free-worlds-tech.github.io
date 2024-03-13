@@ -162,3 +162,7 @@ button.network {
 .unit-entry-header .remove-button {
     float: right;
 }
+
+.subtle {
+    color: var(--text-light);
+}
