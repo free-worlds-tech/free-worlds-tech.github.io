@@ -93,6 +93,17 @@ const knownWeapons = [
         ]
     },
     {
+        id: "is:grenadelauncher", 
+        name: "Vehicular Grenade Launcher", 
+        ammoTypes: [
+            {id: "standard", name: "Standard"},
+            {id: "chaff", name: "Chaff"},
+            {id: "fragmentation", name: "Fragmentation"},
+            {id: "incendiary", name: "Incendiary", extraBV: 7.5},
+            {id: "smoke", name: "Smoke"},
+        ]
+    },
+    {
         id: "is:lightrifle", 
         name: "Light Rifle", 
         ammoTypes: [
@@ -517,6 +528,30 @@ const knownWeapons = [
         ammoTypes: [
             {id: "standard", name: "Standard (15)"},
             {id: "artemisiv", name: "Artemis IV-Equipped (15)", requirement:"artemisiv"},
+        ]
+    },
+    {
+        id: "is:srt2:os", 
+        name: "SRT 2 (OS)", 
+        ammoTypes: [
+            {id: "standard", name: "Standard"},
+            {id: "artemisiv", name: "Artemis IV-Equipped", requirement:"artemisiv"},
+        ]
+    },
+    {
+        id: "is:srt4:os", 
+        name: "SRT 4 (OS)", 
+        ammoTypes: [
+            {id: "standard", name: "Standard"},
+            {id: "artemisiv", name: "Artemis IV-Equipped", requirement:"artemisiv"},
+        ]
+    },
+    {
+        id: "is:srt6:os", 
+        name: "SRT 6 (OS)", 
+        ammoTypes: [
+            {id: "standard", name: "Standard"},
+            {id: "artemisiv", name: "Artemis IV-Equipped", requirement:"artemisiv"},
         ]
     },
     {
