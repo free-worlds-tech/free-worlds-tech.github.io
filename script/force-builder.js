@@ -546,7 +546,7 @@ function updateUnitBV(unit, fromNetworkChange) {
                 forEachNetworkUnit(network, (networkUnit) => {
                     if (unit.id == networkUnit.id) {
                         connectedNetwork = network;
-                        const networkBV = Math.round(getNetworkBV(network.id));
+                        const networkBV = Math.round(getNetworkBV(network.id, unit.unitProps.specials.includes("boostedc3")));
                         modifiedBV += networkBV;
                         bvNotes.push({note: "C3", amount: networkBV});
                     }
@@ -560,7 +560,7 @@ function updateUnitBV(unit, fromNetworkChange) {
                 forEachNetworkUnit(network, (networkUnit) => {
                     if (unit.id == networkUnit.id) {
                         connectedNetwork = network;
-                        const networkBV = Math.round(getNetworkBV(network.id));
+                        const networkBV = Math.round(getNetworkBV(network.id, false));
                         modifiedBV += networkBV;
                         bvNotes.push({note: "C3i", amount: networkBV});
                     }
@@ -636,17 +636,21 @@ function getNetworkBVforUnit(unit) {
     return unitBV;
 }
 
-function getNetworkBV(networkId) {
+function getNetworkBV(networkId, isBoosted) {
     let networkBV = 0;
     let unitCount = 0;
     const network = networks.get(networkId);
 
+    let multiplier = 0.05;
+    if (isBoosted) {
+        multiplier = 0.07;
+    }
+
     forEachNetworkUnit(network, (unit) => {
-        networkBV += getNetworkBVforUnit(unit) * 0.05;
+        networkBV += getNetworkBVforUnit(unit) * multiplier;
         unitCount += 1;
     });
 
-    // TODO: This should check for the network being valid
     return unitCount > 1 ? networkBV : 0;
 }
 
