@@ -460,6 +460,13 @@ const knownWeapons = [
         ]
     },
     {
+        id: "is:c3remotesensorlauncher",
+        name: "C3 Remote Sensor Launcher",
+        ammoTypes: [
+            {id: "standard", name: "Standard (4)"},
+        ]
+    },
+    {
         id: "is:srm2", 
         name: "SRM 2", 
         ammoTypes: [
