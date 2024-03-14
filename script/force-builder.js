@@ -298,7 +298,7 @@ function addUnit(unitProps) {
     updateC3Eligibility();
     addUnitToAllNetworkSelects(newUnit);
 
-    if (unitProps.specials.includes("tag") || nonStandardSkills) {
+    if (unitProps.specials.includes("tag") || unitProps.specials.includes("nova") || nonStandardSkills) {
         updateUnitBV(newUnit);
     }
 }
@@ -1089,9 +1089,16 @@ function readyPrintContent() {
                 }
 
                 $networkList.append($rootListItem);
-            }
-            else if (network.type == "c3i") {
+            } else if (network.type == "c3i") {
                 $forceList.append("<h3>C<sup>3</sup>i Network</h3>");
+                network.units.forEach((link) => {
+                    const linkedUnit = force.get(link.id);
+                    if (linkedUnit) {
+                        $networkList.append(`<li>${getUnitFullName(linkedUnit)}</li>`);
+                    }
+                });
+            } else if (network.type == "nova") {
+                $forceList.append("<h3>Nova CEWS Units</h3>");
                 network.units.forEach((link) => {
                     const linkedUnit = force.get(link.id);
                     if (linkedUnit) {
