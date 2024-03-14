@@ -331,6 +331,7 @@ function addUnitRow(unit)
 
     let secondarySkillName = getSecondarySkillName(unit);
     let crewPlaceholder = "MechWarrior Name";
+    let fixedPrimarySkill = false;
     let fixedSecondarySkill = false;
 
     if (unit.unitProps.unitType == "BA") {
@@ -355,10 +356,15 @@ function addUnitRow(unit)
     if (unit.unitProps.specials.includes("drone")) {
         crewPlaceholder = "Drone Operator Name";
     }
+    if (unit.unitProps.specials.includes("robot")) {
+        crewPlaceholder = "Robot Name";
+        fixedPrimarySkill = true;
+        fixedSecondarySkill = true;
+    }
 
     const $crewDiv = $("<div>", {class: "unit-crew"});
     $crewDiv.append(`<input class='crew-name crew1' type='text' placeholder='${crewPlaceholder}' onchange='updateCrewName(${unit.id})'>`);
-    $crewDiv.append(createSkillPicker(unit.id, "g", "Gunnery", unit.gunnery));
+    $crewDiv.append(createSkillPicker(unit.id, "g", "Gunnery", unit.gunnery, fixedPrimarySkill));
     if (secondarySkillName.length > 0) {
         $crewDiv.append(createSkillPicker(unit.id, "p", secondarySkillName, unit.piloting, fixedSecondarySkill));
     }
@@ -1943,6 +1949,9 @@ function getCrewPositionName(unit, slot) {
 
     if (unit.unitProps.specials.includes("drone")) {
         positionName = "Drone Operator";
+    }
+    if (unit.unitProps.specials.includes("robot")) {
+        positionName = "Robot";
     }
 
     return positionName;
