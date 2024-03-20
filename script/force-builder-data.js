@@ -131,8 +131,10 @@ const knownWeapons = [
             {id: "standard", name: "Standard (45)"},
             {id: "ap", name: "Armor-Piercing (22)"},
             {id: "caseless", name: "Caseless (90)", extraBV: 5},
+            {id: "flak", name: "Flak (45)"},
             {id: "flechette", name: "Flechette (45)"},
-            {id: "precision", name: "Precision (22)"}
+            {id: "precision", name: "Precision (22)"},
+            {id: "tracer", name: "Tracer (45)", extraBV: 1.25},
         ]
     },
     {
@@ -142,8 +144,10 @@ const knownWeapons = [
             {id: "standard", name: "Standard (20)"},
             {id: "ap", name: "Armor-Piercing (10)"},
             {id: "caseless", name: "Caseless (40)", extraBV: 9},
+            {id: "flak", name: "Flak (20)"},
             {id: "flechette", name: "Flechette (20)"},
-            {id: "precision", name: "Precision (10)"}
+            {id: "precision", name: "Precision (10)"},
+            {id: "tracer", name: "Tracer (20)", extraBV: 2.25},
         ]
     },
     {
@@ -153,8 +157,10 @@ const knownWeapons = [
             {id: "standard", name: "Standard (10)"},
             {id: "ap", name: "Armor-Piercing (5)"},
             {id: "caseless", name: "Caseless (20)", extraBV: 15},
+            {id: "flak", name: "Flak (10)"},
             {id: "flechette", name: "Flechette (10)"},
-            {id: "precision", name: "Precision (5)"}
+            {id: "precision", name: "Precision (5)"},
+            {id: "tracer", name: "Tracer (10)", extraBV: 3.75},
         ]
     },
     {
@@ -164,8 +170,10 @@ const knownWeapons = [
             {id: "standard", name: "Standard (5)"},
             {id: "ap", name: "Armor-Piercing (2)"},
             {id: "caseless", name: "Caseless (10)", extraBV: 22},
+            {id: "flak", name: "Flak (5)"},
             {id: "flechette", name: "Flechette (5)"},
-            {id: "precision", name: "Precision (2)"}
+            {id: "precision", name: "Precision (2)"},
+            {id: "tracer", name: "Tracer (5)", extraBV: 5.5},
         ]
     },
     {
@@ -175,8 +183,10 @@ const knownWeapons = [
             {id: "standard", name: "Standard (45)"},
             {id: "ap", name: "Armor-Piercing (22)"},
             {id: "caseless", name: "Caseless (90)", extraBV: 4},
+            {id: "flak", name: "Flak (45)"},
             {id: "flechette", name: "Flechette (45)"},
-            {id: "precision", name: "Precision (22)"}
+            {id: "precision", name: "Precision (22)"},
+            {id: "tracer", name: "Tracer (45)", extraBV: 1},
         ]
     },
     {
@@ -186,8 +196,10 @@ const knownWeapons = [
             {id: "standard", name: "Standard (20)"},
             {id: "ap", name: "Armor-Piercing (10)"},
             {id: "caseless", name: "Caseless (40)", extraBV: 8},
+            {id: "flak", name: "Flak (20)"},
             {id: "flechette", name: "Flechette (20)"},
-            {id: "precision", name: "Precision (10)"}
+            {id: "precision", name: "Precision (10)"},
+            {id: "tracer", name: "Tracer (20)", extraBV: 2},
         ]
     },
     {
@@ -471,6 +483,8 @@ const knownWeapons = [
         name: "SRM 2", 
         ammoTypes: [
             {id: "standard", name: "Standard (50)"},
+            {id: "acid", name: "Acid (25)", extraBV: 3},
+            {id: "arad", name: "Anti-Radiation (50)", extraBV: 0.9},
             {id: "artemisiv", name: "Artemis IV-Equipped (50)", requirement:"artemisiv"},
             {id: "fragmentation", name: "Fragmentation (50)"},
             {id: "inferno", name: "Inferno (50)"},
@@ -482,6 +496,8 @@ const knownWeapons = [
         name: "SRM 4", 
         ammoTypes: [
             {id: "standard", name: "Standard (25)"},
+            {id: "acid", name: "Acid (12)", extraBV: 5},
+            {id: "arad", name: "Anti-Radiation (25)", extraBV: 1.5},
             {id: "artemisiv", name: "Artemis IV-Equipped (25)", requirement:"artemisiv"},
             {id: "fragmentation", name: "Fragmentation (25)"},
             {id: "inferno", name: "Inferno (25)"},
@@ -493,6 +509,8 @@ const knownWeapons = [
         name: "SRM 6", 
         ammoTypes: [
             {id: "standard", name: "Standard (15)"},
+            {id: "acid", name: "Acid (7)", extraBV: 7},
+            {id: "arad", name: "Anti-Radiation (15)", extraBV: 2.1},
             {id: "artemisiv", name: "Artemis IV-Equipped (15)", requirement:"artemisiv"},
             {id: "fragmentation", name: "Fragmentation (15)"},
             {id: "inferno", name: "Inferno (15)"},
@@ -504,6 +522,8 @@ const knownWeapons = [
         name: "SRM 2 (OS)", 
         ammoTypes: [
             {id: "standard", name: "Standard"},
+            {id: "acid", name: "Acid", extraBV: 4},
+            {id: "arad", name: "Anti-Radiation", extraBV: 1.2},
             {id: "artemisiv", name: "Artemis IV-Equipped", requirement:"artemisiv"},
             {id: "fragmentation", name: "Fragmentation"},
             {id: "inferno", name: "Inferno"},
@@ -515,6 +535,8 @@ const knownWeapons = [
         name: "SRM 4 (OS)", 
         ammoTypes: [
             {id: "standard", name: "Standard"},
+            {id: "acid", name: "Acid", extraBV: 8},
+            {id: "arad", name: "Anti-Radiation", extraBV: 2.4},
             {id: "artemisiv", name: "Artemis IV-Equipped", requirement:"artemisiv"},
             {id: "fragmentation", name: "Fragmentation"},
             {id: "inferno", name: "Inferno"},
@@ -526,6 +548,8 @@ const knownWeapons = [
         name: "SRM 6 (OS)", 
         ammoTypes: [
             {id: "standard", name: "Standard"},
+            {id: "acid", name: "Acid", extraBV: 12},
+            {id: "arad", name: "Anti-Radiation", extraBV: 3.6},
             {id: "artemisiv", name: "Artemis IV-Equipped", requirement:"artemisiv"},
             {id: "fragmentation", name: "Fragmentation"},
             {id: "inferno", name: "Inferno"},
@@ -856,6 +880,8 @@ const knownWeapons = [
             {id: "lrm-narc", name: "Narc-Equipped LRM (40)"},
             {id: "lrm-semiguided", name: "Semi-Guided LRM (40)", tagBV: 4},
             {id: "srm", name: "SRM (33)"},
+            {id: "srm-acid", name: "Acid SRM (16)", extraBV: 4},
+            {id: "srm-arad", name: "Anti-Radiation SRM (33)", extraBV: 1.2},
             {id: "srm-artemisiv", name: "Artemis IV-Equipped SRM (33)", requirement:"artemisiv"},
             {id: "srm-fragmentation", name: "Fragmentation SRM (33)"},
             {id: "srm-inferno", name: "Inferno SRM (33)"},
@@ -872,6 +898,8 @@ const knownWeapons = [
             {id: "lrm-narc", name: "Narc-Equipped LRM (24)"},
             {id: "lrm-semiguided", name: "Semi-Guided LRM (24)", tagBV: 6},
             {id: "srm", name: "SRM (20)"},
+            {id: "srm-acid", name: "Acid SRM (10)", extraBV: 6},
+            {id: "srm-arad", name: "Anti-Radiation SRM (20)", extraBV: 1.8},
             {id: "srm-artemisiv", name: "Artemis IV-Equipped SRM (20)", requirement:"artemisiv"},
             {id: "srm-fragmentation", name: "Fragmentation SRM (20)"},
             {id: "srm-inferno", name: "Inferno SRM (20)"},
@@ -888,6 +916,8 @@ const knownWeapons = [
             {id: "lrm-narc", name: "Narc-Equipped LRM (17)"},
             {id: "lrm-semiguided", name: "Semi-Guided LRM (17)", tagBV: 8},
             {id: "srm", name: "SRM (14)"},
+            {id: "srm-acid", name: "Acid SRM (7)", extraBV: 8},
+            {id: "srm-arad", name: "Anti-Radiation SRM (14)", extraBV: 2.4},
             {id: "srm-artemisiv", name: "Artemis IV-Equipped SRM (14)", requirement:"artemisiv"},
             {id: "srm-fragmentation", name: "Fragmentation SRM (14)"},
             {id: "srm-inferno", name: "Inferno SRM (14)"},
@@ -904,6 +934,8 @@ const knownWeapons = [
             {id: "lrm-narc", name: "Narc-Equipped LRM (13)"},
             {id: "lrm-semiguided", name: "Semi-Guided LRM (13)", tagBV: 11},
             {id: "srm", name: "SRM (11)"},
+            {id: "srm-acid", name: "Acid SRM (5)", extraBV: 11},
+            {id: "srm-arad", name: "Anti-Radiation SRM (11)", extraBV: 3.3},
             {id: "srm-artemisiv", name: "Artemis IV-Equipped SRM (11)", requirement:"artemisiv"},
             {id: "srm-fragmentation", name: "Fragmentation SRM (11)"},
             {id: "srm-inferno", name: "Inferno SRM (11)"},
@@ -943,7 +975,13 @@ const knownWeapons = [
         name: "Arrow IV", 
         ammoTypes: [
             {id: "standard", name: "Standard (5)"},
+            {id: "airdefense", name: "Air-Defense (5)"},
+            {id: "cluster", name: "Cluster (5)"},
             {id: "homing", name: "Homing (5)", tagBV: 30},
+            {id: "illumination", name: "Illumination (5)"},
+            {id: "infernoiv", name: "Inferno-IV (5)"},
+            {id: "laserinhibiting", name: "Laser-Inhibiting (2)"},
+            {id: "smoke", name: "Smoke (5)"},
         ]
     },
     {
@@ -1104,7 +1142,9 @@ const knownWeapons = [
         ammoTypes: [
             {id: "standard", name: "Standard (40)"},
             {id: "ap", name: "Armor-Piercing (20)"},
+            {id: "flak", name: "Flak (40)"},
             {id: "flechette", name: "Flechette (40)"},
+            {id: "tracer", name: "Tracer (40)", extraBV: 1},
         ]
     },
     {
@@ -1113,7 +1153,9 @@ const knownWeapons = [
         ammoTypes: [
             {id: "standard", name: "Standard"},
             {id: "ap", name: "Armor-Piercing", shotMultiplier: 0.5},
+            {id: "flak", name: "Flak"},
             {id: "flechette", name: "Flechette"},
+            {id: "tracer", name: "Tracer", extraBV: 0.025},
         ]
     },
     {
@@ -1122,7 +1164,9 @@ const knownWeapons = [
         ammoTypes: [
             {id: "standard", name: "Standard (20)"},
             {id: "ap", name: "Armor-Piercing (10)"},
+            {id: "flak", name: "Flak (20)"},
             {id: "flechette", name: "Flechette (20)"},
+            {id: "tracer", name: "Tracer (20)", extraBV: 1.5},
         ]
     },
     {
@@ -1131,7 +1175,9 @@ const knownWeapons = [
         ammoTypes: [
             {id: "standard", name: "Standard (10)"},
             {id: "ap", name: "Armor-Piercing (5)"},
+            {id: "flak", name: "Flak (10)"},
             {id: "flechette", name: "Flechette (10)"},
+            {id: "tracer", name: "Tracer (10)", extraBV: 2},
         ]
     },
     {
@@ -1379,6 +1425,7 @@ const knownWeapons = [
         name: "SRM 2", 
         ammoTypes: [
             {id: "standard", name: "Standard (50)"},
+            {id: "arad", name: "Anti-Radiation (50)", extraBV: 0.9},
             {id: "artemisiv", name: "Artemis IV-Equipped (50)", requirement:"artemisiv"},
             {id: "artemisv", name: "Artemis V-Equipped (50)", requirement:"artemisv"},
             {id: "inferno", name: "Inferno (50)"},
@@ -1390,6 +1437,7 @@ const knownWeapons = [
         name: "SRM 4", 
         ammoTypes: [
             {id: "standard", name: "Standard (25)"},
+            {id: "arad", name: "Anti-Radiation (25)", extraBV: 1.5},
             {id: "artemisiv", name: "Artemis IV-Equipped (25)", requirement:"artemisiv"},
             {id: "artemisv", name: "Artemis V-Equipped (25)", requirement:"artemisv"},
             {id: "inferno", name: "Inferno (25)"},
@@ -1401,6 +1449,7 @@ const knownWeapons = [
         name: "SRM 6", 
         ammoTypes: [
             {id: "standard", name: "Standard (15)"},
+            {id: "arad", name: "Anti-Radiation (15)", extraBV: 2.1},
             {id: "artemisiv", name: "Artemis IV-Equipped (15)", requirement:"artemisiv"},
             {id: "artemisv", name: "Artemis V-Equipped (15)", requirement:"artemisv"},
             {id: "inferno", name: "Inferno (15)"},
@@ -1735,7 +1784,10 @@ const knownWeapons = [
         name: "Arrow IV", 
         ammoTypes: [
             {id: "standard", name: "Standard (5)"},
+            {id: "cluster", name: "Cluster (5)"},
             {id: "homing", name: "Homing (5)", tagBV: 30},
+            {id: "illumination", name: "Illumination (5)"},
+            {id: "smoke", name: "Smoke (5)"},
         ]
     },
     {
@@ -2487,6 +2539,7 @@ const knownWeapons = [
         name: "SRM 1",
         ammoTypes: [
             {id: "standard", name: "Standard"},
+            {id: "arad", name: "Anti-Radiation", extraBV: 0.003},
             {id: "inferno", name: "Inferno"},
             {id: "narc", name: "Narc-Equipped"}
         ]
@@ -2496,6 +2549,7 @@ const knownWeapons = [
         name: "SRM 2",
         ammoTypes: [
             {id: "standard", name: "Standard"},
+            {id: "arad", name: "Anti-Radiation", extraBV: 0.006},
             {id: "inferno", name: "Inferno"},
             {id: "narc", name: "Narc-Equipped"}
         ]
@@ -2505,6 +2559,7 @@ const knownWeapons = [
         name: "SRM 3",
         ammoTypes: [
             {id: "standard", name: "Standard"},
+            {id: "arad", name: "Anti-Radiation", extraBV: 0.018},
             {id: "inferno", name: "Inferno"},
             {id: "narc", name: "Narc-Equipped"}
         ]
@@ -2514,6 +2569,7 @@ const knownWeapons = [
         name: "SRM 4",
         ammoTypes: [
             {id: "standard", name: "Standard"},
+            {id: "arad", name: "Anti-Radiation", extraBV: 0.036},
             {id: "inferno", name: "Inferno"},
             {id: "narc", name: "Narc-Equipped"}
         ]
@@ -2523,6 +2579,7 @@ const knownWeapons = [
         name: "SRM 5",
         ammoTypes: [
             {id: "standard", name: "Standard"},
+            {id: "arad", name: "Anti-Radiation", extraBV: 0.06},
             {id: "inferno", name: "Inferno"},
             {id: "narc", name: "Narc-Equipped"}
         ]
@@ -2532,6 +2589,7 @@ const knownWeapons = [
         name: "SRM 6",
         ammoTypes: [
             {id: "standard", name: "Standard"},
+            {id: "arad", name: "Anti-Radiation", extraBV: 0.126},
             {id: "inferno", name: "Inferno"},
             {id: "narc", name: "Narc-Equipped"}
         ]
