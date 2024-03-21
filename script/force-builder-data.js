@@ -651,6 +651,7 @@ const knownWeapons = [
         name: "LRM 5", 
         ammoTypes: [
             {id: "standard", name: "Standard (24)"},
+            {id: "arad", name: "Anti-Radiation (24)", extraBV: 1.8},
             {id: "artemisiv", name: "Artemis IV-Equipped (24)", requirement:"artemisiv"},
             {id: "fragmentation", name: "Fragmentation (24)"},
             {id: "narc", name: "Narc-Equipped (24)"},
@@ -662,6 +663,7 @@ const knownWeapons = [
         name: "LRM 10", 
         ammoTypes: [
             {id: "standard", name: "Standard (12)"},
+            {id: "arad", name: "Anti-Radiation (12)", extraBV: 3.3},
             {id: "artemisiv", name: "Artemis IV-Equipped (12)", requirement:"artemisiv"},
             {id: "fragmentation", name: "Fragmentation (12)"},
             {id: "narc", name: "Narc-Equipped (12)"},
@@ -673,6 +675,7 @@ const knownWeapons = [
         name: "LRM 15", 
         ammoTypes: [
             {id: "standard", name: "Standard (8)"},
+            {id: "arad", name: "Anti-Radiation (8)", extraBV: 5.1},
             {id: "artemisiv", name: "Artemis IV-Equipped (8)", requirement:"artemisiv"},
             {id: "fragmentation", name: "Fragmentation (8)"},
             {id: "narc", name: "Narc-Equipped (8)"},
@@ -684,6 +687,7 @@ const knownWeapons = [
         name: "LRM 20", 
         ammoTypes: [
             {id: "standard", name: "Standard (6)"},
+            {id: "arad", name: "Anti-Radiation (6)", extraBV: 6.9},
             {id: "artemisiv", name: "Artemis IV-Equipped (6)", requirement:"artemisiv"},
             {id: "fragmentation", name: "Fragmentation (6)"},
             {id: "narc", name: "Narc-Equipped (6)"},
@@ -727,6 +731,7 @@ const knownWeapons = [
         name: "Enhanced LRM 5", 
         ammoTypes: [
             {id: "standard", name: "Standard (24)"},
+            {id: "arad", name: "Anti-Radiation (24)", extraBV: 2.1},
             {id: "artemisiv", name: "Artemis IV-Equipped (24)", requirement:"artemisiv"},
             {id: "fragmentation", name: "Fragmentation (24)"},
             {id: "narc", name: "Narc-Equipped (24)"},
@@ -738,6 +743,7 @@ const knownWeapons = [
         name: "Enhanced LRM 10", 
         ammoTypes: [
             {id: "standard", name: "Standard (12)"},
+            {id: "arad", name: "Anti-Radiation (12)", extraBV: 3.9},
             {id: "artemisiv", name: "Artemis IV-Equipped (12)", requirement:"artemisiv"},
             {id: "fragmentation", name: "Fragmentation (12)"},
             {id: "narc", name: "Narc-Equipped (12)"},
@@ -749,6 +755,7 @@ const knownWeapons = [
         name: "Enhanced LRM 15", 
         ammoTypes: [
             {id: "standard", name: "Standard (8)"},
+            {id: "arad", name: "Anti-Radiation (8)", extraBV: 6},
             {id: "artemisiv", name: "Artemis IV-Equipped (8)", requirement:"artemisiv"},
             {id: "fragmentation", name: "Fragmentation (8)"},
             {id: "narc", name: "Narc-Equipped (8)"},
@@ -760,6 +767,7 @@ const knownWeapons = [
         name: "Enhanced LRM 20", 
         ammoTypes: [
             {id: "standard", name: "Standard (6)"},
+            {id: "arad", name: "Anti-Radiation (6)", extraBV: 7.8},
             {id: "artemisiv", name: "Artemis IV-Equipped (6)", requirement:"artemisiv"},
             {id: "fragmentation", name: "Fragmentation (6)"},
             {id: "narc", name: "Narc-Equipped (6)"},
@@ -875,6 +883,7 @@ const knownWeapons = [
         name: "MML 3",
         ammoTypes: [
             {id: "lrm", name: "LRM (40)"},
+            {id: "lrm-arad", name: "Anti-Radiation LRM (40)", extraBV: 1.2},
             {id: "lrm-artemisiv", name: "Artemis IV-Equipped LRM (40)", requirement:"artemisiv"},
             {id: "lrm-fragmentation", name: "Fragmentation LRM (40)"},
             {id: "lrm-narc", name: "Narc-Equipped LRM (40)"},
@@ -893,6 +902,7 @@ const knownWeapons = [
         name: "MML 5",
         ammoTypes: [
             {id: "lrm", name: "LRM (24)"},
+            {id: "lrm-arad", name: "Anti-Radiation LRM (24)", extraBV: 1.8},
             {id: "lrm-artemisiv", name: "Artemis IV-Equipped LRM (24)", requirement:"artemisiv"},
             {id: "lrm-fragmentation", name: "Fragmentation LRM (24)"},
             {id: "lrm-narc", name: "Narc-Equipped LRM (24)"},
@@ -911,6 +921,7 @@ const knownWeapons = [
         name: "MML 7",
         ammoTypes: [
             {id: "lrm", name: "LRM (17)"},
+            {id: "lrm-arad", name: "Anti-Radiation LRM (17)", extraBV: 2.4},
             {id: "lrm-artemisiv", name: "Artemis IV-Equipped LRM (17)", requirement:"artemisiv"},
             {id: "lrm-fragmentation", name: "Fragmentation LRM (17)"},
             {id: "lrm-narc", name: "Narc-Equipped LRM (17)"},
@@ -929,6 +940,7 @@ const knownWeapons = [
         name: "MML 9",
         ammoTypes: [
             {id: "lrm", name: "LRM (13)"},
+            {id: "lrm-arad", name: "Anti-Radiation LRM (13)", extraBV: 3.3},
             {id: "lrm-artemisiv", name: "Artemis IV-Equipped LRM (13)", requirement:"artemisiv"},
             {id: "lrm-fragmentation", name: "Fragmentation LRM (13)"},
             {id: "lrm-narc", name: "Narc-Equipped LRM (13)"},
@@ -1624,6 +1636,7 @@ const knownWeapons = [
         name: "LRM 5", 
         ammoTypes: [
             {id: "standard", name: "Standard (24)"},
+            {id: "arad", name: "Anti-Radiation (24)", extraBV: 2.1},
             {id: "artemisiv", name: "Artemis IV-Equipped (24)", requirement:"artemisiv"},
             {id: "artemisv", name: "Artemis V-Equipped (24)", requirement:"artemisv"},
             {id: "narc", name: "Narc-Equipped (24)"},
@@ -1634,6 +1647,7 @@ const knownWeapons = [
         name: "LRM 10", 
         ammoTypes: [
             {id: "standard", name: "Standard (12)"},
+            {id: "arad", name: "Anti-Radiation (12)", extraBV: 4.2},
             {id: "artemisiv", name: "Artemis IV-Equipped (12)", requirement:"artemisiv"},
             {id: "artemisv", name: "Artemis V-Equipped (12)", requirement:"artemisv"},
             {id: "narc", name: "Narc-Equipped (12)"},
@@ -1644,6 +1658,7 @@ const knownWeapons = [
         name: "LRM 15", 
         ammoTypes: [
             {id: "standard", name: "Standard (8)"},
+            {id: "arad", name: "Anti-Radiation (8)", extraBV: 6.3},
             {id: "artemisiv", name: "Artemis IV-Equipped (8)", requirement:"artemisiv"},
             {id: "artemisv", name: "Artemis V-Equipped (8)", requirement:"artemisv"},
             {id: "narc", name: "Narc-Equipped (8)"},
@@ -1654,6 +1669,7 @@ const knownWeapons = [
         name: "LRM 20", 
         ammoTypes: [
             {id: "standard", name: "Standard (6)"},
+            {id: "arad", name: "Anti-Radiation (6)", extraBV: 8.1},
             {id: "artemisiv", name: "Artemis IV-Equipped (6)", requirement:"artemisiv"},
             {id: "artemisv", name: "Artemis V-Equipped (6)", requirement:"artemisv"},
             {id: "narc", name: "Narc-Equipped (6)"},
@@ -2412,6 +2428,7 @@ const knownWeapons = [
         name: "LRM 1",
         ammoTypes: [
             {id: "standard", name: "Standard"},
+            {id: "arad", name: "Anti-Radiation", extraBV: 0.005},
             {id: "narc", name: "Narc-Equipped"}
         ]
     },
@@ -2420,6 +2437,7 @@ const knownWeapons = [
         name: "LRM 2",
         ammoTypes: [
             {id: "standard", name: "Standard"},
+            {id: "arad", name: "Anti-Radiation", extraBV: 0.015},
             {id: "narc", name: "Narc-Equipped"}
         ]
     },
@@ -2428,6 +2446,7 @@ const knownWeapons = [
         name: "LRM 3",
         ammoTypes: [
             {id: "standard", name: "Standard"},
+            {id: "arad", name: "Anti-Radiation", extraBV: 0.0225},
             {id: "narc", name: "Narc-Equipped"}
         ]
     },
@@ -2436,6 +2455,7 @@ const knownWeapons = [
         name: "LRM 4",
         ammoTypes: [
             {id: "standard", name: "Standard"},
+            {id: "arad", name: "Anti-Radiation", extraBV: 0.06},
             {id: "narc", name: "Narc-Equipped"}
         ]
     },
@@ -2444,6 +2464,7 @@ const knownWeapons = [
         name: "LRM 5",
         ammoTypes: [
             {id: "standard", name: "Standard"},
+            {id: "arad", name: "Anti-Radiation", extraBV: 0.0875},
             {id: "narc", name: "Narc-Equipped"}
         ]
     },
@@ -2452,6 +2473,7 @@ const knownWeapons = [
         name: "LRM 6",
         ammoTypes: [
             {id: "standard", name: "Standard"},
+            {id: "arad", name: "Anti-Radiation", extraBV: 0.135},
             {id: "narc", name: "Narc-Equipped"}
         ]
     },
@@ -2460,6 +2482,7 @@ const knownWeapons = [
         name: "LRM 7",
         ammoTypes: [
             {id: "standard", name: "Standard"},
+            {id: "arad", name: "Anti-Radiation", extraBV: 0.175},
             {id: "narc", name: "Narc-Equipped"}
         ]
     },
@@ -2468,6 +2491,7 @@ const knownWeapons = [
         name: "LRM 8",
         ammoTypes: [
             {id: "standard", name: "Standard"},
+            {id: "arad", name: "Anti-Radiation", extraBV: 0.22},
             {id: "narc", name: "Narc-Equipped"}
         ]
     },
@@ -2476,6 +2500,7 @@ const knownWeapons = [
         name: "LRM 9",
         ammoTypes: [
             {id: "standard", name: "Standard"},
+            {id: "arad", name: "Anti-Radiation", extraBV: 0.27},
             {id: "narc", name: "Narc-Equipped"}
         ]
     },
@@ -2484,6 +2509,7 @@ const knownWeapons = [
         name: "LRM 10",
         ammoTypes: [
             {id: "standard", name: "Standard"},
+            {id: "arad", name: "Anti-Radiation", extraBV: 0.35},
             {id: "narc", name: "Narc-Equipped"}
         ]
     },
@@ -2492,6 +2518,7 @@ const knownWeapons = [
         name: "LRM 11",
         ammoTypes: [
             {id: "standard", name: "Standard"},
+            {id: "arad", name: "Anti-Radiation", extraBV: 0.44},
             {id: "narc", name: "Narc-Equipped"}
         ]
     },
@@ -2500,6 +2527,7 @@ const knownWeapons = [
         name: "LRM 12",
         ammoTypes: [
             {id: "standard", name: "Standard"},
+            {id: "arad", name: "Anti-Radiation", extraBV: 0.54},
             {id: "narc", name: "Narc-Equipped"}
         ]
     },
@@ -2508,6 +2536,7 @@ const knownWeapons = [
         name: "LRM 13",
         ammoTypes: [
             {id: "standard", name: "Standard"},
+            {id: "arad", name: "Anti-Radiation", extraBV: 0.617},
             {id: "narc", name: "Narc-Equipped"}
         ]
     },
@@ -2516,6 +2545,7 @@ const knownWeapons = [
         name: "LRM 14",
         ammoTypes: [
             {id: "standard", name: "Standard"},
+            {id: "arad", name: "Anti-Radiation", extraBV: 0.70},
             {id: "narc", name: "Narc-Equipped"}
         ]
     },
@@ -2524,6 +2554,7 @@ const knownWeapons = [
         name: "LRM 15",
         ammoTypes: [
             {id: "standard", name: "Standard"},
+            {id: "arad", name: "Anti-Radiation", extraBV: 0.787},
             {id: "narc", name: "Narc-Equipped"}
         ]
     },
