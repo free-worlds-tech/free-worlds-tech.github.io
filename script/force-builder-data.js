@@ -450,6 +450,7 @@ const knownWeapons = [
         name: "Narc", 
         ammoTypes: [
             {id: "standard", name: "Homing (6)"},
+            {id: "bola", name: "Bola (6)"},
             {id: "explosive", name: "Explosive (6)"}
         ]
     },
@@ -653,6 +654,7 @@ const knownWeapons = [
             {id: "standard", name: "Standard (24)"},
             {id: "arad", name: "Anti-Radiation (24)", extraBV: 1.8},
             {id: "artemisiv", name: "Artemis IV-Equipped (24)", requirement:"artemisiv"},
+            {id: "ftl", name: "Follow-the-Leader (12)", extraBV: 3},
             {id: "fragmentation", name: "Fragmentation (24)"},
             {id: "narc", name: "Narc-Equipped (24)"},
             {id: "semiguided", name: "Semi-Guided (24)", tagBV: 6}
@@ -665,6 +667,7 @@ const knownWeapons = [
             {id: "standard", name: "Standard (12)"},
             {id: "arad", name: "Anti-Radiation (12)", extraBV: 3.3},
             {id: "artemisiv", name: "Artemis IV-Equipped (12)", requirement:"artemisiv"},
+            {id: "ftl", name: "Follow-the-Leader (6)", extraBV: 5.5},
             {id: "fragmentation", name: "Fragmentation (12)"},
             {id: "narc", name: "Narc-Equipped (12)"},
             {id: "semiguided", name: "Semi-Guided (12)", tagBV: 11}
@@ -677,6 +680,7 @@ const knownWeapons = [
             {id: "standard", name: "Standard (8)"},
             {id: "arad", name: "Anti-Radiation (8)", extraBV: 5.1},
             {id: "artemisiv", name: "Artemis IV-Equipped (8)", requirement:"artemisiv"},
+            {id: "ftl", name: "Follow-the-Leader (4)", extraBV: 8.5},
             {id: "fragmentation", name: "Fragmentation (8)"},
             {id: "narc", name: "Narc-Equipped (8)"},
             {id: "semiguided", name: "Semi-Guided (8)", tagBV: 17}
@@ -689,6 +693,7 @@ const knownWeapons = [
             {id: "standard", name: "Standard (6)"},
             {id: "arad", name: "Anti-Radiation (6)", extraBV: 6.9},
             {id: "artemisiv", name: "Artemis IV-Equipped (6)", requirement:"artemisiv"},
+            {id: "ftl", name: "Follow-the-Leader (3)", extraBV: 11.5},
             {id: "fragmentation", name: "Fragmentation (6)"},
             {id: "narc", name: "Narc-Equipped (6)"},
             {id: "semiguided", name: "Semi-Guided (6)", tagBV: 23}
@@ -885,6 +890,7 @@ const knownWeapons = [
             {id: "lrm", name: "LRM (40)"},
             {id: "lrm-arad", name: "Anti-Radiation LRM (40)", extraBV: 1.2},
             {id: "lrm-artemisiv", name: "Artemis IV-Equipped LRM (40)", requirement:"artemisiv"},
+            {id: "lrm-ftl", name: "Follow-the-Leader LRM (20)", extraBV: 2},
             {id: "lrm-fragmentation", name: "Fragmentation LRM (40)"},
             {id: "lrm-narc", name: "Narc-Equipped LRM (40)"},
             {id: "lrm-semiguided", name: "Semi-Guided LRM (40)", tagBV: 4},
@@ -904,6 +910,7 @@ const knownWeapons = [
             {id: "lrm", name: "LRM (24)"},
             {id: "lrm-arad", name: "Anti-Radiation LRM (24)", extraBV: 1.8},
             {id: "lrm-artemisiv", name: "Artemis IV-Equipped LRM (24)", requirement:"artemisiv"},
+            {id: "lrm-ftl", name: "Follow-the-Leader LRM (12)", extraBV: 3},
             {id: "lrm-fragmentation", name: "Fragmentation LRM (24)"},
             {id: "lrm-narc", name: "Narc-Equipped LRM (24)"},
             {id: "lrm-semiguided", name: "Semi-Guided LRM (24)", tagBV: 6},
@@ -923,6 +930,7 @@ const knownWeapons = [
             {id: "lrm", name: "LRM (17)"},
             {id: "lrm-arad", name: "Anti-Radiation LRM (17)", extraBV: 2.4},
             {id: "lrm-artemisiv", name: "Artemis IV-Equipped LRM (17)", requirement:"artemisiv"},
+            {id: "lrm-ftl", name: "Follow-the-Leader LRM (8)", extraBV: 4},
             {id: "lrm-fragmentation", name: "Fragmentation LRM (17)"},
             {id: "lrm-narc", name: "Narc-Equipped LRM (17)"},
             {id: "lrm-semiguided", name: "Semi-Guided LRM (17)", tagBV: 8},
@@ -942,6 +950,7 @@ const knownWeapons = [
             {id: "lrm", name: "LRM (13)"},
             {id: "lrm-arad", name: "Anti-Radiation LRM (13)", extraBV: 3.3},
             {id: "lrm-artemisiv", name: "Artemis IV-Equipped LRM (13)", requirement:"artemisiv"},
+            {id: "lrm-ftl", name: "Follow-the-Leader LRM (6)", extraBV: 5.5},
             {id: "lrm-fragmentation", name: "Fragmentation LRM (13)"},
             {id: "lrm-narc", name: "Narc-Equipped LRM (13)"},
             {id: "lrm-semiguided", name: "Semi-Guided LRM (13)", tagBV: 11},
@@ -1639,6 +1648,7 @@ const knownWeapons = [
             {id: "arad", name: "Anti-Radiation (24)", extraBV: 2.1},
             {id: "artemisiv", name: "Artemis IV-Equipped (24)", requirement:"artemisiv"},
             {id: "artemisv", name: "Artemis V-Equipped (24)", requirement:"artemisv"},
+            {id: "ftl", name: "Follow-the-Leader (12)", extraBV: 3.5},
             {id: "narc", name: "Narc-Equipped (24)"},
         ]
     },
@@ -1650,6 +1660,7 @@ const knownWeapons = [
             {id: "arad", name: "Anti-Radiation (12)", extraBV: 4.2},
             {id: "artemisiv", name: "Artemis IV-Equipped (12)", requirement:"artemisiv"},
             {id: "artemisv", name: "Artemis V-Equipped (12)", requirement:"artemisv"},
+            {id: "ftl", name: "Follow-the-Leader (6)", extraBV: 7},
             {id: "narc", name: "Narc-Equipped (12)"},
         ]
     },
@@ -1661,6 +1672,7 @@ const knownWeapons = [
             {id: "arad", name: "Anti-Radiation (8)", extraBV: 6.3},
             {id: "artemisiv", name: "Artemis IV-Equipped (8)", requirement:"artemisiv"},
             {id: "artemisv", name: "Artemis V-Equipped (8)", requirement:"artemisv"},
+            {id: "ftl", name: "Follow-the-Leader (4)", extraBV: 10.5},
             {id: "narc", name: "Narc-Equipped (8)"},
         ]
     },
@@ -1672,6 +1684,7 @@ const knownWeapons = [
             {id: "arad", name: "Anti-Radiation (6)", extraBV: 8.1},
             {id: "artemisiv", name: "Artemis IV-Equipped (6)", requirement:"artemisiv"},
             {id: "artemisv", name: "Artemis V-Equipped (6)", requirement:"artemisv"},
+            {id: "ftl", name: "Follow-the-Leader (3)", extraBV: 13.5},
             {id: "narc", name: "Narc-Equipped (6)"},
         ]
     },
@@ -2429,6 +2442,7 @@ const knownWeapons = [
         ammoTypes: [
             {id: "standard", name: "Standard"},
             {id: "arad", name: "Anti-Radiation", extraBV: 0.005},
+            {id: "ftl", name: "Follow-the-Leader", shotMultiplier: 0.5, extraBV: 0.008},
             {id: "narc", name: "Narc-Equipped"}
         ]
     },
@@ -2438,6 +2452,7 @@ const knownWeapons = [
         ammoTypes: [
             {id: "standard", name: "Standard"},
             {id: "arad", name: "Anti-Radiation", extraBV: 0.015},
+            {id: "ftl", name: "Follow-the-Leader", shotMultiplier: 0.5, extraBV: 0.025},
             {id: "narc", name: "Narc-Equipped"}
         ]
     },
@@ -2447,6 +2462,7 @@ const knownWeapons = [
         ammoTypes: [
             {id: "standard", name: "Standard"},
             {id: "arad", name: "Anti-Radiation", extraBV: 0.0225},
+            {id: "ftl", name: "Follow-the-Leader", shotMultiplier: 0.5, extraBV: 0.038},
             {id: "narc", name: "Narc-Equipped"}
         ]
     },
@@ -2456,6 +2472,7 @@ const knownWeapons = [
         ammoTypes: [
             {id: "standard", name: "Standard"},
             {id: "arad", name: "Anti-Radiation", extraBV: 0.06},
+            {id: "ftl", name: "Follow-the-Leader", shotMultiplier: 0.5, extraBV: 0.1},
             {id: "narc", name: "Narc-Equipped"}
         ]
     },
@@ -2465,6 +2482,7 @@ const knownWeapons = [
         ammoTypes: [
             {id: "standard", name: "Standard"},
             {id: "arad", name: "Anti-Radiation", extraBV: 0.0875},
+            {id: "ftl", name: "Follow-the-Leader", shotMultiplier: 0.5, extraBV: 0.146},
             {id: "narc", name: "Narc-Equipped"}
         ]
     },
@@ -2474,6 +2492,7 @@ const knownWeapons = [
         ammoTypes: [
             {id: "standard", name: "Standard"},
             {id: "arad", name: "Anti-Radiation", extraBV: 0.135},
+            {id: "ftl", name: "Follow-the-Leader", shotMultiplier: 0.5, extraBV: 0.225},
             {id: "narc", name: "Narc-Equipped"}
         ]
     },
@@ -2483,6 +2502,7 @@ const knownWeapons = [
         ammoTypes: [
             {id: "standard", name: "Standard"},
             {id: "arad", name: "Anti-Radiation", extraBV: 0.175},
+            {id: "ftl", name: "Follow-the-Leader", shotMultiplier: 0.5, extraBV: 0.292},
             {id: "narc", name: "Narc-Equipped"}
         ]
     },
@@ -2492,6 +2512,7 @@ const knownWeapons = [
         ammoTypes: [
             {id: "standard", name: "Standard"},
             {id: "arad", name: "Anti-Radiation", extraBV: 0.22},
+            {id: "ftl", name: "Follow-the-Leader", shotMultiplier: 0.5, extraBV: 0.367},
             {id: "narc", name: "Narc-Equipped"}
         ]
     },
@@ -2501,6 +2522,7 @@ const knownWeapons = [
         ammoTypes: [
             {id: "standard", name: "Standard"},
             {id: "arad", name: "Anti-Radiation", extraBV: 0.27},
+            {id: "ftl", name: "Follow-the-Leader", shotMultiplier: 0.5, extraBV: 0.450},
             {id: "narc", name: "Narc-Equipped"}
         ]
     },
@@ -2510,6 +2532,7 @@ const knownWeapons = [
         ammoTypes: [
             {id: "standard", name: "Standard"},
             {id: "arad", name: "Anti-Radiation", extraBV: 0.35},
+            {id: "ftl", name: "Follow-the-Leader", shotMultiplier: 0.5, extraBV: 0.583},
             {id: "narc", name: "Narc-Equipped"}
         ]
     },
@@ -2519,6 +2542,7 @@ const knownWeapons = [
         ammoTypes: [
             {id: "standard", name: "Standard"},
             {id: "arad", name: "Anti-Radiation", extraBV: 0.44},
+            {id: "ftl", name: "Follow-the-Leader", shotMultiplier: 0.5, extraBV: 0.733},
             {id: "narc", name: "Narc-Equipped"}
         ]
     },
@@ -2528,6 +2552,7 @@ const knownWeapons = [
         ammoTypes: [
             {id: "standard", name: "Standard"},
             {id: "arad", name: "Anti-Radiation", extraBV: 0.54},
+            {id: "ftl", name: "Follow-the-Leader", shotMultiplier: 0.5, extraBV: 0.900},
             {id: "narc", name: "Narc-Equipped"}
         ]
     },
@@ -2537,6 +2562,7 @@ const knownWeapons = [
         ammoTypes: [
             {id: "standard", name: "Standard"},
             {id: "arad", name: "Anti-Radiation", extraBV: 0.617},
+            {id: "ftl", name: "Follow-the-Leader", shotMultiplier: 0.5, extraBV: 1.029},
             {id: "narc", name: "Narc-Equipped"}
         ]
     },
@@ -2546,6 +2572,7 @@ const knownWeapons = [
         ammoTypes: [
             {id: "standard", name: "Standard"},
             {id: "arad", name: "Anti-Radiation", extraBV: 0.70},
+            {id: "ftl", name: "Follow-the-Leader", shotMultiplier: 0.5, extraBV: 1.166},
             {id: "narc", name: "Narc-Equipped"}
         ]
     },
@@ -2555,6 +2582,7 @@ const knownWeapons = [
         ammoTypes: [
             {id: "standard", name: "Standard"},
             {id: "arad", name: "Anti-Radiation", extraBV: 0.787},
+            {id: "ftl", name: "Follow-the-Leader", shotMultiplier: 0.5, extraBV: 1.312},
             {id: "narc", name: "Narc-Equipped"}
         ]
     },
