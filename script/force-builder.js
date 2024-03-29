@@ -644,7 +644,10 @@ function updateUnitBV(unit, fromNetworkChange) {
 function getAlternateAmmoBV(unit) {
     let alternateAmmoBV = 0;
     unit.unitProps.ammo.forEach((ammoBin, index) => {
-        const addedValue = getAmmoAdditionalBV(ammoBin.type, unit.ammoTypes.get(index));
+        let addedValue = getAmmoAdditionalBV(ammoBin.type, unit.ammoTypes.get(index));
+        if (ammoBin.shots) {
+            addedValue = addedValue * ammoBin.shots;
+        }
         alternateAmmoBV += addedValue;
     });
     return Math.round(alternateAmmoBV);
