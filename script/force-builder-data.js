@@ -489,7 +489,8 @@ const knownWeapons = [
             {id: "artemisiv", name: "Artemis IV-Equipped (50)", requirement:"artemisiv"},
             {id: "fragmentation", name: "Fragmentation (50)"},
             {id: "inferno", name: "Inferno (50)"},
-            {id: "narc", name: "Narc-Equipped (50)"}
+            {id: "narc", name: "Narc-Equipped (50)"},
+            {id: "smoke", name: "Smoke (50)"},
         ]
     },
     {
@@ -502,7 +503,8 @@ const knownWeapons = [
             {id: "artemisiv", name: "Artemis IV-Equipped (25)", requirement:"artemisiv"},
             {id: "fragmentation", name: "Fragmentation (25)"},
             {id: "inferno", name: "Inferno (25)"},
-            {id: "narc", name: "Narc-Equipped (25)"}
+            {id: "narc", name: "Narc-Equipped (25)"},
+            {id: "smoke", name: "Smoke (25)"},
         ]
     },
     {
@@ -515,7 +517,8 @@ const knownWeapons = [
             {id: "artemisiv", name: "Artemis IV-Equipped (15)", requirement:"artemisiv"},
             {id: "fragmentation", name: "Fragmentation (15)"},
             {id: "inferno", name: "Inferno (15)"},
-            {id: "narc", name: "Narc-Equipped (15)"}
+            {id: "narc", name: "Narc-Equipped (15)"},
+            {id: "smoke", name: "Smoke (15)"},
         ]
     },
     {
@@ -528,7 +531,8 @@ const knownWeapons = [
             {id: "artemisiv", name: "Artemis IV-Equipped", requirement:"artemisiv"},
             {id: "fragmentation", name: "Fragmentation"},
             {id: "inferno", name: "Inferno"},
-            {id: "narc", name: "Narc-Equipped"}
+            {id: "narc", name: "Narc-Equipped"},
+            {id: "smoke", name: "Smoke"},
         ]
     },
     {
@@ -541,7 +545,8 @@ const knownWeapons = [
             {id: "artemisiv", name: "Artemis IV-Equipped", requirement:"artemisiv"},
             {id: "fragmentation", name: "Fragmentation"},
             {id: "inferno", name: "Inferno"},
-            {id: "narc", name: "Narc-Equipped"}
+            {id: "narc", name: "Narc-Equipped"},
+            {id: "smoke", name: "Smoke"},
         ]
     },
     {
@@ -554,7 +559,8 @@ const knownWeapons = [
             {id: "artemisiv", name: "Artemis IV-Equipped", requirement:"artemisiv"},
             {id: "fragmentation", name: "Fragmentation"},
             {id: "inferno", name: "Inferno"},
-            {id: "narc", name: "Narc-Equipped"}
+            {id: "narc", name: "Narc-Equipped"},
+            {id: "smoke", name: "Smoke"},
         ]
     },
     {
@@ -657,7 +663,8 @@ const knownWeapons = [
             {id: "ftl", name: "Follow-the-Leader (12)", extraBV: 3},
             {id: "fragmentation", name: "Fragmentation (24)"},
             {id: "narc", name: "Narc-Equipped (24)"},
-            {id: "semiguided", name: "Semi-Guided (24)", tagBV: 6}
+            {id: "semiguided", name: "Semi-Guided (24)", tagBV: 6},
+            {id: "smoke", name: "Smoke (24)"},
         ]
     },
     {
@@ -670,7 +677,8 @@ const knownWeapons = [
             {id: "ftl", name: "Follow-the-Leader (6)", extraBV: 5.5},
             {id: "fragmentation", name: "Fragmentation (12)"},
             {id: "narc", name: "Narc-Equipped (12)"},
-            {id: "semiguided", name: "Semi-Guided (12)", tagBV: 11}
+            {id: "semiguided", name: "Semi-Guided (12)", tagBV: 11},
+            {id: "smoke", name: "Smoke (12)"},
         ]
     },
     {
@@ -683,7 +691,8 @@ const knownWeapons = [
             {id: "ftl", name: "Follow-the-Leader (4)", extraBV: 8.5},
             {id: "fragmentation", name: "Fragmentation (8)"},
             {id: "narc", name: "Narc-Equipped (8)"},
-            {id: "semiguided", name: "Semi-Guided (8)", tagBV: 17}
+            {id: "semiguided", name: "Semi-Guided (8)", tagBV: 17},
+            {id: "smoke", name: "Smoke (8)"},
         ]
     },
     {
@@ -696,7 +705,8 @@ const knownWeapons = [
             {id: "ftl", name: "Follow-the-Leader (3)", extraBV: 11.5},
             {id: "fragmentation", name: "Fragmentation (6)"},
             {id: "narc", name: "Narc-Equipped (6)"},
-            {id: "semiguided", name: "Semi-Guided (6)", tagBV: 23}
+            {id: "semiguided", name: "Semi-Guided (6)", tagBV: 23},
+            {id: "smoke", name: "Smoke (6)"},
         ]
     },
     {
@@ -740,7 +750,8 @@ const knownWeapons = [
             {id: "artemisiv", name: "Artemis IV-Equipped (24)", requirement:"artemisiv"},
             {id: "fragmentation", name: "Fragmentation (24)"},
             {id: "narc", name: "Narc-Equipped (24)"},
-            {id: "semiguided", name: "Semi-Guided (24)", tagBV: 7}
+            {id: "semiguided", name: "Semi-Guided (24)", tagBV: 7},
+            {id: "smoke", name: "Smoke (24)"},
         ]
     },
     {
@@ -752,7 +763,8 @@ const knownWeapons = [
             {id: "artemisiv", name: "Artemis IV-Equipped (12)", requirement:"artemisiv"},
             {id: "fragmentation", name: "Fragmentation (12)"},
             {id: "narc", name: "Narc-Equipped (12)"},
-            {id: "semiguided", name: "Semi-Guided (12)", tagBV: 13}
+            {id: "semiguided", name: "Semi-Guided (12)", tagBV: 13},
+            {id: "smoke", name: "Smoke (12)"},
         ]
     },
     {
@@ -764,7 +776,8 @@ const knownWeapons = [
             {id: "artemisiv", name: "Artemis IV-Equipped (8)", requirement:"artemisiv"},
             {id: "fragmentation", name: "Fragmentation (8)"},
             {id: "narc", name: "Narc-Equipped (8)"},
-            {id: "semiguided", name: "Semi-Guided (8)", tagBV: 20}
+            {id: "semiguided", name: "Semi-Guided (8)", tagBV: 20},
+            {id: "smoke", name: "Smoke (8)"},
         ]
     },
     {
@@ -776,7 +789,8 @@ const knownWeapons = [
             {id: "artemisiv", name: "Artemis IV-Equipped (6)", requirement:"artemisiv"},
             {id: "fragmentation", name: "Fragmentation (6)"},
             {id: "narc", name: "Narc-Equipped (6)"},
-            {id: "semiguided", name: "Semi-Guided (6)", tagBV: 26}
+            {id: "semiguided", name: "Semi-Guided (6)", tagBV: 26},
+            {id: "smoke", name: "Smoke (6)"},
         ]
     },
     {
@@ -894,13 +908,15 @@ const knownWeapons = [
             {id: "lrm-fragmentation", name: "Fragmentation LRM (40)"},
             {id: "lrm-narc", name: "Narc-Equipped LRM (40)"},
             {id: "lrm-semiguided", name: "Semi-Guided LRM (40)", tagBV: 4},
+            {id: "lrm-smoke", name: "Smoke LRM (40)"},
             {id: "srm", name: "SRM (33)"},
             {id: "srm-acid", name: "Acid SRM (16)", extraBV: 4},
             {id: "srm-arad", name: "Anti-Radiation SRM (33)", extraBV: 1.2},
             {id: "srm-artemisiv", name: "Artemis IV-Equipped SRM (33)", requirement:"artemisiv"},
             {id: "srm-fragmentation", name: "Fragmentation SRM (33)"},
             {id: "srm-inferno", name: "Inferno SRM (33)"},
-            {id: "srm-narc", name: "Narc-Equipped SRM (33)"}
+            {id: "srm-narc", name: "Narc-Equipped SRM (33)"},
+            {id: "srm-smoke", name: "Smoke SRM (33)"},
         ]
     },
     {
@@ -914,13 +930,15 @@ const knownWeapons = [
             {id: "lrm-fragmentation", name: "Fragmentation LRM (24)"},
             {id: "lrm-narc", name: "Narc-Equipped LRM (24)"},
             {id: "lrm-semiguided", name: "Semi-Guided LRM (24)", tagBV: 6},
+            {id: "lrm-smoke", name: "Smoke LRM (24)"},
             {id: "srm", name: "SRM (20)"},
             {id: "srm-acid", name: "Acid SRM (10)", extraBV: 6},
             {id: "srm-arad", name: "Anti-Radiation SRM (20)", extraBV: 1.8},
             {id: "srm-artemisiv", name: "Artemis IV-Equipped SRM (20)", requirement:"artemisiv"},
             {id: "srm-fragmentation", name: "Fragmentation SRM (20)"},
             {id: "srm-inferno", name: "Inferno SRM (20)"},
-            {id: "srm-narc", name: "Narc-Equipped SRM (20)"}
+            {id: "srm-narc", name: "Narc-Equipped SRM (20)"},
+            {id: "srm-smoke", name: "Smoke SRM (20)"},
         ]
     },
     {
@@ -934,13 +952,15 @@ const knownWeapons = [
             {id: "lrm-fragmentation", name: "Fragmentation LRM (17)"},
             {id: "lrm-narc", name: "Narc-Equipped LRM (17)"},
             {id: "lrm-semiguided", name: "Semi-Guided LRM (17)", tagBV: 8},
+            {id: "lrm-smoke", name: "Smoke LRM (17)"},
             {id: "srm", name: "SRM (14)"},
             {id: "srm-acid", name: "Acid SRM (7)", extraBV: 8},
             {id: "srm-arad", name: "Anti-Radiation SRM (14)", extraBV: 2.4},
             {id: "srm-artemisiv", name: "Artemis IV-Equipped SRM (14)", requirement:"artemisiv"},
             {id: "srm-fragmentation", name: "Fragmentation SRM (14)"},
             {id: "srm-inferno", name: "Inferno SRM (14)"},
-            {id: "srm-narc", name: "Narc-Equipped SRM (14)"}
+            {id: "srm-narc", name: "Narc-Equipped SRM (14)"},
+            {id: "srm-smoke", name: "Smoke SRM (14)"},
         ]
     },
     {
@@ -954,13 +974,15 @@ const knownWeapons = [
             {id: "lrm-fragmentation", name: "Fragmentation LRM (13)"},
             {id: "lrm-narc", name: "Narc-Equipped LRM (13)"},
             {id: "lrm-semiguided", name: "Semi-Guided LRM (13)", tagBV: 11},
+            {id: "lrm-smoke", name: "Smoke LRM (13)"},
             {id: "srm", name: "SRM (11)"},
             {id: "srm-acid", name: "Acid SRM (5)", extraBV: 11},
             {id: "srm-arad", name: "Anti-Radiation SRM (11)", extraBV: 3.3},
             {id: "srm-artemisiv", name: "Artemis IV-Equipped SRM (11)", requirement:"artemisiv"},
             {id: "srm-fragmentation", name: "Fragmentation SRM (11)"},
             {id: "srm-inferno", name: "Inferno SRM (11)"},
-            {id: "srm-narc", name: "Narc-Equipped SRM (11)"}
+            {id: "srm-narc", name: "Narc-Equipped SRM (11)"},
+            {id: "srm-smoke", name: "Smoke SRM (11)"},
         ]
     },
     {
@@ -1450,7 +1472,8 @@ const knownWeapons = [
             {id: "artemisiv", name: "Artemis IV-Equipped (50)", requirement:"artemisiv"},
             {id: "artemisv", name: "Artemis V-Equipped (50)", requirement:"artemisv"},
             {id: "inferno", name: "Inferno (50)"},
-            {id: "narc", name: "Narc-Equipped (50)"}
+            {id: "narc", name: "Narc-Equipped (50)"},
+            {id: "smoke", name: "Smoke (50)"},
         ]
     },
     {
@@ -1462,7 +1485,8 @@ const knownWeapons = [
             {id: "artemisiv", name: "Artemis IV-Equipped (25)", requirement:"artemisiv"},
             {id: "artemisv", name: "Artemis V-Equipped (25)", requirement:"artemisv"},
             {id: "inferno", name: "Inferno (25)"},
-            {id: "narc", name: "Narc-Equipped (25)"}
+            {id: "narc", name: "Narc-Equipped (25)"},
+            {id: "smoke", name: "Smoke (25)"},
         ]
     },
     {
@@ -1474,7 +1498,8 @@ const knownWeapons = [
             {id: "artemisiv", name: "Artemis IV-Equipped (15)", requirement:"artemisiv"},
             {id: "artemisv", name: "Artemis V-Equipped (15)", requirement:"artemisv"},
             {id: "inferno", name: "Inferno (15)"},
-            {id: "narc", name: "Narc-Equipped (15)"}
+            {id: "narc", name: "Narc-Equipped (15)"},
+            {id: "smoke", name: "Smoke (15)"},
         ]
     },
     {
@@ -1485,7 +1510,8 @@ const knownWeapons = [
             {id: "artemisiv", name: "Artemis IV-Equipped (50)", requirement:"artemisiv"},
             {id: "artemisv", name: "Artemis V-Equipped (50)", requirement:"artemisv"},
             {id: "inferno", name: "Inferno (50)"},
-            {id: "narc", name: "Narc-Equipped (50)"}
+            {id: "narc", name: "Narc-Equipped (50)"},
+            {id: "smoke", name: "Smoke (50)"},
         ]
     },
     {
@@ -1496,7 +1522,8 @@ const knownWeapons = [
             {id: "artemisiv", name: "Artemis IV-Equipped (25)", requirement:"artemisiv"},
             {id: "artemisv", name: "Artemis V-Equipped (25)", requirement:"artemisv"},
             {id: "inferno", name: "Inferno (25)"},
-            {id: "narc", name: "Narc-Equipped (25)"}
+            {id: "narc", name: "Narc-Equipped (25)"},
+            {id: "smoke", name: "Smoke (25)"},
         ]
     },
     {
@@ -1507,7 +1534,8 @@ const knownWeapons = [
             {id: "artemisiv", name: "Artemis IV-Equipped (15)", requirement:"artemisiv"},
             {id: "artemisv", name: "Artemis V-Equipped (15)", requirement:"artemisv"},
             {id: "inferno", name: "Inferno (15)"},
-            {id: "narc", name: "Narc-Equipped (15)"}
+            {id: "narc", name: "Narc-Equipped (15)"},
+            {id: "smoke", name: "Smoke (15)"},
         ]
     },
     {
@@ -1518,7 +1546,8 @@ const knownWeapons = [
             {id: "artemisiv", name: "Artemis IV-Equipped", requirement:"artemisiv"},
             {id: "artemisv", name: "Artemis V-Equipped", requirement:"artemisv"},
             {id: "inferno", name: "Inferno"},
-            {id: "narc", name: "Narc-Equipped"}
+            {id: "narc", name: "Narc-Equipped"},
+            {id: "smoke", name: "Smoke"},
         ]
     },
     {
@@ -1529,7 +1558,8 @@ const knownWeapons = [
             {id: "artemisiv", name: "Artemis IV-Equipped", requirement:"artemisiv"},
             {id: "artemisv", name: "Artemis V-Equipped", requirement:"artemisv"},
             {id: "inferno", name: "Inferno"},
-            {id: "narc", name: "Narc-Equipped"}
+            {id: "narc", name: "Narc-Equipped"},
+            {id: "smoke", name: "Smoke"},
         ]
     },
     {
@@ -1540,7 +1570,8 @@ const knownWeapons = [
             {id: "artemisiv", name: "Artemis IV-Equipped", requirement:"artemisiv"},
             {id: "artemisv", name: "Artemis V-Equipped", requirement:"artemisv"},
             {id: "inferno", name: "Inferno"},
-            {id: "narc", name: "Narc-Equipped"}
+            {id: "narc", name: "Narc-Equipped"},
+            {id: "smoke", name: "Smoke"},
         ]
     },
     { 
@@ -1650,6 +1681,7 @@ const knownWeapons = [
             {id: "artemisv", name: "Artemis V-Equipped (24)", requirement:"artemisv"},
             {id: "ftl", name: "Follow-the-Leader (12)", extraBV: 3.5},
             {id: "narc", name: "Narc-Equipped (24)"},
+            {id: "smoke", name: "Smoke (24)"},
         ]
     },
     {
@@ -1662,6 +1694,7 @@ const knownWeapons = [
             {id: "artemisv", name: "Artemis V-Equipped (12)", requirement:"artemisv"},
             {id: "ftl", name: "Follow-the-Leader (6)", extraBV: 7},
             {id: "narc", name: "Narc-Equipped (12)"},
+            {id: "smoke", name: "Smoke (12)"},
         ]
     },
     {
@@ -1674,6 +1707,7 @@ const knownWeapons = [
             {id: "artemisv", name: "Artemis V-Equipped (8)", requirement:"artemisv"},
             {id: "ftl", name: "Follow-the-Leader (4)", extraBV: 10.5},
             {id: "narc", name: "Narc-Equipped (8)"},
+            {id: "smoke", name: "Smoke (8)"},
         ]
     },
     {
@@ -1686,6 +1720,7 @@ const knownWeapons = [
             {id: "artemisv", name: "Artemis V-Equipped (6)", requirement:"artemisv"},
             {id: "ftl", name: "Follow-the-Leader (3)", extraBV: 13.5},
             {id: "narc", name: "Narc-Equipped (6)"},
+            {id: "smoke", name: "Smoke (6)"},
         ]
     },
     {
@@ -1696,6 +1731,7 @@ const knownWeapons = [
             {id: "artemisiv", name: "Artemis IV-Equipped (24)", requirement:"artemisiv"},
             {id: "artemisv", name: "Artemis V-Equipped (24)", requirement:"artemisv"},
             {id: "narc", name: "Narc-Equipped (24)"},
+            {id: "smoke", name: "Smoke (24)"},
         ]
     },
     {
@@ -1706,6 +1742,7 @@ const knownWeapons = [
             {id: "artemisiv", name: "Artemis IV-Equipped (12)", requirement:"artemisiv"},
             {id: "artemisv", name: "Artemis V-Equipped (12)", requirement:"artemisv"},
             {id: "narc", name: "Narc-Equipped (12)"},
+            {id: "smoke", name: "Smoke (12)"},
         ]
     },
     {
@@ -1716,6 +1753,7 @@ const knownWeapons = [
             {id: "artemisiv", name: "Artemis IV-Equipped (8)", requirement:"artemisiv"},
             {id: "artemisv", name: "Artemis V-Equipped (8)", requirement:"artemisv"},
             {id: "narc", name: "Narc-Equipped (8)"},
+            {id: "smoke", name: "Smoke (8)"},
         ]
     },
     {
@@ -1726,6 +1764,7 @@ const knownWeapons = [
             {id: "artemisiv", name: "Artemis IV-Equipped (6)", requirement:"artemisiv"},
             {id: "artemisv", name: "Artemis V-Equipped (6)", requirement:"artemisv"},
             {id: "narc", name: "Narc-Equipped (6)"},
+            {id: "smoke", name: "Smoke (6)"},
         ]
     },
     {
@@ -2443,7 +2482,8 @@ const knownWeapons = [
             {id: "standard", name: "Standard"},
             {id: "arad", name: "Anti-Radiation", extraBV: 0.005},
             {id: "ftl", name: "Follow-the-Leader", shotMultiplier: 0.5, extraBV: 0.008},
-            {id: "narc", name: "Narc-Equipped"}
+            {id: "narc", name: "Narc-Equipped"},
+            {id: "smoke", name: "Smoke"},
         ]
     },
     {
@@ -2453,7 +2493,8 @@ const knownWeapons = [
             {id: "standard", name: "Standard"},
             {id: "arad", name: "Anti-Radiation", extraBV: 0.015},
             {id: "ftl", name: "Follow-the-Leader", shotMultiplier: 0.5, extraBV: 0.025},
-            {id: "narc", name: "Narc-Equipped"}
+            {id: "narc", name: "Narc-Equipped"},
+            {id: "smoke", name: "Smoke"},
         ]
     },
     {
@@ -2463,7 +2504,8 @@ const knownWeapons = [
             {id: "standard", name: "Standard"},
             {id: "arad", name: "Anti-Radiation", extraBV: 0.0225},
             {id: "ftl", name: "Follow-the-Leader", shotMultiplier: 0.5, extraBV: 0.038},
-            {id: "narc", name: "Narc-Equipped"}
+            {id: "narc", name: "Narc-Equipped"},
+            {id: "smoke", name: "Smoke"},
         ]
     },
     {
@@ -2473,7 +2515,8 @@ const knownWeapons = [
             {id: "standard", name: "Standard"},
             {id: "arad", name: "Anti-Radiation", extraBV: 0.06},
             {id: "ftl", name: "Follow-the-Leader", shotMultiplier: 0.5, extraBV: 0.1},
-            {id: "narc", name: "Narc-Equipped"}
+            {id: "narc", name: "Narc-Equipped"},
+            {id: "smoke", name: "Smoke"},
         ]
     },
     {
@@ -2483,7 +2526,8 @@ const knownWeapons = [
             {id: "standard", name: "Standard"},
             {id: "arad", name: "Anti-Radiation", extraBV: 0.0875},
             {id: "ftl", name: "Follow-the-Leader", shotMultiplier: 0.5, extraBV: 0.146},
-            {id: "narc", name: "Narc-Equipped"}
+            {id: "narc", name: "Narc-Equipped"},
+            {id: "smoke", name: "Smoke"},
         ]
     },
     {
@@ -2493,7 +2537,8 @@ const knownWeapons = [
             {id: "standard", name: "Standard"},
             {id: "arad", name: "Anti-Radiation", extraBV: 0.135},
             {id: "ftl", name: "Follow-the-Leader", shotMultiplier: 0.5, extraBV: 0.225},
-            {id: "narc", name: "Narc-Equipped"}
+            {id: "narc", name: "Narc-Equipped"},
+            {id: "smoke", name: "Smoke"},
         ]
     },
     {
@@ -2503,7 +2548,8 @@ const knownWeapons = [
             {id: "standard", name: "Standard"},
             {id: "arad", name: "Anti-Radiation", extraBV: 0.175},
             {id: "ftl", name: "Follow-the-Leader", shotMultiplier: 0.5, extraBV: 0.292},
-            {id: "narc", name: "Narc-Equipped"}
+            {id: "narc", name: "Narc-Equipped"},
+            {id: "smoke", name: "Smoke"},
         ]
     },
     {
@@ -2513,7 +2559,8 @@ const knownWeapons = [
             {id: "standard", name: "Standard"},
             {id: "arad", name: "Anti-Radiation", extraBV: 0.22},
             {id: "ftl", name: "Follow-the-Leader", shotMultiplier: 0.5, extraBV: 0.367},
-            {id: "narc", name: "Narc-Equipped"}
+            {id: "narc", name: "Narc-Equipped"},
+            {id: "smoke", name: "Smoke"},
         ]
     },
     {
@@ -2523,7 +2570,8 @@ const knownWeapons = [
             {id: "standard", name: "Standard"},
             {id: "arad", name: "Anti-Radiation", extraBV: 0.27},
             {id: "ftl", name: "Follow-the-Leader", shotMultiplier: 0.5, extraBV: 0.450},
-            {id: "narc", name: "Narc-Equipped"}
+            {id: "narc", name: "Narc-Equipped"},
+            {id: "smoke", name: "Smoke"},
         ]
     },
     {
@@ -2533,7 +2581,8 @@ const knownWeapons = [
             {id: "standard", name: "Standard"},
             {id: "arad", name: "Anti-Radiation", extraBV: 0.35},
             {id: "ftl", name: "Follow-the-Leader", shotMultiplier: 0.5, extraBV: 0.583},
-            {id: "narc", name: "Narc-Equipped"}
+            {id: "narc", name: "Narc-Equipped"},
+            {id: "smoke", name: "Smoke"},
         ]
     },
     {
@@ -2543,7 +2592,8 @@ const knownWeapons = [
             {id: "standard", name: "Standard"},
             {id: "arad", name: "Anti-Radiation", extraBV: 0.44},
             {id: "ftl", name: "Follow-the-Leader", shotMultiplier: 0.5, extraBV: 0.733},
-            {id: "narc", name: "Narc-Equipped"}
+            {id: "narc", name: "Narc-Equipped"},
+            {id: "smoke", name: "Smoke"},
         ]
     },
     {
@@ -2553,7 +2603,8 @@ const knownWeapons = [
             {id: "standard", name: "Standard"},
             {id: "arad", name: "Anti-Radiation", extraBV: 0.54},
             {id: "ftl", name: "Follow-the-Leader", shotMultiplier: 0.5, extraBV: 0.900},
-            {id: "narc", name: "Narc-Equipped"}
+            {id: "narc", name: "Narc-Equipped"},
+            {id: "smoke", name: "Smoke"},
         ]
     },
     {
@@ -2563,7 +2614,8 @@ const knownWeapons = [
             {id: "standard", name: "Standard"},
             {id: "arad", name: "Anti-Radiation", extraBV: 0.617},
             {id: "ftl", name: "Follow-the-Leader", shotMultiplier: 0.5, extraBV: 1.029},
-            {id: "narc", name: "Narc-Equipped"}
+            {id: "narc", name: "Narc-Equipped"},
+            {id: "smoke", name: "Smoke"},
         ]
     },
     {
@@ -2573,7 +2625,8 @@ const knownWeapons = [
             {id: "standard", name: "Standard"},
             {id: "arad", name: "Anti-Radiation", extraBV: 0.70},
             {id: "ftl", name: "Follow-the-Leader", shotMultiplier: 0.5, extraBV: 1.166},
-            {id: "narc", name: "Narc-Equipped"}
+            {id: "narc", name: "Narc-Equipped"},
+            {id: "smoke", name: "Smoke"},
         ]
     },
     {
@@ -2583,7 +2636,8 @@ const knownWeapons = [
             {id: "standard", name: "Standard"},
             {id: "arad", name: "Anti-Radiation", extraBV: 0.787},
             {id: "ftl", name: "Follow-the-Leader", shotMultiplier: 0.5, extraBV: 1.312},
-            {id: "narc", name: "Narc-Equipped"}
+            {id: "narc", name: "Narc-Equipped"},
+            {id: "smoke", name: "Smoke"},
         ]
     },
     {
@@ -2600,7 +2654,8 @@ const knownWeapons = [
             {id: "standard", name: "Standard"},
             {id: "arad", name: "Anti-Radiation", extraBV: 0.003},
             {id: "inferno", name: "Inferno"},
-            {id: "narc", name: "Narc-Equipped"}
+            {id: "narc", name: "Narc-Equipped"},
+            {id: "smoke", name: "Smoke"},
         ]
     },
     {
@@ -2610,7 +2665,8 @@ const knownWeapons = [
             {id: "standard", name: "Standard"},
             {id: "arad", name: "Anti-Radiation", extraBV: 0.006},
             {id: "inferno", name: "Inferno"},
-            {id: "narc", name: "Narc-Equipped"}
+            {id: "narc", name: "Narc-Equipped"},
+            {id: "smoke", name: "Smoke"},
         ]
     },
     {
@@ -2620,7 +2676,8 @@ const knownWeapons = [
             {id: "standard", name: "Standard"},
             {id: "arad", name: "Anti-Radiation", extraBV: 0.018},
             {id: "inferno", name: "Inferno"},
-            {id: "narc", name: "Narc-Equipped"}
+            {id: "narc", name: "Narc-Equipped"},
+            {id: "smoke", name: "Smoke"},
         ]
     },
     {
@@ -2630,7 +2687,8 @@ const knownWeapons = [
             {id: "standard", name: "Standard"},
             {id: "arad", name: "Anti-Radiation", extraBV: 0.036},
             {id: "inferno", name: "Inferno"},
-            {id: "narc", name: "Narc-Equipped"}
+            {id: "narc", name: "Narc-Equipped"},
+            {id: "smoke", name: "Smoke"},
         ]
     },
     {
@@ -2640,7 +2698,8 @@ const knownWeapons = [
             {id: "standard", name: "Standard"},
             {id: "arad", name: "Anti-Radiation", extraBV: 0.06},
             {id: "inferno", name: "Inferno"},
-            {id: "narc", name: "Narc-Equipped"}
+            {id: "narc", name: "Narc-Equipped"},
+            {id: "smoke", name: "Smoke"},
         ]
     },
     {
@@ -2650,7 +2709,8 @@ const knownWeapons = [
             {id: "standard", name: "Standard"},
             {id: "arad", name: "Anti-Radiation", extraBV: 0.126},
             {id: "inferno", name: "Inferno"},
-            {id: "narc", name: "Narc-Equipped"}
+            {id: "narc", name: "Narc-Equipped"},
+            {id: "smoke", name: "Smoke"},
         ]
     },
     {
