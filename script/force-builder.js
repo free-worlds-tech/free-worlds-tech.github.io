@@ -992,7 +992,7 @@ function readyPrintContent() {
             unitSkills = `${unit.gunnery}`;
         } else if (unit.unitProps.unitType.startsWith("CI")) {
             unitType = "Infantry";
-            if (!unit.unitProps.specials.includes("no-anti-mech")) {
+            if (unit.unitProps.specials.includes("no-anti-mech")) {
                 unitSkills = `${unit.gunnery}`;
             }
         }
