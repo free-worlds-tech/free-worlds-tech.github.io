@@ -346,7 +346,7 @@ function addUnitRow(unit)
         crewPlaceholder = "Pilot Name";
     } else if (unit.unitProps.unitType.startsWith("CI")) {
         crewPlaceholder = "Unit Name";
-        if (unit.unitProps.unitType != "CI:Mechanized") {
+        if (!unit.unitProps.specials.includes("no-anti-mech")) {
             if (!unit.unitProps.specials.includes("anti-mech")) {
                 fixedSecondarySkill = true;
             }
@@ -992,7 +992,7 @@ function readyPrintContent() {
             unitSkills = `${unit.gunnery}`;
         } else if (unit.unitProps.unitType.startsWith("CI")) {
             unitType = "Infantry";
-            if (unit.unitProps.unitType == "CI:Mechanized") {
+            if (unit.unitProps.specials.includes("no-anti-mech")) {
                 unitSkills = `${unit.gunnery}`;
             }
         }
@@ -1916,7 +1916,7 @@ function getSecondarySkillName(unit) {
         secondarySkillName = "";
     } else if (unit.unitProps.unitType.startsWith("CI")) {
         secondarySkillName = "";
-        if (unit.unitProps.unitType != "CI:Mechanized") {
+        if (!unit.unitProps.specials.includes("no-anti-mech")) {
             secondarySkillName = "Anti-’Mech";
         }
     }
