@@ -51,6 +51,13 @@ let knownUnits = [];
 
 const knownWeapons = [
     {
+        id: "nailrivetgun", 
+        name: "Nail/Rivet Gun", 
+        ammoTypes: [
+            {id: "standard", name: "Standard (300)"}
+        ]
+    },
+    {
         id: "is:lightmachinegun", 
         name: "Light Machine Gun", 
         ammoTypes: [
