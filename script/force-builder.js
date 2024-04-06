@@ -76,6 +76,23 @@ function searchUnits() {
         maxBV = Number(maxBVValue);
     }
 
+    const allowBM = $("#search-bm").is(":checked");
+    const allowIM = $("#search-im").is(":checked");
+    const allowPM = $("#search-pm").is(":checked");
+    const allowBA = $("#search-ba").is(":checked");
+    const allowCI = $("#search-ci").is(":checked");
+    const allowCV = $("#search-cv").is(":checked");
+    const allowQV = $("#search-qv").is(":checked");
+
+    let types = [];
+    if (allowBM) { types.push("bm"); }
+    if (allowIM) { types.push("im"); }
+    if (allowPM) { types.push("pm"); }
+    if (allowBA) { types.push("ba"); }
+    if (allowCI) { types.push("ci"); }
+    if (allowCV) { types.push("cv"); }
+    if (allowQV) { types.push("qv"); }
+
     const requireC3M = $("#search-c3m").is(":checked");
     const requireC3S = $("#search-c3s").is(":checked");
     const requireC3i = $("#search-c3i").is(":checked");
@@ -91,6 +108,11 @@ function searchUnits() {
     }
     if (searchFaction != "any") {
         searchParams.append("faction", searchFaction);
+    }
+    if (types.length == 0) {
+        searchParams.append("type", "none");
+    } else if (types.length < 7) {
+        searchParams.append("type", types.join(","));
     }
     if (minBV != 0) {
         searchParams.append("minBV", minBV);
