@@ -42,9 +42,17 @@ function getKnownUnits() {
     return knownUnits;
 }
 
-function getKnownUnit(unitId)
-{
+function getKnownUnit(unitId) {
     return knownUnits.find((x) => x.id == unitId);
+}
+
+function getRulesLevelString(level) {
+    if (level <= 0) return "Undefined";
+    if (level == 1) return "Introductory";
+    if (level == 2) return "Standard";
+    if (level == 3) return "Advanced";
+    if (level == 4) return "Experimental";
+    if (level == 5) return "Non-Canon";
 }
 
 let knownUnits = [];
