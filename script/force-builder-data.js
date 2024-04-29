@@ -33,6 +33,12 @@ function getTAGAdditionalBV(weaponId, ammoId) {
     return (ammo && ammo.tagBV) ? ammo.tagBV : 0;
 }
 
+function getAmmoRulesLevel(weaponId, ammoId) {
+    const weapon = knownWeapons.find((x) => x.id == weaponId);
+    const ammo = weapon ? weapon.ammoTypes.find((x) => x.id == ammoId) : undefined;
+    return (ammo && ammo.level) ? ammo.level : 0;
+}
+
 function getAmmoTypes(weaponId) {
     const weapon = knownWeapons.find((x) => x.id == weaponId);
     return weapon ? weapon.ammoTypes : [{id: "standard", name: "Standard"}];
@@ -42,9 +48,31 @@ function getKnownUnits() {
     return knownUnits;
 }
 
-function getKnownUnit(unitId)
-{
+function getKnownUnit(unitId) {
     return knownUnits.find((x) => x.id == unitId);
+}
+
+function getRulesLevelString(level) {
+    if (level <= 0) return "Undefined";
+    if (level == 1) return "Introductory";
+    if (level == 2) return "Standard";
+    if (level == 3) return "Advanced";
+    if (level == 4) return "Experimental";
+    if (level == 5) return "Non-Canon";
+}
+
+function getAdjustedRulesLevel(unit) {
+    let level = unit.unitProps.level;
+
+    // Check for higher rules level ammo
+    unit.unitProps.ammo.forEach((ammoBin, index) => {
+        let ammoLevel = getAmmoRulesLevel(ammoBin.type, unit.ammoTypes.get(index));
+        if (ammoLevel > level) {
+            level = ammoLevel;
+        }
+    });
+
+    return level;
 }
 
 let knownUnits = [];
@@ -136,12 +164,12 @@ const knownWeapons = [
         name: "AC/2", 
         ammoTypes: [
             {id: "standard", name: "Standard (45)"},
-            {id: "ap", name: "Armor-Piercing (22)"},
-            {id: "caseless", name: "Caseless (90)", extraBV: 5},
-            {id: "flak", name: "Flak (45)"},
-            {id: "flechette", name: "Flechette (45)"},
-            {id: "precision", name: "Precision (22)"},
-            {id: "tracer", name: "Tracer (45)", extraBV: 1.25},
+            {id: "ap", name: "Armor-Piercing (22)", level: 2},
+            {id: "caseless", name: "Caseless (90)", extraBV: 5, level: 3},
+            {id: "flak", name: "Flak (45)", level: 2},
+            {id: "flechette", name: "Flechette (45)", level: 2},
+            {id: "precision", name: "Precision (22)", level: 2},
+            {id: "tracer", name: "Tracer (45)", extraBV: 1.25, level: 3},
         ]
     },
     {
@@ -149,25 +177,25 @@ const knownWeapons = [
         name: "AC/5", 
         ammoTypes: [
             {id: "standard", name: "Standard (20)"},
-            {id: "ap", name: "Armor-Piercing (10)"},
-            {id: "caseless", name: "Caseless (40)", extraBV: 9},
-            {id: "flak", name: "Flak (20)"},
-            {id: "flechette", name: "Flechette (20)"},
-            {id: "precision", name: "Precision (10)"},
-            {id: "tracer", name: "Tracer (20)", extraBV: 2.25},
+            {id: "ap", name: "Armor-Piercing (10)", level: 2},
+            {id: "caseless", name: "Caseless (40)", extraBV: 9, level: 3},
+            {id: "flak", name: "Flak (20)", level: 2},
+            {id: "flechette", name: "Flechette (20)", level: 2},
+            {id: "precision", name: "Precision (10)", level: 2},
+            {id: "tracer", name: "Tracer (20)", extraBV: 2.25, level: 3},
         ]
     },
     {
         id: "is:ac10", 
         name: "AC/10", 
         ammoTypes: [
-            {id: "standard", name: "Standard (10)"},
+            {id: "standard", name: "Standard (10)", level: 2},
             {id: "ap", name: "Armor-Piercing (5)"},
-            {id: "caseless", name: "Caseless (20)", extraBV: 15},
-            {id: "flak", name: "Flak (10)"},
-            {id: "flechette", name: "Flechette (10)"},
-            {id: "precision", name: "Precision (5)"},
-            {id: "tracer", name: "Tracer (10)", extraBV: 3.75},
+            {id: "caseless", name: "Caseless (20)", extraBV: 15, level: 3},
+            {id: "flak", name: "Flak (10)", level: 2},
+            {id: "flechette", name: "Flechette (10)", level: 2},
+            {id: "precision", name: "Precision (5)", level: 2},
+            {id: "tracer", name: "Tracer (10)", extraBV: 3.75, level: 3},
         ]
     },
     {
@@ -175,12 +203,12 @@ const knownWeapons = [
         name: "AC/20", 
         ammoTypes: [
             {id: "standard", name: "Standard (5)"},
-            {id: "ap", name: "Armor-Piercing (2)"},
-            {id: "caseless", name: "Caseless (10)", extraBV: 22},
-            {id: "flak", name: "Flak (5)"},
-            {id: "flechette", name: "Flechette (5)"},
-            {id: "precision", name: "Precision (2)"},
-            {id: "tracer", name: "Tracer (5)", extraBV: 5.5},
+            {id: "ap", name: "Armor-Piercing (2)", level: 2},
+            {id: "caseless", name: "Caseless (10)", extraBV: 22, level: 3},
+            {id: "flak", name: "Flak (5)", level: 2},
+            {id: "flechette", name: "Flechette (5)", level: 2},
+            {id: "precision", name: "Precision (2)", level: 2},
+            {id: "tracer", name: "Tracer (5)", extraBV: 5.5, level: 3},
         ]
     },
     {
@@ -189,11 +217,11 @@ const knownWeapons = [
         ammoTypes: [
             {id: "standard", name: "Standard (45)"},
             {id: "ap", name: "Armor-Piercing (22)"},
-            {id: "caseless", name: "Caseless (90)", extraBV: 4},
-            {id: "flak", name: "Flak (45)"},
+            {id: "caseless", name: "Caseless (90)", extraBV: 4, level: 3},
+            {id: "flak", name: "Flak (45)", level: 2},
             {id: "flechette", name: "Flechette (45)"},
             {id: "precision", name: "Precision (22)"},
-            {id: "tracer", name: "Tracer (45)", extraBV: 1},
+            {id: "tracer", name: "Tracer (45)", extraBV: 1, level: 3},
         ]
     },
     {
@@ -202,11 +230,11 @@ const knownWeapons = [
         ammoTypes: [
             {id: "standard", name: "Standard (20)"},
             {id: "ap", name: "Armor-Piercing (10)"},
-            {id: "caseless", name: "Caseless (40)", extraBV: 8},
-            {id: "flak", name: "Flak (20)"},
+            {id: "caseless", name: "Caseless (40)", extraBV: 8, level: 3},
+            {id: "flak", name: "Flak (20)", level: 2},
             {id: "flechette", name: "Flechette (20)"},
             {id: "precision", name: "Precision (10)"},
-            {id: "tracer", name: "Tracer (20)", extraBV: 2},
+            {id: "tracer", name: "Tracer (20)", extraBV: 2, level: 3},
         ]
     },
     {
@@ -417,9 +445,9 @@ const knownWeapons = [
         name: "Vehicle Flamer",
         ammoTypes: [
             {id: "standard", name: "Standard (20)"},
-            {id: "coolant", name: "Coolant (20)"},
-            {id: "inferno", name: "Inferno Fuel (20)", extraBV: 2},
-            {id: "water", name: "Water (20)"},
+            {id: "coolant", name: "Coolant (20)", level: 3},
+            {id: "inferno", name: "Inferno Fuel (20)", extraBV: 2, level: 3},
+            {id: "water", name: "Water (20)", level: 3},
         ]
     },
     {
@@ -427,9 +455,9 @@ const knownWeapons = [
         name: "Heavy Flamer",
         ammoTypes: [
             {id: "standard", name: "Standard (10)"},
-            {id: "coolant", name: "Coolant (10)"},
-            {id: "inferno", name: "Inferno Fuel (10)", extraBV: 4},
-            {id: "water", name: "Water (10)"},
+            {id: "coolant", name: "Coolant (10)", level: 3},
+            {id: "inferno", name: "Inferno Fuel (10)", extraBV: 4, level: 3},
+            {id: "water", name: "Water (10)", level: 3},
         ]
     },
     {
@@ -457,7 +485,7 @@ const knownWeapons = [
         name: "Narc", 
         ammoTypes: [
             {id: "standard", name: "Homing (6)"},
-            {id: "bola", name: "Bola (6)"},
+            {id: "bola", name: "Bola (6)", level: 4},
             {id: "explosive", name: "Explosive (6)"}
         ]
     },
@@ -491,18 +519,18 @@ const knownWeapons = [
         name: "SRM 2", 
         ammoTypes: [
             {id: "standard", name: "Standard (50)"},
-            {id: "acid", name: "Acid (25)", extraBV: 3},
-            {id: "arad", name: "Anti-Radiation (50)", extraBV: 0.9},
-            {id: "artemisiv", name: "Artemis IV-Equipped (50)", requirement:"artemisiv"},
-            {id: "fragmentation", name: "Fragmentation (50)"},
-            {id: "heatseeking", name: "Heat-Seeking (25)", extraBV: 1.5},
-            {id: "inferno", name: "Inferno (50)"},
-            {id: "magneticpulse", name: "Magnetic-Pulse (50)", extraBV: 3},
-            {id: "mineclearance", name: "Mine-Clearance (50)"},
-            {id: "narc", name: "Narc-Equipped (50)"},
-            {id: "smoke", name: "Smoke (50)"},
-            {id: "tandem", name: "Tandem-Charge (25)", extraBV: 3},
-            {id: "teargas", name: "Tear Gas (50)"},
+            {id: "acid", name: "Acid (25)", extraBV: 3, level: 4},
+            {id: "arad", name: "Anti-Radiation (50)", extraBV: 0.9, level: 4},
+            {id: "artemisiv", name: "Artemis IV-Equipped (50)", requirement:"artemisiv", level: 2},
+            {id: "fragmentation", name: "Fragmentation (50)", level: 2},
+            {id: "heatseeking", name: "Heat-Seeking (25)", extraBV: 1.5, level: 3},
+            {id: "inferno", name: "Inferno (50)", level: 2},
+            {id: "magneticpulse", name: "Magnetic-Pulse (50)", extraBV: 3, level: 4},
+            {id: "mineclearance", name: "Mine-Clearance (50)", level: 3},
+            {id: "narc", name: "Narc-Equipped (50)", level: 2},
+            {id: "smoke", name: "Smoke (50)", level: 3},
+            {id: "tandem", name: "Tandem-Charge (25)", extraBV: 3, level: 4},
+            {id: "teargas", name: "Tear Gas (50)", level: 3},
         ]
     },
     {
@@ -510,18 +538,18 @@ const knownWeapons = [
         name: "SRM 4", 
         ammoTypes: [
             {id: "standard", name: "Standard (25)"},
-            {id: "acid", name: "Acid (12)", extraBV: 5},
-            {id: "arad", name: "Anti-Radiation (25)", extraBV: 1.5},
-            {id: "artemisiv", name: "Artemis IV-Equipped (25)", requirement:"artemisiv"},
-            {id: "fragmentation", name: "Fragmentation (25)"},
-            {id: "heatseeking", name: "Heat-Seeking (12)", extraBV: 2.5},
-            {id: "inferno", name: "Inferno (25)"},
-            {id: "magneticpulse", name: "Magnetic-Pulse (25)", extraBV: 5},
-            {id: "mineclearance", name: "Mine-Clearance (25)"},
-            {id: "narc", name: "Narc-Equipped (25)"},
-            {id: "smoke", name: "Smoke (25)"},
-            {id: "tandem", name: "Tandem-Charge (12)", extraBV: 5},
-            {id: "teargas", name: "Tear Gas (25)"},
+            {id: "acid", name: "Acid (12)", extraBV: 5, level: 4},
+            {id: "arad", name: "Anti-Radiation (25)", extraBV: 1.5, level: 4},
+            {id: "artemisiv", name: "Artemis IV-Equipped (25)", requirement:"artemisiv", level: 2},
+            {id: "fragmentation", name: "Fragmentation (25)", level: 2},
+            {id: "heatseeking", name: "Heat-Seeking (12)", extraBV: 2.5, level: 3},
+            {id: "inferno", name: "Inferno (25)", level: 2},
+            {id: "magneticpulse", name: "Magnetic-Pulse (25)", extraBV: 5, level: 4},
+            {id: "mineclearance", name: "Mine-Clearance (25)", level: 3},
+            {id: "narc", name: "Narc-Equipped (25)", level: 2},
+            {id: "smoke", name: "Smoke (25)", level: 3},
+            {id: "tandem", name: "Tandem-Charge (12)", extraBV: 5, level: 4},
+            {id: "teargas", name: "Tear Gas (25)", level: 3},
         ]
     },
     {
@@ -529,18 +557,18 @@ const knownWeapons = [
         name: "SRM 6", 
         ammoTypes: [
             {id: "standard", name: "Standard (15)"},
-            {id: "acid", name: "Acid (7)", extraBV: 7},
-            {id: "arad", name: "Anti-Radiation (15)", extraBV: 2.1},
-            {id: "artemisiv", name: "Artemis IV-Equipped (15)", requirement:"artemisiv"},
-            {id: "fragmentation", name: "Fragmentation (15)"},
-            {id: "heatseeking", name: "Heat-Seeking (7)", extraBV: 3.5},
-            {id: "inferno", name: "Inferno (15)"},
-            {id: "magneticpulse", name: "Magnetic-Pulse (15)", extraBV: 7},
-            {id: "mineclearance", name: "Mine-Clearance (15)"},
-            {id: "narc", name: "Narc-Equipped (15)"},
-            {id: "smoke", name: "Smoke (15)"},
-            {id: "tandem", name: "Tandem-Charge (7)", extraBV: 7},
-            {id: "teargas", name: "Tear Gas (15)"},
+            {id: "acid", name: "Acid (7)", extraBV: 7, level: 4},
+            {id: "arad", name: "Anti-Radiation (15)", extraBV: 2.1, level: 4},
+            {id: "artemisiv", name: "Artemis IV-Equipped (15)", requirement:"artemisiv", level: 2},
+            {id: "fragmentation", name: "Fragmentation (15)", level: 2},
+            {id: "heatseeking", name: "Heat-Seeking (7)", extraBV: 3.5, level: 3},
+            {id: "inferno", name: "Inferno (15)", level: 2},
+            {id: "magneticpulse", name: "Magnetic-Pulse (15)", extraBV: 7, level: 4},
+            {id: "mineclearance", name: "Mine-Clearance (15)", level: 3},
+            {id: "narc", name: "Narc-Equipped (15)", level: 2},
+            {id: "smoke", name: "Smoke (15)", level: 3},
+            {id: "tandem", name: "Tandem-Charge (7)", extraBV: 7, level: 4},
+            {id: "teargas", name: "Tear Gas (15)", level: 3},
         ]
     },
     {
@@ -548,18 +576,18 @@ const knownWeapons = [
         name: "SRM 2 (OS)", 
         ammoTypes: [
             {id: "standard", name: "Standard"},
-            {id: "acid", name: "Acid", extraBV: 4},
-            {id: "arad", name: "Anti-Radiation", extraBV: 1.2},
-            {id: "artemisiv", name: "Artemis IV-Equipped", requirement:"artemisiv"},
-            {id: "fragmentation", name: "Fragmentation"},
-            {id: "heatseeking", name: "Heat-Seeking", extraBV: 2},
-            {id: "inferno", name: "Inferno"},
-            {id: "magneticpulse", name: "Magnetic-Pulse", extraBV: 4},
-            {id: "mineclearance", name: "Mine-Clearance"},
-            {id: "narc", name: "Narc-Equipped"},
-            {id: "smoke", name: "Smoke"},
-            {id: "tandem", name: "Tandem-Charge", extraBV: 4},
-            {id: "teargas", name: "Tear Gas"},
+            {id: "acid", name: "Acid", extraBV: 4, level: 4},
+            {id: "arad", name: "Anti-Radiation", extraBV: 1.2, level: 4},
+            {id: "artemisiv", name: "Artemis IV-Equipped", requirement:"artemisiv", level: 2},
+            {id: "fragmentation", name: "Fragmentation", level: 2},
+            {id: "heatseeking", name: "Heat-Seeking", extraBV: 2, level: 3},
+            {id: "inferno", name: "Inferno", level: 2},
+            {id: "magneticpulse", name: "Magnetic-Pulse", extraBV: 4, level: 4},
+            {id: "mineclearance", name: "Mine-Clearance", level: 3},
+            {id: "narc", name: "Narc-Equipped", level: 2},
+            {id: "smoke", name: "Smoke", level: 3},
+            {id: "tandem", name: "Tandem-Charge", extraBV: 4, level: 4},
+            {id: "teargas", name: "Tear Gas", level: 3},
         ]
     },
     {
@@ -567,18 +595,18 @@ const knownWeapons = [
         name: "SRM 4 (OS)", 
         ammoTypes: [
             {id: "standard", name: "Standard"},
-            {id: "acid", name: "Acid", extraBV: 8},
-            {id: "arad", name: "Anti-Radiation", extraBV: 2.4},
-            {id: "artemisiv", name: "Artemis IV-Equipped", requirement:"artemisiv"},
-            {id: "fragmentation", name: "Fragmentation"},
-            {id: "heatseeking", name: "Heat-Seeking", extraBV: 4},
-            {id: "inferno", name: "Inferno"},
-            {id: "magneticpulse", name: "Magnetic-Pulse", extraBV: 8},
-            {id: "mineclearance", name: "Mine-Clearance"},
-            {id: "narc", name: "Narc-Equipped"},
-            {id: "smoke", name: "Smoke"},
-            {id: "tandem", name: "Tandem-Charge", extraBV: 8},
-            {id: "teargas", name: "Tear Gas"},
+            {id: "acid", name: "Acid", extraBV: 8, level: 4},
+            {id: "arad", name: "Anti-Radiation", extraBV: 2.4, level: 4},
+            {id: "artemisiv", name: "Artemis IV-Equipped", requirement:"artemisiv", level: 2},
+            {id: "fragmentation", name: "Fragmentation", level: 2},
+            {id: "heatseeking", name: "Heat-Seeking", extraBV: 4, level: 3},
+            {id: "inferno", name: "Inferno", level: 2},
+            {id: "magneticpulse", name: "Magnetic-Pulse", extraBV: 8, level: 4},
+            {id: "mineclearance", name: "Mine-Clearance", level: 3},
+            {id: "narc", name: "Narc-Equipped", level: 2},
+            {id: "smoke", name: "Smoke", level: 3},
+            {id: "tandem", name: "Tandem-Charge", extraBV: 8, level: 4},
+            {id: "teargas", name: "Tear Gas", level: 3},
         ]
     },
     {
@@ -586,18 +614,18 @@ const knownWeapons = [
         name: "SRM 6 (OS)", 
         ammoTypes: [
             {id: "standard", name: "Standard"},
-            {id: "acid", name: "Acid", extraBV: 12},
-            {id: "arad", name: "Anti-Radiation", extraBV: 3.6},
-            {id: "artemisiv", name: "Artemis IV-Equipped", requirement:"artemisiv"},
-            {id: "fragmentation", name: "Fragmentation"},
-            {id: "heatseeking", name: "Heat-Seeking", extraBV: 6},
-            {id: "inferno", name: "Inferno"},
-            {id: "magneticpulse", name: "Magnetic-Pulse", extraBV: 12},
-            {id: "mineclearance", name: "Mine-Clearance"},
-            {id: "narc", name: "Narc-Equipped"},
-            {id: "smoke", name: "Smoke"},
-            {id: "tandem", name: "Tandem-Charge", extraBV: 12},
-            {id: "teargas", name: "Tear Gas"},
+            {id: "acid", name: "Acid", extraBV: 12, level: 4},
+            {id: "arad", name: "Anti-Radiation", extraBV: 3.6, level: 4},
+            {id: "artemisiv", name: "Artemis IV-Equipped", requirement:"artemisiv", level: 2},
+            {id: "fragmentation", name: "Fragmentation", level: 2},
+            {id: "heatseeking", name: "Heat-Seeking", extraBV: 6, level: 3},
+            {id: "inferno", name: "Inferno", level: 2},
+            {id: "magneticpulse", name: "Magnetic-Pulse", extraBV: 12, level: 4},
+            {id: "mineclearance", name: "Mine-Clearance", level: 3},
+            {id: "narc", name: "Narc-Equipped", level: 2},
+            {id: "smoke", name: "Smoke", level: 3},
+            {id: "tandem", name: "Tandem-Charge", extraBV: 12, level: 4},
+            {id: "teargas", name: "Tear Gas", level: 3},
         ]
     },
     {
@@ -605,7 +633,7 @@ const knownWeapons = [
         name: "SRT 2", 
         ammoTypes: [
             {id: "standard", name: "Standard (50)"},
-            {id: "artemisiv", name: "Artemis IV-Equipped (50)", requirement:"artemisiv"},
+            {id: "artemisiv", name: "Artemis IV-Equipped (50)", requirement:"artemisiv", level: 2},
         ]
     },
     {
@@ -613,7 +641,7 @@ const knownWeapons = [
         name: "SRT 4", 
         ammoTypes: [
             {id: "standard", name: "Standard (25)"},
-            {id: "artemisiv", name: "Artemis IV-Equipped (25)", requirement:"artemisiv"},
+            {id: "artemisiv", name: "Artemis IV-Equipped (25)", requirement:"artemisiv", level: 2},
         ]
     },
     {
@@ -621,7 +649,7 @@ const knownWeapons = [
         name: "SRT 6", 
         ammoTypes: [
             {id: "standard", name: "Standard (15)"},
-            {id: "artemisiv", name: "Artemis IV-Equipped (15)", requirement:"artemisiv"},
+            {id: "artemisiv", name: "Artemis IV-Equipped (15)", requirement:"artemisiv", level: 2},
         ]
     },
     {
@@ -629,7 +657,7 @@ const knownWeapons = [
         name: "SRT 2 (OS)", 
         ammoTypes: [
             {id: "standard", name: "Standard"},
-            {id: "artemisiv", name: "Artemis IV-Equipped", requirement:"artemisiv"},
+            {id: "artemisiv", name: "Artemis IV-Equipped", requirement:"artemisiv", level: 2},
         ]
     },
     {
@@ -637,7 +665,7 @@ const knownWeapons = [
         name: "SRT 4 (OS)", 
         ammoTypes: [
             {id: "standard", name: "Standard"},
-            {id: "artemisiv", name: "Artemis IV-Equipped", requirement:"artemisiv"},
+            {id: "artemisiv", name: "Artemis IV-Equipped", requirement:"artemisiv", level: 2},
         ]
     },
     {
@@ -645,7 +673,7 @@ const knownWeapons = [
         name: "SRT 6 (OS)", 
         ammoTypes: [
             {id: "standard", name: "Standard"},
-            {id: "artemisiv", name: "Artemis IV-Equipped", requirement:"artemisiv"},
+            {id: "artemisiv", name: "Artemis IV-Equipped", requirement:"artemisiv", level: 2},
         ]
     },
     {
@@ -695,19 +723,19 @@ const knownWeapons = [
         name: "LRM 5", 
         ammoTypes: [
             {id: "standard", name: "Standard (24)"},
-            {id: "arad", name: "Anti-Radiation (24)", extraBV: 1.8},
-            {id: "artemisiv", name: "Artemis IV-Equipped (24)", requirement:"artemisiv"},
-            {id: "ftl", name: "Follow-the-Leader (12)", extraBV: 3},
-            {id: "fragmentation", name: "Fragmentation (24)"},
-            {id: "heatseeking", name: "Heat-Seeking (12)", extraBV: 3},
-            {id: "incendiary", name: "Incendiary (24)"},
-            {id: "magneticpulse", name: "Magnetic-Pulse (24)", extraBV: 6},
-            {id: "mineclearance", name: "Mine-Clearance (24)"},
-            {id: "narc", name: "Narc-Equipped (24)"},
-            {id: "semiguided", name: "Semi-Guided (24)", tagBV: 6},
-            {id: "smoke", name: "Smoke (24)"},
-            {id: "swarm", name: "Swarm (24)"},
-            {id: "swarmi", name: "Swarm-I (24)", extraBV: 1.2},
+            {id: "arad", name: "Anti-Radiation (24)", extraBV: 1.8, level: 4},
+            {id: "artemisiv", name: "Artemis IV-Equipped (24)", requirement:"artemisiv", level: 2},
+            {id: "ftl", name: "Follow-the-Leader (12)", extraBV: 3, level: 4},
+            {id: "fragmentation", name: "Fragmentation (24)", level: 2},
+            {id: "heatseeking", name: "Heat-Seeking (12)", extraBV: 3, level: 3},
+            {id: "incendiary", name: "Incendiary (24)", level: 3},
+            {id: "magneticpulse", name: "Magnetic-Pulse (24)", extraBV: 6, level: 4},
+            {id: "mineclearance", name: "Mine-Clearance (24)", level: 3},
+            {id: "narc", name: "Narc-Equipped (24)", level: 2},
+            {id: "semiguided", name: "Semi-Guided (24)", tagBV: 6, level: 2},
+            {id: "smoke", name: "Smoke (24)", level: 3},
+            {id: "swarm", name: "Swarm (24)", level: 3},
+            {id: "swarmi", name: "Swarm-I (24)", extraBV: 1.2, level: 3},
         ]
     },
     {
@@ -715,19 +743,19 @@ const knownWeapons = [
         name: "LRM 10", 
         ammoTypes: [
             {id: "standard", name: "Standard (12)"},
-            {id: "arad", name: "Anti-Radiation (12)", extraBV: 3.3},
-            {id: "artemisiv", name: "Artemis IV-Equipped (12)", requirement:"artemisiv"},
-            {id: "ftl", name: "Follow-the-Leader (6)", extraBV: 5.5},
-            {id: "fragmentation", name: "Fragmentation (12)"},
-            {id: "heatseeking", name: "Heat-Seeking (6)", extraBV: 5.5},
-            {id: "incendiary", name: "Incendiary (12)"},
-            {id: "magneticpulse", name: "Magnetic-Pulse (12)", extraBV: 11},
-            {id: "mineclearance", name: "Mine-Clearance (12)"},
-            {id: "narc", name: "Narc-Equipped (12)"},
-            {id: "semiguided", name: "Semi-Guided (12)", tagBV: 11},
-            {id: "smoke", name: "Smoke (12)"},
-            {id: "swarm", name: "Swarm (12)"},
-            {id: "swarmi", name: "Swarm-I (12)", extraBV: 2.2},
+            {id: "arad", name: "Anti-Radiation (12)", extraBV: 3.3, level: 4},
+            {id: "artemisiv", name: "Artemis IV-Equipped (12)", requirement:"artemisiv", level: 2},
+            {id: "ftl", name: "Follow-the-Leader (6)", extraBV: 5.5, level: 4},
+            {id: "fragmentation", name: "Fragmentation (12)", level: 2},
+            {id: "heatseeking", name: "Heat-Seeking (6)", extraBV: 5.5, level: 3},
+            {id: "incendiary", name: "Incendiary (12)", level: 3},
+            {id: "magneticpulse", name: "Magnetic-Pulse (12)", extraBV: 11, level: 4},
+            {id: "mineclearance", name: "Mine-Clearance (12)", level: 3},
+            {id: "narc", name: "Narc-Equipped (12)", level: 2},
+            {id: "semiguided", name: "Semi-Guided (12)", tagBV: 11, level: 2},
+            {id: "smoke", name: "Smoke (12)", level: 3},
+            {id: "swarm", name: "Swarm (12)", level: 3},
+            {id: "swarmi", name: "Swarm-I (12)", extraBV: 2.2, level: 3},
         ]
     },
     {
@@ -735,19 +763,19 @@ const knownWeapons = [
         name: "LRM 15", 
         ammoTypes: [
             {id: "standard", name: "Standard (8)"},
-            {id: "arad", name: "Anti-Radiation (8)", extraBV: 5.1},
-            {id: "artemisiv", name: "Artemis IV-Equipped (8)", requirement:"artemisiv"},
-            {id: "ftl", name: "Follow-the-Leader (4)", extraBV: 8.5},
-            {id: "fragmentation", name: "Fragmentation (8)"},
-            {id: "heatseeking", name: "Heat-Seeking (4)", extraBV: 8.5},
-            {id: "incendiary", name: "Incendiary (8)"},
-            {id: "magneticpulse", name: "Magnetic-Pulse (8)", extraBV: 17},
-            {id: "mineclearance", name: "Mine-Clearance (8)"},
-            {id: "narc", name: "Narc-Equipped (8)"},
-            {id: "semiguided", name: "Semi-Guided (8)", tagBV: 17},
-            {id: "smoke", name: "Smoke (8)"},
-            {id: "swarm", name: "Swarm (8)"},
-            {id: "swarmi", name: "Swarm-I (8)", extraBV: 3.4},
+            {id: "arad", name: "Anti-Radiation (8)", extraBV: 5.1, level: 4},
+            {id: "artemisiv", name: "Artemis IV-Equipped (8)", requirement:"artemisiv", level: 2},
+            {id: "ftl", name: "Follow-the-Leader (4)", extraBV: 8.5, level: 4},
+            {id: "fragmentation", name: "Fragmentation (8)", level: 2},
+            {id: "heatseeking", name: "Heat-Seeking (4)", extraBV: 8.5, level: 3},
+            {id: "incendiary", name: "Incendiary (8)", level: 3},
+            {id: "magneticpulse", name: "Magnetic-Pulse (8)", extraBV: 17, level: 4},
+            {id: "mineclearance", name: "Mine-Clearance (8)", level: 3},
+            {id: "narc", name: "Narc-Equipped (8)", level: 2},
+            {id: "semiguided", name: "Semi-Guided (8)", tagBV: 17, level: 2},
+            {id: "smoke", name: "Smoke (8)", level: 3},
+            {id: "swarm", name: "Swarm (8)", level: 3},
+            {id: "swarmi", name: "Swarm-I (8)", extraBV: 3.4, level: 3},
         ]
     },
     {
@@ -755,19 +783,19 @@ const knownWeapons = [
         name: "LRM 20", 
         ammoTypes: [
             {id: "standard", name: "Standard (6)"},
-            {id: "arad", name: "Anti-Radiation (6)", extraBV: 6.9},
-            {id: "artemisiv", name: "Artemis IV-Equipped (6)", requirement:"artemisiv"},
-            {id: "ftl", name: "Follow-the-Leader (3)", extraBV: 11.5},
-            {id: "fragmentation", name: "Fragmentation (6)"},
-            {id: "heatseeking", name: "Heat-Seeking (3)", extraBV: 11.5},
-            {id: "incendiary", name: "Incendiary (6)"},
-            {id: "magneticpulse", name: "Magnetic-Pulse (6)", extraBV: 23},
-            {id: "mineclearance", name: "Mine-Clearance (6)"},
-            {id: "narc", name: "Narc-Equipped (6)"},
-            {id: "semiguided", name: "Semi-Guided (6)", tagBV: 23},
-            {id: "smoke", name: "Smoke (6)"},
-            {id: "swarm", name: "Swarm (6)"},
-            {id: "swarmi", name: "Swarm-I (6)", extraBV: 4.6},
+            {id: "arad", name: "Anti-Radiation (6)", extraBV: 6.9, level: 4},
+            {id: "artemisiv", name: "Artemis IV-Equipped (6)", requirement:"artemisiv", level: 2},
+            {id: "ftl", name: "Follow-the-Leader (3)", extraBV: 11.5, level: 4},
+            {id: "fragmentation", name: "Fragmentation (6)", level: 2},
+            {id: "heatseeking", name: "Heat-Seeking (3)", extraBV: 11.5, level: 3},
+            {id: "incendiary", name: "Incendiary (6)", level: 3},
+            {id: "magneticpulse", name: "Magnetic-Pulse (6)", extraBV: 23, level: 4},
+            {id: "mineclearance", name: "Mine-Clearance (6)", level: 3},
+            {id: "narc", name: "Narc-Equipped (6)", level: 2},
+            {id: "semiguided", name: "Semi-Guided (6)", tagBV: 23, level: 2},
+            {id: "smoke", name: "Smoke (6)", level: 3},
+            {id: "swarm", name: "Swarm (6)", level: 3},
+            {id: "swarmi", name: "Swarm-I (6)", extraBV: 4.6, level: 3},
         ]
     },
     {
@@ -807,19 +835,19 @@ const knownWeapons = [
         name: "Enhanced LRM 5", 
         ammoTypes: [
             {id: "standard", name: "Standard (24)"},
-            {id: "arad", name: "Anti-Radiation (24)", extraBV: 2.1},
-            {id: "artemisiv", name: "Artemis IV-Equipped (24)", requirement:"artemisiv"},
-            {id: "ftl", name: "Follow-the-Leader (12)", extraBV: 3.5},
-            {id: "fragmentation", name: "Fragmentation (24)"},
-            {id: "heatseeking", name: "Heat-Seeking (12)", extraBV: 3.5},
-            {id: "incendiary", name: "Incendiary (24)"},
-            {id: "magneticpulse", name: "Magnetic-Pulse (24)", extraBV: 7},
-            {id: "mineclearance", name: "Mine-Clearance (24)"},
-            {id: "narc", name: "Narc-Equipped (24)"},
-            {id: "semiguided", name: "Semi-Guided (24)", tagBV: 7},
-            {id: "smoke", name: "Smoke (24)"},
-            {id: "swarm", name: "Swarm (24)"},
-            {id: "swarmi", name: "Swarm-I (24)", extraBV: 1.4},
+            {id: "arad", name: "Anti-Radiation (24)", extraBV: 2.1, level: 4},
+            {id: "artemisiv", name: "Artemis IV-Equipped (24)", requirement:"artemisiv", level: 2},
+            {id: "ftl", name: "Follow-the-Leader (12)", extraBV: 3.5, level: 4},
+            {id: "fragmentation", name: "Fragmentation (24)", level: 2},
+            {id: "heatseeking", name: "Heat-Seeking (12)", extraBV: 3.5, level: 3},
+            {id: "incendiary", name: "Incendiary (24)", level: 3},
+            {id: "magneticpulse", name: "Magnetic-Pulse (24)", extraBV: 7, level: 4},
+            {id: "mineclearance", name: "Mine-Clearance (24)", level: 3},
+            {id: "narc", name: "Narc-Equipped (24)", level: 2},
+            {id: "semiguided", name: "Semi-Guided (24)", tagBV: 7, level: 2},
+            {id: "smoke", name: "Smoke (24)", level: 3},
+            {id: "swarm", name: "Swarm (24)", level: 3},
+            {id: "swarmi", name: "Swarm-I (24)", extraBV: 1.4, level: 3},
         ]
     },
     {
@@ -827,19 +855,19 @@ const knownWeapons = [
         name: "Enhanced LRM 10", 
         ammoTypes: [
             {id: "standard", name: "Standard (12)"},
-            {id: "arad", name: "Anti-Radiation (12)", extraBV: 3.9},
-            {id: "artemisiv", name: "Artemis IV-Equipped (12)", requirement:"artemisiv"},
-            {id: "ftl", name: "Follow-the-Leader (6)", extraBV: 6.5},
-            {id: "fragmentation", name: "Fragmentation (12)"},
-            {id: "heatseeking", name: "Heat-Seeking (6)", extraBV: 6.5},
-            {id: "incendiary", name: "Incendiary (12)"},
-            {id: "magneticpulse", name: "Magnetic-Pulse (12)", extraBV: 13},
-            {id: "mineclearance", name: "Mine-Clearance (12)"},
-            {id: "narc", name: "Narc-Equipped (12)"},
-            {id: "semiguided", name: "Semi-Guided (12)", tagBV: 13},
-            {id: "smoke", name: "Smoke (12)"},
-            {id: "swarm", name: "Swarm (12)"},
-            {id: "swarmi", name: "Swarm-I (12)", extraBV: 2.6},
+            {id: "arad", name: "Anti-Radiation (12)", extraBV: 3.9, level: 4},
+            {id: "artemisiv", name: "Artemis IV-Equipped (12)", requirement:"artemisiv", level: 2},
+            {id: "ftl", name: "Follow-the-Leader (6)", extraBV: 6.5, level: 4},
+            {id: "fragmentation", name: "Fragmentation (12)", level: 2},
+            {id: "heatseeking", name: "Heat-Seeking (6)", extraBV: 6.5, level: 3},
+            {id: "incendiary", name: "Incendiary (12)", level: 3},
+            {id: "magneticpulse", name: "Magnetic-Pulse (12)", extraBV: 13, level: 4},
+            {id: "mineclearance", name: "Mine-Clearance (12)", level: 3},
+            {id: "narc", name: "Narc-Equipped (12)", level: 2},
+            {id: "semiguided", name: "Semi-Guided (12)", tagBV: 13, level: 2},
+            {id: "smoke", name: "Smoke (12)", level: 3},
+            {id: "swarm", name: "Swarm (12)", level: 3},
+            {id: "swarmi", name: "Swarm-I (12)", extraBV: 2.6, level: 3},
         ]
     },
     {
@@ -847,19 +875,19 @@ const knownWeapons = [
         name: "Enhanced LRM 15", 
         ammoTypes: [
             {id: "standard", name: "Standard (8)"},
-            {id: "arad", name: "Anti-Radiation (8)", extraBV: 6},
-            {id: "artemisiv", name: "Artemis IV-Equipped (8)", requirement:"artemisiv"},
-            {id: "ftl", name: "Follow-the-Leader (4)", extraBV: 10},
-            {id: "fragmentation", name: "Fragmentation (8)"},
-            {id: "heatseeking", name: "Heat-Seeking (4)", extraBV: 10},
-            {id: "incendiary", name: "Incendiary (8)"},
-            {id: "magneticpulse", name: "Magnetic-Pulse (8)", extraBV: 20},
-            {id: "mineclearance", name: "Mine-Clearance (8)"},
-            {id: "narc", name: "Narc-Equipped (8)"},
-            {id: "semiguided", name: "Semi-Guided (8)", tagBV: 20},
-            {id: "smoke", name: "Smoke (8)"},
-            {id: "swarm", name: "Swarm (8)"},
-            {id: "swarmi", name: "Swarm-I (8)", extraBV: 4},
+            {id: "arad", name: "Anti-Radiation (8)", extraBV: 6, level: 4},
+            {id: "artemisiv", name: "Artemis IV-Equipped (8)", requirement:"artemisiv", level: 2},
+            {id: "ftl", name: "Follow-the-Leader (4)", extraBV: 10, level: 4},
+            {id: "fragmentation", name: "Fragmentation (8)", level: 2},
+            {id: "heatseeking", name: "Heat-Seeking (4)", extraBV: 10, level: 3},
+            {id: "incendiary", name: "Incendiary (8)", level: 3},
+            {id: "magneticpulse", name: "Magnetic-Pulse (8)", extraBV: 20, level: 4},
+            {id: "mineclearance", name: "Mine-Clearance (8)", level: 3},
+            {id: "narc", name: "Narc-Equipped (8)", level: 2},
+            {id: "semiguided", name: "Semi-Guided (8)", tagBV: 20, level: 2},
+            {id: "smoke", name: "Smoke (8)", level: 3},
+            {id: "swarm", name: "Swarm (8)", level: 3},
+            {id: "swarmi", name: "Swarm-I (8)", extraBV: 4, level: 3},
         ]
     },
     {
@@ -867,19 +895,19 @@ const knownWeapons = [
         name: "Enhanced LRM 20", 
         ammoTypes: [
             {id: "standard", name: "Standard (6)"},
-            {id: "arad", name: "Anti-Radiation (6)", extraBV: 7.8},
-            {id: "artemisiv", name: "Artemis IV-Equipped (6)", requirement:"artemisiv"},
-            {id: "ftl", name: "Follow-the-Leader (3)", extraBV: 13},
-            {id: "fragmentation", name: "Fragmentation (6)"},
-            {id: "heatseeking", name: "Heat-Seeking (3)", extraBV: 13},
-            {id: "incendiary", name: "Incendiary (6)"},
-            {id: "magneticpulse", name: "Magnetic-Pulse (6)", extraBV: 26},
-            {id: "mineclearance", name: "Mine-Clearance (6)"},
-            {id: "narc", name: "Narc-Equipped (6)"},
-            {id: "semiguided", name: "Semi-Guided (6)", tagBV: 26},
-            {id: "smoke", name: "Smoke (6)"},
-            {id: "swarm", name: "Swarm (6)"},
-            {id: "swarmi", name: "Swarm-I (6)", extraBV: 5.2},
+            {id: "arad", name: "Anti-Radiation (6)", extraBV: 7.8, level: 4},
+            {id: "artemisiv", name: "Artemis IV-Equipped (6)", requirement:"artemisiv", level: 2},
+            {id: "ftl", name: "Follow-the-Leader (3)", extraBV: 13, level: 4},
+            {id: "fragmentation", name: "Fragmentation (6)", level: 2},
+            {id: "heatseeking", name: "Heat-Seeking (3)", extraBV: 13, level: 3},
+            {id: "incendiary", name: "Incendiary (6)", level: 3},
+            {id: "magneticpulse", name: "Magnetic-Pulse (6)", extraBV: 26, level: 4},
+            {id: "mineclearance", name: "Mine-Clearance (6)", level: 3},
+            {id: "narc", name: "Narc-Equipped (6)", level: 2},
+            {id: "semiguided", name: "Semi-Guided (6)", tagBV: 26, level: 2},
+            {id: "smoke", name: "Smoke (6)", level: 3},
+            {id: "swarm", name: "Swarm (6)", level: 3},
+            {id: "swarmi", name: "Swarm-I (6)", extraBV: 5.2, level: 3},
         ]
     },
     {
@@ -991,32 +1019,32 @@ const knownWeapons = [
         name: "MML 3",
         ammoTypes: [
             {id: "lrm", name: "LRM (40)"},
-            {id: "lrm-arad", name: "Anti-Radiation LRM (40)", extraBV: 1.2},
-            {id: "lrm-artemisiv", name: "Artemis IV-Equipped LRM (40)", requirement:"artemisiv"},
-            {id: "lrm-ftl", name: "Follow-the-Leader LRM (20)", extraBV: 2},
-            {id: "lrm-fragmentation", name: "Fragmentation LRM (40)"},
-            {id: "lrm-heatseeking", name: "Heat-Seeking LRM (20)", extraBV: 2},
-            {id: "lrm-incendiary", name: "Incendiary LRM (40)"},
-            {id: "lrm-magneticpulse", name: "Magnetic-Pulse LRM (40)", extraBV: 4},
-            {id: "lrm-mineclearance", name: "Mine-Clearance LRM (40)"},
-            {id: "lrm-narc", name: "Narc-Equipped LRM (40)"},
-            {id: "lrm-semiguided", name: "Semi-Guided LRM (40)", tagBV: 4},
-            {id: "lrm-smoke", name: "Smoke LRM (40)"},
-            {id: "lrm-swarm", name: "Swarm LRM (40)"},
-            {id: "lrm-swarmi", name: "Swarm-I LRM (40)", extraBV: 0.8},
+            {id: "lrm-arad", name: "Anti-Radiation LRM (40)", extraBV: 1.2, level: 4},
+            {id: "lrm-artemisiv", name: "Artemis IV-Equipped LRM (40)", requirement:"artemisiv", level: 2},
+            {id: "lrm-ftl", name: "Follow-the-Leader LRM (20)", extraBV: 2, level: 4},
+            {id: "lrm-fragmentation", name: "Fragmentation LRM (40)", level: 2},
+            {id: "lrm-heatseeking", name: "Heat-Seeking LRM (20)", extraBV: 2, level: 3},
+            {id: "lrm-incendiary", name: "Incendiary LRM (40)", level: 3},
+            {id: "lrm-magneticpulse", name: "Magnetic-Pulse LRM (40)", extraBV: 4, level: 4},
+            {id: "lrm-mineclearance", name: "Mine-Clearance LRM (40)", level: 3},
+            {id: "lrm-narc", name: "Narc-Equipped LRM (40)", level: 2},
+            {id: "lrm-semiguided", name: "Semi-Guided LRM (40)", tagBV: 4, level: 2},
+            {id: "lrm-smoke", name: "Smoke LRM (40)", level: 3},
+            {id: "lrm-swarm", name: "Swarm LRM (40)", level: 3},
+            {id: "lrm-swarmi", name: "Swarm-I LRM (40)", extraBV: 0.8, level: 3},
             {id: "srm", name: "SRM (33)"},
-            {id: "srm-acid", name: "Acid SRM (16)", extraBV: 4},
-            {id: "srm-arad", name: "Anti-Radiation SRM (33)", extraBV: 1.2},
-            {id: "srm-artemisiv", name: "Artemis IV-Equipped SRM (33)", requirement:"artemisiv"},
-            {id: "srm-fragmentation", name: "Fragmentation SRM (33)"},
-            {id: "srm-heatseeking", name: "Heat-Seeking SRM (16)", extraBV: 2},
-            {id: "srm-inferno", name: "Inferno SRM (33)"},
-            {id: "srm-magneticpulse", name: "Magnetic-Pulse SRM (33)", extraBV: 4},
-            {id: "srm-mineclearance", name: "Mine-Clearance SRM (33)"},
-            {id: "srm-narc", name: "Narc-Equipped SRM (33)"},
-            {id: "srm-smoke", name: "Smoke SRM (33)"},
-            {id: "srm-tandem", name: "Tandem-Charge SRM (16)", extraBV: 4},
-            {id: "srm-teargas", name: "Tear Gas SRM (33)"},
+            {id: "srm-acid", name: "Acid SRM (16)", extraBV: 4, level: 4},
+            {id: "srm-arad", name: "Anti-Radiation SRM (33)", extraBV: 1.2, level: 4},
+            {id: "srm-artemisiv", name: "Artemis IV-Equipped SRM (33)", requirement:"artemisiv", level: 2},
+            {id: "srm-fragmentation", name: "Fragmentation SRM (33)", level: 2},
+            {id: "srm-heatseeking", name: "Heat-Seeking SRM (16)", extraBV: 2, level: 3},
+            {id: "srm-inferno", name: "Inferno SRM (33)", level: 2},
+            {id: "srm-magneticpulse", name: "Magnetic-Pulse SRM (33)", extraBV: 4, level: 4},
+            {id: "srm-mineclearance", name: "Mine-Clearance SRM (33)", level: 3},
+            {id: "srm-narc", name: "Narc-Equipped SRM (33)", level: 2},
+            {id: "srm-smoke", name: "Smoke SRM (33)", level: 3},
+            {id: "srm-tandem", name: "Tandem-Charge SRM (16)", extraBV: 4, level: 4},
+            {id: "srm-teargas", name: "Tear Gas SRM (33)", level: 3},
         ]
     },
     {
@@ -1024,32 +1052,32 @@ const knownWeapons = [
         name: "MML 5",
         ammoTypes: [
             {id: "lrm", name: "LRM (24)"},
-            {id: "lrm-arad", name: "Anti-Radiation LRM (24)", extraBV: 1.8},
-            {id: "lrm-artemisiv", name: "Artemis IV-Equipped LRM (24)", requirement:"artemisiv"},
-            {id: "lrm-ftl", name: "Follow-the-Leader LRM (12)", extraBV: 3},
-            {id: "lrm-fragmentation", name: "Fragmentation LRM (24)"},
-            {id: "lrm-heatseeking", name: "Heat-Seeking LRM (12)", extraBV: 3},
-            {id: "lrm-incendiary", name: "Incendiary LRM (24)"},
-            {id: "lrm-magneticpulse", name: "Magnetic-Pulse LRM (24)", extraBV: 6},
-            {id: "lrm-mineclearance", name: "Mine-Clearance LRM (24)"},
-            {id: "lrm-narc", name: "Narc-Equipped LRM (24)"},
-            {id: "lrm-semiguided", name: "Semi-Guided LRM (24)", tagBV: 6},
-            {id: "lrm-smoke", name: "Smoke LRM (24)"},
-            {id: "lrm-swarm", name: "Swarm LRM (24)"},
-            {id: "lrm-swarmi", name: "Swarm-I LRM (24)", extraBV: 1.2},
+            {id: "lrm-arad", name: "Anti-Radiation LRM (24)", extraBV: 1.8, level: 4},
+            {id: "lrm-artemisiv", name: "Artemis IV-Equipped LRM (24)", requirement:"artemisiv", level: 2},
+            {id: "lrm-ftl", name: "Follow-the-Leader LRM (12)", extraBV: 3, level: 4},
+            {id: "lrm-fragmentation", name: "Fragmentation LRM (24)", level: 2},
+            {id: "lrm-heatseeking", name: "Heat-Seeking LRM (12)", extraBV: 3, level: 3},
+            {id: "lrm-incendiary", name: "Incendiary LRM (24)", level: 3},
+            {id: "lrm-magneticpulse", name: "Magnetic-Pulse LRM (24)", extraBV: 6, level: 4},
+            {id: "lrm-mineclearance", name: "Mine-Clearance LRM (24)", level: 3},
+            {id: "lrm-narc", name: "Narc-Equipped LRM (24)", level: 2},
+            {id: "lrm-semiguided", name: "Semi-Guided LRM (24)", tagBV: 6, level: 2},
+            {id: "lrm-smoke", name: "Smoke LRM (24)", level: 3},
+            {id: "lrm-swarm", name: "Swarm LRM (24)", level: 3},
+            {id: "lrm-swarmi", name: "Swarm-I LRM (24)", extraBV: 1.2, level: 3},
             {id: "srm", name: "SRM (20)"},
-            {id: "srm-acid", name: "Acid SRM (10)", extraBV: 6},
-            {id: "srm-arad", name: "Anti-Radiation SRM (20)", extraBV: 1.8},
-            {id: "srm-artemisiv", name: "Artemis IV-Equipped SRM (20)", requirement:"artemisiv"},
-            {id: "srm-fragmentation", name: "Fragmentation SRM (20)"},
-            {id: "srm-heatseeking", name: "Heat-Seeking SRM (10)", extraBV: 3},
-            {id: "srm-inferno", name: "Inferno SRM (20)"},
-            {id: "srm-magneticpulse", name: "Magnetic-Pulse SRM (20)", extraBV: 6},
-            {id: "srm-mineclearance", name: "Mine-Clearance SRM (20)"},
-            {id: "srm-narc", name: "Narc-Equipped SRM (20)"},
-            {id: "srm-smoke", name: "Smoke SRM (20)"},
-            {id: "srm-tandem", name: "Tandem-Charge SRM (10)", extraBV: 6},
-            {id: "srm-teargas", name: "Tear Gas SRM (20)"},
+            {id: "srm-acid", name: "Acid SRM (10)", extraBV: 6, level: 4},
+            {id: "srm-arad", name: "Anti-Radiation SRM (20)", extraBV: 1.8, level: 4},
+            {id: "srm-artemisiv", name: "Artemis IV-Equipped SRM (20)", requirement:"artemisiv", level: 2},
+            {id: "srm-fragmentation", name: "Fragmentation SRM (20)", level: 2},
+            {id: "srm-heatseeking", name: "Heat-Seeking SRM (10)", extraBV: 3, level: 3},
+            {id: "srm-inferno", name: "Inferno SRM (20)", level: 2},
+            {id: "srm-magneticpulse", name: "Magnetic-Pulse SRM (20)", extraBV: 6, level: 4},
+            {id: "srm-mineclearance", name: "Mine-Clearance SRM (20)", level: 3},
+            {id: "srm-narc", name: "Narc-Equipped SRM (20)", level: 2},
+            {id: "srm-smoke", name: "Smoke SRM (20)", level: 3},
+            {id: "srm-tandem", name: "Tandem-Charge SRM (10)", extraBV: 6, level: 4},
+            {id: "srm-teargas", name: "Tear Gas SRM (20)", level: 3},
         ]
     },
     {
@@ -1057,32 +1085,32 @@ const knownWeapons = [
         name: "MML 7",
         ammoTypes: [
             {id: "lrm", name: "LRM (17)"},
-            {id: "lrm-arad", name: "Anti-Radiation LRM (17)", extraBV: 2.4},
-            {id: "lrm-artemisiv", name: "Artemis IV-Equipped LRM (17)", requirement:"artemisiv"},
-            {id: "lrm-ftl", name: "Follow-the-Leader LRM (8)", extraBV: 4},
-            {id: "lrm-fragmentation", name: "Fragmentation LRM (17)"},
-            {id: "lrm-heatseeking", name: "Heat-Seeking LRM (8)", extraBV: 4},
-            {id: "lrm-incendiary", name: "Incendiary LRM (17)"},
-            {id: "lrm-magneticpulse", name: "Magnetic-Pulse LRM (17)", extraBV: 8},
-            {id: "lrm-mineclearance", name: "Mine-Clearance LRM (17)"},
-            {id: "lrm-narc", name: "Narc-Equipped LRM (17)"},
-            {id: "lrm-semiguided", name: "Semi-Guided LRM (17)", tagBV: 8},
-            {id: "lrm-smoke", name: "Smoke LRM (17)"},
-            {id: "lrm-swarm", name: "Swarm LRM (17)"},
-            {id: "lrm-swarmi", name: "Swarm-I LRM (17)", extraBV: 1.6},
+            {id: "lrm-arad", name: "Anti-Radiation LRM (17)", extraBV: 2.4, level: 4},
+            {id: "lrm-artemisiv", name: "Artemis IV-Equipped LRM (17)", requirement:"artemisiv", level: 2},
+            {id: "lrm-ftl", name: "Follow-the-Leader LRM (8)", extraBV: 4, level: 4},
+            {id: "lrm-fragmentation", name: "Fragmentation LRM (17)", level: 2},
+            {id: "lrm-heatseeking", name: "Heat-Seeking LRM (8)", extraBV: 4, level: 3},
+            {id: "lrm-incendiary", name: "Incendiary LRM (17)", level: 3},
+            {id: "lrm-magneticpulse", name: "Magnetic-Pulse LRM (17)", extraBV: 8, level: 4},
+            {id: "lrm-mineclearance", name: "Mine-Clearance LRM (17)", level: 3},
+            {id: "lrm-narc", name: "Narc-Equipped LRM (17)", level: 2},
+            {id: "lrm-semiguided", name: "Semi-Guided LRM (17)", tagBV: 8, level: 2},
+            {id: "lrm-smoke", name: "Smoke LRM (17)", level: 3},
+            {id: "lrm-swarm", name: "Swarm LRM (17)", level: 3},
+            {id: "lrm-swarmi", name: "Swarm-I LRM (17)", extraBV: 1.6, level: 3},
             {id: "srm", name: "SRM (14)"},
-            {id: "srm-acid", name: "Acid SRM (7)", extraBV: 8},
-            {id: "srm-arad", name: "Anti-Radiation SRM (14)", extraBV: 2.4},
-            {id: "srm-artemisiv", name: "Artemis IV-Equipped SRM (14)", requirement:"artemisiv"},
-            {id: "srm-fragmentation", name: "Fragmentation SRM (14)"},
-            {id: "srm-heatseeking", name: "Heat-Seeking SRM (7)", extraBV: 4},
-            {id: "srm-inferno", name: "Inferno SRM (14)"},
-            {id: "srm-magneticpulse", name: "Magnetic-Pulse SRM (14)", extraBV: 8},
-            {id: "srm-mineclearance", name: "Mine-Clearance SRM (14)"},
-            {id: "srm-narc", name: "Narc-Equipped SRM (14)"},
-            {id: "srm-smoke", name: "Smoke SRM (14)"},
-            {id: "srm-tandem", name: "Tandem-Charge SRM (7)", extraBV: 8},
-            {id: "srm-teargas", name: "Tear Gas SRM (14)"},
+            {id: "srm-acid", name: "Acid SRM (7)", extraBV: 8, level: 4},
+            {id: "srm-arad", name: "Anti-Radiation SRM (14)", extraBV: 2.4, level: 4},
+            {id: "srm-artemisiv", name: "Artemis IV-Equipped SRM (14)", requirement:"artemisiv", level: 2},
+            {id: "srm-fragmentation", name: "Fragmentation SRM (14)", level: 2},
+            {id: "srm-heatseeking", name: "Heat-Seeking SRM (7)", extraBV: 4, level: 3},
+            {id: "srm-inferno", name: "Inferno SRM (14)", level: 2},
+            {id: "srm-magneticpulse", name: "Magnetic-Pulse SRM (14)", extraBV: 8, level: 4},
+            {id: "srm-mineclearance", name: "Mine-Clearance SRM (14)", level: 3},
+            {id: "srm-narc", name: "Narc-Equipped SRM (14)", level: 2},
+            {id: "srm-smoke", name: "Smoke SRM (14)", level: 3},
+            {id: "srm-tandem", name: "Tandem-Charge SRM (7)", extraBV: 8, level: 4},
+            {id: "srm-teargas", name: "Tear Gas SRM (14)", level: 3},
         ]
     },
     {
@@ -1090,32 +1118,32 @@ const knownWeapons = [
         name: "MML 9",
         ammoTypes: [
             {id: "lrm", name: "LRM (13)"},
-            {id: "lrm-arad", name: "Anti-Radiation LRM (13)", extraBV: 3.3},
-            {id: "lrm-artemisiv", name: "Artemis IV-Equipped LRM (13)", requirement:"artemisiv"},
-            {id: "lrm-ftl", name: "Follow-the-Leader LRM (6)", extraBV: 5.5},
-            {id: "lrm-fragmentation", name: "Fragmentation LRM (13)"},
-            {id: "lrm-heatseeking", name: "Heat-Seeking LRM (6)", extraBV: 5.5},
-            {id: "lrm-incendiary", name: "Incendiary LRM (13)"},
-            {id: "lrm-magneticpulse", name: "Magnetic-Pulse LRM (13)", extraBV: 11},
-            {id: "lrm-mineclearance", name: "Mine-Clearance LRM (13)"},
-            {id: "lrm-narc", name: "Narc-Equipped LRM (13)"},
-            {id: "lrm-semiguided", name: "Semi-Guided LRM (13)", tagBV: 11},
-            {id: "lrm-smoke", name: "Smoke LRM (13)"},
-            {id: "lrm-swarm", name: "Swarm LRM (13)"},
-            {id: "lrm-swarmi", name: "Swarm-I LRM (13)", extraBV: 2.2},
+            {id: "lrm-arad", name: "Anti-Radiation LRM (13)", extraBV: 3.3, level: 4},
+            {id: "lrm-artemisiv", name: "Artemis IV-Equipped LRM (13)", requirement:"artemisiv", level: 2},
+            {id: "lrm-ftl", name: "Follow-the-Leader LRM (6)", extraBV: 5.5, level: 4},
+            {id: "lrm-fragmentation", name: "Fragmentation LRM (13)", level: 2},
+            {id: "lrm-heatseeking", name: "Heat-Seeking LRM (6)", extraBV: 5.5, level: 3},
+            {id: "lrm-incendiary", name: "Incendiary LRM (13)", level: 3},
+            {id: "lrm-magneticpulse", name: "Magnetic-Pulse LRM (13)", extraBV: 11, level: 4},
+            {id: "lrm-mineclearance", name: "Mine-Clearance LRM (13)", level: 3},
+            {id: "lrm-narc", name: "Narc-Equipped LRM (13)", level: 2},
+            {id: "lrm-semiguided", name: "Semi-Guided LRM (13)", tagBV: 11, level: 2},
+            {id: "lrm-smoke", name: "Smoke LRM (13)", level: 3},
+            {id: "lrm-swarm", name: "Swarm LRM (13)", level: 3},
+            {id: "lrm-swarmi", name: "Swarm-I LRM (13)", extraBV: 2.2, level: 3},
             {id: "srm", name: "SRM (11)"},
-            {id: "srm-acid", name: "Acid SRM (5)", extraBV: 11},
-            {id: "srm-arad", name: "Anti-Radiation SRM (11)", extraBV: 3.3},
-            {id: "srm-artemisiv", name: "Artemis IV-Equipped SRM (11)", requirement:"artemisiv"},
-            {id: "srm-fragmentation", name: "Fragmentation SRM (11)"},
-            {id: "srm-heatseeking", name: "Heat-Seeking SRM (5)", extraBV: 5.5},
-            {id: "srm-inferno", name: "Inferno SRM (11)"},
-            {id: "srm-magneticpulse", name: "Magnetic-Pulse SRM (11)", extraBV: 11},
-            {id: "srm-mineclearance", name: "Mine-Clearance SRM (11)"},
-            {id: "srm-narc", name: "Narc-Equipped SRM (11)"},
-            {id: "srm-smoke", name: "Smoke SRM (11)"},
-            {id: "srm-tandem", name: "Tandem-Charge SRM (5)", extraBV: 11},
-            {id: "srm-teargas", name: "Tear Gas SRM (11)"},
+            {id: "srm-acid", name: "Acid SRM (5)", extraBV: 11, level: 4},
+            {id: "srm-arad", name: "Anti-Radiation SRM (11)", extraBV: 3.3, level: 4},
+            {id: "srm-artemisiv", name: "Artemis IV-Equipped SRM (11)", requirement:"artemisiv", level: 2},
+            {id: "srm-fragmentation", name: "Fragmentation SRM (11)", level: 2},
+            {id: "srm-heatseeking", name: "Heat-Seeking SRM (5)", extraBV: 5.5, level: 3},
+            {id: "srm-inferno", name: "Inferno SRM (11)", level: 2},
+            {id: "srm-magneticpulse", name: "Magnetic-Pulse SRM (11)", extraBV: 11, level: 4},
+            {id: "srm-mineclearance", name: "Mine-Clearance SRM (11)", level: 3},
+            {id: "srm-narc", name: "Narc-Equipped SRM (11)", level: 2},
+            {id: "srm-smoke", name: "Smoke SRM (11)", level: 3},
+            {id: "srm-tandem", name: "Tandem-Charge SRM (5)", extraBV: 11, level: 4},
+            {id: "srm-teargas", name: "Tear Gas SRM (11)", level: 3},
         ]
     },
     {
@@ -1320,7 +1348,7 @@ const knownWeapons = [
             {id: "ap", name: "Armor-Piercing (20)"},
             {id: "flak", name: "Flak (40)"},
             {id: "flechette", name: "Flechette (40)"},
-            {id: "tracer", name: "Tracer (40)", extraBV: 1},
+            {id: "tracer", name: "Tracer (40)", extraBV: 1, level: 3},
         ]
     },
     {
@@ -1331,7 +1359,7 @@ const knownWeapons = [
             {id: "ap", name: "Armor-Piercing", shotMultiplier: 0.5},
             {id: "flak", name: "Flak"},
             {id: "flechette", name: "Flechette"},
-            {id: "tracer", name: "Tracer", extraBV: 0.025},
+            {id: "tracer", name: "Tracer", extraBV: 0.025, level: 3},
         ]
     },
     {
@@ -1342,7 +1370,7 @@ const knownWeapons = [
             {id: "ap", name: "Armor-Piercing (10)"},
             {id: "flak", name: "Flak (20)"},
             {id: "flechette", name: "Flechette (20)"},
-            {id: "tracer", name: "Tracer (20)", extraBV: 1.5},
+            {id: "tracer", name: "Tracer (20)", extraBV: 1.5, level: 3},
         ]
     },
     {
@@ -1353,7 +1381,7 @@ const knownWeapons = [
             {id: "ap", name: "Armor-Piercing (5)"},
             {id: "flak", name: "Flak (10)"},
             {id: "flechette", name: "Flechette (10)"},
-            {id: "tracer", name: "Tracer (10)", extraBV: 2},
+            {id: "tracer", name: "Tracer (10)", extraBV: 2, level: 3},
         ]
     },
     {
@@ -1448,9 +1476,9 @@ const knownWeapons = [
         name: "Vehicle Flamer",
         ammoTypes: [
             {id: "standard", name: "Standard (20)"},
-            {id: "coolant", name: "Coolant (20)"},
-            {id: "inferno", name: "Inferno Fuel (20)", extraBV: 2},
-            {id: "water", name: "Water (20)"},
+            {id: "coolant", name: "Coolant (20)", level: 3},
+            {id: "inferno", name: "Inferno Fuel (20)", extraBV: 2, level: 3},
+            {id: "water", name: "Water (20)", level: 3},
         ]
     },
     {
@@ -1458,9 +1486,9 @@ const knownWeapons = [
         name: "Heavy Flamer",
         ammoTypes: [
             {id: "standard", name: "Standard (10)"},
-            {id: "coolant", name: "Coolant (10)"},
-            {id: "inferno", name: "Inferno Fuel (10)", extraBV: 4},
-            {id: "water", name: "Water (10)"},
+            {id: "coolant", name: "Coolant (10)", level: 3},
+            {id: "inferno", name: "Inferno Fuel (10)", extraBV: 4, level: 3},
+            {id: "water", name: "Water (10)", level: 3},
         ]
     },
     {
@@ -1601,13 +1629,13 @@ const knownWeapons = [
         name: "SRM 2", 
         ammoTypes: [
             {id: "standard", name: "Standard (50)"},
-            {id: "arad", name: "Anti-Radiation (50)", extraBV: 0.9},
+            {id: "arad", name: "Anti-Radiation (50)", extraBV: 0.9, level: 4},
             {id: "artemisiv", name: "Artemis IV-Equipped (50)", requirement:"artemisiv"},
             {id: "artemisv", name: "Artemis V-Equipped (50)", requirement:"artemisv"},
-            {id: "heatseeking", name: "Heat-Seeking (25)", extraBV: 1.5},
+            {id: "heatseeking", name: "Heat-Seeking (25)", extraBV: 1.5, level: 3},
             {id: "inferno", name: "Inferno (50)"},
             {id: "narc", name: "Narc-Equipped (50)"},
-            {id: "smoke", name: "Smoke (50)"},
+            {id: "smoke", name: "Smoke (50)", level: 3},
         ]
     },
     {
@@ -1615,13 +1643,13 @@ const knownWeapons = [
         name: "SRM 4", 
         ammoTypes: [
             {id: "standard", name: "Standard (25)"},
-            {id: "arad", name: "Anti-Radiation (25)", extraBV: 1.5},
+            {id: "arad", name: "Anti-Radiation (25)", extraBV: 1.5, level: 4},
             {id: "artemisiv", name: "Artemis IV-Equipped (25)", requirement:"artemisiv"},
             {id: "artemisv", name: "Artemis V-Equipped (25)", requirement:"artemisv"},
-            {id: "heatseeking", name: "Heat-Seeking (12)", extraBV: 2.5},
+            {id: "heatseeking", name: "Heat-Seeking (12)", extraBV: 2.5, level: 3},
             {id: "inferno", name: "Inferno (25)"},
             {id: "narc", name: "Narc-Equipped (25)"},
-            {id: "smoke", name: "Smoke (25)"},
+            {id: "smoke", name: "Smoke (25)", level: 3},
         ]
     },
     {
@@ -1629,13 +1657,13 @@ const knownWeapons = [
         name: "SRM 6", 
         ammoTypes: [
             {id: "standard", name: "Standard (15)"},
-            {id: "arad", name: "Anti-Radiation (15)", extraBV: 2.1},
+            {id: "arad", name: "Anti-Radiation (15)", extraBV: 2.1, level: 4},
             {id: "artemisiv", name: "Artemis IV-Equipped (15)", requirement:"artemisiv"},
             {id: "artemisv", name: "Artemis V-Equipped (15)", requirement:"artemisv"},
-            {id: "heatseeking", name: "Heat-Seeking (7)", extraBV: 3.5},
+            {id: "heatseeking", name: "Heat-Seeking (7)", extraBV: 3.5, level: 3},
             {id: "inferno", name: "Inferno (15)"},
             {id: "narc", name: "Narc-Equipped (15)"},
-            {id: "smoke", name: "Smoke (15)"},
+            {id: "smoke", name: "Smoke (15)", level: 3},
         ]
     },
     {
@@ -1645,10 +1673,10 @@ const knownWeapons = [
             {id: "standard", name: "Standard (50)"},
             {id: "artemisiv", name: "Artemis IV-Equipped (50)", requirement:"artemisiv"},
             {id: "artemisv", name: "Artemis V-Equipped (50)", requirement:"artemisv"},
-            {id: "heatseeking", name: "Heat-Seeking (25)", extraBV: 2},
+            {id: "heatseeking", name: "Heat-Seeking (25)", extraBV: 2, level: 3},
             {id: "inferno", name: "Inferno (50)"},
             {id: "narc", name: "Narc-Equipped (50)"},
-            {id: "smoke", name: "Smoke (50)"},
+            {id: "smoke", name: "Smoke (50)", level: 3},
         ]
     },
     {
@@ -1658,10 +1686,10 @@ const knownWeapons = [
             {id: "standard", name: "Standard (25)"},
             {id: "artemisiv", name: "Artemis IV-Equipped (25)", requirement:"artemisiv"},
             {id: "artemisv", name: "Artemis V-Equipped (25)", requirement:"artemisv"},
-            {id: "heatseeking", name: "Heat-Seeking (15)", extraBV: 3.5},
+            {id: "heatseeking", name: "Heat-Seeking (15)", extraBV: 3.5, level: 3},
             {id: "inferno", name: "Inferno (25)"},
             {id: "narc", name: "Narc-Equipped (25)"},
-            {id: "smoke", name: "Smoke (25)"},
+            {id: "smoke", name: "Smoke (25)", level: 3},
         ]
     },
     {
@@ -1671,10 +1699,10 @@ const knownWeapons = [
             {id: "standard", name: "Standard (15)"},
             {id: "artemisiv", name: "Artemis IV-Equipped (15)", requirement:"artemisiv"},
             {id: "artemisv", name: "Artemis V-Equipped (15)", requirement:"artemisv"},
-            {id: "heatseeking", name: "Heat-Seeking (7)", extraBV: 5},
+            {id: "heatseeking", name: "Heat-Seeking (7)", extraBV: 5, level: 3},
             {id: "inferno", name: "Inferno (15)"},
             {id: "narc", name: "Narc-Equipped (15)"},
-            {id: "smoke", name: "Smoke (15)"},
+            {id: "smoke", name: "Smoke (15)", level: 3},
         ]
     },
     {
@@ -1684,10 +1712,10 @@ const knownWeapons = [
             {id: "standard", name: "Standard"},
             {id: "artemisiv", name: "Artemis IV-Equipped", requirement:"artemisiv"},
             {id: "artemisv", name: "Artemis V-Equipped", requirement:"artemisv"},
-            {id: "heatseeking", name: "Heat-Seeking", extraBV: 2},
+            {id: "heatseeking", name: "Heat-Seeking", extraBV: 2, level: 3},
             {id: "inferno", name: "Inferno"},
             {id: "narc", name: "Narc-Equipped"},
-            {id: "smoke", name: "Smoke"},
+            {id: "smoke", name: "Smoke", level: 3},
         ]
     },
     {
@@ -1697,10 +1725,10 @@ const knownWeapons = [
             {id: "standard", name: "Standard"},
             {id: "artemisiv", name: "Artemis IV-Equipped", requirement:"artemisiv"},
             {id: "artemisv", name: "Artemis V-Equipped", requirement:"artemisv"},
-            {id: "heatseeking", name: "Heat-Seeking", extraBV: 8},
+            {id: "heatseeking", name: "Heat-Seeking", extraBV: 8, level: 3},
             {id: "inferno", name: "Inferno"},
             {id: "narc", name: "Narc-Equipped"},
-            {id: "smoke", name: "Smoke"},
+            {id: "smoke", name: "Smoke", level: 3},
         ]
     },
     {
@@ -1710,10 +1738,10 @@ const knownWeapons = [
             {id: "standard", name: "Standard"},
             {id: "artemisiv", name: "Artemis IV-Equipped", requirement:"artemisiv"},
             {id: "artemisv", name: "Artemis V-Equipped", requirement:"artemisv"},
-            {id: "heatseeking", name: "Heat-Seeking", extraBV: 12},
+            {id: "heatseeking", name: "Heat-Seeking", extraBV: 12, level: 3},
             {id: "inferno", name: "Inferno"},
             {id: "narc", name: "Narc-Equipped"},
-            {id: "smoke", name: "Smoke"},
+            {id: "smoke", name: "Smoke", level: 3},
         ]
     },
     { 
@@ -1818,15 +1846,15 @@ const knownWeapons = [
         name: "LRM 5", 
         ammoTypes: [
             {id: "standard", name: "Standard (24)"},
-            {id: "arad", name: "Anti-Radiation (24)", extraBV: 2.1},
+            {id: "arad", name: "Anti-Radiation (24)", extraBV: 2.1, level: 4},
             {id: "artemisiv", name: "Artemis IV-Equipped (24)", requirement:"artemisiv"},
             {id: "artemisv", name: "Artemis V-Equipped (24)", requirement:"artemisv"},
-            {id: "ftl", name: "Follow-the-Leader (12)", extraBV: 3.5},
-            {id: "heatseeking", name: "Heat-Seeking (12)", extraBV: 3.5},
-            {id: "incendiary", name: "Incendiary (24)"},
+            {id: "ftl", name: "Follow-the-Leader (12)", extraBV: 3.5, level: 4},
+            {id: "heatseeking", name: "Heat-Seeking (12)", extraBV: 3.5, level: 3},
+            {id: "incendiary", name: "Incendiary (24)", level: 3},
             {id: "narc", name: "Narc-Equipped (24)"},
-            {id: "smoke", name: "Smoke (24)"},
-            {id: "swarm", name: "Swarm (24)"},
+            {id: "smoke", name: "Smoke (24)", level: 3},
+            {id: "swarm", name: "Swarm (24)", level: 3},
         ]
     },
     {
@@ -1834,15 +1862,15 @@ const knownWeapons = [
         name: "LRM 10", 
         ammoTypes: [
             {id: "standard", name: "Standard (12)"},
-            {id: "arad", name: "Anti-Radiation (12)", extraBV: 4.2},
+            {id: "arad", name: "Anti-Radiation (12)", extraBV: 4.2, level: 4},
             {id: "artemisiv", name: "Artemis IV-Equipped (12)", requirement:"artemisiv"},
             {id: "artemisv", name: "Artemis V-Equipped (12)", requirement:"artemisv"},
-            {id: "ftl", name: "Follow-the-Leader (6)", extraBV: 7},
-            {id: "heatseeking", name: "Heat-Seeking (6)", extraBV: 7},
-            {id: "incendiary", name: "Incendiary (12)"},
+            {id: "ftl", name: "Follow-the-Leader (6)", extraBV: 7, level: 4},
+            {id: "heatseeking", name: "Heat-Seeking (6)", extraBV: 7, level: 3},
+            {id: "incendiary", name: "Incendiary (12)", level: 3},
             {id: "narc", name: "Narc-Equipped (12)"},
-            {id: "smoke", name: "Smoke (12)"},
-            {id: "swarm", name: "Swarm (12)"},
+            {id: "smoke", name: "Smoke (12)", level: 3},
+            {id: "swarm", name: "Swarm (12)", level: 3},
         ]
     },
     {
@@ -1850,15 +1878,15 @@ const knownWeapons = [
         name: "LRM 15", 
         ammoTypes: [
             {id: "standard", name: "Standard (8)"},
-            {id: "arad", name: "Anti-Radiation (8)", extraBV: 6.3},
+            {id: "arad", name: "Anti-Radiation (8)", extraBV: 6.3, level: 4},
             {id: "artemisiv", name: "Artemis IV-Equipped (8)", requirement:"artemisiv"},
             {id: "artemisv", name: "Artemis V-Equipped (8)", requirement:"artemisv"},
-            {id: "ftl", name: "Follow-the-Leader (4)", extraBV: 10.5},
-            {id: "heatseeking", name: "Heat-Seeking (4)", extraBV: 10.5},
-            {id: "incendiary", name: "Incendiary (8)"},
+            {id: "ftl", name: "Follow-the-Leader (4)", extraBV: 10.5, level: 4},
+            {id: "heatseeking", name: "Heat-Seeking (4)", extraBV: 10.5, level: 3},
+            {id: "incendiary", name: "Incendiary (8)", level: 3},
             {id: "narc", name: "Narc-Equipped (8)"},
-            {id: "smoke", name: "Smoke (8)"},
-            {id: "swarm", name: "Swarm (8)"},
+            {id: "smoke", name: "Smoke (8)", level: 3},
+            {id: "swarm", name: "Swarm (8)", level: 3},
         ]
     },
     {
@@ -1866,15 +1894,15 @@ const knownWeapons = [
         name: "LRM 20", 
         ammoTypes: [
             {id: "standard", name: "Standard (6)"},
-            {id: "arad", name: "Anti-Radiation (6)", extraBV: 8.1},
+            {id: "arad", name: "Anti-Radiation (6)", extraBV: 8.1, level: 4},
             {id: "artemisiv", name: "Artemis IV-Equipped (6)", requirement:"artemisiv"},
             {id: "artemisv", name: "Artemis V-Equipped (6)", requirement:"artemisv"},
-            {id: "ftl", name: "Follow-the-Leader (3)", extraBV: 13.5},
-            {id: "heatseeking", name: "Heat-Seeking (3)", extraBV: 13.5},
-            {id: "incendiary", name: "Incendiary (6)"},
+            {id: "ftl", name: "Follow-the-Leader (3)", extraBV: 13.5, level: 4},
+            {id: "heatseeking", name: "Heat-Seeking (3)", extraBV: 13.5, level: 3},
+            {id: "incendiary", name: "Incendiary (6)", level: 3},
             {id: "narc", name: "Narc-Equipped (6)"},
-            {id: "smoke", name: "Smoke (6)"},
-            {id: "swarm", name: "Swarm (6)"},
+            {id: "smoke", name: "Smoke (6)", level: 3},
+            {id: "swarm", name: "Swarm (6)", level: 3},
         ]
     },
     {
@@ -1884,11 +1912,11 @@ const knownWeapons = [
             {id: "standard", name: "Standard (24)"},
             {id: "artemisiv", name: "Artemis IV-Equipped (24)", requirement:"artemisiv"},
             {id: "artemisv", name: "Artemis V-Equipped (24)", requirement:"artemisv"},
-            {id: "heatseeking", name: "Heat-Seeking (12)", extraBV: 3},
-            {id: "incendiary", name: "Incendiary (24)"},
+            {id: "heatseeking", name: "Heat-Seeking (12)", extraBV: 3, level: 3},
+            {id: "incendiary", name: "Incendiary (24)", level: 3},
             {id: "narc", name: "Narc-Equipped (24)"},
-            {id: "smoke", name: "Smoke (24)"},
-            {id: "swarm", name: "Swarm (24)"},
+            {id: "smoke", name: "Smoke (24)", level: 3},
+            {id: "swarm", name: "Swarm (24)", level: 3},
         ]
     },
     {
@@ -1898,11 +1926,11 @@ const knownWeapons = [
             {id: "standard", name: "Standard (12)"},
             {id: "artemisiv", name: "Artemis IV-Equipped (12)", requirement:"artemisiv"},
             {id: "artemisv", name: "Artemis V-Equipped (12)", requirement:"artemisv"},
-            {id: "heatseeking", name: "Heat-Seeking (6)", extraBV: 5.5},
-            {id: "incendiary", name: "Incendiary (12)"},
+            {id: "heatseeking", name: "Heat-Seeking (6)", extraBV: 5.5, level: 3},
+            {id: "incendiary", name: "Incendiary (12)", level: 3},
             {id: "narc", name: "Narc-Equipped (12)"},
-            {id: "smoke", name: "Smoke (12)"},
-            {id: "swarm", name: "Swarm (12)"},
+            {id: "smoke", name: "Smoke (12)", level: 3},
+            {id: "swarm", name: "Swarm (12)", level: 3},
         ]
     },
     {
@@ -1912,11 +1940,11 @@ const knownWeapons = [
             {id: "standard", name: "Standard (8)"},
             {id: "artemisiv", name: "Artemis IV-Equipped (8)", requirement:"artemisiv"},
             {id: "artemisv", name: "Artemis V-Equipped (8)", requirement:"artemisv"},
-            {id: "heatseeking", name: "Heat-Seeking (4)", extraBV: 8.5},
-            {id: "incendiary", name: "Incendiary (8)"},
+            {id: "heatseeking", name: "Heat-Seeking (4)", extraBV: 8.5, level: 3},
+            {id: "incendiary", name: "Incendiary (8)", level: 3},
             {id: "narc", name: "Narc-Equipped (8)"},
-            {id: "smoke", name: "Smoke (8)"},
-            {id: "swarm", name: "Swarm (8)"},
+            {id: "smoke", name: "Smoke (8)", level: 3},
+            {id: "swarm", name: "Swarm (8)", level: 3},
         ]
     },
     {
@@ -1926,11 +1954,11 @@ const knownWeapons = [
             {id: "standard", name: "Standard (6)"},
             {id: "artemisiv", name: "Artemis IV-Equipped (6)", requirement:"artemisiv"},
             {id: "artemisv", name: "Artemis V-Equipped (6)", requirement:"artemisv"},
-            {id: "heatseeking", name: "Heat-Seeking (3)", extraBV: 11.5},
-            {id: "incendiary", name: "Incendiary (6)"},
+            {id: "heatseeking", name: "Heat-Seeking (3)", extraBV: 11.5, level: 3},
+            {id: "incendiary", name: "Incendiary (6)", level: 3},
             {id: "narc", name: "Narc-Equipped (6)"},
-            {id: "smoke", name: "Smoke (6)"},
-            {id: "swarm", name: "Swarm (6)"},
+            {id: "smoke", name: "Smoke (6)", level: 3},
+            {id: "swarm", name: "Swarm (6)", level: 3},
         ]
     },
     {
@@ -2646,13 +2674,13 @@ const knownWeapons = [
         name: "LRM 1",
         ammoTypes: [
             {id: "standard", name: "Standard"},
-            {id: "arad", name: "Anti-Radiation", extraBV: 0.005},
-            {id: "ftl", name: "Follow-the-Leader", shotMultiplier: 0.5, extraBV: 0.008},
-            {id: "heatseeking", name: "Heat-Seeking", shotMultiplier: 0.5, extraBV: 0.008},
-            {id: "incendiary", name: "Incendiary"},
+            {id: "arad", name: "Anti-Radiation", extraBV: 0.005, level: 4},
+            {id: "ftl", name: "Follow-the-Leader", shotMultiplier: 0.5, extraBV: 0.008, level: 4},
+            {id: "heatseeking", name: "Heat-Seeking", shotMultiplier: 0.5, extraBV: 0.008, level: 3},
+            {id: "incendiary", name: "Incendiary", level: 3},
             {id: "narc", name: "Narc-Equipped"},
-            {id: "smoke", name: "Smoke"},
-            {id: "swarm", name: "Swarm"},
+            {id: "smoke", name: "Smoke", level: 3},
+            {id: "swarm", name: "Swarm", level: 3},
         ]
     },
     {
@@ -2660,13 +2688,13 @@ const knownWeapons = [
         name: "LRM 2",
         ammoTypes: [
             {id: "standard", name: "Standard"},
-            {id: "arad", name: "Anti-Radiation", extraBV: 0.015},
-            {id: "ftl", name: "Follow-the-Leader", shotMultiplier: 0.5, extraBV: 0.025},
-            {id: "heatseeking", name: "Heat-Seeking", shotMultiplier: 0.5, extraBV: 0.025},
-            {id: "incendiary", name: "Incendiary"},
+            {id: "arad", name: "Anti-Radiation", extraBV: 0.015, level: 4},
+            {id: "ftl", name: "Follow-the-Leader", shotMultiplier: 0.5, extraBV: 0.025, level: 4},
+            {id: "heatseeking", name: "Heat-Seeking", shotMultiplier: 0.5, extraBV: 0.025, level: 3},
+            {id: "incendiary", name: "Incendiary", level: 3},
             {id: "narc", name: "Narc-Equipped"},
-            {id: "smoke", name: "Smoke"},
-            {id: "swarm", name: "Swarm"},
+            {id: "smoke", name: "Smoke", level: 3},
+            {id: "swarm", name: "Swarm", level: 3},
         ]
     },
     {
@@ -2674,13 +2702,13 @@ const knownWeapons = [
         name: "LRM 3",
         ammoTypes: [
             {id: "standard", name: "Standard"},
-            {id: "arad", name: "Anti-Radiation", extraBV: 0.0225},
-            {id: "ftl", name: "Follow-the-Leader", shotMultiplier: 0.5, extraBV: 0.038},
-            {id: "heatseeking", name: "Heat-Seeking", shotMultiplier: 0.5, extraBV: 0.038},
-            {id: "incendiary", name: "Incendiary"},
+            {id: "arad", name: "Anti-Radiation", extraBV: 0.0225, level: 4},
+            {id: "ftl", name: "Follow-the-Leader", shotMultiplier: 0.5, extraBV: 0.038, level: 4},
+            {id: "heatseeking", name: "Heat-Seeking", shotMultiplier: 0.5, extraBV: 0.038, level: 3},
+            {id: "incendiary", name: "Incendiary", level: 3},
             {id: "narc", name: "Narc-Equipped"},
-            {id: "smoke", name: "Smoke"},
-            {id: "swarm", name: "Swarm"},
+            {id: "smoke", name: "Smoke", level: 3},
+            {id: "swarm", name: "Swarm", level: 3},
         ]
     },
     {
@@ -2688,13 +2716,13 @@ const knownWeapons = [
         name: "LRM 4",
         ammoTypes: [
             {id: "standard", name: "Standard"},
-            {id: "arad", name: "Anti-Radiation", extraBV: 0.06},
-            {id: "ftl", name: "Follow-the-Leader", shotMultiplier: 0.5, extraBV: 0.1},
-            {id: "heatseeking", name: "Heat-Seeking", shotMultiplier: 0.5, extraBV: 0.1},
-            {id: "incendiary", name: "Incendiary"},
+            {id: "arad", name: "Anti-Radiation", extraBV: 0.06, level: 4},
+            {id: "ftl", name: "Follow-the-Leader", shotMultiplier: 0.5, extraBV: 0.1, level: 4},
+            {id: "heatseeking", name: "Heat-Seeking", shotMultiplier: 0.5, extraBV: 0.1, level: 3},
+            {id: "incendiary", name: "Incendiary", level: 3},
             {id: "narc", name: "Narc-Equipped"},
-            {id: "smoke", name: "Smoke"},
-            {id: "swarm", name: "Swarm"},
+            {id: "smoke", name: "Smoke", level: 3},
+            {id: "swarm", name: "Swarm", level: 3},
         ]
     },
     {
@@ -2702,13 +2730,13 @@ const knownWeapons = [
         name: "LRM 5",
         ammoTypes: [
             {id: "standard", name: "Standard"},
-            {id: "arad", name: "Anti-Radiation", extraBV: 0.0875},
-            {id: "ftl", name: "Follow-the-Leader", shotMultiplier: 0.5, extraBV: 0.146},
-            {id: "heatseeking", name: "Heat-Seeking", shotMultiplier: 0.5, extraBV: 0.146},
-            {id: "incendiary", name: "Incendiary"},
+            {id: "arad", name: "Anti-Radiation", extraBV: 0.0875, level: 4},
+            {id: "ftl", name: "Follow-the-Leader", shotMultiplier: 0.5, extraBV: 0.146, level: 4},
+            {id: "heatseeking", name: "Heat-Seeking", shotMultiplier: 0.5, extraBV: 0.146, level: 3},
+            {id: "incendiary", name: "Incendiary", level: 3},
             {id: "narc", name: "Narc-Equipped"},
-            {id: "smoke", name: "Smoke"},
-            {id: "swarm", name: "Swarm"},
+            {id: "smoke", name: "Smoke", level: 3},
+            {id: "swarm", name: "Swarm", level: 3},
         ]
     },
     {
@@ -2716,13 +2744,13 @@ const knownWeapons = [
         name: "LRM 6",
         ammoTypes: [
             {id: "standard", name: "Standard"},
-            {id: "arad", name: "Anti-Radiation", extraBV: 0.135},
-            {id: "ftl", name: "Follow-the-Leader", shotMultiplier: 0.5, extraBV: 0.225},
-            {id: "heatseeking", name: "Heat-Seeking", shotMultiplier: 0.5, extraBV: 0.225},
-            {id: "incendiary", name: "Incendiary"},
+            {id: "arad", name: "Anti-Radiation", extraBV: 0.135, level: 4},
+            {id: "ftl", name: "Follow-the-Leader", shotMultiplier: 0.5, extraBV: 0.225, level: 4},
+            {id: "heatseeking", name: "Heat-Seeking", shotMultiplier: 0.5, extraBV: 0.225, level: 3},
+            {id: "incendiary", name: "Incendiary", level: 3},
             {id: "narc", name: "Narc-Equipped"},
-            {id: "smoke", name: "Smoke"},
-            {id: "swarm", name: "Swarm"},
+            {id: "smoke", name: "Smoke", level: 3},
+            {id: "swarm", name: "Swarm", level: 3},
         ]
     },
     {
@@ -2730,13 +2758,13 @@ const knownWeapons = [
         name: "LRM 7",
         ammoTypes: [
             {id: "standard", name: "Standard"},
-            {id: "arad", name: "Anti-Radiation", extraBV: 0.175},
-            {id: "ftl", name: "Follow-the-Leader", shotMultiplier: 0.5, extraBV: 0.292},
-            {id: "heatseeking", name: "Heat-Seeking", shotMultiplier: 0.5, extraBV: 0.292},
-            {id: "incendiary", name: "Incendiary"},
+            {id: "arad", name: "Anti-Radiation", extraBV: 0.175, level: 4},
+            {id: "ftl", name: "Follow-the-Leader", shotMultiplier: 0.5, extraBV: 0.292, level: 4},
+            {id: "heatseeking", name: "Heat-Seeking", shotMultiplier: 0.5, extraBV: 0.292, level: 3},
+            {id: "incendiary", name: "Incendiary", level: 3},
             {id: "narc", name: "Narc-Equipped"},
-            {id: "smoke", name: "Smoke"},
-            {id: "swarm", name: "Swarm"},
+            {id: "smoke", name: "Smoke", level: 3},
+            {id: "swarm", name: "Swarm", level: 3},
         ]
     },
     {
@@ -2744,13 +2772,13 @@ const knownWeapons = [
         name: "LRM 8",
         ammoTypes: [
             {id: "standard", name: "Standard"},
-            {id: "arad", name: "Anti-Radiation", extraBV: 0.22},
-            {id: "ftl", name: "Follow-the-Leader", shotMultiplier: 0.5, extraBV: 0.367},
-            {id: "heatseeking", name: "Heat-Seeking", shotMultiplier: 0.5, extraBV: 0.367},
-            {id: "incendiary", name: "Incendiary"},
+            {id: "arad", name: "Anti-Radiation", extraBV: 0.22, level: 4},
+            {id: "ftl", name: "Follow-the-Leader", shotMultiplier: 0.5, extraBV: 0.367, level: 4},
+            {id: "heatseeking", name: "Heat-Seeking", shotMultiplier: 0.5, extraBV: 0.367, level: 3},
+            {id: "incendiary", name: "Incendiary", level: 3},
             {id: "narc", name: "Narc-Equipped"},
-            {id: "smoke", name: "Smoke"},
-            {id: "swarm", name: "Swarm"},
+            {id: "smoke", name: "Smoke", level: 3},
+            {id: "swarm", name: "Swarm", level: 3},
         ]
     },
     {
@@ -2758,13 +2786,13 @@ const knownWeapons = [
         name: "LRM 9",
         ammoTypes: [
             {id: "standard", name: "Standard"},
-            {id: "arad", name: "Anti-Radiation", extraBV: 0.27},
-            {id: "ftl", name: "Follow-the-Leader", shotMultiplier: 0.5, extraBV: 0.450},
-            {id: "heatseeking", name: "Heat-Seeking", shotMultiplier: 0.5, extraBV: 0.450},
-            {id: "incendiary", name: "Incendiary"},
+            {id: "arad", name: "Anti-Radiation", extraBV: 0.27, level: 4},
+            {id: "ftl", name: "Follow-the-Leader", shotMultiplier: 0.5, extraBV: 0.450, level: 4},
+            {id: "heatseeking", name: "Heat-Seeking", shotMultiplier: 0.5, extraBV: 0.450, level: 3},
+            {id: "incendiary", name: "Incendiary", level: 3},
             {id: "narc", name: "Narc-Equipped"},
-            {id: "smoke", name: "Smoke"},
-            {id: "swarm", name: "Swarm"},
+            {id: "smoke", name: "Smoke", level: 3},
+            {id: "swarm", name: "Swarm", level: 3},
         ]
     },
     {
@@ -2772,13 +2800,13 @@ const knownWeapons = [
         name: "LRM 10",
         ammoTypes: [
             {id: "standard", name: "Standard"},
-            {id: "arad", name: "Anti-Radiation", extraBV: 0.35},
-            {id: "ftl", name: "Follow-the-Leader", shotMultiplier: 0.5, extraBV: 0.583},
-            {id: "heatseeking", name: "Heat-Seeking", shotMultiplier: 0.5, extraBV: 0.583},
-            {id: "incendiary", name: "Incendiary"},
+            {id: "arad", name: "Anti-Radiation", extraBV: 0.35, level: 4},
+            {id: "ftl", name: "Follow-the-Leader", shotMultiplier: 0.5, extraBV: 0.583, level: 4},
+            {id: "heatseeking", name: "Heat-Seeking", shotMultiplier: 0.5, extraBV: 0.583, level: 3},
+            {id: "incendiary", name: "Incendiary", level: 3},
             {id: "narc", name: "Narc-Equipped"},
-            {id: "smoke", name: "Smoke"},
-            {id: "swarm", name: "Swarm"},
+            {id: "smoke", name: "Smoke", level: 3},
+            {id: "swarm", name: "Swarm", level: 3},
         ]
     },
     {
@@ -2786,13 +2814,13 @@ const knownWeapons = [
         name: "LRM 11",
         ammoTypes: [
             {id: "standard", name: "Standard"},
-            {id: "arad", name: "Anti-Radiation", extraBV: 0.44},
-            {id: "ftl", name: "Follow-the-Leader", shotMultiplier: 0.5, extraBV: 0.733},
-            {id: "heatseeking", name: "Heat-Seeking", shotMultiplier: 0.5, extraBV: 0.733},
-            {id: "incendiary", name: "Incendiary"},
+            {id: "arad", name: "Anti-Radiation", extraBV: 0.44, level: 4},
+            {id: "ftl", name: "Follow-the-Leader", shotMultiplier: 0.5, extraBV: 0.733, level: 4},
+            {id: "heatseeking", name: "Heat-Seeking", shotMultiplier: 0.5, extraBV: 0.733, level: 3},
+            {id: "incendiary", name: "Incendiary", level: 3},
             {id: "narc", name: "Narc-Equipped"},
-            {id: "smoke", name: "Smoke"},
-            {id: "swarm", name: "Swarm"},
+            {id: "smoke", name: "Smoke", level: 3},
+            {id: "swarm", name: "Swarm", level: 3},
         ]
     },
     {
@@ -2800,13 +2828,13 @@ const knownWeapons = [
         name: "LRM 12",
         ammoTypes: [
             {id: "standard", name: "Standard"},
-            {id: "arad", name: "Anti-Radiation", extraBV: 0.54},
-            {id: "ftl", name: "Follow-the-Leader", shotMultiplier: 0.5, extraBV: 0.900},
-            {id: "heatseeking", name: "Heat-Seeking", shotMultiplier: 0.5, extraBV: 0.900},
-            {id: "incendiary", name: "Incendiary"},
+            {id: "arad", name: "Anti-Radiation", extraBV: 0.54, level: 4},
+            {id: "ftl", name: "Follow-the-Leader", shotMultiplier: 0.5, extraBV: 0.900, level: 4},
+            {id: "heatseeking", name: "Heat-Seeking", shotMultiplier: 0.5, extraBV: 0.900, level: 3},
+            {id: "incendiary", name: "Incendiary", level: 3},
             {id: "narc", name: "Narc-Equipped"},
-            {id: "smoke", name: "Smoke"},
-            {id: "swarm", name: "Swarm"},
+            {id: "smoke", name: "Smoke", level: 3},
+            {id: "swarm", name: "Swarm", level: 3},
         ]
     },
     {
@@ -2814,13 +2842,13 @@ const knownWeapons = [
         name: "LRM 13",
         ammoTypes: [
             {id: "standard", name: "Standard"},
-            {id: "arad", name: "Anti-Radiation", extraBV: 0.617},
-            {id: "ftl", name: "Follow-the-Leader", shotMultiplier: 0.5, extraBV: 1.029},
-            {id: "heatseeking", name: "Heat-Seeking", shotMultiplier: 0.5, extraBV: 1.029},
-            {id: "incendiary", name: "Incendiary"},
+            {id: "arad", name: "Anti-Radiation", extraBV: 0.617, level: 4},
+            {id: "ftl", name: "Follow-the-Leader", shotMultiplier: 0.5, extraBV: 1.029, level: 4},
+            {id: "heatseeking", name: "Heat-Seeking", shotMultiplier: 0.5, extraBV: 1.029, level: 3},
+            {id: "incendiary", name: "Incendiary", level: 3},
             {id: "narc", name: "Narc-Equipped"},
-            {id: "smoke", name: "Smoke"},
-            {id: "swarm", name: "Swarm"},
+            {id: "smoke", name: "Smoke", level: 3},
+            {id: "swarm", name: "Swarm", level: 3},
         ]
     },
     {
@@ -2828,13 +2856,13 @@ const knownWeapons = [
         name: "LRM 14",
         ammoTypes: [
             {id: "standard", name: "Standard"},
-            {id: "arad", name: "Anti-Radiation", extraBV: 0.70},
-            {id: "ftl", name: "Follow-the-Leader", shotMultiplier: 0.5, extraBV: 1.166},
-            {id: "heatseeking", name: "Heat-Seeking", shotMultiplier: 0.5, extraBV: 1.166},
-            {id: "incendiary", name: "Incendiary"},
+            {id: "arad", name: "Anti-Radiation", extraBV: 0.70, level: 4},
+            {id: "ftl", name: "Follow-the-Leader", shotMultiplier: 0.5, extraBV: 1.166, level: 4},
+            {id: "heatseeking", name: "Heat-Seeking", shotMultiplier: 0.5, extraBV: 1.166, level: 3},
+            {id: "incendiary", name: "Incendiary", level: 3},
             {id: "narc", name: "Narc-Equipped"},
-            {id: "smoke", name: "Smoke"},
-            {id: "swarm", name: "Swarm"},
+            {id: "smoke", name: "Smoke", level: 3},
+            {id: "swarm", name: "Swarm", level: 3},
         ]
     },
     {
@@ -2842,13 +2870,13 @@ const knownWeapons = [
         name: "LRM 15",
         ammoTypes: [
             {id: "standard", name: "Standard"},
-            {id: "arad", name: "Anti-Radiation", extraBV: 0.787},
-            {id: "ftl", name: "Follow-the-Leader", shotMultiplier: 0.5, extraBV: 1.312},
-            {id: "heatseeking", name: "Heat-Seeking", shotMultiplier: 0.5, extraBV: 1.312},
-            {id: "incendiary", name: "Incendiary"},
+            {id: "arad", name: "Anti-Radiation", extraBV: 0.787, level: 4},
+            {id: "ftl", name: "Follow-the-Leader", shotMultiplier: 0.5, extraBV: 1.312, level: 4},
+            {id: "heatseeking", name: "Heat-Seeking", shotMultiplier: 0.5, extraBV: 1.312, level: 3},
+            {id: "incendiary", name: "Incendiary", level: 3},
             {id: "narc", name: "Narc-Equipped"},
-            {id: "smoke", name: "Smoke"},
-            {id: "swarm", name: "Swarm"},
+            {id: "smoke", name: "Smoke", level: 3},
+            {id: "swarm", name: "Swarm", level: 3},
         ]
     },
     {
@@ -2863,11 +2891,11 @@ const knownWeapons = [
         name: "SRM 1",
         ammoTypes: [
             {id: "standard", name: "Standard"},
-            {id: "arad", name: "Anti-Radiation", extraBV: 0.006},
-            {id: "heatseeking", name: "Heat-Seeking", extraBV: 0.01},
+            {id: "arad", name: "Anti-Radiation", extraBV: 0.006, level: 4},
+            {id: "heatseeking", name: "Heat-Seeking", extraBV: 0.01, level: 3},
             {id: "inferno", name: "Inferno"},
             {id: "narc", name: "Narc-Equipped"},
-            {id: "smoke", name: "Smoke"},
+            {id: "smoke", name: "Smoke", level: 3},
         ]
     },
     {
@@ -2875,11 +2903,11 @@ const knownWeapons = [
         name: "SRM 2",
         ammoTypes: [
             {id: "standard", name: "Standard"},
-            {id: "arad", name: "Anti-Radiation", extraBV: 0.018},
-            {id: "heatseeking", name: "Heat-Seeking", extraBV: 0.03},
+            {id: "arad", name: "Anti-Radiation", extraBV: 0.018, level: 4},
+            {id: "heatseeking", name: "Heat-Seeking", extraBV: 0.03, level: 3},
             {id: "inferno", name: "Inferno"},
             {id: "narc", name: "Narc-Equipped"},
-            {id: "smoke", name: "Smoke"},
+            {id: "smoke", name: "Smoke", level: 3},
         ]
     },
     {
@@ -2887,11 +2915,11 @@ const knownWeapons = [
         name: "SRM 3",
         ammoTypes: [
             {id: "standard", name: "Standard"},
-            {id: "arad", name: "Anti-Radiation", extraBV: 0.036},
-            {id: "heatseeking", name: "Heat-Seeking", extraBV: 0.06},
+            {id: "arad", name: "Anti-Radiation", extraBV: 0.036, level: 4},
+            {id: "heatseeking", name: "Heat-Seeking", extraBV: 0.06, level: 3},
             {id: "inferno", name: "Inferno"},
             {id: "narc", name: "Narc-Equipped"},
-            {id: "smoke", name: "Smoke"},
+            {id: "smoke", name: "Smoke", level: 3},
         ]
     },
     {
@@ -2899,11 +2927,11 @@ const knownWeapons = [
         name: "SRM 4",
         ammoTypes: [
             {id: "standard", name: "Standard"},
-            {id: "arad", name: "Anti-Radiation", extraBV: 0.06},
-            {id: "heatseeking", name: "Heat-Seeking", extraBV: 0.1},
+            {id: "arad", name: "Anti-Radiation", extraBV: 0.06, level: 4},
+            {id: "heatseeking", name: "Heat-Seeking", extraBV: 0.1, level: 3},
             {id: "inferno", name: "Inferno"},
             {id: "narc", name: "Narc-Equipped"},
-            {id: "smoke", name: "Smoke"},
+            {id: "smoke", name: "Smoke", level: 3},
         ]
     },
     {
@@ -2911,11 +2939,11 @@ const knownWeapons = [
         name: "SRM 5",
         ammoTypes: [
             {id: "standard", name: "Standard"},
-            {id: "arad", name: "Anti-Radiation", extraBV: 0.09},
-            {id: "heatseeking", name: "Heat-Seeking", extraBV: 0.15},
+            {id: "arad", name: "Anti-Radiation", extraBV: 0.09, level: 4},
+            {id: "heatseeking", name: "Heat-Seeking", extraBV: 0.15, level: 3},
             {id: "inferno", name: "Inferno"},
             {id: "narc", name: "Narc-Equipped"},
-            {id: "smoke", name: "Smoke"},
+            {id: "smoke", name: "Smoke", level: 3},
         ]
     },
     {
@@ -2923,11 +2951,11 @@ const knownWeapons = [
         name: "SRM 6",
         ammoTypes: [
             {id: "standard", name: "Standard"},
-            {id: "arad", name: "Anti-Radiation", extraBV: 0.126},
-            {id: "heatseeking", name: "Heat-Seeking", extraBV: 0.21},
+            {id: "arad", name: "Anti-Radiation", extraBV: 0.126, level: 4},
+            {id: "heatseeking", name: "Heat-Seeking", extraBV: 0.21, level: 3},
             {id: "inferno", name: "Inferno"},
             {id: "narc", name: "Narc-Equipped"},
-            {id: "smoke", name: "Smoke"},
+            {id: "smoke", name: "Smoke", level: 3},
         ]
     },
     {

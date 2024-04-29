@@ -227,7 +227,7 @@ function showUnitList(list, moreAvailable, searching) {
         $("#search-results").append(`<li><em>No units found.</em></li>`);
     } else {
         list.forEach((unit) => {
-            $("#search-results").append(`<li><button title='Add unit to force' type='button' onclick='addUnitById("${unit.id}")'><span class="material-symbols-outlined">add</span></button><span class="search-result">${unit.name}<span class="subtle"> - ${unit.bv.toLocaleString("en-us")}&nbsp;BV</span></span></li>`);
+            $("#search-results").append(`<li><button title='Add unit to force' type='button' onclick='addUnitById("${unit.id}")'><span class="material-symbols-outlined">add</span></button><span class="search-result">${unit.name}<span class="subtle"> - ${unit.bv.toLocaleString("en-us")}&nbsp;BV - ${getRulesLevelString(unit.level)}</span></span></li>`);
         });
         if (moreAvailable) {
             if (searchResumeToken) {
@@ -350,6 +350,10 @@ function addUnitRow(unit)
     $costsDiv.append(`<span>Base BV: <span class='bv'>${unit.unitProps.bv}</span></span>`);
     $costsDiv.append(`<span>Adjusted BV: <span class='adj-bv'>${unit.adjustedBV}</span></span>`);
     $li.append($costsDiv);
+
+    const $dataDiv = $("<div>", {class: "unit-costs"});
+    $dataDiv.append(`<span>Rules Level: <span class='level'>${getRulesLevelString(getAdjustedRulesLevel(unit))}</span></span>`);
+    $li.append($dataDiv);
 
     let secondarySkillName = getSecondarySkillName(unit);
     let crewPlaceholder = "MechWarrior Name";
@@ -494,6 +498,7 @@ function addUnitAmmoSelector(unit)
                         }
                     }
             
+                    updateUnitRulesLevel(unit);
                     updateUnitBV(unit);
                     adjustTAGUnitsBV();
                 });
@@ -661,6 +666,11 @@ function updateUnitBV(unit, fromNetworkChange) {
     $adjbv.text(unit.adjustedBV);
 
     updateTotals();
+}
+
+function updateUnitRulesLevel(unit) {
+    const $level = $(`#unit-${unit.id} .level`);
+    $level.text(getRulesLevelString(getAdjustedRulesLevel(unit)));
 }
 
 function getAlternateAmmoBV(unit) {
@@ -1154,6 +1164,10 @@ function readyPrintContent() {
         $costsDiv.append(`<span class="flex-item"><b>Base BV:</b> ${unit.unitProps.bv.toLocaleString("en-us")}</span>`);
         $costsDiv.append(`<span class="flex-item"><b>Adjusted BV:</b> ${unit.adjustedBV.toLocaleString("en-us")}</span>`);
         $unitDiv.append($costsDiv);
+
+        const $dataDiv = $("<div>", {class: "flex-row"});
+        $dataDiv.append(`<span class="flex-item"><b>Rules Level:</b> ${getRulesLevelString(getAdjustedRulesLevel(unit))}</span>`);
+        $unitDiv.append($dataDiv);
 
         let crewName = unit.crew;
         let secondarySkill = getSecondarySkillName(unit);
