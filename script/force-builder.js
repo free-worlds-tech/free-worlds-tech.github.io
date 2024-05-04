@@ -352,6 +352,8 @@ function addUnitRow(unit)
     $li.append($costsDiv);
 
     const $dataDiv = $("<div>", {class: "unit-costs"});
+    $dataDiv.append(`<span>Type: <span class='type'>${getUnitTypeString(unit.unitProps.unitType)}</span></span>`);
+    $dataDiv.append(`<span>Role: <span class='role'>${unit.unitProps.role}</span></span>`);
     $dataDiv.append(`<span>Rules Level: <span class='level'>${getRulesLevelString(getAdjustedRulesLevel(unit))}</span></span>`);
     $li.append($dataDiv);
 
@@ -1166,6 +1168,8 @@ function readyPrintContent() {
         $unitDiv.append($costsDiv);
 
         const $dataDiv = $("<div>", {class: "flex-row"});
+        $dataDiv.append(`<span class="flex-item"><b>Type:</b> ${getUnitTypeString(unit.unitProps.unitType)}</span>`);
+        $dataDiv.append(`<span class="flex-item"><b>Role:</b> ${unit.unitProps.role}</span>`);
         $dataDiv.append(`<span class="flex-item"><b>Rules Level:</b> ${getRulesLevelString(getAdjustedRulesLevel(unit))}</span>`);
         $unitDiv.append($dataDiv);
 

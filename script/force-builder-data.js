@@ -1,3 +1,23 @@
+function getUnitTypeString(abbreviation) {
+    if (abbreviation.startsWith("BM")) {
+        return "BattleMech";
+    } else if (abbreviation.startsWith("IM")) {
+        return "IndustrialMech";
+    } else if (abbreviation.startsWith("PM")) {
+        return "ProtoMech";
+    } else if (abbreviation.startsWith("BA")) {
+        return "Battle Armor";
+    } else if (abbreviation.startsWith("CI")) {
+        return "Conventional Infantry";
+    } else if (abbreviation.startsWith("CV")) {
+        return "Combat Vehicle";
+    } else if (abbreviation.startsWith("LAM")) {
+        return "Land Air ′Mech";
+    } else if (abbreviation.startsWith("QV")) {
+        return "QuadVee";
+    } else return "Unknown";
+}
+
 function getWeaponName(weaponId) {
     const weapon = knownWeapons.find((x) => x.id == weaponId);
     return weapon ? weapon.name : weaponId;
