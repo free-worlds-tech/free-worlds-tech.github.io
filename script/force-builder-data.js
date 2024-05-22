@@ -413,6 +413,7 @@ const knownWeapons = [
         name: "Tube Artillery",
         ammoTypes: [
             {id: "standard", name: "Standard (1)"},
+            {id: "smoke", name: "Smoke (1)"},
         ]
     },
     {
@@ -420,7 +421,11 @@ const knownWeapons = [
         name: "Thumper",
         ammoTypes: [
             {id: "standard", name: "Standard (20)"},
+            {id: "cluster", name: "Cluster (20)"},
             {id: "copperhead", name: "Copperhead (20)", tagBV: 5},
+            {id: "flechette", name: "Flechette (20)"},
+            {id: "illumination", name: "Illumination (20)"},
+            {id: "smoke", name: "Smoke (20)"},
         ]
     },
     {
@@ -428,8 +433,12 @@ const knownWeapons = [
         name: "Sniper",
         ammoTypes: [
             {id: "standard", name: "Standard (10)"},
+            {id: "cluster", name: "Cluster (10)"},
             {id: "copperhead", name: "Copperhead (10)", tagBV: 11},
             {id: "fascam", name: "FASCAM (10)", extraBV: 160},
+            {id: "flechette", name: "Flechette (10)"},
+            {id: "illumination", name: "Illumination (10)"},
+            {id: "smoke", name: "Smoke (10)"},
         ]
     },
     {
@@ -437,8 +446,12 @@ const knownWeapons = [
         name: "Long Tom",
         ammoTypes: [
             {id: "standard", name: "Standard (5)"},
+            {id: "cluster", name: "Cluster (5)"},
             {id: "copperhead", name: "Copperhead (5)", tagBV: 46},
             {id: "fascam", name: "FASCAM (5)", extraBV: 100},
+            {id: "flechette", name: "Flechette (5)"},
+            {id: "illumination", name: "Illumination (5)"},
+            {id: "smoke", name: "Smoke (5)"},
         ]
     },
     {
@@ -1509,8 +1522,12 @@ const knownWeapons = [
         name: "Thumper",
         ammoTypes: [
             {id: "standard", name: "Standard (20)"},
+            {id: "cluster", name: "Cluster (20)"},
             {id: "copperhead", name: "Copperhead (20)", tagBV: 5},
             {id: "fascam", name: "FASCAM (20)", extraBV: 240},
+            {id: "flechette", name: "Flechette (20)"},
+            {id: "illumination", name: "Illumination (20)"},
+            {id: "smoke", name: "Smoke (20)"},
         ]
     },
     {
@@ -1518,8 +1535,12 @@ const knownWeapons = [
         name: "Sniper",
         ammoTypes: [
             {id: "standard", name: "Standard (10)"},
+            {id: "cluster", name: "Cluster (10)"},
             {id: "copperhead", name: "Copperhead (10)", tagBV: 11},
             {id: "fascam", name: "FASCAM (10)", extraBV: 160},
+            {id: "flechette", name: "Flechette (10)"},
+            {id: "illumination", name: "Illumination (10)"},
+            {id: "smoke", name: "Smoke (10)"},
         ]
     },
     {
@@ -1527,8 +1548,12 @@ const knownWeapons = [
         name: "Long Tom",
         ammoTypes: [
             {id: "standard", name: "Standard (5)"},
+            {id: "cluster", name: "Cluster (5)"},
             {id: "copperhead", name: "Copperhead (5)", tagBV: 46},
             {id: "fascam", name: "FASCAM (5)", extraBV: 100},
+            {id: "flechette", name: "Flechette (5)"},
+            {id: "illumination", name: "Illumination (5)"},
+            {id: "smoke", name: "Smoke (5)"},
         ]
     },
     {
