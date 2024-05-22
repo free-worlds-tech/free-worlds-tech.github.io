@@ -429,6 +429,7 @@ const knownWeapons = [
         ammoTypes: [
             {id: "standard", name: "Standard (10)"},
             {id: "copperhead", name: "Copperhead (10)", tagBV: 11},
+            {id: "fascam", name: "FASCAM (10)", extraBV: 160},
         ]
     },
     {
@@ -437,6 +438,7 @@ const knownWeapons = [
         ammoTypes: [
             {id: "standard", name: "Standard (5)"},
             {id: "copperhead", name: "Copperhead (5)", tagBV: 46},
+            {id: "fascam", name: "FASCAM (5)", extraBV: 100},
         ]
     },
     {
@@ -1508,6 +1510,7 @@ const knownWeapons = [
         ammoTypes: [
             {id: "standard", name: "Standard (20)"},
             {id: "copperhead", name: "Copperhead (20)", tagBV: 5},
+            {id: "fascam", name: "FASCAM (20)", extraBV: 240},
         ]
     },
     {
@@ -1516,6 +1519,7 @@ const knownWeapons = [
         ammoTypes: [
             {id: "standard", name: "Standard (10)"},
             {id: "copperhead", name: "Copperhead (10)", tagBV: 11},
+            {id: "fascam", name: "FASCAM (10)", extraBV: 160},
         ]
     },
     {
@@ -1524,6 +1528,7 @@ const knownWeapons = [
         ammoTypes: [
             {id: "standard", name: "Standard (5)"},
             {id: "copperhead", name: "Copperhead (5)", tagBV: 46},
+            {id: "fascam", name: "FASCAM (5)", extraBV: 100},
         ]
     },
     {
