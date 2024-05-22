@@ -2769,6 +2769,7 @@ const knownWeapons = [
             {id: "narc", name: "Narc-Equipped"},
             {id: "smoke", name: "Smoke", level: 3},
             {id: "swarm", name: "Swarm", level: 3},
+            {id: "thunder", name: "Thunder", extraBV: 0.8, level: 3},
         ]
     },
     {
@@ -2783,6 +2784,7 @@ const knownWeapons = [
             {id: "narc", name: "Narc-Equipped"},
             {id: "smoke", name: "Smoke", level: 3},
             {id: "swarm", name: "Swarm", level: 3},
+            {id: "thunder", name: "Thunder", extraBV: 1.6, level: 3},
         ]
     },
     {
@@ -2797,6 +2799,7 @@ const knownWeapons = [
             {id: "narc", name: "Narc-Equipped"},
             {id: "smoke", name: "Smoke", level: 3},
             {id: "swarm", name: "Swarm", level: 3},
+            {id: "thunder", name: "Thunder", extraBV: 2.4, level: 3},
         ]
     },
     {
@@ -2811,6 +2814,7 @@ const knownWeapons = [
             {id: "narc", name: "Narc-Equipped"},
             {id: "smoke", name: "Smoke", level: 3},
             {id: "swarm", name: "Swarm", level: 3},
+            {id: "thunder", name: "Thunder", extraBV: 3.2, level: 3},
         ]
     },
     {
@@ -2825,6 +2829,7 @@ const knownWeapons = [
             {id: "narc", name: "Narc-Equipped"},
             {id: "smoke", name: "Smoke", level: 3},
             {id: "swarm", name: "Swarm", level: 3},
+            {id: "thunder", name: "Thunder", extraBV: 4, level: 3},
         ]
     },
     {
@@ -2839,6 +2844,7 @@ const knownWeapons = [
             {id: "narc", name: "Narc-Equipped"},
             {id: "smoke", name: "Smoke", level: 3},
             {id: "swarm", name: "Swarm", level: 3},
+            {id: "thunder", name: "Thunder", extraBV: 4.8, level: 3},
         ]
     },
     {
@@ -2853,6 +2859,7 @@ const knownWeapons = [
             {id: "narc", name: "Narc-Equipped"},
             {id: "smoke", name: "Smoke", level: 3},
             {id: "swarm", name: "Swarm", level: 3},
+            {id: "thunder", name: "Thunder", extraBV: 5.6, level: 3},
         ]
     },
     {
@@ -2867,6 +2874,7 @@ const knownWeapons = [
             {id: "narc", name: "Narc-Equipped"},
             {id: "smoke", name: "Smoke", level: 3},
             {id: "swarm", name: "Swarm", level: 3},
+            {id: "thunder", name: "Thunder", extraBV: 6.4, level: 3},
         ]
     },
     {
@@ -2881,6 +2889,7 @@ const knownWeapons = [
             {id: "narc", name: "Narc-Equipped"},
             {id: "smoke", name: "Smoke", level: 3},
             {id: "swarm", name: "Swarm", level: 3},
+            {id: "thunder", name: "Thunder", extraBV: 7.2, level: 3},
         ]
     },
     {
@@ -2895,6 +2904,7 @@ const knownWeapons = [
             {id: "narc", name: "Narc-Equipped"},
             {id: "smoke", name: "Smoke", level: 3},
             {id: "swarm", name: "Swarm", level: 3},
+            {id: "thunder", name: "Thunder", extraBV: 8, level: 3},
         ]
     },
     {
@@ -2909,6 +2919,7 @@ const knownWeapons = [
             {id: "narc", name: "Narc-Equipped"},
             {id: "smoke", name: "Smoke", level: 3},
             {id: "swarm", name: "Swarm", level: 3},
+            {id: "thunder", name: "Thunder", extraBV: 8.8, level: 3},
         ]
     },
     {
@@ -2923,6 +2934,7 @@ const knownWeapons = [
             {id: "narc", name: "Narc-Equipped"},
             {id: "smoke", name: "Smoke", level: 3},
             {id: "swarm", name: "Swarm", level: 3},
+            {id: "thunder", name: "Thunder", extraBV: 9.6, level: 3},
         ]
     },
     {
@@ -2937,6 +2949,7 @@ const knownWeapons = [
             {id: "narc", name: "Narc-Equipped"},
             {id: "smoke", name: "Smoke", level: 3},
             {id: "swarm", name: "Swarm", level: 3},
+            {id: "thunder", name: "Thunder", extraBV: 10.4, level: 3},
         ]
     },
     {
@@ -2951,6 +2964,7 @@ const knownWeapons = [
             {id: "narc", name: "Narc-Equipped"},
             {id: "smoke", name: "Smoke", level: 3},
             {id: "swarm", name: "Swarm", level: 3},
+            {id: "thunder", name: "Thunder", extraBV: 11.2, level: 3},
         ]
     },
     {
@@ -2965,6 +2979,7 @@ const knownWeapons = [
             {id: "narc", name: "Narc-Equipped"},
             {id: "smoke", name: "Smoke", level: 3},
             {id: "swarm", name: "Swarm", level: 3},
+            {id: "thunder", name: "Thunder", extraBV: 12, level: 3},
         ]
     },
     {
