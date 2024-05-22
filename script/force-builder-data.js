@@ -760,7 +760,7 @@ const knownWeapons = [
             {id: "thunder-active", name: "Thunder-Active (12)", extraBV: 72, level: 3},
             {id: "thunder-augmented", name: "Thunder-Augmented (12)", extraBV: 201.6, level: 3},
             {id: "thunder-inferno", name: "Thunder-Inferno (12)", extraBV: 60, level: 3},
-            {id: "thunder-vibro", name: "Thunder-Vibrobomb (12)", extraBV: 60, level: 3},
+            {id: "thunder-vibra", name: "Thunder-Vibrabomb (12)", extraBV: 60, level: 3},
         ]
     },
     {
@@ -785,7 +785,7 @@ const knownWeapons = [
             {id: "thunder-active", name: "Thunder-Active (6)", extraBV: 72, level: 3},
             {id: "thunder-augmented", name: "Thunder-Augmented (6)", extraBV: 168, level: 3},
             {id: "thunder-inferno", name: "Thunder-Inferno (6)", extraBV: 60, level: 3},
-            {id: "thunder-vibro", name: "Thunder-Vibrobomb (6)", extraBV: 60, level: 3},
+            {id: "thunder-vibra", name: "Thunder-Vibrabomb (6)", extraBV: 60, level: 3},
         ]
     },
     {
@@ -810,7 +810,7 @@ const knownWeapons = [
             {id: "thunder-active", name: "Thunder-Active (4)", extraBV: 72, level: 3},
             {id: "thunder-augmented", name: "Thunder-Augmented (4)", extraBV: 179.2, level: 3},
             {id: "thunder-inferno", name: "Thunder-Inferno (4)", extraBV: 60, level: 3},
-            {id: "thunder-vibro", name: "Thunder-Vibrobomb (4)", extraBV: 60, level: 3},
+            {id: "thunder-vibra", name: "Thunder-Vibrabomb (4)", extraBV: 60, level: 3},
         ]
     },
     {
@@ -835,7 +835,7 @@ const knownWeapons = [
             {id: "thunder-active", name: "Thunder-Active (3)", extraBV: 72, level: 3},
             {id: "thunder-augmented", name: "Thunder-Augmented (3)", extraBV: 168, level: 3},
             {id: "thunder-inferno", name: "Thunder-Inferno (3)", extraBV: 60, level: 3},
-            {id: "thunder-vibro", name: "Thunder-Vibrobomb (3)", extraBV: 60, level: 3},
+            {id: "thunder-vibra", name: "Thunder-Vibrabomb (3)", extraBV: 60, level: 3},
         ]
     },
     {
@@ -892,7 +892,7 @@ const knownWeapons = [
             {id: "thunder-active", name: "Thunder-Active (12)", extraBV: 72, level: 3},
             {id: "thunder-augmented", name: "Thunder-Augmented (12)", extraBV: 201.6, level: 3},
             {id: "thunder-inferno", name: "Thunder-Inferno (12)", extraBV: 60, level: 3},
-            {id: "thunder-vibro", name: "Thunder-Vibrobomb (12)", extraBV: 60, level: 3},
+            {id: "thunder-vibra", name: "Thunder-Vibrabomb (12)", extraBV: 60, level: 3},
         ]
     },
     {
@@ -917,7 +917,7 @@ const knownWeapons = [
             {id: "thunder-active", name: "Thunder-Active (6)", extraBV: 72, level: 3},
             {id: "thunder-augmented", name: "Thunder-Augmented (6)", extraBV: 168, level: 3},
             {id: "thunder-inferno", name: "Thunder-Inferno (6)", extraBV: 60, level: 3},
-            {id: "thunder-vibro", name: "Thunder-Vibrobomb (6)", extraBV: 60, level: 3},
+            {id: "thunder-vibra", name: "Thunder-Vibrabomb (6)", extraBV: 60, level: 3},
         ]
     },
     {
@@ -942,7 +942,7 @@ const knownWeapons = [
             {id: "thunder-active", name: "Thunder-Active (4)", extraBV: 72, level: 3},
             {id: "thunder-augmented", name: "Thunder-Augmented (4)", extraBV: 179.2, level: 3},
             {id: "thunder-inferno", name: "Thunder-Inferno (4)", extraBV: 60, level: 3},
-            {id: "thunder-vibro", name: "Thunder-Vibrobomb (4)", extraBV: 60, level: 3},
+            {id: "thunder-vibra", name: "Thunder-Vibrabomb (4)", extraBV: 60, level: 3},
         ]
     },
     {
@@ -967,7 +967,7 @@ const knownWeapons = [
             {id: "thunder-active", name: "Thunder-Active (3)", extraBV: 72, level: 3},
             {id: "thunder-augmented", name: "Thunder-Augmented (3)", extraBV: 168, level: 3},
             {id: "thunder-inferno", name: "Thunder-Inferno (3)", extraBV: 60, level: 3},
-            {id: "thunder-vibro", name: "Thunder-Vibrobomb (3)", extraBV: 60, level: 3},
+            {id: "thunder-vibra", name: "Thunder-Vibrabomb (3)", extraBV: 60, level: 3},
         ]
     },
     {
@@ -1096,7 +1096,7 @@ const knownWeapons = [
             {id: "lrm-thunder-active", name: "Thunder-Active LRM (20)", extraBV: 72, level: 3},
             {id: "lrm-thunder-augmented", name: "Thunder-Augmented LRM (20)", extraBV: 224, level: 3},
             {id: "lrm-thunder-inferno", name: "Thunder-Inferno LRM (20)", extraBV: 60, level: 3},
-            {id: "lrm-thunder-vibro", name: "Thunder-Vibrobomb LRM (20)", extraBV: 60, level: 3},
+            {id: "lrm-thunder-vibra", name: "Thunder-Vibrabomb LRM (20)", extraBV: 60, level: 3},
             {id: "srm", name: "SRM (33)"},
             {id: "srm-acid", name: "Acid SRM (16)", extraBV: 4, level: 4},
             {id: "srm-arad", name: "Anti-Radiation SRM (33)", extraBV: 1.2, level: 4},
@@ -1134,7 +1134,7 @@ const knownWeapons = [
             {id: "lrm-thunder-active", name: "Thunder-Active LRM (12)", extraBV: 72, level: 3},
             {id: "lrm-thunder-augmented", name: "Thunder-Augmented LRM (12)", extraBV: 201.6, level: 3},
             {id: "lrm-thunder-inferno", name: "Thunder-Inferno LRM (12)", extraBV: 60, level: 3},
-            {id: "lrm-thunder-vibro", name: "Thunder-Vibrobomb LRM (12)", extraBV:60, level: 3},
+            {id: "lrm-thunder-vibra", name: "Thunder-Vibrabomb LRM (12)", extraBV:60, level: 3},
             {id: "srm", name: "SRM (20)"},
             {id: "srm-acid", name: "Acid SRM (10)", extraBV: 6, level: 4},
             {id: "srm-arad", name: "Anti-Radiation SRM (20)", extraBV: 1.8, level: 4},
@@ -1172,7 +1172,7 @@ const knownWeapons = [
             {id: "lrm-thunder-active", name: "Thunder-Active LRM (8)", extraBV: 67.2, level: 3},
             {id: "lrm-thunder-augmented", name: "Thunder-Augmented LRM (8)", extraBV: 179.2, level: 3},
             {id: "lrm-thunder-inferno", name: "Thunder-Inferno LRM (8)", extraBV: 56, level: 3},
-            {id: "lrm-thunder-vibro", name: "Thunder-Vibrobomb LRM (8)", extraBV: 56, level: 3},
+            {id: "lrm-thunder-vibra", name: "Thunder-Vibrabomb LRM (8)", extraBV: 56, level: 3},
             {id: "srm", name: "SRM (14)"},
             {id: "srm-acid", name: "Acid SRM (7)", extraBV: 8, level: 4},
             {id: "srm-arad", name: "Anti-Radiation SRM (14)", extraBV: 2.4, level: 4},
@@ -1210,7 +1210,7 @@ const knownWeapons = [
             {id: "lrm-thunder-active", name: "Thunder-Active LRM (6)", extraBV: 64.8, level: 3},
             {id: "lrm-thunder-augmented", name: "Thunder-Augmented LRM (6)", extraBV: 168, level: 3},
             {id: "lrm-thunder-inferno", name: "Thunder-Inferno LRM (6)", extraBV: 54, level: 3},
-            {id: "lrm-thunder-vibro", name: "Thunder-Vibrobomb LRM (6)", extraBV: 54, level: 3},
+            {id: "lrm-thunder-vibra", name: "Thunder-Vibrabomb LRM (6)", extraBV: 54, level: 3},
             {id: "srm", name: "SRM (11)"},
             {id: "srm-acid", name: "Acid SRM (5)", extraBV: 11, level: 4},
             {id: "srm-arad", name: "Anti-Radiation SRM (11)", extraBV: 3.3, level: 4},
@@ -1266,6 +1266,9 @@ const knownWeapons = [
             {id: "infernoiv", name: "Inferno-IV (5)"},
             {id: "laserinhibiting", name: "Laser-Inhibiting (2)"},
             {id: "smoke", name: "Smoke (5)"},
+            {id: "thunder", name: "Thunder (5)", extraBV: 80},
+            {id: "thunder-active", name: "Thunder-Active (5)", extraBV: 120},
+            {id: "thunder-vibra", name: "Thunder-Vibrabomb (5)", extraBV: 100},
         ]
     },
     {
@@ -2138,6 +2141,7 @@ const knownWeapons = [
             {id: "homing", name: "Homing (5)", tagBV: 30},
             {id: "illumination", name: "Illumination (5)"},
             {id: "smoke", name: "Smoke (5)"},
+            {id: "thunder", name: "Thunder (5)", extraBV: 120},
         ]
     },
     {
