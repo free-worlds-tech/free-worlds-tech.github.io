@@ -757,6 +757,7 @@ const knownWeapons = [
             {id: "swarm", name: "Swarm (24)", level: 3},
             {id: "swarmi", name: "Swarm-I (24)", extraBV: 1.2, level: 3},
             {id: "thunder", name: "Thunder (24)", extraBV: 96, level: 3},
+            {id: "thunder-augmented", name: "Thunder-Augmented (12)", extraBV: 201.6, level: 3},
         ]
     },
     {
@@ -778,6 +779,7 @@ const knownWeapons = [
             {id: "swarm", name: "Swarm (12)", level: 3},
             {id: "swarmi", name: "Swarm-I (12)", extraBV: 2.2, level: 3},
             {id: "thunder", name: "Thunder (12)", extraBV: 96, level: 3},
+            {id: "thunder-augmented", name: "Thunder-Augmented (6)", extraBV: 168, level: 3},
         ]
     },
     {
@@ -799,6 +801,7 @@ const knownWeapons = [
             {id: "swarm", name: "Swarm (8)", level: 3},
             {id: "swarmi", name: "Swarm-I (8)", extraBV: 3.4, level: 3},
             {id: "thunder", name: "Thunder (8)", extraBV: 96, level: 3},
+            {id: "thunder-augmented", name: "Thunder-Augmented (4)", extraBV: 179.2, level: 3},
         ]
     },
     {
@@ -820,6 +823,7 @@ const knownWeapons = [
             {id: "swarm", name: "Swarm (6)", level: 3},
             {id: "swarmi", name: "Swarm-I (6)", extraBV: 4.6, level: 3},
             {id: "thunder", name: "Thunder (6)", extraBV: 96, level: 3},
+            {id: "thunder-augmented", name: "Thunder-Augmented (3)", extraBV: 168, level: 3},
         ]
     },
     {
@@ -873,6 +877,7 @@ const knownWeapons = [
             {id: "swarm", name: "Swarm (24)", level: 3},
             {id: "swarmi", name: "Swarm-I (24)", extraBV: 1.4, level: 3},
             {id: "thunder", name: "Thunder (24)", extraBV: 96, level: 3},
+            {id: "thunder-augmented", name: "Thunder-Augmented (12)", extraBV: 201.6, level: 3},
         ]
     },
     {
@@ -894,6 +899,7 @@ const knownWeapons = [
             {id: "swarm", name: "Swarm (12)", level: 3},
             {id: "swarmi", name: "Swarm-I (12)", extraBV: 2.6, level: 3},
             {id: "thunder", name: "Thunder (12)", extraBV: 96, level: 3},
+            {id: "thunder-augmented", name: "Thunder-Augmented (6)", extraBV: 168, level: 3},
         ]
     },
     {
@@ -915,6 +921,7 @@ const knownWeapons = [
             {id: "swarm", name: "Swarm (8)", level: 3},
             {id: "swarmi", name: "Swarm-I (8)", extraBV: 4, level: 3},
             {id: "thunder", name: "Thunder (8)", extraBV: 96, level: 3},
+            {id: "thunder-augmented", name: "Thunder-Augmented (4)", extraBV: 179.2, level: 3},
         ]
     },
     {
@@ -936,6 +943,7 @@ const knownWeapons = [
             {id: "swarm", name: "Swarm (6)", level: 3},
             {id: "swarmi", name: "Swarm-I (6)", extraBV: 5.2, level: 3},
             {id: "thunder", name: "Thunder (6)", extraBV: 96, level: 3},
+            {id: "thunder-augmented", name: "Thunder-Augmented (3)", extraBV: 168, level: 3},
         ]
     },
     {
@@ -1061,6 +1069,7 @@ const knownWeapons = [
             {id: "lrm-swarm", name: "Swarm LRM (40)", level: 3},
             {id: "lrm-swarmi", name: "Swarm-I LRM (40)", extraBV: 0.8, level: 3},
             {id: "lrm-thunder", name: "Thunder LRM (40)", extraBV: 96, level: 3},
+            {id: "lrm-thunder-augmented", name: "Thunder-Augmented LRM (20)", extraBV: 224, level: 3},
             {id: "srm", name: "SRM (33)"},
             {id: "srm-acid", name: "Acid SRM (16)", extraBV: 4, level: 4},
             {id: "srm-arad", name: "Anti-Radiation SRM (33)", extraBV: 1.2, level: 4},
@@ -1095,6 +1104,7 @@ const knownWeapons = [
             {id: "lrm-swarm", name: "Swarm LRM (24)", level: 3},
             {id: "lrm-swarmi", name: "Swarm-I LRM (24)", extraBV: 1.2, level: 3},
             {id: "lrm-thunder", name: "Thunder LRM (24)", extraBV: 96, level: 3},
+            {id: "lrm-thunder-augmented", name: "Thunder-Augmented LRM (12)", extraBV: 201.6, level: 3},
             {id: "srm", name: "SRM (20)"},
             {id: "srm-acid", name: "Acid SRM (10)", extraBV: 6, level: 4},
             {id: "srm-arad", name: "Anti-Radiation SRM (20)", extraBV: 1.8, level: 4},
@@ -1129,6 +1139,7 @@ const knownWeapons = [
             {id: "lrm-swarm", name: "Swarm LRM (17)", level: 3},
             {id: "lrm-swarmi", name: "Swarm-I LRM (17)", extraBV: 1.6, level: 3},
             {id: "lrm-thunder", name: "Thunder LRM (17)", extraBV: 95.2, level: 3},
+            {id: "lrm-thunder-augmented", name: "Thunder-Augmented LRM (8)", extraBV: 179.2, level: 3},
             {id: "srm", name: "SRM (14)"},
             {id: "srm-acid", name: "Acid SRM (7)", extraBV: 8, level: 4},
             {id: "srm-arad", name: "Anti-Radiation SRM (14)", extraBV: 2.4, level: 4},
@@ -1163,6 +1174,7 @@ const knownWeapons = [
             {id: "lrm-swarm", name: "Swarm LRM (13)", level: 3},
             {id: "lrm-swarmi", name: "Swarm-I LRM (13)", extraBV: 2.2, level: 3},
             {id: "lrm-thunder", name: "Thunder LRM (13)", extraBV: 93.6, level: 3},
+            {id: "lrm-thunder-augmented", name: "Thunder-Augmented LRM (6)", extraBV: 168, level: 3},
             {id: "srm", name: "SRM (11)"},
             {id: "srm-acid", name: "Acid SRM (5)", extraBV: 11, level: 4},
             {id: "srm-arad", name: "Anti-Radiation SRM (11)", extraBV: 3.3, level: 4},
