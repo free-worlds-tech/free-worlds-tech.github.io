@@ -22,6 +22,10 @@ button.network {
     width: 100%;
 }
 
+#force-name-box {
+    width: 100%;
+}
+
 .search-results-list {
     list-style-type:none;
     padding: 0;

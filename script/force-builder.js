@@ -992,7 +992,14 @@ function readyPrintContent() {
     let totalAdjBV = 0;
     let unitCount = 0;
 
-    $forceList.append("<h1>BattleTech Force</h1>");
+    const forceName = $("#force-name-box").val();
+    if (forceName.trim() != "") {
+        $forceList.append(`<h1>${forceName}</h1>`);
+    } else {
+        $forceList.append("<h1>BattleTech Force</h1>");
+    }
+
+    
     $forceList.append("<em>Built with the FWTI force builder</em>");
 
     const $unitTable = $("<table>", {class: "full-width small-font"});
