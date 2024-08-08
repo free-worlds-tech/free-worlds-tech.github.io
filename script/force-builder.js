@@ -14,10 +14,24 @@ let searchResumeToken = 0;
 const c3mUnits = [];
 const c3sUnits = [];
 const c3iUnits = [];
+const bspChoices = [];
 
 readyInterface();
 
 function readyInterface() {
+    const $bsp = $("#bsp-list");
+    
+    bspTypes.forEach((x) => {
+        let bspName = x.name;
+        let bspValue = x.value;
+        $bsp.append(
+            `<li>
+                <button title="Add support to force" type="button" onclick="addBSP('${x.id}');"><span class="material-symbols-outlined">add</span></button>
+                <span class="search-result">${bspName} <span class="subtle">- ${bspValue} BSP</span></span>
+            </li>`
+        );
+    });
+
     $(".lazy").removeAttr("disabled");
 
     const urlParams = new URLSearchParams(window.location.search);
@@ -1161,6 +1175,18 @@ function readyPrintContent() {
         });
     }
 
+    if (bspChoices.length > 0) {
+        let totalBSP = 0;
+        const $bspList = $("<ul>");
+        bspChoices.forEach((x) => {
+            const bspInfo = bspTypes.find((item) => item.id == x);
+            $bspList.append(`<li>${bspInfo.name} - ${bspInfo.value} BSP</li>`);
+            totalBSP += bspInfo.value;
+        });
+        $forceList.append(`<h2>Battlefield Support (${totalBSP} BSP)</h2>`);
+        $forceList.append($bspList);
+    }
+
     const $pageBreakDiv = $("<div>", {class: "new-page"});
     $forceList.append($pageBreakDiv);
 
@@ -2005,4 +2031,10 @@ function getCrewPositionName(unit, slot) {
     }
 
     return positionName;
+}
+
+function addBSP(bspId) {
+    const bspInfo = bspTypes.find((x) => x.id == bspId);
+    bspChoices.push(bspId);
+    $("#bsp-choices").append(`<div>${bspInfo.name}</div>`);
 }

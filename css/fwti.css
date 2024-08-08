@@ -41,6 +41,10 @@ button.network {
     background-color: var(--accent-bg);
 }
 
+.search-results-list li:nth-child(odd) {
+    background-color: var(--bg);
+}
+
 .search-results-list button {
     padding: 0.3rem;
     margin: 0rem;

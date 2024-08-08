@@ -3400,3 +3400,28 @@ function getSkillMultiplier(gunnery, piloting) {
             return 1;
     }
 }
+
+const bspTypes = [
+    { id: "light-strike", name: "Light Strike", value: 2 },
+    { id: "light-bombing", name: "Light Bombing", value: 3 },
+    { id: "heavy-strike", name: "Heavy Strike", value: 3 },
+    { id: "heavy-bombing", name: "Heavy Bombing", value: 4 },
+    { id: "strafing", name: "Strafing", value: 5 },
+    { id: "light-air-cover", name: "Light Air Cover", value: 1 },
+    { id: "heavy-air-cover", name: "Heavy Air Cover", value: 2 },
+    { id: "thumper", name: "Thumper", value: 3 },
+    { id: "thumper-copperhead", name: "Thumper (Copperhead)", value: 3 },
+    { id: "thumper-illumination", name: "Thumper (Illumination)", value: 1 },
+    { id: "thumper-smoke", name: "Thumper (Smoke)", value: 1 },
+    { id: "sniper", name: "Sniper", value: 4 },
+    { id: "sniper-copperhead", name: "Sniper (Copperhead)", value: 4 },
+    { id: "sniper-illumination", name: "Sniper (Illumination)", value: 2 },
+    { id: "sniper-smoke", name: "Sniper (Smoke)", value: 2 },
+    { id: "long-tom", name: "Long Tom", value: 6 },
+    { id: "long-tom-copperhead", name: "Long Tom (Copperhead)", value: 6 },
+    { id: "long-tom-illumination", name: "Long Tom (Illumination)", value: 3 },
+    { id: "long-tom-smoke", name: "Long Tom (Smoke)", value: 3 },
+    { id: "light-minefield", name: "Light Density Minefield", value: 0.5 },
+    { id: "medium-minefield", name: "Medium Density Minefield", value: 2 },
+    { id: "heavy-minefield", name: "Heavy Density Minefield", value: 4 },
+];
