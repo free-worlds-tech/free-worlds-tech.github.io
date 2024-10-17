@@ -98,6 +98,8 @@ function searchUnits() {
     const requireC3i = $("#search-c3i").is(":checked");
     const requireOmni = $("#search-omni").is(":checked");
     const requireTAG = $("#search-tag").is(":checked");
+    const requireProbe = $("#search-probe").is(":checked");
+    const requireECM = $("#search-ecm").is(":checked");
 
     let searchParams = new URLSearchParams();
     if (query.length > 0) {
@@ -140,6 +142,12 @@ function searchUnits() {
     }
     if (requireTAG) {
         searchParams.append("tag", "1");
+    }
+    if (requireProbe) {
+        searchParams.append("probe", "1");
+    }
+    if (requireECM) {
+        searchParams.append("ecm", "1");
     }
 
     showSearchStatus("Searching...");
