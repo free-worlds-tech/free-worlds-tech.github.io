@@ -175,6 +175,8 @@ button.network {
 
 .unit-entry-header a {
     float: right;
+    padding: 0.3rem;
+    margin-right: 0.5rem;
 }
 
 .subtle {
