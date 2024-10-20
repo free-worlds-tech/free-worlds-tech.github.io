@@ -235,7 +235,7 @@ function showUnitList(list, moreAvailable, searching) {
         $("#search-results").append(`<li><em>No units found.</em></li>`);
     } else {
         list.forEach((unit) => {
-            $("#search-results").append(`<li><button title='Add unit to force' type='button' onclick='addUnitById("${unit.id}")'><span class="material-symbols-outlined">add</span></button><a href="#${unit.id}"><span class="material-symbols-outlined">info</span></a><span class="search-result">${unit.name}<span class="subtle"> - ${unit.bv.toLocaleString("en-us")}&nbsp;BV - ${getRulesLevelString(unit.level)}</span></span></li>`);
+            $("#search-results").append(`<li><button title='Add unit to force' type='button' onclick='addUnitById("${unit.id}")'><span class="material-symbols-outlined">add</span></button><a target="_blank" href="./unit-digest/${unit.id}.htm"><span class="material-symbols-outlined">info</span></a><span class="search-result">${unit.name}<span class="subtle"> - ${unit.bv.toLocaleString("en-us")}&nbsp;BV - ${getRulesLevelString(unit.level)}</span></span></li>`);
         });
         if (moreAvailable) {
             if (searchResumeToken) {
@@ -350,6 +350,7 @@ function addUnitRow(unit)
     
     const $headerRow = $("<div>", {class: "unit-entry-header"});
     $headerRow.append("<button class='remove-button' type='button' title='Remove unit from force' onclick='removeUnit(" + unit.id + ")'><span class='material-symbols-outlined'>delete</span></button>");
+    $headerRow.append(`<a target="_blank" href="./unit-digest/${unit.unitProps.id}.htm"><span class="material-symbols-outlined">info</span></a>`);
     $headerRow.append(`<h4>${unit.unitProps.name}</h4>`);
     $li.append($headerRow);
 

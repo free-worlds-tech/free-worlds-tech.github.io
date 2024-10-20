@@ -173,6 +173,10 @@ button.network {
     float: right;
 }
 
+.unit-entry-header a {
+    float: right;
+}
+
 .subtle {
     color: var(--text-light);
 }
