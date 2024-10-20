@@ -47,6 +47,12 @@ button.network {
     float: right;
 }
 
+.search-results-list a {
+    padding: 0.3rem;
+    margin-right: 0.5rem;
+    float: right;
+}
+
 .search-bar {
     display: flex;
 }
@@ -165,6 +171,12 @@ button.network {
 
 .unit-entry-header .remove-button {
     float: right;
+}
+
+.unit-entry-header a {
+    float: right;
+    padding: 0.3rem;
+    margin-right: 0.5rem;
 }
 
 .subtle {
