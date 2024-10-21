@@ -18,6 +18,9 @@ const c3iUnits = [];
 readyInterface();
 
 function readyInterface() {
+    populateEraSelects();
+    populateFactionSelects();
+
     $(".lazy").removeAttr("disabled");
 
     const urlParams = new URLSearchParams(window.location.search);
@@ -32,6 +35,102 @@ function readyInterface() {
             </div>`
         );
     }
+}
+
+function populateEraSelects() {
+    const $eraSelects = $(".era-select");
+    $eraSelects.append(`<option value="any">Any Era</option>`);
+    $eraSelects.append(`<option value="star-league">Star League</option>`);
+    $eraSelects.append(`<option value="early-succession-wars">Early Succession Wars</option>`);
+    $eraSelects.append(`<option value="lostech">LosTech</option>`);
+    $eraSelects.append(`<option value="renaissance">Renaissance</option>`);
+    $eraSelects.append(`<option value="clan-invasion">Clan Invasion</option>`);
+    $eraSelects.append(`<option value="civil-war">Civil War</option>`);
+    $eraSelects.append(`<option value="jihad">Jihad</option>`);
+    $eraSelects.append(`<option value="early-republic">Early Republic</option>`);
+    $eraSelects.append(`<option value="late-republic">Late Republic</option>`);
+    $eraSelects.append(`<option value="dark-ages">Dark Age</option>`);
+    $eraSelects.append(`<option value="ilclan">ilClan</option>`);
+}
+
+function populateFactionSelects() {
+    const $factionSelects = $(".faction-select");
+    $factionSelects.append(`<option value="any">Any Faction</option>`);
+    $factionSelects.append(`<option value="alyina-mercantile-league">Alyina Mercantile League</option>`);
+    $factionSelects.append(`<option value="calderon-protectorate">Calderon Protectorate</option>`);
+    $factionSelects.append(`<option value="capellan-confederation">Capellan Confederation</option>`);
+    $factionSelects.append(`<option value="circinus-federation">Circinus Federation</option>`);
+    $factionSelects.append(`<option value="clan-blood-spirit">Clan Blood Spirit</option>`);
+    $factionSelects.append(`<option value="clan-burrock">Clan Burrock</option>`);
+    $factionSelects.append(`<option value="clan-cloud-cobra">Clan Cloud Cobra</option>`);
+    $factionSelects.append(`<option value="clan-coyote">Clan Coyote</option>`);
+    $factionSelects.append(`<option value="clan-diamond-shark">Clan Diamond Shark</option>`);
+    $factionSelects.append(`<option value="clan-fire-mandrill">Clan Fire Mandrill</option>`);
+    $factionSelects.append(`<option value="clan-ghost-bear">Clan Ghost Bear</option>`);
+    $factionSelects.append(`<option value="clan-goliath-scorpion">Clan Goliath Scorpion</option>`);
+    $factionSelects.append(`<option value="clan-hells-horses">Clan Hell's Horses</option>`);
+    $factionSelects.append(`<option value="clan-ice-hellion">Clan Ice Hellion</option>`);
+    $factionSelects.append(`<option value="clan-jade-falcon">Clan Jade Falcon</option>`);
+    $factionSelects.append(`<option value="clan-mongoose">Clan Mongoose</option>`);
+    $factionSelects.append(`<option value="clan-nova-cat">Clan Nova Cat</option>`);
+    $factionSelects.append(`<option value="clan-protectorate">Clan Protectorate</option>`);
+    $factionSelects.append(`<option value="clan-sea-fox">Clan Sea Fox</option>`);
+    $factionSelects.append(`<option value="clan-smoke-jaguar">Clan Smoke Jaguar</option>`);
+    $factionSelects.append(`<option value="clan-snow-raven">Clan Snow Raven</option>`);
+    $factionSelects.append(`<option value="clan-star-adder">Clan Star Adder</option>`);
+    $factionSelects.append(`<option value="clan-steel-viper">Clan Steel Viper</option>`);
+    $factionSelects.append(`<option value="clan-stone-lion">Clan Stone Lion</option>`);
+    $factionSelects.append(`<option value="clan-widowmaker">Clan Widowmaker</option>`);
+    $factionSelects.append(`<option value="clan-wolf">Clan Wolf</option>`);
+    $factionSelects.append(`<option value="clan-wolf-in-exile">Clan Wolf-in-Exile</option>`);
+    $factionSelects.append(`<option value="clan-wolverine">Clan Wolverine</option>`);
+    $factionSelects.append(`<option value="comstar">ComStar</option>`);
+    $factionSelects.append(`<option value="draconis-combine">Draconis Combine</option>`);
+    $factionSelects.append(`<option value="duchy-of-andurien">Duchy of Andurien</option>`);
+    $factionSelects.append(`<option value="duchy-of-tamarind-abbey">Duchy of Tamarind-Abbey</option>`);
+    $factionSelects.append(`<option value="escorpion-imperio">Escorpión Imperio</option>`);
+    $factionSelects.append(`<option value="federated-commonwealth">Federated Commonwealth</option>`);
+    $factionSelects.append(`<option value="federated-suns">Federated Suns</option>`);
+    $factionSelects.append(`<option value="filtvelt-coalition">Filtvelt Coalition</option>`);
+    $factionSelects.append(`<option value="free-rasalhague-republic">Free Rasalhague Republic</option>`);
+    $factionSelects.append(`<option value="free-worlds-league">Free Worlds League</option>`);
+    $factionSelects.append(`<option value="free-worlds-league-non-aligned-worlds">Free Worlds League - Non-Aligned Worlds</option>`);
+    $factionSelects.append(`<option value="fronc-reaches">Fronc Reaches</option>`);
+    $factionSelects.append(`<option value="kell-hounds">Kell Hounds</option>`);
+    $factionSelects.append(`<option value="lyran-alliance">Lyran Alliance</option>`);
+    $factionSelects.append(`<option value="lyran-commonwealth">Lyran Commonwealth</option>`);
+    $factionSelects.append(`<option value="magistracy-of-canopus">Magistracy of Canopus</option>`);
+    $factionSelects.append(`<option value="marian-hegemony">Marian Hegemony</option>`);
+    $factionSelects.append(`<option value="marik-stewart-commonwealth">Marik Stewart Commonwealth</option>`);
+    $factionSelects.append(`<option value="mercenary">Mercenary</option>`);
+    $factionSelects.append(`<option value="oriente-protectorate">Oriente Protectorate</option>`);
+    $factionSelects.append(`<option value="outworlds-alliance">Outworlds Alliance</option>`);
+    $factionSelects.append(`<option value="pirate">Pirate</option>`);
+    $factionSelects.append(`<option value="rasalhague-dominion">Rasalhague Dominion</option>`);
+    $factionSelects.append(`<option value="raven-alliance">Raven Alliance</option>`);
+    $factionSelects.append(`<option value="regulan-fiefs">Regulan Fiefs</option>`);
+    $factionSelects.append(`<option value="republic-of-the-sphere">Republic of the Sphere</option>`);
+    $factionSelects.append(`<option value="rim-commonality">Rim Commonality</option>`);
+    $factionSelects.append(`<option value="rim-worlds-republic">Rim Worlds Republic</option>`);
+    $factionSelects.append(`<option value="rim-worlds-republic-terran-corps">Rim Worlds Republic - Terran Corps</option>`);
+    $factionSelects.append(`<option value="scorpion-empire">Scorpion Empire</option>`);
+    $factionSelects.append(`<option value="second-star-league">Second Star League</option>`);
+    $factionSelects.append(`<option value="society">Society</option>`);
+    $factionSelects.append(`<option value="solaris-7">Solaris 7</option>`);
+    $factionSelects.append(`<option value="st-ives-compact">St. Ives Compact</option>`);
+    $factionSelects.append(`<option value="star-league">Star League</option>`);
+    $factionSelects.append(`<option value="star-league-jade-falcon">Star League - Jade Falcon</option>`);
+    $factionSelects.append(`<option value="star-league-smoke-jaguar">Star League - Smoke Jaguar</option>`);
+    $factionSelects.append(`<option value="star-league-wolf">Star League - Wolf</option>`);
+    $factionSelects.append(`<option value="star-league-royal-divisions">Star League - Royal Divisions</option>`);
+    $factionSelects.append(`<option value="star-league-in-exile">Star League-in-Exile</option>`);
+    $factionSelects.append(`<option value="tamar-pact">Tamar Pact</option>`);
+    $factionSelects.append(`<option value="taurian-concordat">Taurian Concordat</option>`);
+    $factionSelects.append(`<option value="terran-hegemony">Terran Hegemony</option>`);
+    $factionSelects.append(`<option value="vesper-marches">Vesper Marches</option>`);
+    $factionSelects.append(`<option value="wolf-empire">Wolf Empire</option>`);
+    $factionSelects.append(`<option value="wolfs-dragoons">Wolf's Dragoons</option>`);
+    $factionSelects.append(`<option value="word-of-blake">Word of Blake</option>`);
 }
 
 function searchKeyDown(e) {
