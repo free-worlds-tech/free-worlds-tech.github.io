@@ -51,10 +51,10 @@
         <label>Name:</label>
         <input id="force-name-box" class="lazy full-width" type="text" placeholder="BattleTech Force" disabled="disabled" />
         <label>Era:</label>
-        <select title="Era" id="force-era" class="lazy era-select full-width">
+        <select title="Era" id="force-era" class="lazy era-select full-width" onchange="updateUnitAvailabilities()">
         </select>
         <label>Faction:</label>
-        <select title="Faction" id="force-faction" class="lazy faction-select full-width">
+        <select title="Faction" id="force-faction" class="lazy faction-select full-width" onchange="updateUnitAvailabilities()">
         </select>
     </div>
     <h3 class="no-print">Search Units</h3>

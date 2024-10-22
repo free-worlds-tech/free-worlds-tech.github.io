@@ -411,6 +411,7 @@ function addUnit(unitProps) {
 
     addUnitRow(newUnit);
     addUnitAmmoSelector(newUnit);
+    updateUnitAvailability(newUnit);
 
     if (unitProps.specials.includes("c3m")) {
         c3mUnits.push({id: currentId, linked: false});
@@ -440,14 +441,22 @@ function getUnitFullName(unit) {
     }
 }
 
-function addUnitRow(unit)
-{
+function updateUnitAvailability(unit) {
+    const $unitName = $(`#unit-${unit.id} .unit-name`);
+    if (isAvailabilityMatch(unit.unitProps.availability, $("#force-era").val(), $("#force-faction").val())) {
+        $unitName.css('color', '');
+    } else {
+        $unitName.css('color', 'red');
+    }
+}
+
+function addUnitRow(unit) {
     const $li = $("<li>", {id: `unit-${unit.id}`, class: "unit-entry"});
     
     const $headerRow = $("<div>", {class: "unit-entry-header"});
     $headerRow.append("<button class='remove-button' type='button' title='Remove unit from force' onclick='removeUnit(" + unit.id + ")'><span class='material-symbols-outlined'>delete</span></button>");
     $headerRow.append(`<a target="_blank" href="./unit-digest/${unit.unitProps.id}.htm"><span class="material-symbols-outlined">info</span></a>`);
-    $headerRow.append(`<h4>${unit.unitProps.name}</h4>`);
+    $headerRow.append(`<h4 class='unit-name'>${unit.unitProps.name}</h4>`);
     $li.append($headerRow);
 
     const $costsDiv = $("<div>", {class: "unit-costs"});
@@ -2018,4 +2027,10 @@ function getCrewPositionName(unit, slot) {
     }
 
     return positionName;
+}
+
+function updateUnitAvailabilities() {
+    force.forEach((unit) => {
+        updateUnitAvailability(unit);
+    });
 }
