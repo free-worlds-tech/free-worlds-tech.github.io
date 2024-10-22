@@ -95,6 +95,26 @@ function getAdjustedRulesLevel(unit) {
     return level;
 }
 
+function isAvailabilityMatch(availability, era, faction) {
+    if (era == "any" && faction == "any") {
+        return true;
+    }
+    if (!availability) {
+        return false;
+    }
+    for (let i = 0; i < availability.length; i++) {
+        if (era == "any" || era == availability[i].era) {
+            for (let j = 0; j < availability[i].factions.length; j++) {
+                if (faction == "any" || faction == availability[i].factions[j]) {
+                    return true;
+                }
+            }
+        }
+    }
+
+    return false;
+}
+
 let knownUnits = [];
 
 const knownWeapons = [

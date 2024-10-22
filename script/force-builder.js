@@ -1026,8 +1026,10 @@ function readyPrintContent() {
     $headerRow.append("<th class='right-align'>Adjusted BV</th>"); 
     $unitTable.append($headerRow);
 
+    let salvageUnits = false;
+
     force.forEach((unit) => {
-        const unitName = getUnitFullName(unit);
+        let unitName = getUnitFullName(unit);
 
         const unitTonnage = unit.unitProps.tonnage;
         const unitBaseBV = unit.unitProps.bv;
@@ -1063,6 +1065,11 @@ function readyPrintContent() {
             }
         }
 
+        if (!isAvailabilityMatch(unit.unitProps.availability, $("#force-era").val(), $("#force-faction").val())) {
+            unitName += "†";
+            salvageUnits = true;
+        }
+
         $unitRow.append(`<td>${unitName}</td>`);
         $unitRow.append(`<td>${unitType}</td>`);
         $unitRow.append(`<td class="center-align">${unitSkills}</td>`);
@@ -1088,6 +1095,10 @@ function readyPrintContent() {
     $unitTable.append($footerRow);
 
     $forceList.append($unitTable);
+
+    if (salvageUnits) {
+        $forceList.append("<p>Units marked with a † symbol are not normally available for the force's era and faction.</p>");
+    }
 
     if (networks.size > 0) {
         networks.forEach((network) => {
