@@ -39,7 +39,8 @@ function readyInterface() {
 
 function populateEraSelects() {
     const $eraSelects = $(".era-select");
-    $eraSelects.append(`<option value="any">Any Era</option>`);
+    $eraSelects.filter("#force-era").append(`<option value="any">No Era Selected</option>`);
+    $eraSelects.filter("#search-era").append(`<option value="any">Any Era</option>`);
     $eraSelects.append(`<option value="star-league">Star League</option>`);
     $eraSelects.append(`<option value="early-succession-wars">Early Succession Wars</option>`);
     $eraSelects.append(`<option value="lostech">LosTech</option>`);
@@ -55,7 +56,8 @@ function populateEraSelects() {
 
 function populateFactionSelects() {
     const $factionSelects = $(".faction-select");
-    $factionSelects.append(`<option value="any">Any Faction</option>`);
+    $factionSelects.filter("#force-faction").append(`<option value="any">No Faction Selected</option>`);
+    $factionSelects.filter("#search-faction").append(`<option value="any">Any Faction</option>`);
     $factionSelects.append(`<option value="alyina-mercantile-league">Alyina Mercantile League</option>`);
     $factionSelects.append(`<option value="calderon-protectorate">Calderon Protectorate</option>`);
     $factionSelects.append(`<option value="capellan-confederation">Capellan Confederation</option>`);
@@ -991,107 +993,6 @@ function updateCrewName(id, position) {
     }
 }
 
-function downloadForce() {
-    let contents = "# Saved Force\n";
-    contents += "\n";
-    contents += "| Unit | Crew | Gunnery | Piloting | Tonnage | Base BV | Adjusted BV |\n";
-    contents += "| :--- | :--- | :-----: | :------: | ------: | ------: | ----------: |\n";
-    let totalTonnage = 0;
-    let totalBV = 0;
-    let totalAdjBV = 0;
-    force.forEach((unit) => {
-        let crewName = unit.crew;
-        let gunnery = `${unit.gunnery}`;
-        let piloting = `${unit.piloting}`;
-        if (unit.crew2 != undefined) {
-            crewName += `, ${unit.crew2}`;
-            gunnery += `, ${unit.gunnery2}`;
-            piloting += `, ${unit.piloting2}`;
-        }
-        if (unit.crew3 != undefined) {
-            crewName += `, ${unit.crew3}`;
-            gunnery += `, ${unit.gunnery3}`;
-            piloting += `, ${unit.piloting3}`;
-        }
-        contents += `| ${unit.unitProps.name} | ${crewName} | ${gunnery} | ${piloting} | ${unit.unitProps.tonnage} | ${unit.unitProps.bv} | ${unit.adjustedBV} |\n`;
-        totalTonnage += unit.unitProps.tonnage;
-        totalBV += unit.unitProps.bv;
-        totalAdjBV += unit.adjustedBV;
-    });
-    contents += `| **TOTAL** |  |  |  | ${totalTonnage} | ${totalBV} | ${totalAdjBV} |\n`;
-    contents += "\n";
-    contents += "## Ammo Selections\n";
-    force.forEach((unit) => {
-        if (unit.unitProps.ammo.length > 0) {
-            contents += `### ${getUnitFullName(unit)}\n`;
-            
-            unit.unitProps.ammo.forEach((ammoBin, index) => {
-                const weaponName = getWeaponName(ammoBin.type);
-                const ammoName = getAmmoName(ammoBin.type, unit.ammoTypes.get(index), ammoBin.shots);
-                contents += `- ${weaponName} (${ammoBin.location}): ${ammoName}\n`;
-            });
-        }
-    });
-    contents += "\n";
-    contents += "## Networks\n";
-    networks.forEach((network) => {
-        if (network.type == "c3") {
-            contents += "### C3 Network\n";
-            const rootUnit = force.get(network.rootUnit.id);
-            contents += `- ${getUnitFullName(rootUnit)}\n`
-            network.rootUnit.links.forEach((link) => {
-                const linkedUnit = force.get(link.id);
-                if (linkedUnit) {
-                    contents += `  - ${getUnitFullName(linkedUnit)}\n`;
-                } else if (link.id == -1) {
-                    contents += "  - Self-link\n";
-                }
-                if (link.links) {
-                    link.links.forEach((sublink) => {
-                        const sublinkedUnit = force.get(sublink.id);
-                        if (sublinkedUnit) {
-                            contents += `    - ${getUnitFullName(sublinkedUnit)}\n`;
-                        }
-                    });
-                }
-            });
-        } else if (network.type == "c3i") {
-            contents += "### C3i Network\n";
-            network.units.forEach((link) => {
-                const linkedUnit = force.get(link.id);
-                if (linkedUnit) {
-                    contents += `- ${getUnitFullName(linkedUnit)}\n`;
-                }
-            });
-        }
-    });
-    contents += "\n";
-    contents += "## BV Breakdown\n";
-    force.forEach((unit) => {
-        contents += `- ${getUnitFullName(unit)}: ${unit.unitProps.bv}`;
-        unit.bvNotes.forEach((note) => {
-            if (note.amount > 0) {
-                contents += ` + ${note.amount} (${note.note})`
-            } else {
-                contents += ` - ${Math.abs(note.amount)} (${note.note})`
-            }
-        });
-        contents += ` = ${unit.adjustedBV}\n`;
-    });
-    contents += "\n";
-
-    let tempElement = document.createElement('a');
-    tempElement.setAttribute('href', 'data:text/markdown;charset=utf-8,' + encodeURIComponent(contents));
-    tempElement.setAttribute('download', 'saved-force.md');
-
-    tempElement.style.display = 'none';
-    document.body.appendChild(tempElement);
-
-    tempElement.click();
-
-    document.body.removeChild(tempElement);
-}
-
 function readyPrintContent() {
     const $forceList = $("#force-list-print");
 
@@ -1107,8 +1008,13 @@ function readyPrintContent() {
         $forceList.append("<h1>BattleTech Force</h1>");
     }
 
-    
     $forceList.append("<em>Built with the FWTI force builder</em>");
+
+    const forceEra = $("#force-era").find(":selected").text();
+    const forceFaction = $("#force-faction").find(":selected").text();
+
+    $forceList.append(`<p><strong>Era: </strong>${forceEra}</p>`);
+    $forceList.append(`<p><strong>Faction: </strong>${forceFaction}</p>`);
 
     const $unitTable = $("<table>", {class: "full-width small-font"});
     const $headerRow = $("<tr>");
