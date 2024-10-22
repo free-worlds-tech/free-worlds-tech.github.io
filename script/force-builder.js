@@ -351,11 +351,6 @@ function showUnitList(list, moreAvailable, searching) {
     }
 }
 
-function addSelectedUnit() {
-    const unitProps = getUnitProperties();
-    addUnit(unitProps);
-}
-
 function addUnitById(unitId) {
     const unitProps = getKnownUnit(unitId);
     addUnit(unitProps);
@@ -657,13 +652,6 @@ function setExclusiveAmmo(unit, weaponType, exclusiveAmmoType) {
             }
         }
     });
-}
-
-function getUnitProperties() {
-    const $unitPicker = $("#unit-picker");
-    const unitId = $unitPicker.find("option:selected").val();
-    
-    return getKnownUnit(unitId);
 }
 
 function updateUnitBV(unit, fromNetworkChange) {
