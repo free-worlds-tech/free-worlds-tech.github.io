@@ -2032,6 +2032,9 @@ function getCrewPositionName(unit, slot) {
 }
 
 function updateUnitAvailabilities() {
+    $("#search-era").val($("#force-era").val());
+    $("#search-faction").val($("#force-faction").val());
+
     force.forEach((unit) => {
         updateUnitAvailability(unit);
     });
