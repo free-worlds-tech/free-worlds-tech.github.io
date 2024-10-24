@@ -18,6 +18,9 @@ const c3iUnits = [];
 readyInterface();
 
 function readyInterface() {
+    populateEraSelects();
+    populateFactionSelects();
+
     $(".lazy").removeAttr("disabled");
 
     const urlParams = new URLSearchParams(window.location.search);
@@ -32,6 +35,104 @@ function readyInterface() {
             </div>`
         );
     }
+}
+
+function populateEraSelects() {
+    const $eraSelects = $(".era-select");
+    $eraSelects.filter("#force-era").append(`<option value="any">No Era Selected</option>`);
+    $eraSelects.filter("#search-era").append(`<option value="any">Any Era</option>`);
+    $eraSelects.append(`<option value="star-league">Star League</option>`);
+    $eraSelects.append(`<option value="early-succession-wars">Early Succession Wars</option>`);
+    $eraSelects.append(`<option value="lostech">LosTech</option>`);
+    $eraSelects.append(`<option value="renaissance">Renaissance</option>`);
+    $eraSelects.append(`<option value="clan-invasion">Clan Invasion</option>`);
+    $eraSelects.append(`<option value="civil-war">Civil War</option>`);
+    $eraSelects.append(`<option value="jihad">Jihad</option>`);
+    $eraSelects.append(`<option value="early-republic">Early Republic</option>`);
+    $eraSelects.append(`<option value="late-republic">Late Republic</option>`);
+    $eraSelects.append(`<option value="dark-ages">Dark Age</option>`);
+    $eraSelects.append(`<option value="ilclan">ilClan</option>`);
+}
+
+function populateFactionSelects() {
+    const $factionSelects = $(".faction-select");
+    $factionSelects.filter("#force-faction").append(`<option value="any">No Faction Selected</option>`);
+    $factionSelects.filter("#search-faction").append(`<option value="any">Any Faction</option>`);
+    $factionSelects.append(`<option value="alyina-mercantile-league">Alyina Mercantile League</option>`);
+    $factionSelects.append(`<option value="calderon-protectorate">Calderon Protectorate</option>`);
+    $factionSelects.append(`<option value="capellan-confederation">Capellan Confederation</option>`);
+    $factionSelects.append(`<option value="circinus-federation">Circinus Federation</option>`);
+    $factionSelects.append(`<option value="clan-blood-spirit">Clan Blood Spirit</option>`);
+    $factionSelects.append(`<option value="clan-burrock">Clan Burrock</option>`);
+    $factionSelects.append(`<option value="clan-cloud-cobra">Clan Cloud Cobra</option>`);
+    $factionSelects.append(`<option value="clan-coyote">Clan Coyote</option>`);
+    $factionSelects.append(`<option value="clan-diamond-shark">Clan Diamond Shark</option>`);
+    $factionSelects.append(`<option value="clan-fire-mandrill">Clan Fire Mandrill</option>`);
+    $factionSelects.append(`<option value="clan-ghost-bear">Clan Ghost Bear</option>`);
+    $factionSelects.append(`<option value="clan-goliath-scorpion">Clan Goliath Scorpion</option>`);
+    $factionSelects.append(`<option value="clan-hells-horses">Clan Hell's Horses</option>`);
+    $factionSelects.append(`<option value="clan-ice-hellion">Clan Ice Hellion</option>`);
+    $factionSelects.append(`<option value="clan-jade-falcon">Clan Jade Falcon</option>`);
+    $factionSelects.append(`<option value="clan-mongoose">Clan Mongoose</option>`);
+    $factionSelects.append(`<option value="clan-nova-cat">Clan Nova Cat</option>`);
+    $factionSelects.append(`<option value="clan-protectorate">Clan Protectorate</option>`);
+    $factionSelects.append(`<option value="clan-sea-fox">Clan Sea Fox</option>`);
+    $factionSelects.append(`<option value="clan-smoke-jaguar">Clan Smoke Jaguar</option>`);
+    $factionSelects.append(`<option value="clan-snow-raven">Clan Snow Raven</option>`);
+    $factionSelects.append(`<option value="clan-star-adder">Clan Star Adder</option>`);
+    $factionSelects.append(`<option value="clan-steel-viper">Clan Steel Viper</option>`);
+    $factionSelects.append(`<option value="clan-stone-lion">Clan Stone Lion</option>`);
+    $factionSelects.append(`<option value="clan-widowmaker">Clan Widowmaker</option>`);
+    $factionSelects.append(`<option value="clan-wolf">Clan Wolf</option>`);
+    $factionSelects.append(`<option value="clan-wolf-in-exile">Clan Wolf-in-Exile</option>`);
+    $factionSelects.append(`<option value="clan-wolverine">Clan Wolverine</option>`);
+    $factionSelects.append(`<option value="comstar">ComStar</option>`);
+    $factionSelects.append(`<option value="draconis-combine">Draconis Combine</option>`);
+    $factionSelects.append(`<option value="duchy-of-andurien">Duchy of Andurien</option>`);
+    $factionSelects.append(`<option value="duchy-of-tamarind-abbey">Duchy of Tamarind-Abbey</option>`);
+    $factionSelects.append(`<option value="escorpion-imperio">Escorpión Imperio</option>`);
+    $factionSelects.append(`<option value="federated-commonwealth">Federated Commonwealth</option>`);
+    $factionSelects.append(`<option value="federated-suns">Federated Suns</option>`);
+    $factionSelects.append(`<option value="filtvelt-coalition">Filtvelt Coalition</option>`);
+    $factionSelects.append(`<option value="free-rasalhague-republic">Free Rasalhague Republic</option>`);
+    $factionSelects.append(`<option value="free-worlds-league">Free Worlds League</option>`);
+    $factionSelects.append(`<option value="free-worlds-league-non-aligned-worlds">Free Worlds League - Non-Aligned Worlds</option>`);
+    $factionSelects.append(`<option value="fronc-reaches">Fronc Reaches</option>`);
+    $factionSelects.append(`<option value="kell-hounds">Kell Hounds</option>`);
+    $factionSelects.append(`<option value="lyran-alliance">Lyran Alliance</option>`);
+    $factionSelects.append(`<option value="lyran-commonwealth">Lyran Commonwealth</option>`);
+    $factionSelects.append(`<option value="magistracy-of-canopus">Magistracy of Canopus</option>`);
+    $factionSelects.append(`<option value="marian-hegemony">Marian Hegemony</option>`);
+    $factionSelects.append(`<option value="marik-stewart-commonwealth">Marik Stewart Commonwealth</option>`);
+    $factionSelects.append(`<option value="mercenary">Mercenary</option>`);
+    $factionSelects.append(`<option value="oriente-protectorate">Oriente Protectorate</option>`);
+    $factionSelects.append(`<option value="outworlds-alliance">Outworlds Alliance</option>`);
+    $factionSelects.append(`<option value="pirate">Pirate</option>`);
+    $factionSelects.append(`<option value="rasalhague-dominion">Rasalhague Dominion</option>`);
+    $factionSelects.append(`<option value="raven-alliance">Raven Alliance</option>`);
+    $factionSelects.append(`<option value="regulan-fiefs">Regulan Fiefs</option>`);
+    $factionSelects.append(`<option value="republic-of-the-sphere">Republic of the Sphere</option>`);
+    $factionSelects.append(`<option value="rim-commonality">Rim Commonality</option>`);
+    $factionSelects.append(`<option value="rim-worlds-republic">Rim Worlds Republic</option>`);
+    $factionSelects.append(`<option value="rim-worlds-republic-terran-corps">Rim Worlds Republic - Terran Corps</option>`);
+    $factionSelects.append(`<option value="scorpion-empire">Scorpion Empire</option>`);
+    $factionSelects.append(`<option value="second-star-league">Second Star League</option>`);
+    $factionSelects.append(`<option value="society">Society</option>`);
+    $factionSelects.append(`<option value="solaris-7">Solaris 7</option>`);
+    $factionSelects.append(`<option value="st-ives-compact">St. Ives Compact</option>`);
+    $factionSelects.append(`<option value="star-league">Star League</option>`);
+    $factionSelects.append(`<option value="star-league-jade-falcon">Star League - Jade Falcon</option>`);
+    $factionSelects.append(`<option value="star-league-smoke-jaguar">Star League - Smoke Jaguar</option>`);
+    $factionSelects.append(`<option value="star-league-wolf">Star League - Wolf</option>`);
+    $factionSelects.append(`<option value="star-league-royal-divisions">Star League - Royal Divisions</option>`);
+    $factionSelects.append(`<option value="star-league-in-exile">Star League-in-Exile</option>`);
+    $factionSelects.append(`<option value="tamar-pact">Tamar Pact</option>`);
+    $factionSelects.append(`<option value="taurian-concordat">Taurian Concordat</option>`);
+    $factionSelects.append(`<option value="terran-hegemony">Terran Hegemony</option>`);
+    $factionSelects.append(`<option value="vesper-marches">Vesper Marches</option>`);
+    $factionSelects.append(`<option value="wolf-empire">Wolf Empire</option>`);
+    $factionSelects.append(`<option value="wolfs-dragoons">Wolf's Dragoons</option>`);
+    $factionSelects.append(`<option value="word-of-blake">Word of Blake</option>`);
 }
 
 function searchKeyDown(e) {
@@ -235,7 +336,7 @@ function showUnitList(list, moreAvailable, searching) {
         $("#search-results").append(`<li><em>No units found.</em></li>`);
     } else {
         list.forEach((unit) => {
-            $("#search-results").append(`<li><button title='Add unit to force' type='button' onclick='addUnitById("${unit.id}")'><span class="material-symbols-outlined">add</span></button><a target="_blank" href="./unit-digest/${unit.id}.htm"><span class="material-symbols-outlined">info</span></a><span class="search-result">${unit.name}<span class="subtle"> - ${unit.bv.toLocaleString("en-us")}&nbsp;BV - ${getRulesLevelString(unit.level)}</span></span></li>`);
+            $("#search-results").append(`<li><button title='Add unit to force' type='button' onclick='addUnitById("${unit.id}")'><span class="material-symbols-outlined">add</span></button><a target="_blank" href="./unit-digest/${unit.id}.htm" title="Show unit information"><span class="material-symbols-outlined">info</span></a><span class="search-result">${unit.name}<span class="subtle"> - ${unit.bv.toLocaleString("en-us")}&nbsp;BV - ${getRulesLevelString(unit.level)}</span></span></li>`);
         });
         if (moreAvailable) {
             if (searchResumeToken) {
@@ -248,11 +349,6 @@ function showUnitList(list, moreAvailable, searching) {
             $("#search-results").append(`<li><em>Searching...</em></li>`);
         }
     }
-}
-
-function addSelectedUnit() {
-    const unitProps = getUnitProperties();
-    addUnit(unitProps);
 }
 
 function addUnitById(unitId) {
@@ -315,6 +411,7 @@ function addUnit(unitProps) {
 
     addUnitRow(newUnit);
     addUnitAmmoSelector(newUnit);
+    updateUnitAvailability(newUnit);
 
     if (unitProps.specials.includes("c3m")) {
         c3mUnits.push({id: currentId, linked: false});
@@ -344,14 +441,24 @@ function getUnitFullName(unit) {
     }
 }
 
-function addUnitRow(unit)
-{
+function updateUnitAvailability(unit) {
+    const $unitName = $(`#unit-${unit.id} .unit-name`);
+    $unitName.empty();
+    if (isAvailabilityMatch(unit.unitProps.availability, $("#force-era").val(), $("#force-faction").val())) {
+        $unitName.text(unit.unitProps.name);
+    } else {
+        $unitName.text(unit.unitProps.name);
+        $unitName.append(`<span title="Unit is not normally available for this force's faction and era." class="material-symbols-outlined warning">warning</span>`)
+    }
+}
+
+function addUnitRow(unit) {
     const $li = $("<li>", {id: `unit-${unit.id}`, class: "unit-entry"});
     
     const $headerRow = $("<div>", {class: "unit-entry-header"});
     $headerRow.append("<button class='remove-button' type='button' title='Remove unit from force' onclick='removeUnit(" + unit.id + ")'><span class='material-symbols-outlined'>delete</span></button>");
-    $headerRow.append(`<a target="_blank" href="./unit-digest/${unit.unitProps.id}.htm"><span class="material-symbols-outlined">info</span></a>`);
-    $headerRow.append(`<h4>${unit.unitProps.name}</h4>`);
+    $headerRow.append(`<a target="_blank" href="./unit-digest/${unit.unitProps.id}.htm" title="Show unit information"><span class="material-symbols-outlined">info</span></a>`);
+    $headerRow.append(`<h4 class='unit-name'>${unit.unitProps.name}</h4>`);
     $li.append($headerRow);
 
     const $costsDiv = $("<div>", {class: "unit-costs"});
@@ -556,13 +663,6 @@ function setExclusiveAmmo(unit, weaponType, exclusiveAmmoType) {
             }
         }
     });
-}
-
-function getUnitProperties() {
-    const $unitPicker = $("#unit-picker");
-    const unitId = $unitPicker.find("option:selected").val();
-    
-    return getKnownUnit(unitId);
 }
 
 function updateUnitBV(unit, fromNetworkChange) {
@@ -892,107 +992,6 @@ function updateCrewName(id, position) {
     }
 }
 
-function downloadForce() {
-    let contents = "# Saved Force\n";
-    contents += "\n";
-    contents += "| Unit | Crew | Gunnery | Piloting | Tonnage | Base BV | Adjusted BV |\n";
-    contents += "| :--- | :--- | :-----: | :------: | ------: | ------: | ----------: |\n";
-    let totalTonnage = 0;
-    let totalBV = 0;
-    let totalAdjBV = 0;
-    force.forEach((unit) => {
-        let crewName = unit.crew;
-        let gunnery = `${unit.gunnery}`;
-        let piloting = `${unit.piloting}`;
-        if (unit.crew2 != undefined) {
-            crewName += `, ${unit.crew2}`;
-            gunnery += `, ${unit.gunnery2}`;
-            piloting += `, ${unit.piloting2}`;
-        }
-        if (unit.crew3 != undefined) {
-            crewName += `, ${unit.crew3}`;
-            gunnery += `, ${unit.gunnery3}`;
-            piloting += `, ${unit.piloting3}`;
-        }
-        contents += `| ${unit.unitProps.name} | ${crewName} | ${gunnery} | ${piloting} | ${unit.unitProps.tonnage} | ${unit.unitProps.bv} | ${unit.adjustedBV} |\n`;
-        totalTonnage += unit.unitProps.tonnage;
-        totalBV += unit.unitProps.bv;
-        totalAdjBV += unit.adjustedBV;
-    });
-    contents += `| **TOTAL** |  |  |  | ${totalTonnage} | ${totalBV} | ${totalAdjBV} |\n`;
-    contents += "\n";
-    contents += "## Ammo Selections\n";
-    force.forEach((unit) => {
-        if (unit.unitProps.ammo.length > 0) {
-            contents += `### ${getUnitFullName(unit)}\n`;
-            
-            unit.unitProps.ammo.forEach((ammoBin, index) => {
-                const weaponName = getWeaponName(ammoBin.type);
-                const ammoName = getAmmoName(ammoBin.type, unit.ammoTypes.get(index), ammoBin.shots);
-                contents += `- ${weaponName} (${ammoBin.location}): ${ammoName}\n`;
-            });
-        }
-    });
-    contents += "\n";
-    contents += "## Networks\n";
-    networks.forEach((network) => {
-        if (network.type == "c3") {
-            contents += "### C3 Network\n";
-            const rootUnit = force.get(network.rootUnit.id);
-            contents += `- ${getUnitFullName(rootUnit)}\n`
-            network.rootUnit.links.forEach((link) => {
-                const linkedUnit = force.get(link.id);
-                if (linkedUnit) {
-                    contents += `  - ${getUnitFullName(linkedUnit)}\n`;
-                } else if (link.id == -1) {
-                    contents += "  - Self-link\n";
-                }
-                if (link.links) {
-                    link.links.forEach((sublink) => {
-                        const sublinkedUnit = force.get(sublink.id);
-                        if (sublinkedUnit) {
-                            contents += `    - ${getUnitFullName(sublinkedUnit)}\n`;
-                        }
-                    });
-                }
-            });
-        } else if (network.type == "c3i") {
-            contents += "### C3i Network\n";
-            network.units.forEach((link) => {
-                const linkedUnit = force.get(link.id);
-                if (linkedUnit) {
-                    contents += `- ${getUnitFullName(linkedUnit)}\n`;
-                }
-            });
-        }
-    });
-    contents += "\n";
-    contents += "## BV Breakdown\n";
-    force.forEach((unit) => {
-        contents += `- ${getUnitFullName(unit)}: ${unit.unitProps.bv}`;
-        unit.bvNotes.forEach((note) => {
-            if (note.amount > 0) {
-                contents += ` + ${note.amount} (${note.note})`
-            } else {
-                contents += ` - ${Math.abs(note.amount)} (${note.note})`
-            }
-        });
-        contents += ` = ${unit.adjustedBV}\n`;
-    });
-    contents += "\n";
-
-    let tempElement = document.createElement('a');
-    tempElement.setAttribute('href', 'data:text/markdown;charset=utf-8,' + encodeURIComponent(contents));
-    tempElement.setAttribute('download', 'saved-force.md');
-
-    tempElement.style.display = 'none';
-    document.body.appendChild(tempElement);
-
-    tempElement.click();
-
-    document.body.removeChild(tempElement);
-}
-
 function readyPrintContent() {
     const $forceList = $("#force-list-print");
 
@@ -1008,8 +1007,13 @@ function readyPrintContent() {
         $forceList.append("<h1>BattleTech Force</h1>");
     }
 
-    
     $forceList.append("<em>Built with the FWTI force builder</em>");
+
+    const forceEra = $("#force-era").find(":selected").text();
+    const forceFaction = $("#force-faction").find(":selected").text();
+
+    $forceList.append(`<p><strong>Era: </strong>${forceEra}</p>`);
+    $forceList.append(`<p><strong>Faction: </strong>${forceFaction}</p>`);
 
     const $unitTable = $("<table>", {class: "full-width small-font"});
     const $headerRow = $("<tr>");
@@ -1021,8 +1025,10 @@ function readyPrintContent() {
     $headerRow.append("<th class='right-align'>Adjusted BV</th>"); 
     $unitTable.append($headerRow);
 
+    let salvageUnits = false;
+
     force.forEach((unit) => {
-        const unitName = getUnitFullName(unit);
+        let unitName = getUnitFullName(unit);
 
         const unitTonnage = unit.unitProps.tonnage;
         const unitBaseBV = unit.unitProps.bv;
@@ -1058,6 +1064,11 @@ function readyPrintContent() {
             }
         }
 
+        if (!isAvailabilityMatch(unit.unitProps.availability, $("#force-era").val(), $("#force-faction").val())) {
+            unitName += "†";
+            salvageUnits = true;
+        }
+
         $unitRow.append(`<td>${unitName}</td>`);
         $unitRow.append(`<td>${unitType}</td>`);
         $unitRow.append(`<td class="center-align">${unitSkills}</td>`);
@@ -1083,6 +1094,10 @@ function readyPrintContent() {
     $unitTable.append($footerRow);
 
     $forceList.append($unitTable);
+
+    if (salvageUnits) {
+        $forceList.append("<p>Units marked with a † symbol are not normally available for the force's era and faction.</p>");
+    }
 
     if (networks.size > 0) {
         networks.forEach((network) => {
@@ -2014,4 +2029,10 @@ function getCrewPositionName(unit, slot) {
     }
 
     return positionName;
+}
+
+function updateUnitAvailabilities() {
+    force.forEach((unit) => {
+        updateUnitAvailability(unit);
+    });
 }

@@ -22,7 +22,7 @@ button.network {
     width: 100%;
 }
 
-#force-name-box {
+.full-width {
     width: 100%;
 }
 
@@ -181,4 +181,11 @@ button.network {
 
 .subtle {
     color: var(--text-light);
+}
+
+.warning {
+    color: yellow;
+    font-size: 1.2rem;
+    margin-left: 0.3rem;
+    cursor: default;
 }
