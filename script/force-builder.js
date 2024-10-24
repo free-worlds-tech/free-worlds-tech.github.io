@@ -336,7 +336,7 @@ function showUnitList(list, moreAvailable, searching) {
         $("#search-results").append(`<li><em>No units found.</em></li>`);
     } else {
         list.forEach((unit) => {
-            $("#search-results").append(`<li><button title='Add unit to force' type='button' onclick='addUnitById("${unit.id}")'><span class="material-symbols-outlined">add</span></button><a target="_blank" href="./unit-digest/${unit.id}.htm"><span class="material-symbols-outlined">info</span></a><span class="search-result">${unit.name}<span class="subtle"> - ${unit.bv.toLocaleString("en-us")}&nbsp;BV - ${getRulesLevelString(unit.level)}</span></span></li>`);
+            $("#search-results").append(`<li><button title='Add unit to force' type='button' onclick='addUnitById("${unit.id}")'><span class="material-symbols-outlined">add</span></button><a target="_blank" href="./unit-digest/${unit.id}.htm" title="Show unit information"><span class="material-symbols-outlined">info</span></a><span class="search-result">${unit.name}<span class="subtle"> - ${unit.bv.toLocaleString("en-us")}&nbsp;BV - ${getRulesLevelString(unit.level)}</span></span></li>`);
         });
         if (moreAvailable) {
             if (searchResumeToken) {
@@ -443,10 +443,12 @@ function getUnitFullName(unit) {
 
 function updateUnitAvailability(unit) {
     const $unitName = $(`#unit-${unit.id} .unit-name`);
+    $unitName.empty();
     if (isAvailabilityMatch(unit.unitProps.availability, $("#force-era").val(), $("#force-faction").val())) {
-        $unitName.css('color', '');
+        $unitName.text(unit.unitProps.name);
     } else {
-        $unitName.css('color', 'red');
+        $unitName.text(unit.unitProps.name);
+        $unitName.append(`<span title="Unit is not normally available for this force's faction and era." class="material-symbols-outlined warning">warning</span>`)
     }
 }
 
@@ -455,7 +457,7 @@ function addUnitRow(unit) {
     
     const $headerRow = $("<div>", {class: "unit-entry-header"});
     $headerRow.append("<button class='remove-button' type='button' title='Remove unit from force' onclick='removeUnit(" + unit.id + ")'><span class='material-symbols-outlined'>delete</span></button>");
-    $headerRow.append(`<a target="_blank" href="./unit-digest/${unit.unitProps.id}.htm"><span class="material-symbols-outlined">info</span></a>`);
+    $headerRow.append(`<a target="_blank" href="./unit-digest/${unit.unitProps.id}.htm" title="Show unit information"><span class="material-symbols-outlined">info</span></a>`);
     $headerRow.append(`<h4 class='unit-name'>${unit.unitProps.name}</h4>`);
     $li.append($headerRow);
 
