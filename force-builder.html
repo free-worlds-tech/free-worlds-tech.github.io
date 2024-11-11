@@ -40,6 +40,10 @@
         </nav>
     </header>
 
+    <div id="notification-bar">
+        Testing...
+    </div>
+
     <h2 class="no-print" id="page-title">Force Builder</h2>
     <p class="notice no-print">
         This force builder for BattleTech is a work-in-progress.
@@ -50,124 +54,133 @@
         <a href="https://forms.gle/hV9hx6k7tHSHAGWTA">short survey</a>
         that you can fill out to help prioritize potential features for the force builder.
     </p>
-    <h3 class="no-print">Force Details</h3>
-    <div class="no-print">
-        <label>Name:</label>
-        <input id="force-name-box" class="lazy full-width" type="text" placeholder="BattleTech Force" disabled="disabled" />
-        <label>Era:</label>
-        <select title="Era" id="force-era" class="lazy era-select full-width" onchange="updateUnitAvailabilities()">
-        </select>
-        <label>Faction:</label>
-        <select title="Faction" id="force-faction" class="lazy faction-select full-width" onchange="updateUnitAvailabilities()">
-        </select>
+    <div class="tab-row">
+        <button id="tab-header-force" title="Force Details" class="tab-header" type="button" onclick="switchToForceTab()">Force</button>
+        <button id="tab-header-search" title="Search Units" class="tab-header" type="button" onclick="switchToSearchTab()">Search</button>
     </div>
-    <h3 class="no-print">Search Units</h3>
-    <div class="advanced-search no-print">
-        <div class="search-bar">
-            <input id="search-box" class="lazy" type="text" placeholder="Unit Name" onkeydown="searchKeyDown(event)" disabled="disabled">
-            <button id="search-button" class="lazy" title="Search for matching units" type="button" onclick="searchUnits()" disabled="disabled">Search</button>
+    <div id="tab-force-details" class="tab">
+        <h3 class="no-print">Force Details</h3>
+        <div class="no-print">
+            <label>Name:</label>
+            <input id="force-name-box" class="lazy full-width" type="text" placeholder="BattleTech Force" disabled="disabled" />
+            <label>Era:</label>
+            <select title="Era" id="force-era" class="lazy era-select full-width" onchange="updateUnitAvailabilities()">
+            </select>
+            <label>Faction:</label>
+            <select title="Faction" id="force-faction" class="lazy faction-select full-width" onchange="updateUnitAvailabilities()">
+            </select>
         </div>
-        <details>
-            <summary>Advanced Search Parameters</summary>
-            <div class="era-and-faction">
-                <label>Availability:</label>
-                <select title="Era" id="search-era" class="lazy era-select">
-                </select>
-                <select title="Faction" id="search-faction" class="lazy faction-select">
-                </select>
+        <h3 class="no-print">Selected Units</h3>
+        <div class="no-print">
+            <button id="clear-units-button" class="lazy" title="Remove all units from force" type="reset" onclick="clearUnits()" disabled="disabled">Clear Force List</button>
+            <!--<button id="download-button" class="lazy" title="Download force as a markdown file" type="button" onclick="downloadForce()" disabled="disabled">Download Force List</button>-->
+            <button id="print-button" class="lazy" title="Print force" type="button" onclick="printForce()">Print Force List</button>
+        </div>
+        <div class="unit-costs force-totals no-print">
+            <span>Tonnage: <span id="tonnage-total">0</span></span>
+            <span>Base BV: <span id="bv-total">0</span></span>
+            <span>Adjusted BV: <span id="adj-bv-total">0</span></span>
+        </div>
+        <p id="empty-force-placeholder"><i><a href="javascript:void(0)" onclick="switchToSearchTab()">Search</a> for units to add to your list.</i></p>
+        <ul id="force-list" class="force-list no-print">
+        </ul>
+        <h3 class="no-print">Networks</h3>
+        <p class="no-print">Set up C<sup>3</sup> networks for your force.</p>
+        <div class="no-print">
+            <button id="add-c3-network-button" title="Add a C3 network" type="button" onclick="addC3Network()" disabled="disabled">Add C<sup>3</sup> network</button>
+            <button id="add-c3i-network-button" title="Add a C3i network" type="button" onclick="addC3iNetwork()" disabled="disabled">Add C<sup>3</sup>i network</button>
+        </div>
+        <div id="network-setups" class="no-print">
+        </div>
+    </div>
+    <div id="tab-search" class="tab">
+        <h3 class="no-print">Search Units</h3>
+        <div class="advanced-search no-print">
+            <div class="search-bar">
+                <input id="search-box" class="lazy" type="text" placeholder="Unit Name" onkeydown="searchKeyDown(event)" disabled="disabled">
+                <button id="search-button" class="lazy" title="Search for matching units" type="button" onclick="searchUnits()" disabled="disabled">Search</button>
             </div>
-            <div class="min-and-max">
-                <label>Tonnage:</label>
-                <input type="number" id="search-min-tonnage" placeholder="No Minimum" step="5" min="0">
-                <input type="number" id="search-max-tonnage" placeholder="No Maximum" step="5" min="0"> 
-            </div>
-            <div class="min-and-max">
-                <label>Battle Value:</label>
-                <input type="number" id="search-min-bv" placeholder="No Minimum" step="100" min="0">
-                <input type="number" id="search-max-bv" placeholder="No Maximum" step="100" min="0"> 
-            </div>
-            <b>Only return these unit types:</b>
-            <label>
-                <input type="checkbox" id="search-bm" value="bm" checked>
-                BattleMech
-            </label>
-            <label>
-                <input type="checkbox" id="search-im" value="im" checked>
-                IndustrialMech
-            </label>
-            <label>
-                <input type="checkbox" id="search-pm" value="pm" checked>
-                ProtoMech
-            </label>
-            <label>
-                <input type="checkbox" id="search-ba" value="ba" checked>
-                Battle Armor
-            </label>
-            <label>
-                <input type="checkbox" id="search-ci" value="ci" checked>
-                Conventional Infantry
-            </label>
-            <label>
-                <input type="checkbox" id="search-cv" value="cv" checked>
-                Combat Vehicle
-            </label>
-            <label>
-                <input type="checkbox" id="search-qv" value="qv" checked>
-                QuadVee
-            </label>
-            <b>Only return units with:</b>
-            <label>
-                <input type="checkbox" id="search-probe" value="probe">
-                Active Probe
-            </label>
-            <label>
-                <input type="checkbox" id="search-c3m" value="c3m">
-                C<sup>3</sup>M
-            </label>
-            <label>
-                <input type="checkbox" id="search-c3s" value="c3s">
-                C<sup>3</sup>S
-            </label>
-            <label>
-                <input type="checkbox" id="search-c3i" value="c3i">
-                C<sup>3</sup>i
-            </label>
-            <label>
-                <input type="checkbox" id="search-ecm" value="ecm">
-                ECM
-            </label>
-            <label>
-                <input type="checkbox" id="search-omni" value="omni">
-                Omni
-            </label>
-            <label>
-                <input type="checkbox" id="search-tag" value="tag">
-                TAG
-            </label>
-        </details>
-    </div>
-    <ul id="search-results" class="search-results-list no-print">
-    </ul>
-    <h3 class="no-print">Selected Force</h3>
-    <div class="no-print">
-        <button id="clear-units-button" class="lazy" title="Remove all units from force" type="reset" onclick="clearUnits()" disabled="disabled">Clear Force List</button>
-        <!--<button id="download-button" class="lazy" title="Download force as a markdown file" type="button" onclick="downloadForce()" disabled="disabled">Download Force List</button>-->
-        <button id="print-button" class="lazy" title="Print force" type="button" onclick="printForce()">Print Force List</button>
-    </div>
-    <div class="unit-costs force-totals no-print">
-        <span>Tonnage: <span id="tonnage-total">0</span></span>
-        <span>Base BV: <span id="bv-total">0</span></span>
-        <span>Adjusted BV: <span id="adj-bv-total">0</span></span>
-    </div>
-    <ul id="force-list" class="force-list no-print">
-    </ul>
-    <h4 class="no-print">Networks</h4>
-    <p class="no-print">Set up C<sup>3</sup> networks for your force.</p>
-    <div class="no-print">
-        <button id="add-c3-network-button" title="Add a C3 network" type="button" onclick="addC3Network()" disabled="disabled">Add C<sup>3</sup> network</button>
-        <button id="add-c3i-network-button" title="Add a C3i network" type="button" onclick="addC3iNetwork()" disabled="disabled">Add C<sup>3</sup>i network</button>
-    </div>
-    <div id="network-setups" class="no-print">
+            <details>
+                <summary>Advanced Search Parameters</summary>
+                <div class="era-and-faction">
+                    <label>Availability:</label>
+                    <select title="Era" id="search-era" class="lazy era-select">
+                    </select>
+                    <select title="Faction" id="search-faction" class="lazy faction-select">
+                    </select>
+                </div>
+                <div class="min-and-max">
+                    <label>Tonnage:</label>
+                    <input type="number" id="search-min-tonnage" placeholder="No Minimum" step="5" min="0">
+                    <input type="number" id="search-max-tonnage" placeholder="No Maximum" step="5" min="0"> 
+                </div>
+                <div class="min-and-max">
+                    <label>Battle Value:</label>
+                    <input type="number" id="search-min-bv" placeholder="No Minimum" step="100" min="0">
+                    <input type="number" id="search-max-bv" placeholder="No Maximum" step="100" min="0"> 
+                </div>
+                <b>Only return these unit types:</b>
+                <label>
+                    <input type="checkbox" id="search-bm" value="bm" checked>
+                    BattleMech
+                </label>
+                <label>
+                    <input type="checkbox" id="search-im" value="im" checked>
+                    IndustrialMech
+                </label>
+                <label>
+                    <input type="checkbox" id="search-pm" value="pm" checked>
+                    ProtoMech
+                </label>
+                <label>
+                    <input type="checkbox" id="search-ba" value="ba" checked>
+                    Battle Armor
+                </label>
+                <label>
+                    <input type="checkbox" id="search-ci" value="ci" checked>
+                    Conventional Infantry
+                </label>
+                <label>
+                    <input type="checkbox" id="search-cv" value="cv" checked>
+                    Combat Vehicle
+                </label>
+                <label>
+                    <input type="checkbox" id="search-qv" value="qv" checked>
+                    QuadVee
+                </label>
+                <b>Only return units with:</b>
+                <label>
+                    <input type="checkbox" id="search-probe" value="probe">
+                    Active Probe
+                </label>
+                <label>
+                    <input type="checkbox" id="search-c3m" value="c3m">
+                    C<sup>3</sup>M
+                </label>
+                <label>
+                    <input type="checkbox" id="search-c3s" value="c3s">
+                    C<sup>3</sup>S
+                </label>
+                <label>
+                    <input type="checkbox" id="search-c3i" value="c3i">
+                    C<sup>3</sup>i
+                </label>
+                <label>
+                    <input type="checkbox" id="search-ecm" value="ecm">
+                    ECM
+                </label>
+                <label>
+                    <input type="checkbox" id="search-omni" value="omni">
+                    Omni
+                </label>
+                <label>
+                    <input type="checkbox" id="search-tag" value="tag">
+                    TAG
+                </label>
+            </details>
+        </div>
+        <ul id="search-results" class="search-results-list no-print">
+        </ul>
     </div>
     <div id="force-list-print" class="force-list print-only">
     </div>

@@ -18,8 +18,12 @@ const c3iUnits = [];
 readyInterface();
 
 function readyInterface() {
+    hideNotification();
+
     populateEraSelects();
     populateFactionSelects();
+
+    switchToForceTab();
 
     $(".lazy").removeAttr("disabled");
 
@@ -133,6 +137,36 @@ function populateFactionSelects() {
     $factionSelects.append(`<option value="wolf-empire">Wolf Empire</option>`);
     $factionSelects.append(`<option value="wolfs-dragoons">Wolf's Dragoons</option>`);
     $factionSelects.append(`<option value="word-of-blake">Word of Blake</option>`);
+}
+
+function switchToForceTab() {
+    $(".tab").hide();
+    $(".tab-header").removeClass("selected-tab");
+    $("#tab-force-details").show();
+    $("#tab-header-force").addClass("selected-tab");
+}
+
+function switchToSearchTab() {
+    $(".tab").hide();
+    $(".tab-header").removeClass("selected-tab");
+    $("#tab-search").show();
+    $("#tab-header-search").addClass("selected-tab");
+}
+
+var notificationTimeout;
+
+function showNotification(message) {
+    if (notificationTimeout) {
+        clearTimeout(notificationTimeout);
+    }
+    $("#notification-bar").text(message);
+    $("#notification-bar").show();
+    notificationTimeout = setTimeout(hideNotification, 1000);
+}
+
+function hideNotification() {
+    notificationTimeout = null;
+    $("#notification-bar").hide();
 }
 
 function searchKeyDown(e) {
@@ -354,6 +388,7 @@ function showUnitList(list, moreAvailable, searching) {
 function addUnitById(unitId) {
     const unitProps = getKnownUnit(unitId);
     addUnit(unitProps);
+    showNotification(`${unitProps.name} added to list.`);
 }
 
 function addUnit(unitProps) {
@@ -454,6 +489,8 @@ function updateUnitAvailability(unit) {
 
 function addUnitRow(unit) {
     const $li = $("<li>", {id: `unit-${unit.id}`, class: "unit-entry"});
+
+    $("#empty-force-placeholder").hide();
     
     const $headerRow = $("<div>", {class: "unit-entry-header"});
     $headerRow.append("<button class='remove-button' type='button' title='Remove unit from force' onclick='removeUnit(" + unit.id + ")'><span class='material-symbols-outlined'>delete</span></button>");
@@ -974,6 +1011,10 @@ function updateTotals() {
     $("#tonnage-total").text(totalTonnage);
     $("#bv-total").text(totalBV);
     $("#adj-bv-total").text(totalAdjBV);
+
+    if (force.size == 0) {
+        $("#empty-force-placeholder").show();
+    }
 }
 
 function updateCrewName(id, position) {
