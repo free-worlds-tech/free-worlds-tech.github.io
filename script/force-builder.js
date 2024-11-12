@@ -404,12 +404,36 @@ function addUnit(unitProps) {
     const currentId = nextUnitId++;
     let nonStandardSkills = false;
 
+    let primarySkill = 4;
+    let secondarySkill = 5;
+
+    const forceExperienceRating = $("#force-experience").val();
+    switch (forceExperienceRating) {
+        case "green":
+            primarySkill = 5;
+            secondarySkill = 6;
+            nonStandardSkills = true;
+            break;
+        case "veteran":
+            primarySkill = 3;
+            secondarySkill = 4;
+            nonStandardSkills = true;
+            break;
+        case "elite":
+            primarySkill = 2;
+            secondarySkill = 3;
+            nonStandardSkills = true;
+            break;
+        default:
+            break;
+    }
+
     const newUnit = {
         id: currentId,
         unitProps: unitProps,
         crew: "",
-        gunnery: 4,
-        piloting: 5,
+        gunnery: primarySkill,
+        piloting: secondarySkill,
         adjustedBV: unitProps.bv,
         ammoTypes: new Map(),
         bvNotes: []
@@ -441,14 +465,14 @@ function addUnit(unitProps) {
 
     if (crewCount >= 2) {
         newUnit.crew2 = "";
-        newUnit.gunnery2 = 4;
-        newUnit.piloting2 = 5;
+        newUnit.gunnery2 = primarySkill;
+        newUnit.piloting2 = secondarySkill;
     }
 
     if (crewCount >= 3) {
         newUnit.crew3 = "";
-        newUnit.gunnery3 = 4;
-        newUnit.piloting3 = 5;
+        newUnit.gunnery3 = primarySkill;
+        newUnit.piloting3 = secondarySkill;
     }
 
     force.set(currentId, newUnit);
