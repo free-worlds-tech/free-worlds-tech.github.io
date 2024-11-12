@@ -31,13 +31,6 @@ function readyInterface() {
     const debugParam = urlParams.get('debug');
     if (debugParam == "true") {
         debugMode = true;
-        $("body").append("<h3 class='no-print'>Debug</h3>");
-        $("body").append(
-            `<div class="no-print">
-                <button type="button" onclick="dumpDebugData()">Dump Debug Data</button>
-                <pre id="debug-output"></pre>
-            </div>`
-        );
     }
 }
 
@@ -1958,62 +1951,6 @@ function forEachNetworkUnit(network, f) {
             }
         });
     }
-}
-
-function dumpDebugData() {
-    $("#debug-output").children().remove();
-
-    let data = "";
-
-    force.forEach((unit) => {
-        data += `${unit.id}: ${getUnitFullName(unit)} ${unit.unitProps.bv} ${unit.adjustedBV}\n`;
-        unit.bvNotes.forEach((note) => {
-            data += `  - ${note.note}: ${note.amount}\n`;
-        });
-    });
-
-    data += "\n";
-    networks.forEach((network) => {
-        data += `${network.id}: ${network.type}\n`
-        if (network.type == "c3") {
-            data += `- ${network.rootUnit.id}\n`;
-            network.rootUnit.links.forEach((link) => {
-                data += `  - ${link.id}\n`;
-                if (link.links) {
-                    link.links.forEach((sublink) => {
-                        data += `    - ${sublink.id}\n`;
-                    });
-                }
-            });
-        } else if (network.type == "c3i") {
-            network.units.forEach((link) => {
-                data += `- ${link.id}\n`;
-            });
-        }
-    });
-
-    data += "\n";
-    data += "c3m: ";
-    c3mUnits.forEach((c3m) => {
-        data += `${c3m.id}:${c3m.linked}, `;
-    });
-    data += "\n";
-
-    data += "\n";
-    data += "c3s: ";
-    c3sUnits.forEach((c3s) => {
-        data += `${c3s.id}:${c3s.linked}, `;
-    });
-    data += "\n";
-
-    data += "\n";
-    data += "c3i: ";
-    c3iUnits.forEach((c3i) => {
-        data += `${c3i.id}:${c3i.linked}, `;
-    });
-    data += "\n";
-
-    $("#debug-output").text(data);
 }
 
 function getSecondarySkillName(unit) {

@@ -40,7 +40,7 @@
         </nav>
     </header>
 
-    <div id="notification-bar">
+    <div id="notification-bar" class="no-print">
         Testing...
     </div>
 
@@ -54,13 +54,13 @@
         <a href="https://forms.gle/hV9hx6k7tHSHAGWTA">short survey</a>
         that you can fill out to help prioritize potential features for the force builder.
     </p>
-    <div class="tab-row">
+    <div class="tab-row no-print">
         <button id="tab-header-force" title="Force Details" class="tab-header" type="button" onclick="switchToForceTab()">Force</button>
         <button id="tab-header-search" title="Search Units" class="tab-header" type="button" onclick="switchToSearchTab()">Search</button>
     </div>
-    <div id="tab-force-details" class="tab">
-        <h3 class="no-print">Force Details</h3>
-        <div class="no-print">
+    <div id="tab-force-details" class="tab no-print">
+        <h3>Force Details</h3>
+        <div>
             <label>Name:</label>
             <input id="force-name-box" class="lazy full-width" type="text" placeholder="BattleTech Force" disabled="disabled" />
             <label>Era:</label>
@@ -70,32 +70,32 @@
             <select title="Faction" id="force-faction" class="lazy faction-select full-width" onchange="updateUnitAvailabilities()">
             </select>
         </div>
-        <h3 class="no-print">Selected Units</h3>
-        <div class="no-print">
+        <h3>Selected Units</h3>
+        <div>
             <button id="clear-units-button" class="lazy" title="Remove all units from force" type="reset" onclick="clearUnits()" disabled="disabled">Clear Force List</button>
             <!--<button id="download-button" class="lazy" title="Download force as a markdown file" type="button" onclick="downloadForce()" disabled="disabled">Download Force List</button>-->
             <button id="print-button" class="lazy" title="Print force" type="button" onclick="printForce()">Print Force List</button>
         </div>
-        <div class="unit-costs force-totals no-print">
+        <div class="unit-costs force-totals">
             <span>Tonnage: <span id="tonnage-total">0</span></span>
             <span>Base BV: <span id="bv-total">0</span></span>
             <span>Adjusted BV: <span id="adj-bv-total">0</span></span>
         </div>
         <p id="empty-force-placeholder"><i><a href="javascript:void(0)" onclick="switchToSearchTab()">Search</a> for units to add to your list.</i></p>
-        <ul id="force-list" class="force-list no-print">
+        <ul id="force-list" class="force-list">
         </ul>
-        <h3 class="no-print">Networks</h3>
-        <p class="no-print">Set up C<sup>3</sup> networks for your force.</p>
-        <div class="no-print">
+        <h3 >Networks</h3>
+        <p>Set up C<sup>3</sup> networks for your force.</p>
+        <div>
             <button id="add-c3-network-button" title="Add a C3 network" type="button" onclick="addC3Network()" disabled="disabled">Add C<sup>3</sup> network</button>
             <button id="add-c3i-network-button" title="Add a C3i network" type="button" onclick="addC3iNetwork()" disabled="disabled">Add C<sup>3</sup>i network</button>
         </div>
-        <div id="network-setups" class="no-print">
+        <div id="network-setups">
         </div>
     </div>
-    <div id="tab-search" class="tab">
-        <h3 class="no-print">Search Units</h3>
-        <div class="advanced-search no-print">
+    <div id="tab-search" class="tab no-print">
+        <h3>Search Units</h3>
+        <div class="advanced-search">
             <div class="search-bar">
                 <input id="search-box" class="lazy" type="text" placeholder="Unit Name" onkeydown="searchKeyDown(event)" disabled="disabled">
                 <button id="search-button" class="lazy" title="Search for matching units" type="button" onclick="searchUnits()" disabled="disabled">Search</button>
@@ -179,7 +179,7 @@
                 </label>
             </details>
         </div>
-        <ul id="search-results" class="search-results-list no-print">
+        <ul id="search-results" class="search-results-list">
         </ul>
     </div>
     <div id="force-list-print" class="force-list print-only">
