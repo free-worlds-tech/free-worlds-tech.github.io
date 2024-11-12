@@ -190,6 +190,10 @@ button.network {
     cursor: default;
 }
 
+.tab-row {
+    margin-top: 2rem;
+}
+
 .tab-row .tab-header {
     background: var(--accent-bg);
     color: var(--text-light);

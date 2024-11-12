@@ -54,15 +54,21 @@
         <a href="https://forms.gle/hV9hx6k7tHSHAGWTA">short survey</a>
         that you can fill out to help prioritize potential features for the force builder.
     </p>
+    <h3 id="force-name" class="no-print">BattleTech Force</h3>
+    <div class="no-print">
+        <button id="clear-units-button" class="lazy" title="Remove all units from force" type="reset" onclick="clearUnits()" disabled="disabled">Clear Force List</button>
+        <!--<button id="download-button" class="lazy" title="Download force as a markdown file" type="button" onclick="downloadForce()" disabled="disabled">Download Force List</button>-->
+        <button id="print-button" class="lazy" title="Print force" type="button" onclick="printForce()">Print Force List</button>
+    </div>
     <div class="tab-row no-print">
         <button id="tab-header-force" title="Force Details" class="tab-header" type="button" onclick="switchToForceTab()">Force</button>
         <button id="tab-header-search" title="Search Units" class="tab-header" type="button" onclick="switchToSearchTab()">Search</button>
     </div>
     <div id="tab-force-details" class="tab no-print">
-        <h3>Force Details</h3>
+        <h4>Force Details</h4>
         <div>
             <label>Name:</label>
-            <input id="force-name-box" class="lazy full-width" type="text" placeholder="BattleTech Force" disabled="disabled" />
+            <input id="force-name-box" class="lazy full-width" type="text" placeholder="BattleTech Force" disabled="disabled" onchange="updateForceName()"/>
             <label>Era:</label>
             <select title="Era" id="force-era" class="lazy era-select full-width" onchange="updateUnitAvailabilities()">
             </select>
@@ -70,12 +76,7 @@
             <select title="Faction" id="force-faction" class="lazy faction-select full-width" onchange="updateUnitAvailabilities()">
             </select>
         </div>
-        <h3>Selected Units</h3>
-        <div>
-            <button id="clear-units-button" class="lazy" title="Remove all units from force" type="reset" onclick="clearUnits()" disabled="disabled">Clear Force List</button>
-            <!--<button id="download-button" class="lazy" title="Download force as a markdown file" type="button" onclick="downloadForce()" disabled="disabled">Download Force List</button>-->
-            <button id="print-button" class="lazy" title="Print force" type="button" onclick="printForce()">Print Force List</button>
-        </div>
+        <h4>Selected Units</h4>
         <div class="unit-costs force-totals">
             <span>Tonnage: <span id="tonnage-total">0</span></span>
             <span>Base BV: <span id="bv-total">0</span></span>
@@ -84,7 +85,7 @@
         <p id="empty-force-placeholder"><i><a href="javascript:void(0)" onclick="switchToSearchTab()">Search</a> for units to add to your list.</i></p>
         <ul id="force-list" class="force-list">
         </ul>
-        <h3 >Networks</h3>
+        <h4>Networks</h4>
         <p>Set up C<sup>3</sup> networks for your force.</p>
         <div>
             <button id="add-c3-network-button" title="Add a C3 network" type="button" onclick="addC3Network()" disabled="disabled">Add C<sup>3</sup> network</button>
@@ -94,7 +95,7 @@
         </div>
     </div>
     <div id="tab-search" class="tab no-print">
-        <h3>Search Units</h3>
+        <h4>Search Units</h4>
         <div class="advanced-search">
             <div class="search-bar">
                 <input id="search-box" class="lazy" type="text" placeholder="Unit Name" onkeydown="searchKeyDown(event)" disabled="disabled">

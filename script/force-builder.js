@@ -151,15 +151,31 @@ var notificationTimeout;
 function showNotification(message) {
     if (notificationTimeout) {
         clearTimeout(notificationTimeout);
+        $("#notification-bar").fadeOut("fast", () => internalShowNotification(message));
+    } else {
+        internalShowNotification(message);
     }
+    
+}
+
+function internalShowNotification(message) {
     $("#notification-bar").text(message);
-    $("#notification-bar").show();
-    notificationTimeout = setTimeout(hideNotification, 1000);
+    $("#notification-bar").slideDown("fast");
+    notificationTimeout = setTimeout(hideNotification, 2000);
 }
 
 function hideNotification() {
     notificationTimeout = null;
-    $("#notification-bar").hide();
+    $("#notification-bar").slideUp("fast");
+}
+
+function updateForceName() {
+    const forceName = $("#force-name-box").val().trim();
+    if (forceName == "") {
+        $("#force-name").text("BattleTech Force");
+    } else {
+        $("#force-name").text(forceName);
+    }
 }
 
 function searchKeyDown(e) {
