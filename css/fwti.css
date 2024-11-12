@@ -189,3 +189,58 @@ button.network {
     margin-left: 0.3rem;
     cursor: default;
 }
+
+.tab-row {
+    margin-top: 2rem;
+}
+
+.tab-row .tab-header {
+    background: var(--accent-bg);
+    color: var(--text-light);
+    /* border-style: solid solid none solid;
+    border-radius: var(--standard-border-radius) var(--standard-border-radius) 0 0; */
+    /* font-size: 2rem;
+    margin-top: 3rem; */
+    margin-bottom: 0;
+    border-width: 2px;
+    border-color: var(--border);
+    border-style: solid solid none solid;
+    border-radius: var(--standard-border-radius) var(--standard-border-radius) 0 0;
+}
+
+.tab-row .tab-header.selected-tab {
+    background: var(--bg);
+    color: var(--text);
+    font-weight: bold;
+}
+
+.tab-row .tab-header:hover {
+    background: var(--accent-hover);
+    color: var(--accent-text);
+    border-color: var(--border);
+}
+
+.tab {
+    border: 2px solid var(--border);
+    border-radius: 0 0 var(--standard-border-radius) var(--standard-border-radius);
+    padding: 0.5rem;
+    margin: 0;
+}
+
+.tab > h3:first-child {
+    margin-top: 0.5rem;
+}
+
+#notification-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: var(--accent);
+    border-width: 0 0 2px 0;
+    border-style: solid;
+    border-color: var(--accent-text);
+    color: var(--accent-text);
+    padding: 1rem;
+    display: none;
+}

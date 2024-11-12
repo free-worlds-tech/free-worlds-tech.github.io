@@ -18,8 +18,12 @@ const c3iUnits = [];
 readyInterface();
 
 function readyInterface() {
+    hideNotification();
+
     populateEraSelects();
     populateFactionSelects();
+
+    switchToForceTab();
 
     $(".lazy").removeAttr("disabled");
 
@@ -27,13 +31,6 @@ function readyInterface() {
     const debugParam = urlParams.get('debug');
     if (debugParam == "true") {
         debugMode = true;
-        $("body").append("<h3 class='no-print'>Debug</h3>");
-        $("body").append(
-            `<div class="no-print">
-                <button type="button" onclick="dumpDebugData()">Dump Debug Data</button>
-                <pre id="debug-output"></pre>
-            </div>`
-        );
     }
 }
 
@@ -133,6 +130,52 @@ function populateFactionSelects() {
     $factionSelects.append(`<option value="wolf-empire">Wolf Empire</option>`);
     $factionSelects.append(`<option value="wolfs-dragoons">Wolf's Dragoons</option>`);
     $factionSelects.append(`<option value="word-of-blake">Word of Blake</option>`);
+}
+
+function switchToForceTab() {
+    $(".tab").hide();
+    $(".tab-header").removeClass("selected-tab");
+    $("#tab-force-details").show();
+    $("#tab-header-force").addClass("selected-tab");
+}
+
+function switchToSearchTab() {
+    $(".tab").hide();
+    $(".tab-header").removeClass("selected-tab");
+    $("#tab-search").show();
+    $("#tab-header-search").addClass("selected-tab");
+}
+
+var notificationTimeout;
+
+function showNotification(message) {
+    if (notificationTimeout) {
+        clearTimeout(notificationTimeout);
+        $("#notification-bar").fadeOut("fast", () => internalShowNotification(message));
+    } else {
+        internalShowNotification(message);
+    }
+    
+}
+
+function internalShowNotification(message) {
+    $("#notification-bar").text(message);
+    $("#notification-bar").slideDown("fast");
+    notificationTimeout = setTimeout(hideNotification, 2000);
+}
+
+function hideNotification() {
+    notificationTimeout = null;
+    $("#notification-bar").slideUp("fast");
+}
+
+function updateForceName() {
+    const forceName = $("#force-name-box").val().trim();
+    if (forceName == "") {
+        $("#force-name").text("BattleTech Force");
+    } else {
+        $("#force-name").text(forceName);
+    }
 }
 
 function searchKeyDown(e) {
@@ -354,18 +397,58 @@ function showUnitList(list, moreAvailable, searching) {
 function addUnitById(unitId) {
     const unitProps = getKnownUnit(unitId);
     addUnit(unitProps);
+    showNotification(`${unitProps.name} added to list.`);
 }
 
 function addUnit(unitProps) {
     const currentId = nextUnitId++;
     let nonStandardSkills = false;
 
+    let primarySkill = 4;
+    let secondarySkill = 5;
+
+    const forceExperienceRating = $("#force-experience").val();
+    switch (forceExperienceRating) {
+        case "green":
+            primarySkill = 5;
+            secondarySkill = 6;
+            break;
+        case "veteran":
+            primarySkill = 3;
+            secondarySkill = 4;
+            break;
+        case "elite":
+            primarySkill = 2;
+            secondarySkill = 3;
+            break;
+        case "random-green":
+            primarySkill = getRandomGreenGunnery();
+            secondarySkill = getRandomGreenPiloting();
+            break;
+        case "random-regular":
+            primarySkill = getRandomRegularGunnery();
+            secondarySkill = getRandomRegularPiloting();
+            break;
+        case "random-veteran":
+            primarySkill = getRandomVeteranGunnery();
+            secondarySkill = getRandomVeteranPiloting();
+            break;
+        case "random-elite":
+            primarySkill = getRandomEliteGunnery();
+            secondarySkill = getRandomElitePiloting();
+            break;
+        default:
+            break;
+    }
+    
+    nonStandardSkills = (primarySkill != 4) || (secondarySkill != 5);
+
     const newUnit = {
         id: currentId,
         unitProps: unitProps,
         crew: "",
-        gunnery: 4,
-        piloting: 5,
+        gunnery: primarySkill,
+        piloting: secondarySkill,
         adjustedBV: unitProps.bv,
         ammoTypes: new Map(),
         bvNotes: []
@@ -397,14 +480,14 @@ function addUnit(unitProps) {
 
     if (crewCount >= 2) {
         newUnit.crew2 = "";
-        newUnit.gunnery2 = 4;
-        newUnit.piloting2 = 5;
+        newUnit.gunnery2 = primarySkill;
+        newUnit.piloting2 = secondarySkill;
     }
 
     if (crewCount >= 3) {
         newUnit.crew3 = "";
-        newUnit.gunnery3 = 4;
-        newUnit.piloting3 = 5;
+        newUnit.gunnery3 = primarySkill;
+        newUnit.piloting3 = secondarySkill;
     }
 
     force.set(currentId, newUnit);
@@ -454,6 +537,8 @@ function updateUnitAvailability(unit) {
 
 function addUnitRow(unit) {
     const $li = $("<li>", {id: `unit-${unit.id}`, class: "unit-entry"});
+
+    $("#empty-force-placeholder").hide();
     
     const $headerRow = $("<div>", {class: "unit-entry-header"});
     $headerRow.append("<button class='remove-button' type='button' title='Remove unit from force' onclick='removeUnit(" + unit.id + ")'><span class='material-symbols-outlined'>delete</span></button>");
@@ -974,6 +1059,10 @@ function updateTotals() {
     $("#tonnage-total").text(totalTonnage);
     $("#bv-total").text(totalBV);
     $("#adj-bv-total").text(totalAdjBV);
+
+    if (force.size == 0) {
+        $("#empty-force-placeholder").show();
+    }
 }
 
 function updateCrewName(id, position) {
@@ -1917,62 +2006,6 @@ function forEachNetworkUnit(network, f) {
             }
         });
     }
-}
-
-function dumpDebugData() {
-    $("#debug-output").children().remove();
-
-    let data = "";
-
-    force.forEach((unit) => {
-        data += `${unit.id}: ${getUnitFullName(unit)} ${unit.unitProps.bv} ${unit.adjustedBV}\n`;
-        unit.bvNotes.forEach((note) => {
-            data += `  - ${note.note}: ${note.amount}\n`;
-        });
-    });
-
-    data += "\n";
-    networks.forEach((network) => {
-        data += `${network.id}: ${network.type}\n`
-        if (network.type == "c3") {
-            data += `- ${network.rootUnit.id}\n`;
-            network.rootUnit.links.forEach((link) => {
-                data += `  - ${link.id}\n`;
-                if (link.links) {
-                    link.links.forEach((sublink) => {
-                        data += `    - ${sublink.id}\n`;
-                    });
-                }
-            });
-        } else if (network.type == "c3i") {
-            network.units.forEach((link) => {
-                data += `- ${link.id}\n`;
-            });
-        }
-    });
-
-    data += "\n";
-    data += "c3m: ";
-    c3mUnits.forEach((c3m) => {
-        data += `${c3m.id}:${c3m.linked}, `;
-    });
-    data += "\n";
-
-    data += "\n";
-    data += "c3s: ";
-    c3sUnits.forEach((c3s) => {
-        data += `${c3s.id}:${c3s.linked}, `;
-    });
-    data += "\n";
-
-    data += "\n";
-    data += "c3i: ";
-    c3iUnits.forEach((c3i) => {
-        data += `${c3i.id}:${c3i.linked}, `;
-    });
-    data += "\n";
-
-    $("#debug-output").text(data);
 }
 
 function getSecondarySkillName(unit) {

@@ -115,6 +115,133 @@ function isAvailabilityMatch(availability, era, faction) {
     return false;
 }
 
+function rollD6() {
+    return Math.floor(Math.random() * 6) + 1;
+}
+
+function roll2D6() {
+    return rollD6() + rollD6();
+}
+
+function getRandomGreenGunnery() {
+    const roll = rollD6();
+    switch (roll) {
+        case 1:
+            return 6;
+        case 2:
+        case 3:
+            return 5;
+        case 4:
+        case 5:
+        case 6:
+            return 4;
+    }
+}
+
+function getRandomGreenPiloting() {
+    const roll = rollD6();
+    switch (roll) {
+        case 1:
+            return 7;
+        case 2:
+        case 3:
+        case 4:
+        case 5:
+            return 6;
+        case 6:
+            return 5;
+    }
+}
+
+function getRandomRegularGunnery() {
+    const roll = rollD6();
+    switch (roll) {
+        case 1:
+        case 2:
+        case 3:
+        case 4:
+            return 4;
+        case 5:
+        case 6:
+            return 3;
+    }
+}
+
+function getRandomRegularPiloting() {
+    const roll = rollD6();
+    switch (roll) {
+        case 1:
+        case 2:
+            return 6;
+        case 3:
+        case 4:
+            return 5;
+        case 5:
+        case 6:
+            return 4;
+    }
+}
+
+function getRandomVeteranGunnery() {
+    const roll = rollD6();
+    switch (roll) {
+        case 1:
+        case 2:
+            return 4;
+        case 3:
+        case 4:
+            return 3;
+        case 5:
+        case 6:
+            return 2;
+    }
+}
+
+function getRandomVeteranPiloting() {
+    const roll = rollD6();
+    switch (roll) {
+        case 1:
+        case 2:
+            return 5;
+        case 3:
+        case 4:
+            return 4;
+        case 5:
+        case 6:
+            return 3;
+    }
+}
+
+function getRandomEliteGunnery() {
+    const roll = rollD6();
+    switch (roll) {
+        case 1:
+        case 2:
+            return 3;
+        case 3:
+        case 4:
+            return 2;
+        case 5:
+        case 6:
+            return 1;
+    }
+}
+
+function getRandomElitePiloting() {
+    const roll = rollD6();
+    switch (roll) {
+        case 1:
+        case 2:
+            return 4;
+        case 3:
+        case 4:
+            return 3;
+        case 5:
+        case 6:
+            return 2;
+    }
+}
+
 let knownUnits = [];
 
 const knownWeapons = [
