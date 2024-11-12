@@ -412,21 +412,36 @@ function addUnit(unitProps) {
         case "green":
             primarySkill = 5;
             secondarySkill = 6;
-            nonStandardSkills = true;
             break;
         case "veteran":
             primarySkill = 3;
             secondarySkill = 4;
-            nonStandardSkills = true;
             break;
         case "elite":
             primarySkill = 2;
             secondarySkill = 3;
-            nonStandardSkills = true;
+            break;
+        case "random-green":
+            primarySkill = getRandomGreenGunnery();
+            secondarySkill = getRandomGreenPiloting();
+            break;
+        case "random-regular":
+            primarySkill = getRandomRegularGunnery();
+            secondarySkill = getRandomRegularPiloting();
+            break;
+        case "random-veteran":
+            primarySkill = getRandomVeteranGunnery();
+            secondarySkill = getRandomVeteranPiloting();
+            break;
+        case "random-elite":
+            primarySkill = getRandomEliteGunnery();
+            secondarySkill = getRandomElitePiloting();
             break;
         default:
             break;
     }
+    
+    nonStandardSkills = (primarySkill != 4) || (secondarySkill != 5);
 
     const newUnit = {
         id: currentId,
