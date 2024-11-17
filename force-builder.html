@@ -26,6 +26,7 @@
 
 <script src="ext/jquery-3.7.1.min.js"></script>
 <script charset="UTF-8" src="script/force-builder-data.js" defer></script>
+<script charset="UTF-8" src="script/force-storage.js" defer></script>
 <script charset="UTF-8" src="script/force-builder.js" defer></script>
 </head>
 <body onbeforeprint="readyPrintContent()" onafterprint="cleanUpPrintContent()">
@@ -56,13 +57,15 @@
     </p>
     <h3 id="force-name" class="no-print">BattleTech Force</h3>
     <div class="no-print">
-        <button id="clear-units-button" class="lazy" title="Remove all units from force" type="reset" onclick="clearUnits()" disabled="disabled">Clear Force List</button>
+        <button id="clear-units-button" class="lazy" title="Remove all units from force" type="reset" onclick="clearUnits()" disabled="disabled">Clear</button>
+        <button id="save-button" class="lazy" title="Save force" type="button" onclick="saveForce()" disabled="disabled">Save</button>
         <!--<button id="download-button" class="lazy" title="Download force as a markdown file" type="button" onclick="downloadForce()" disabled="disabled">Download Force List</button>-->
-        <button id="print-button" class="lazy" title="Print force" type="button" onclick="printForce()">Print Force List</button>
+        <button id="print-button" class="lazy" title="Print force" type="button" onclick="printForce()">Print</button>
     </div>
     <div class="tab-row no-print">
         <button id="tab-header-force" title="Force Details" class="tab-header" type="button" onclick="switchToForceTab()">Force</button>
         <button id="tab-header-search" title="Search Units" class="tab-header" type="button" onclick="switchToSearchTab()">Search</button>
+        <button id="tab-header-storage" title="Storage" class="tab-header" type="button" onclick="switchToStorageTab()">Storage</button>
     </div>
     <div id="tab-force-details" class="tab no-print">
         <h4>Force Details</h4>
@@ -192,6 +195,10 @@
             </details>
         </div>
         <ul id="search-results" class="search-results-list">
+        </ul>
+    </div>
+    <div id="tab-storage" class="tab no-print">
+        <ul id="saved-forces-list" class="search-results-list">
         </ul>
     </div>
     <div id="force-list-print" class="force-list print-only">

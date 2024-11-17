@@ -146,6 +146,23 @@ function switchToSearchTab() {
     $("#tab-header-search").addClass("selected-tab");
 }
 
+function switchToStorageTab() {
+    $(".tab").hide();
+    $(".tab-header").removeClass("selected-tab");
+    $("#tab-storage").show();
+    $("#tab-header-storage").addClass("selected-tab");
+
+    $("#saved-forces-list").children().remove();
+    let savedLists = getSavedLists();
+    savedLists.lists.forEach((list) => {
+        let name = list.name;
+        if (!name) {
+            name = "BattleTech Force";
+        }
+        $("#saved-forces-list").append(`<li><button type='button'><span class='material-symbols-outlined'>delete</span></button>${name}</li>`);
+    });
+}
+
 var notificationTimeout;
 
 function showNotification(message) {
@@ -1043,6 +1060,29 @@ function clearUnits() {
     updateTotals();
 
     updateC3Eligibility();
+}
+
+function saveForce() {
+    let saveData = {
+        name: $("#force-name-box").val().trim(),
+        faction: $("#force-faction").val(),
+        era: $("#force-era").val(),
+        list: [],
+        networks: []
+    };
+
+    force.forEach((unit) => {
+        saveData.list.push({
+            id: unit.id,
+            unitTypeId: unit.unitProps.id,
+            crew: unit.crew,
+            gunnery: unit.gunnery,
+            piloting: unit.piloting,
+            ammoTypes: Array.from(unit.ammoTypes.entries()),
+        });
+    });
+
+    saveList(saveData);
 }
 
 function updateTotals() {
