@@ -3547,3 +3547,117 @@ function getSkillMultiplier(gunnery, piloting) {
             return 1;
     }
 }
+
+function getEraDisplayName(eraId) {
+    switch (eraId) {
+        case "star-league": return "Star League";
+        case "early-succession-wars": return "Early Succession Wars";
+        case "lostech": return "LosTech";
+        case "renaissance": return "Renaissance";
+        case "clan-invasion": return "Clan Invasion";
+        case "civil-war": return "Civil War";
+        case "jihad": return "Jihad";
+        case "early-republic": return "Early Republic";
+        case "late-republic": return "Late Republic";
+        case "dark-ages": return "Dark Age";
+        case "ilclan": return "ilClan";
+        default: return "Unknown Era";
+    }
+}
+
+function getErasInOrder()
+{
+    return [
+        "star-league",
+        "early-succession-wars",
+        "lostech",
+        "renaissance",
+        "clan-invasion",
+        "civil-war",
+        "jihad",
+        "early-republic",
+        "late-republic",
+        "dark-ages",
+        "ilclan"
+    ];
+}
+
+function getFactionDisplayName(factionId) {
+    switch (factionId) {
+        case "alyina-mercantile-league": return "Alyina Mercantile League";
+        case "calderon-protectorate": return "Calderon Protectorate";
+        case "capellan-confederation": return "Capellan Confederation";
+        case "circinus-federation": return "Circinus Federation";
+        case "clan-blood-spirit": return "Clan Blood Spirit";
+        case "clan-burrock": return "Clan Burrock";
+        case "clan-cloud-cobra": return "Clan Cloud Cobra";
+        case "clan-coyote": return "Clan Coyote";
+        case "clan-diamond-shark": return "Clan Diamond Shark";
+        case "clan-fire-mandrill": return "Clan Fire Mandrill";
+        case "clan-ghost-bear": return "Clan Ghost Bear";
+        case "clan-goliath-scorpion": return "Clan Goliath Scorpion";
+        case "clan-hells-horses": return "Clan Hell's Horses";
+        case "clan-ice-hellion": return "Clan Ice Hellion";
+        case "clan-jade-falcon": return "Clan Jade Falcon";
+        case "clan-mongoose": return "Clan Mongoose";
+        case "clan-nova-cat": return "Clan Nova Cat";
+        case "clan-protectorate": return "Clan Protectorate";
+        case "clan-sea-fox": return "Clan Sea Fox";
+        case "clan-smoke-jaguar": return "Clan Smoke Jaguar";
+        case "clan-snow-raven": return "Clan Snow Raven";
+        case "clan-star-adder": return "Clan Star Adder";
+        case "clan-steel-viper": return "Clan Steel Viper";
+        case "clan-stone-lion": return "Clan Stone Lion";
+        case "clan-widowmaker": return "Clan Widowmaker";
+        case "clan-wolf": return "Clan Wolf";
+        case "clan-wolf-in-exile": return "Clan Wolf-in-Exile";
+        case "clan-wolverine": return "Clan Wolverine";
+        case "comstar": return "ComStar";
+        case "draconis-combine": return "Draconis Combine";
+        case "duchy-of-andurien": return "Duchy of Andurien";
+        case "duchy-of-tamarind-abbey": return "Duchy of Tamarind-Abbey";
+        case "escorpion-imperio": return "Escorpión Imperio";
+        case "federated-commonwealth": return "Federated Commonwealth";
+        case "federated-suns": return "Federated Suns";
+        case "filtvelt-coalition": return "Filtvelt Coalition";
+        case "free-rasalhague-republic": return "Free Rasalhague Republic";
+        case "free-worlds-league": return "Free Worlds League";
+        case "free-worlds-league-non-aligned-worlds": return "Free Worlds League - Non-Aligned Worlds";
+        case "fronc-reaches": return "Fronc Reaches";
+        case "kell-hounds": return "Kell Hounds";
+        case "lyran-alliance": return "Lyran Alliance";
+        case "lyran-commonwealth": return "Lyran Commonwealth";
+        case "magistracy-of-canopus": return "Magistracy of Canopus";
+        case "marian-hegemony": return "Marian Hegemony";
+        case "marik-stewart-commonwealth": return "Marik Stewart Commonwealth";
+        case "mercenary": return "Mercenary";
+        case "oriente-protectorate": return "Oriente Protectorate";
+        case "outworlds-alliance": return "Outworlds Alliance";
+        case "pirate": return "Pirate";
+        case "rasalhague-dominion": return "Rasalhague Dominion";
+        case "raven-alliance": return "Raven Alliance";
+        case "regulan-fiefs": return "Regulan Fiefs";
+        case "republic-of-the-sphere": return "Republic of the Sphere";
+        case "rim-commonality": return "Rim Commonality";
+        case "rim-worlds-republic": return "Rim Worlds Republic";
+        case "rim-worlds-republic-terran-corps": return "Rim Worlds Republic - Terran Corps";
+        case "scorpion-empire": return "Scorpion Empire";
+        case "second-star-league": return "Second Star League";
+        case "society": return "Society";
+        case "solaris-7": return "Solaris 7";
+        case "st-ives-compact": return "St. Ives Compact";
+        case "star-league": return "Star League";
+        case "star-league-jade-falcon": return "Star League - Jade Falcon";
+        case "star-league-smoke-jaguar": return "Star League - Smoke Jaguar";
+        case "star-league-wolf": return "Star League - Wolf";
+        case "star-league-royal-divisions": return "Star League - Royal Divisions";
+        case "star-league-in-exile": return "Star League-in-Exile";
+        case "tamar-pact": return "Tamar Pact";
+        case "taurian-concordat": return "Taurian Concordat";
+        case "terran-hegemony": return "Terran Hegemony";
+        case "vesper-marches": return "Vesper Marches";
+        case "wolf-empire": return "Wolf Empire";
+        case "wolfs-dragoons": return "Wolf's Dragoons";
+        case "word-of-blake": return "Word of Blake";
+    }
+}

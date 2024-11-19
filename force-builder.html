@@ -63,6 +63,7 @@
     <div class="tab-row no-print">
         <button id="tab-header-force" title="Force Details" class="tab-header" type="button" onclick="switchToForceTab()">Force</button>
         <button id="tab-header-search" title="Search Units" class="tab-header" type="button" onclick="switchToSearchTab()">Search</button>
+        <button id="tab-header-availability" title="Check Availability" class="tab-header" type="button" onclick="switchToAvailabilityTab()">Availability</button>
     </div>
     <div id="tab-force-details" class="tab no-print">
         <h4>Force Details</h4>
@@ -193,6 +194,11 @@
         </div>
         <ul id="search-results" class="search-results-list">
         </ul>
+    </div>
+    <div id="tab-availability" class="tab no-print">
+        <h4>List Availability</h4>
+        <div id="availability-matches">
+        </div>
     </div>
     <div id="force-list-print" class="force-list print-only">
     </div>
