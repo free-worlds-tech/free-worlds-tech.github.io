@@ -2122,7 +2122,7 @@ function updateMatchingAvailabilities() {
     getErasInOrder().forEach((era) => {
         let factionsForEra = matches.filter((match) => match.era == era);
         if (factionsForEra.length > 0) {
-            $("#availability-matches").append(`<h5>${getEraDisplayName(era)}</h5>`);
+            $("#availability-matches").append(`<h5 class="list-header">${getEraDisplayName(era)}</h5>`);
             let $matchList = $("<ul>", {class: "search-results-list"});
             factionsForEra.forEach((item) => {
                 $matchList.append(`<li><button title='Set era and faction' type='button' onclick='setForceEraAndFaction("${item.era}", "${item.faction}")'><span class="material-symbols-outlined">check</span></button>${getFactionDisplayName(item.faction)}</li>`);
