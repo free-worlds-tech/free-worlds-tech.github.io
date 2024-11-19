@@ -244,3 +244,9 @@ button.network {
     padding: 1rem;
     display: none;
 }
+
+.list-header {
+    width: 100%;
+    border-bottom: 2px solid;
+    border-color: var(--border);
+}
