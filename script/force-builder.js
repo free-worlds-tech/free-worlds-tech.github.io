@@ -146,6 +146,15 @@ function switchToSearchTab() {
     $("#tab-header-search").addClass("selected-tab");
 }
 
+function switchToAvailabilityTab() {
+    $(".tab").hide();
+    $(".tab-header").removeClass("selected-tab");
+    $("#tab-availability").show();
+    $("#tab-header-availability").addClass("selected-tab");
+
+    updateMatchingAvailabilities();
+}
+
 var notificationTimeout;
 
 function showNotification(message) {
@@ -2071,4 +2080,62 @@ function updateUnitAvailabilities() {
     force.forEach((unit) => {
         updateUnitAvailability(unit);
     });
+}
+
+function updateMatchingAvailabilities() {
+    $("#availability-matches").children().remove();
+
+    if (force.size == 0) {
+        $("#availability-matches").append("<p>Add units to your force in order to see their availabilities.</p>");
+        return;
+    }
+
+    let matches = null;
+
+    force.forEach((unit) => {
+        let flattened = [];
+        unit.unitProps.availability.forEach((era) => {
+            era.factions.forEach((faction) => {
+                flattened.push({era: era.era, faction: faction});
+            });
+        });
+
+        if (matches == null) {
+            matches = flattened;
+        } else {
+            // Interset availability
+            let intersection = [];
+            matches.forEach((pair) => {
+                if (flattened.find((item) => item.era == pair.era && item.faction == pair.faction)) {
+                    intersection.push(pair);
+                }
+            });
+            matches = intersection;
+        }
+    });
+
+    if (matches.length == 0) {
+        $("#availability-matches").append("<p>There are no era and faction combinations for which your selected units are available.</p>");
+        return;
+    }
+
+    getErasInOrder().forEach((era) => {
+        let factionsForEra = matches.filter((match) => match.era == era);
+        if (factionsForEra.length > 0) {
+            $("#availability-matches").append(`<h5>${getEraDisplayName(era)}</h5>`);
+            let $matchList = $("<ul>", {class: "search-results-list"});
+            factionsForEra.forEach((item) => {
+                $matchList.append(`<li><button title='Set era and faction' type='button' onclick='setForceEraAndFaction("${item.era}", "${item.faction}")'><span class="material-symbols-outlined">check</span></button>${getFactionDisplayName(item.faction)}</li>`);
+            });
+            $("#availability-matches").append($matchList);
+        }
+    });
+}
+
+function setForceEraAndFaction(eraId, factionId) {
+    $("#force-faction").val(factionId);
+    $("#force-era").val(eraId);
+    updateUnitAvailabilities();
+
+    showNotification(`Set era and faction to ${getEraDisplayName(eraId)} and ${getFactionDisplayName(factionId)}`);
 }
