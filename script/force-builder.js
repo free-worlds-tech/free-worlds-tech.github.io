@@ -2096,7 +2096,9 @@ function updateMatchingAvailabilities() {
         let flattened = [];
         unit.unitProps.availability.forEach((era) => {
             era.factions.forEach((faction) => {
-                flattened.push({era: era.era, faction: faction});
+                if (faction != "unique") {
+                    flattened.push({era: era.era, faction: faction});
+                }
             });
         });
 
