@@ -528,7 +528,7 @@ function getUnitFullName(unit) {
 function updateUnitAvailability(unit, eraOverride, factionOverride) {
     const $unitName = $(`#unit-${unit.id} .unit-name`);
     $unitName.empty();
-    if (isAvailabilityMatch(unit.unitProps.availability, eraOverride ? eraOverride : $("#force-era").val(), forceOverride ? forceOverride : $("#force-faction").val())) {
+    if (isAvailabilityMatch(unit.unitProps.availability, eraOverride ? eraOverride : $("#force-era").val(), factionOverride ? factionOverride : $("#force-faction").val())) {
         $unitName.text(unit.unitProps.name);
     } else {
         $unitName.text(unit.unitProps.name);
