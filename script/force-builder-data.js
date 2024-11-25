@@ -3582,6 +3582,106 @@ function getErasInOrder()
     ];
 }
 
+function getFactionsInOrder() {
+    return [
+        "alyina-mercantile-league",
+        "calderon-protectorate",
+        "capellan-confederation",
+        "circinus-federation",
+        "clan-blood-spirit",
+        "clan-burrock",
+        "clan-cloud-cobra",
+        "clan-coyote",
+        "clan-diamond-shark",
+        "clan-fire-mandrill",
+        "clan-ghost-bear",
+        "clan-goliath-scorpion",
+        "clan-hells-horses",
+        "clan-ice-hellion",
+        "clan-jade-falcon",
+        "clan-mongoose",
+        "clan-nova-cat",
+        "clan-protectorate",
+        "clan-sea-fox",
+        "clan-smoke-jaguar",
+        "clan-snow-raven",
+        "clan-star-adder",
+        "clan-steel-viper",
+        "clan-stone-lion",
+        "clan-widowmaker",
+        "clan-wolf",
+        "clan-wolf-in-exile",
+        "clan-wolverine",
+        "comstar",
+        "draconis-combine",
+        "duchy-of-andurien",
+        "duchy-of-tamarind-abbey",
+        "escorpion-imperio",
+        "federated-commonwealth",
+        "federated-suns",
+        "filtvelt-coalition",
+        "free-rasalhague-republic",
+        "free-worlds-league",
+        "free-worlds-league-non-aligned-worlds",
+        "fronc-reaches",
+        "kell-hounds",
+        "lyran-alliance",
+        "lyran-commonwealth",
+        "magistracy-of-canopus",
+        "marian-hegemony",
+        "marik-stewart-commonwealth",
+        "mercenary",
+        "oriente-protectorate",
+        "outworlds-alliance",
+        "pirate",
+        "rasalhague-dominion",
+        "raven-alliance",
+        "regulan-fiefs",
+        "republic-of-the-sphere",
+        "rim-commonality",
+        "rim-worlds-republic",
+        "rim-worlds-republic-terran-corps",
+        "scorpion-empire",
+        "second-star-league",
+        "society",
+        "solaris-7",
+        "st-ives-compact",
+        "star-league",
+        "star-league-jade-falcon",
+        "star-league-smoke-jaguar",
+        "star-league-wolf",
+        "star-league-royal-divisions",
+        "star-league-in-exile",
+        "tamar-pact",
+        "taurian-concordat",
+        "terran-hegemony",
+        "vesper-marches",
+        "wolf-empire",
+        "wolfs-dragoons",
+        "word-of-blake"
+    ];
+}
+
+function getFilteredErasInOrder(factionId) {
+    let rv = [];
+    getErasInOrder().forEach((eraId) => {
+        if (factionExistsInEra(factionId, eraId)) {
+            rv.push(eraId);
+        }
+    });
+    return rv;
+}
+
+function getFilteredFactionsInOrder(eraId) {
+    let rv = [];
+    getFactionsInOrder().forEach((factionId) => {
+        if (factionExistsInEra(factionId, eraId)) {
+            rv.push(factionId);
+        }
+    });
+    return rv;
+}
+
 function getFactionDisplayName(factionId) {
     switch (factionId) {
         case "alyina-mercantile-league": return "Alyina Mercantile League";
@@ -3659,5 +3759,90 @@ function getFactionDisplayName(factionId) {
         case "wolf-empire": return "Wolf Empire";
         case "wolfs-dragoons": return "Wolf's Dragoons";
         case "word-of-blake": return "Word of Blake";
+    }
+}
+
+function factionExistsInEra(factionId, eraId) {
+    if (eraId == "any") {
+        return true;
+    }
+
+    switch (factionId) {
+        case "any": return true;
+        case "alyina-mercantile-league": return eraId == "ilclan";
+        case "calderon-protectorate": return ["jihad", "early-republic", "late-republic", "dark-ages", "ilclan"].indexOf(eraId) != -1;
+        case "capellan-confederation": return true;
+        case "circinus-federation": return ["early-succession-wars", "lostech", "renaissance", "clan-invasion", "civil-war", "jihad"].indexOf(eraId) != -1;
+        case "clan-blood-spirit": return ["early-succession-wars", "lostech", "renaissance", "clan-invasion", "civil-war", "jihad"].indexOf(eraId) != -1;
+        case "clan-burrock": return ["early-succession-wars", "lostech", "renaissance", "clan-invasion", "jihad"].indexOf(eraId) != -1;
+        case "clan-cloud-cobra": return ["early-succession-wars", "lostech", "renaissance", "clan-invasion", "civil-war", "jihad"].indexOf(eraId) != -1;
+        case "clan-coyote": return ["early-succession-wars", "lostech", "renaissance", "clan-invasion", "civil-war", "jihad"].indexOf(eraId) != -1;
+        case "clan-diamond-shark": return ["lostech", "renaissance", "clan-invasion", "civil-war", "jihad", "early-republic"].indexOf(eraId) != -1;
+        case "clan-fire-mandrill": return ["early-succession-wars", "lostech", "renaissance", "clan-invasion", "civil-war", "jihad"].indexOf(eraId) != -1;
+        case "clan-ghost-bear": return ["early-succession-wars", "lostech", "renaissance", "clan-invasion", "civil-war", "jihad"].indexOf(eraId) != -1;
+        case "clan-goliath-scorpion": return ["early-succession-wars", "lostech", "renaissance", "clan-invasion", "civil-war", "jihad"].indexOf(eraId) != -1;
+        case "clan-hells-horses": return eraId != "star-league";
+        case "clan-ice-hellion": return ["early-succession-wars", "lostech", "renaissance", "clan-invasion", "civil-war", "jihad"].indexOf(eraId) != -1;
+        case "clan-jade-falcon": return eraId != "star-league";
+        case "clan-mongoose": return eraId == "early-succession-wars";
+        case "clan-nova-cat": return eraId != "star-league" && eraId != "ilclan";
+        case "clan-protectorate": return eraId == "ilclan";
+        case "clan-sea-fox": return ["early-succession-wars", "lostech", "late-republic", "dark-ages", "ilclan"].indexOf(eraId) != -1;
+        case "clan-smoke-jaguar": return ["early-succession-wars", "lostech", "renaissance", "clan-invasion"].indexOf(eraId) != -1;
+        case "clan-snow-raven": return ["early-succession-wars", "lostech", "renaissance", "clan-invasion", "civil-war", "jihad"].indexOf(eraId) != -1;
+        case "clan-star-adder": return ["early-succession-wars", "lostech", "renaissance", "clan-invasion", "civil-war", "jihad"].indexOf(eraId) != -1;
+        case "clan-steel-viper": return ["early-succession-wars", "lostech", "renaissance", "clan-invasion", "civil-war", "jihad"].indexOf(eraId) != -1;
+        case "clan-stone-lion": return eraId == "jihad";
+        case "clan-widowmaker": return eraId == "early-succession-wars";
+        case "clan-wolf": return eraId != "star-league" && eraId != "ilclan";
+        case "clan-wolf-in-exile": return ["clan-invasion", "civil-war", "jihad", "early-republic", "late-republic", "dark-ages"].indexOf(eraId) != -1;
+        case "clan-wolverine": return eraId == "early-succession-wars"
+        case "comstar": return ["early-succession-wars", "lostech", "renaissance", "clan-invasion", "civil-war", "jihad", "late-republic", "dark-ages"].indexOf(eraId) != -1;
+        case "draconis-combine": return true;
+        case "duchy-of-andurien": return ["early-republic", "late-republic", "dark-ages", "ilclan"].indexOf(eraId) != -1;
+        case "duchy-of-tamarind-abbey": return ["early-republic", "late-republic", "dark-ages"].indexOf(eraId) != -1;
+        case "escorpion-imperio": return ["jihad", "early-republic", "late-republic", "dark-ages"].indexOf(eraId) != -1;
+        case "federated-commonwealth": return ["clan-invasion", "civil-war"].indexOf(eraId) != -1;
+        case "federated-suns": return true;
+        case "filtvelt-coalition": return ["jihad", "early-republic", "late-republic", "dark-ages", "ilclan"].indexOf(eraId) != -1;
+        case "free-rasalhague-republic": return ["renaissance", "clan-invasion", "civil-war", "jihad"].indexOf(eraId) != -1;
+        case "free-worlds-league": return eraId != "early-republic" && eraId != "late-republic";
+        case "free-worlds-league-non-aligned-worlds": return ["early-republic", "late-republic", "dark-ages"].indexOf(eraId) != -1;
+        case "fronc-reaches": return ["jihad", "early-republic", "late-republic", "dark-ages", "ilclan"].indexOf(eraId) != -1;
+        case "kell-hounds": return eraId != "star-league" && eraId != "early-succession-wars";
+        case "lyran-alliance": return ["clan-invasion", "civil-war", "jihad"].indexOf(eraId) != -1;
+        case "lyran-commonwealth": return eraId != "civil-war" && eraId != "jihad";
+        case "magistracy-of-canopus": return true;
+        case "marian-hegemony": return eraId != "star-league" && eraId != "early-succession-wars";
+        case "marik-stewart-commonwealth": return ["early-republic", "late-republic", "dark-ages"].indexOf(eraId) != -1;
+        case "mercenary": return true;
+        case "oriente-protectorate": return ["early-republic", "late-republic", "dark-ages"].indexOf(eraId) != -1;
+        case "outworlds-alliance": return eraId != "late-republic" && eraId != "dark-ages" && eraId != "ilclan";
+        case "pirate": return true;
+        case "rasalhague-dominion": return ["early-republic", "late-republic", "dark-ages", "ilclan"].indexOf(eraId) != -1;
+        case "raven-alliance": return ["early-republic", "late-republic", "dark-ages", "ilclan"].indexOf(eraId) != -1;
+        case "regulan-fiefs": return ["early-republic", "late-republic", "dark-ages"].indexOf(eraId) != -1;
+        case "republic-of-the-sphere": return ["early-republic", "late-republic", "dark-ages"].indexOf(eraId) != -1;
+        case "rim-commonality": return ["early-republic", "late-republic", "dark-ages"].indexOf(eraId) != -1;
+        case "rim-worlds-republic": return eraId == "star-league";
+        case "rim-worlds-republic-terran-corps": return eraId == "star-league";
+        case "scorpion-empire": return ["dark-ages", "ilclan"].indexOf(eraId) != -1;
+        case "second-star-league": return ["clan-invasion", "civil-war"].indexOf(eraId) != -1;
+        case "society": return eraId == "jihad";
+        case "solaris-7": return eraId != "star-league";
+        case "st-ives-compact": return ["renaissance", "clan-invasion", "civil-war"].indexOf(eraId) != -1;
+        case "star-league": return eraId == "star-league";
+        case "star-league-jade-falcon": return eraId == "ilclan";
+        case "star-league-smoke-jaguar": return eraId == "ilclan";
+        case "star-league-wolf": return eraId == "ilclan";
+        case "star-league-royal-divisions": return eraId == "star-league";
+        case "star-league-in-exile": return eraId == "early-succession-wars";
+        case "tamar-pact": return eraId == "ilclan";
+        case "taurian-concordat": return true;
+        case "terran-hegemony": return eraId == "star-league";
+        case "vesper-marches": return eraId == "ilclan";
+        case "wolf-empire": return eraId == "ilclan";
+        case "wolfs-dragoons": return eraId != "star-league" && eraId != "early-succession-wars";
+        case "word-of-blake": return ["clan-invasion", "civil-war", "jihad"].indexOf(eraId) != -1;
     }
 }

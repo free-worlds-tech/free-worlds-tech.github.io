@@ -71,10 +71,10 @@
             <label>Name:</label>
             <input id="force-name-box" class="lazy full-width" type="text" placeholder="BattleTech Force" disabled="disabled" onchange="updateForceName()"/>
             <label>Era:</label>
-            <select title="Era" id="force-era" class="lazy era-select full-width" onchange="updateUnitAvailabilities()">
+            <select title="Era" id="force-era" class="lazy era-select full-width" onchange="updateForceEra()">
             </select>
             <label>Faction:</label>
-            <select title="Faction" id="force-faction" class="lazy faction-select full-width" onchange="updateUnitAvailabilities()">
+            <select title="Faction" id="force-faction" class="lazy faction-select full-width" onchange="updateForceFaction()">
             </select>
             <label>Default Experience:</label>
             <select title="Default Experience" id="force-experience" class="lazy full-width">
@@ -117,9 +117,9 @@
                 <summary>Advanced Search Parameters</summary>
                 <div class="era-and-faction">
                     <label>Availability:</label>
-                    <select title="Era" id="search-era" class="lazy era-select">
+                    <select title="Era" id="search-era" class="lazy era-select" onchange="updateSearchEra()">
                     </select>
-                    <select title="Faction" id="search-faction" class="lazy faction-select">
+                    <select title="Faction" id="search-faction" class="lazy faction-select" onchange="updateSearchFaction()">
                     </select>
                 </div>
                 <div class="min-and-max">
