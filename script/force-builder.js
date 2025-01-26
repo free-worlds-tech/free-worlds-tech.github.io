@@ -221,6 +221,30 @@ function searchUnits() {
         maxBV = Number(maxBVValue);
     }
 
+    let minMP = 0;
+    let maxMP = Number.MAX_VALUE;
+
+    const minMPValue = $("#search-min-mp").val();
+    const maxMPValue = $("#search-max-mp").val();
+    if (minMPValue != "") {
+        minMP = Number(minMPValue);
+    }
+    if (maxMPValue != "") {
+        maxMP = Number(maxMPValue);
+    }
+
+    let minJump = 0;
+    let maxJump = Number.MAX_VALUE;
+
+    const minJumpValue = $("#search-min-jump").val();
+    const maxJumpValue = $("#search-max-jump").val();
+    if (minJumpValue != "") {
+        minJump = Number(minJumpValue);
+    }
+    if (maxJumpValue != "") {
+        maxJump = Number(maxJumpValue);
+    }
+
     const allowBM = $("#search-bm").is(":checked");
     const allowIM = $("#search-im").is(":checked");
     const allowPM = $("#search-pm").is(":checked");
@@ -266,6 +290,18 @@ function searchUnits() {
     }
     if (maxBV != Number.MAX_VALUE) {
         searchParams.append("maxBV", maxBV);
+    }
+    if (minMP != 0) {
+        searchParams.append("minMP", minMP);
+    }
+    if (maxMP != Number.MAX_VALUE) {
+        searchParams.append("maxMP", maxMP);
+    }
+    if (minJump != 0) {
+        searchParams.append("minJump", minJump);
+    }
+    if (maxJump != Number.MAX_VALUE) {
+        searchParams.append("maxJump", maxJump);
     }
     if (minTonnage != 0) {
         searchParams.append("minTon", minTonnage);
