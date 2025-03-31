@@ -25,6 +25,7 @@
 <link rel="stylesheet" href="css/print.css">
 
 <script src="ext/jquery-3.7.1.min.js"></script>
+<script charset="UTF-8" src="script/fwti.js" defer></script>
 <script charset="UTF-8" src="script/force-builder-data.js" defer></script>
 <script charset="UTF-8" src="script/force-builder.js" defer></script>
 </head>
@@ -32,12 +33,7 @@
     <header>
         <img class="logo" src="assets/fwti-256.png" alt="FWTI logo">
         <h1>Free Worlds Technical Institute</h1>
-        <nav>
-            <a href="index.html">Home</a>
-            <a class="current" href="#">Force Builder</a>
-            <a href="firing-arcs-diagram.html">Firing Arcs</a>
-            <a href="the-inner-sphere.html">Inner Sphere</a>
-        </nav>
+        <nav id="site-nav" data-current="force-builder"></nav>
     </header>
 
     <div id="notification-bar" class="no-print">
@@ -57,7 +53,6 @@
     <h3 id="force-name" class="no-print">BattleTech Force</h3>
     <div class="no-print">
         <button id="clear-units-button" class="lazy" title="Remove all units from force" type="reset" onclick="clearUnits()" disabled="disabled">Clear Force List</button>
-        <!--<button id="download-button" class="lazy" title="Download force as a markdown file" type="button" onclick="downloadForce()" disabled="disabled">Download Force List</button>-->
         <button id="print-button" class="lazy" title="Print force" type="button" onclick="printForce()">Print Force List</button>
     </div>
     <div class="tab-row no-print">
