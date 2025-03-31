@@ -10,7 +10,7 @@ function initializeSiteNav() {
         homeNav.className = "current";
         homeNav.href = "#";
     } else {
-        homeNav.href = "index.html";
+        homeNav.href = "/index.html";
     }
     siteNav.appendChild(homeNav);
 
@@ -20,7 +20,7 @@ function initializeSiteNav() {
         forceBuilderNav.className = "current";
         forceBuilderNav.href = "#";
     } else {
-        forceBuilderNav.href = "force-builder.html";
+        forceBuilderNav.href = "/force-builder.html";
     }
     siteNav.appendChild(forceBuilderNav);
 
@@ -30,7 +30,7 @@ function initializeSiteNav() {
         firingArcsNav.className = "current";
         firingArcsNav.href = "#";
     } else {
-        firingArcsNav.href = "firing-arcs-diagram.html";
+        firingArcsNav.href = "/firing-arcs-diagram.html";
     }
     siteNav.appendChild(firingArcsNav);
 
@@ -40,7 +40,7 @@ function initializeSiteNav() {
         innerSphereNav.className = "current";
         innerSphereNav.href = "#";
     } else {
-        innerSphereNav.href = "the-inner-sphere.html";
+        innerSphereNav.href = "/the-inner-sphere.html";
     }
     siteNav.appendChild(innerSphereNav);
 }
