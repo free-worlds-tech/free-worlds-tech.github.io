@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>FWTI - Weapon BV Tool</title>
+<meta charset="utf-8">
+<meta name="description" content="A tool for calculating weapon BVs for the BattleTech tabletop game">
+<meta property="og:url" content="https://free-worlds-tech.github.io/weapon-bv.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="FWTI - Weapon BV Tool">
+<meta property="og:description" content="A tool for calculating weapon BVs for the BattleTech tabletop game">
+<meta property="og:image" content="https://free-worlds-tech.github.io/assets/fwti-1200-630.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="twitter:domain" content="free-worlds-tech.github.io">
+<meta property="twitter:url" content="https://free-worlds-tech.github.io/weapon-bv.html">
+<meta name="twitter:title" content="FWTI - Firing Arcs Diagram Tool">
+<meta name="twitter:description" content="A tool for calculating weapon BVs for the BattleTech tabletop game">
+<meta name="twitter:image" content="https://free-worlds-tech.github.io/assets/fwti-1200-630.png">
+<link rel="icon" href="assets/fwti.svg" type="image/svg+xml">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="stylesheet" href="ext/simple.min.css">
+<link rel="stylesheet" href="css/fwti.css">
+<link rel="stylesheet" href="css/calculator.css">
+<script charset="UTF-8" src="script/fwti.js" defer></script>
+<script charset="UTF-8" src="script/weapon-bv.js" defer></script>
+<script charset="UTF-8" src="script/weapon-bv-data.js" defer></script>
+<script charset="UTF-8" src="script/weapon-bv-ui.js" defer></script>
+</head>
+<body>
+
+<header>
+    <img class="logo" src="assets/fwti-256.png" alt="FWTI logo">
+    <h1>Free Worlds Technical Institute</h1>
+    <nav id="site-nav" data-current="weapon-bv"></nav>
+</header>
+
+<h2>Weapon BV Tool</h2>
+<p>
+    This calculator can be used to determine weapon Battle Values for BattleTech. It is based
+    on the weapon BV calculations described on the 
+    <a href="https://www.heavymetalpro.com/bv_calc.htm">Heavy Metal Pro Weapon Battle Value Calculation page</a>,
+    but it is a new implementation that adds some additional capabilities.
+</p>
+<p>
+    The set of weapons included in the selection box is nowhere near complete, but the JSON representation
+    of the weapons can be edited to run the calculations with the stats of weapons that I haven't included
+    or with custom weapon stats.
+</p>
+<p>
+    The Battle Value Calculation Options give you the ability to adjust the underlying calculations. For example,
+    the official BV values for weapons align with a base to-hit number of 4 at short range, but the options can be
+    used to adjust that up or down which will change the BV pricing for to-hit modifiers.
+</p>
+
+<select id="known-weapons" onchange="loadWeapon()"></select>
+<div>
+    <textarea id="weapon-json" spellcheck="false"></textarea>
+</div>
+<button type="button" onclick="loadWeapon()">Undo Edits</button>
+<details>
+    <summary>Battle Value Calculation Options</summary>
+    <p>
+        <label>Base to-hit number</label>
+        <input type="number" id="base-to-hit" name="base-to-hit-value" value="4">
+    </p>
+    <label>
+        <input type="checkbox" id="chk-ammo-is-free" value="free-ammo">
+        Cost all weapons as if they did not use ammo
+    </label>
+    <label>
+        <input type="checkbox" id="chk-head-breachers" value="head-breach">
+        Increase BV for weapons that deal 10+ damage
+    </label>
+    <label>
+        <input type="checkbox" id="chk-discount-jams" value="discount-jams">
+        Discount rapid fire weapons for jam rate
+    </label>
+</details>
+<button type="button" onclick="calculateForUI()">Update Calculation</button>
+<div>
+    <strong>Official Battle Value: </strong> <span id="official-bv">Unknown</span>
+</div>
+<div>
+    <strong>Calculated Battle Value: </strong> <span id="calculated-bv">Unknown</span>
+</div>
+<div>
+    <strong>Efficiency: </strong> <span id="bv-efficiency">Unknown</span>
+</div>
+
+<footer>
+    <p>Maintained by <a href="https://github.com/scottboehmer">Scott Boehmer</a></p>
+</footer>
+</body>
+</html>

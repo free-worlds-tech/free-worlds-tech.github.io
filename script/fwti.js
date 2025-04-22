@@ -43,4 +43,14 @@ function initializeSiteNav() {
         innerSphereNav.href = "/the-inner-sphere.html";
     }
     siteNav.appendChild(innerSphereNav);
+
+    const weaponBVNav = document.createElement("a");
+    weaponBVNav.innerText = "Weapon BV";
+    if (currentPage == "weapon-bv") {
+        weaponBVNav.className = "current";
+        weaponBVNav.href = "#";
+    } else {
+        weaponBVNav.href = "/weapon-bv.html";
+    }
+    siteNav.appendChild(weaponBVNav);
 }
