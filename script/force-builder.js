@@ -439,7 +439,6 @@ function addUnitById(unitId) {
 
 function addUnit(unitProps) {
     const currentId = nextUnitId++;
-    let nonStandardSkills = false;
 
     let primarySkill = 4;
     let secondarySkill = 5;
@@ -477,8 +476,6 @@ function addUnit(unitProps) {
         default:
             break;
     }
-    
-    nonStandardSkills = (primarySkill != 4) || (secondarySkill != 5);
 
     const newUnit = {
         id: currentId,
@@ -495,13 +492,14 @@ function addUnit(unitProps) {
         newUnit.ammoTypes.set(index, ammoBin.default ? ammoBin.default : "standard");
     });
 
-    if (unitProps.unitType.startsWith("CI")) {
-        if (!unitProps.specials.includes("anti-mech")) {
-            // Conventional infantry without Anti-Mech training have their skill fixed at 8
-            newUnit.piloting = 8;
-            nonStandardSkills = true;
-        }
+    const secondarySkillInfo = getSecondarySkillInfo(newUnit);
+    if (secondarySkillInfo.fixed) {
+        newUnit.piloting = 8;
+    } else if (secondarySkillInfo.name.length == 0) {
+        newUnit.piloting = 5;
     }
+
+    const nonStandardSkills = (primarySkill != 4) || (secondarySkill != 5);
 
     let crewCount = 1;
     if (unitProps.specials.includes("commandconsole")) {
@@ -595,10 +593,11 @@ function addUnitRow(unit) {
     $dataDiv.append(`<span>Rules Level: <span class='level'>${getRulesLevelString(getAdjustedRulesLevel(unit))}</span></span>`);
     $li.append($dataDiv);
 
-    let secondarySkillName = getSecondarySkillName(unit);
+    const secondarySkill = getSecondarySkillInfo(unit);
+    const secondarySkillName = secondarySkill.name;
     let crewPlaceholder = "MechWarrior Name";
-    let fixedPrimarySkill = false;
-    let fixedSecondarySkill = false;
+    const fixedPrimarySkill = false;
+    const fixedSecondarySkill = secondarySkill.fixed;
 
     if (unit.unitProps.unitType == "BA") {
         crewPlaceholder = "Unit Name";
@@ -612,11 +611,6 @@ function addUnitRow(unit) {
         crewPlaceholder = "Pilot Name";
     } else if (unit.unitProps.unitType.startsWith("CI")) {
         crewPlaceholder = "Unit Name";
-        if (!unit.unitProps.specials.includes("no-anti-mech")) {
-            if (!unit.unitProps.specials.includes("anti-mech")) {
-                fixedSecondarySkill = true;
-            }
-        }
     }
 
     if (unit.unitProps.specials.includes("drone")) {
@@ -1331,7 +1325,7 @@ function readyPrintContent() {
         $unitDiv.append($dataDiv);
 
         let crewName = unit.crew;
-        let secondarySkill = getSecondarySkillName(unit);
+        let secondarySkill = getSecondarySkillInfo(unit).name;
         const positionName = getCrewPositionName(unit, 1);
 
         const $crewDiv = $("<div>", {class: "flex-row"});
@@ -2045,8 +2039,9 @@ function forEachNetworkUnit(network, f) {
     }
 }
 
-function getSecondarySkillName(unit) {
+function getSecondarySkillInfo(unit) {
     let secondarySkillName = "Piloting";
+    let fixedSecondarySkill = false;
     if (unit.unitProps.unitType == "BA") {
         secondarySkillName = "Anti-’Mech";
     } else if (unit.unitProps.unitType.startsWith("CV")) {
@@ -2059,9 +2054,15 @@ function getSecondarySkillName(unit) {
         secondarySkillName = "";
         if (!unit.unitProps.specials.includes("no-anti-mech")) {
             secondarySkillName = "Anti-’Mech";
+            if (!unit.unitProps.specials.includes("anti-mech")) {
+                fixedSecondarySkill = true;
+            }
         }
     }
-    return secondarySkillName;
+    return {
+        name: secondarySkillName,
+        fixed: fixedSecondarySkill
+    };
 }
 
 function getCrewPositionName(unit, slot) {
