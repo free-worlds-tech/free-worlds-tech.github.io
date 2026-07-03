@@ -11,6 +11,8 @@ let novaInUse = false;
 let previousSearchQuery = "";
 let searchResumeToken = 0;
 
+let useCoreRulesBV = false;
+
 const c3mUnits = [];
 const c3sUnits = [];
 const c3iUnits = [];
@@ -26,6 +28,17 @@ function readyInterface() {
     switchToForceTab();
 
     $(".lazy").removeAttr("disabled");
+
+    $("#use-core-rules-checkbox").on("change", function () {
+        if (this.checked) {
+            useCoreRulesBV = true;
+        } else {
+            useCoreRulesBV = false;
+        }
+        force.forEach((unit) => {
+            updateUnitBV(unit);
+        });
+    })
 
     const urlParams = new URLSearchParams(window.location.search);
     const debugParam = urlParams.get('debug');
@@ -797,10 +810,12 @@ function updateUnitBV(unit, fromNetworkChange) {
     }
 
     // Add BV for TAG and semi-guided ammo in the force
-    const semiGuidedAmmoBV = getAdditionalBVforTAG(unit);
-    if (semiGuidedAmmoBV > 0) {
-        modifiedBV += semiGuidedAmmoBV;
-        bvNotes.push({note: "TAG", amount: semiGuidedAmmoBV});
+    if (!useCoreRulesBV) {
+        const semiGuidedAmmoBV = getAdditionalBVforTAG(unit);
+        if (semiGuidedAmmoBV > 0) {
+            modifiedBV += semiGuidedAmmoBV;
+            bvNotes.push({note: "TAG", amount: semiGuidedAmmoBV});
+        }
     }
 
     // C3 networks
@@ -811,9 +826,16 @@ function updateUnitBV(unit, fromNetworkChange) {
                 forEachNetworkUnit(network, (networkUnit) => {
                     if (unit.id == networkUnit.id) {
                         connectedNetwork = network;
-                        const networkBV = Math.round(getNetworkBV(network.id, unit.unitProps.specials.includes("boostedc3")));
-                        modifiedBV += networkBV;
-                        bvNotes.push({note: "C3", amount: networkBV});
+                        if (useCoreRulesBV) {
+                            const networkMultiplier = getNetworkBVMultiplier_CoreRules(network.id, unit.unitProps.specials.includes("boostedc3"));
+                            const networkBV = Math.round(networkMultiplier * modifiedBV);
+                            modifiedBV *= (1 + networkMultiplier);
+                            bvNotes.push({note: `C3 ×${(1 + networkMultiplier)}`, amount: networkBV});
+                        } else {
+                            const networkBV = Math.round(getNetworkBV(network.id, unit.unitProps.specials.includes("boostedc3")));
+                            modifiedBV += networkBV;
+                            bvNotes.push({note: "C3", amount: networkBV});
+                        }
                     }
                 });
             }
@@ -825,9 +847,16 @@ function updateUnitBV(unit, fromNetworkChange) {
                 forEachNetworkUnit(network, (networkUnit) => {
                     if (unit.id == networkUnit.id) {
                         connectedNetwork = network;
-                        const networkBV = Math.round(getNetworkBV(network.id, false));
-                        modifiedBV += networkBV;
-                        bvNotes.push({note: "C3i", amount: networkBV});
+                        if (useCoreRulesBV) {
+                            const networkMultiplier = getNetworkBVMultiplier_CoreRules(network.id, false);
+                            const networkBV = Math.round(networkMultiplier * modifiedBV);
+                            modifiedBV *= (1 + networkMultiplier);
+                            bvNotes.push({note: `C3i ×${(1 + networkMultiplier)}`, amount: networkBV});
+                        } else {
+                            const networkBV = Math.round(getNetworkBV(network.id, false));
+                            modifiedBV += networkBV;
+                            bvNotes.push({note: "C3i", amount: networkBV});
+                        }
                     }
                 });
             }
@@ -949,6 +978,24 @@ function getNetworkBV(networkId, isBoosted) {
     });
 
     return unitCount > 1 ? networkBV : 0;
+}
+
+function getNetworkBVMultiplier_CoreRules(networkId, isBoosted) {
+    let multiplier = 0;
+    let unitCount = 0;
+    const network = networks.get(networkId);
+
+    forEachNetworkUnit(network, (unit) => {
+        unitCount += 1;
+    });
+
+    if (unitCount >= 2) {
+        multiplier = Math.min(0.40, unitCount * 0.05);
+        if (isBoosted) {
+            multiplier += 0.05;
+        }
+    }
+    return multiplier;
 }
 
 function getNovaNetworkCap() {
