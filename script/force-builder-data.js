@@ -28,10 +28,18 @@ function getAmmoName(weaponId, ammoId, count) {
     const ammo = weapon ? weapon.ammoTypes.find((x) => x.id == ammoId) : undefined;
     if (ammo) {
         let name = ammo.name;
+        if (useCoreRules2026 && ammo.crName) {
+            name = ammo.crName;
+        }
         if (count) {
             let shotCount = count;
             if (ammo.shotMultiplier) {
-                shotCount = Math.floor(shotCount * ammo.shotMultiplier);
+                if (useCoreRules2026 && ammo.crShotMultiplier)
+                {
+                    shotCount = Math.floor(shotCount * ammo.crShotMultiplier);
+                } else {
+                    shotCount = Math.floor(shotCount * ammo.shotMultiplier);
+                }
             }
             name = `${name} (${shotCount})`;
         }
@@ -331,11 +339,11 @@ const knownWeapons = [
         name: "AC/2", 
         ammoTypes: [
             {id: "standard", name: "Standard (45)"},
-            {id: "ap", name: "Armor-Piercing (22)", level: 2},
+            {id: "ap", name: "Armor-Piercing (22)", level: 2, crName: "Armor-Piercing (36)"},
             {id: "caseless", name: "Caseless (90)", extraBV: 5, level: 3},
             {id: "flak", name: "Flak (45)", level: 2},
             {id: "flechette", name: "Flechette (45)", level: 2},
-            {id: "precision", name: "Precision (22)", level: 2},
+            {id: "precision", name: "Precision (22)", level: 2, crName: "Precision (27)"},
             {id: "tracer", name: "Tracer (45)", extraBV: 1.25, level: 3},
         ]
     },
@@ -344,11 +352,11 @@ const knownWeapons = [
         name: "AC/5", 
         ammoTypes: [
             {id: "standard", name: "Standard (20)"},
-            {id: "ap", name: "Armor-Piercing (10)", level: 2},
+            {id: "ap", name: "Armor-Piercing (10)", level: 2, crName: "Armor-Piercing (16)"},
             {id: "caseless", name: "Caseless (40)", extraBV: 9, level: 3},
             {id: "flak", name: "Flak (20)", level: 2},
             {id: "flechette", name: "Flechette (20)", level: 2},
-            {id: "precision", name: "Precision (10)", level: 2},
+            {id: "precision", name: "Precision (10)", level: 2, crName: "Precision (12)"},
             {id: "tracer", name: "Tracer (20)", extraBV: 2.25, level: 3},
         ]
     },
@@ -356,12 +364,12 @@ const knownWeapons = [
         id: "is:ac10", 
         name: "AC/10", 
         ammoTypes: [
-            {id: "standard", name: "Standard (10)", level: 2},
-            {id: "ap", name: "Armor-Piercing (5)"},
+            {id: "standard", name: "Standard (10)"},
+            {id: "ap", name: "Armor-Piercing (5)", level: 2, crName: "Armor-Piercing (8)"},
             {id: "caseless", name: "Caseless (20)", extraBV: 15, level: 3},
             {id: "flak", name: "Flak (10)", level: 2},
             {id: "flechette", name: "Flechette (10)", level: 2},
-            {id: "precision", name: "Precision (5)", level: 2},
+            {id: "precision", name: "Precision (5)", level: 2, crName: "Precision (6)"},
             {id: "tracer", name: "Tracer (10)", extraBV: 3.75, level: 3},
         ]
     },
@@ -370,11 +378,11 @@ const knownWeapons = [
         name: "AC/20", 
         ammoTypes: [
             {id: "standard", name: "Standard (5)"},
-            {id: "ap", name: "Armor-Piercing (2)", level: 2},
+            {id: "ap", name: "Armor-Piercing (2)", level: 2, crName: "Armor-Piercing (4)"},
             {id: "caseless", name: "Caseless (10)", extraBV: 22, level: 3},
             {id: "flak", name: "Flak (5)", level: 2},
             {id: "flechette", name: "Flechette (5)", level: 2},
-            {id: "precision", name: "Precision (2)", level: 2},
+            {id: "precision", name: "Precision (2)", level: 2, crName: "Precision (3)"},
             {id: "tracer", name: "Tracer (5)", extraBV: 5.5, level: 3},
         ]
     },
@@ -383,11 +391,11 @@ const knownWeapons = [
         name: "Light AC/2", 
         ammoTypes: [
             {id: "standard", name: "Standard (45)"},
-            {id: "ap", name: "Armor-Piercing (22)"},
+            {id: "ap", name: "Armor-Piercing (22)", crName: "Armor-Piercing (36)"},
             {id: "caseless", name: "Caseless (90)", extraBV: 4, level: 3},
             {id: "flak", name: "Flak (45)", level: 2},
             {id: "flechette", name: "Flechette (45)"},
-            {id: "precision", name: "Precision (22)"},
+            {id: "precision", name: "Precision (22)", crName: "Precision (27)"},
             {id: "tracer", name: "Tracer (45)", extraBV: 1, level: 3},
         ]
     },
@@ -396,11 +404,11 @@ const knownWeapons = [
         name: "Light AC/5", 
         ammoTypes: [
             {id: "standard", name: "Standard (20)"},
-            {id: "ap", name: "Armor-Piercing (10)"},
+            {id: "ap", name: "Armor-Piercing (10)", crName: "Armor-Piercing (16)"},
             {id: "caseless", name: "Caseless (40)", extraBV: 8, level: 3},
             {id: "flak", name: "Flak (20)", level: 2},
             {id: "flechette", name: "Flechette (20)"},
-            {id: "precision", name: "Precision (10)"},
+            {id: "precision", name: "Precision (10)", crName: "Precision (12)"},
             {id: "tracer", name: "Tracer (20)", extraBV: 2, level: 3},
         ]
     },
@@ -1600,7 +1608,7 @@ const knownWeapons = [
         name: "ProtoMech AC/2",
         ammoTypes: [
             {id: "standard", name: "Standard (40)"},
-            {id: "ap", name: "Armor-Piercing (20)"},
+            {id: "ap", name: "Armor-Piercing (20)", crName: "Armor-Piercing (32)"},
             {id: "flak", name: "Flak (40)"},
             {id: "flechette", name: "Flechette (40)"},
             {id: "tracer", name: "Tracer (40)", extraBV: 1, level: 3},
@@ -1611,7 +1619,7 @@ const knownWeapons = [
         name: "ProtoMech AC/2",
         ammoTypes: [
             {id: "standard", name: "Standard"},
-            {id: "ap", name: "Armor-Piercing", shotMultiplier: 0.5},
+            {id: "ap", name: "Armor-Piercing", shotMultiplier: 0.5, crShotMultiplier: 0.8},
             {id: "flak", name: "Flak"},
             {id: "flechette", name: "Flechette"},
             {id: "tracer", name: "Tracer", extraBV: 0.025, level: 3},
@@ -1622,7 +1630,7 @@ const knownWeapons = [
         name: "ProtoMech AC/4",
         ammoTypes: [
             {id: "standard", name: "Standard (20)"},
-            {id: "ap", name: "Armor-Piercing (10)"},
+            {id: "ap", name: "Armor-Piercing (10)", crName: "Armor-Piercing (16)"},
             {id: "flak", name: "Flak (20)"},
             {id: "flechette", name: "Flechette (20)"},
             {id: "tracer", name: "Tracer (20)", extraBV: 1.5, level: 3},
@@ -1633,7 +1641,7 @@ const knownWeapons = [
         name: "ProtoMech AC/8",
         ammoTypes: [
             {id: "standard", name: "Standard (10)"},
-            {id: "ap", name: "Armor-Piercing (5)"},
+            {id: "ap", name: "Armor-Piercing (5)", crName: "Armor-Piercing (8)"},
             {id: "flak", name: "Flak (10)"},
             {id: "flechette", name: "Flechette (10)"},
             {id: "tracer", name: "Tracer (10)", extraBV: 2, level: 3},

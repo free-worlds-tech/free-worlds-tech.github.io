@@ -11,7 +11,7 @@ let novaInUse = false;
 let previousSearchQuery = "";
 let searchResumeToken = 0;
 
-let useCoreRulesBV = false;
+let useCoreRules2026 = false;
 
 const c3mUnits = [];
 const c3sUnits = [];
@@ -31,9 +31,9 @@ function readyInterface() {
 
     $("#use-core-rules-checkbox").on("change", function () {
         if (this.checked) {
-            useCoreRulesBV = true;
+            useCoreRules2026 = true;
         } else {
-            useCoreRulesBV = false;
+            useCoreRules2026 = false;
         }
         force.forEach((unit) => {
             updateUnitBV(unit);
@@ -810,7 +810,7 @@ function updateUnitBV(unit, fromNetworkChange) {
     }
 
     // Add BV for TAG and semi-guided ammo in the force
-    if (!useCoreRulesBV) {
+    if (!useCoreRules2026) {
         const semiGuidedAmmoBV = getAdditionalBVforTAG(unit);
         if (semiGuidedAmmoBV > 0) {
             modifiedBV += semiGuidedAmmoBV;
@@ -826,7 +826,7 @@ function updateUnitBV(unit, fromNetworkChange) {
                 forEachNetworkUnit(network, (networkUnit) => {
                     if (unit.id == networkUnit.id) {
                         connectedNetwork = network;
-                        if (useCoreRulesBV) {
+                        if (useCoreRules2026) {
                             const networkMultiplier = getNetworkBVMultiplier_CoreRules(network.id, unit.unitProps.specials.includes("boostedc3"));
                             const networkBV = Math.round(networkMultiplier * modifiedBV);
                             modifiedBV *= (1 + networkMultiplier);
@@ -847,7 +847,7 @@ function updateUnitBV(unit, fromNetworkChange) {
                 forEachNetworkUnit(network, (networkUnit) => {
                     if (unit.id == networkUnit.id) {
                         connectedNetwork = network;
-                        if (useCoreRulesBV) {
+                        if (useCoreRules2026) {
                             const networkMultiplier = getNetworkBVMultiplier_CoreRules(network.id, false);
                             const networkBV = Math.round(networkMultiplier * modifiedBV);
                             modifiedBV *= (1 + networkMultiplier);
