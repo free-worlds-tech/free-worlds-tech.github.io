@@ -44,7 +44,7 @@ function populateEraSelects() {
         } else if (eraSelect.id == "search-era") {
             const anyEraOption = document.createElement("option");
             anyEraOption.value = "any";
-            anyEraOption.innerText = "No Era Selected";
+            anyEraOption.innerText = "Any Era";
             eraSelect.appendChild(anyEraOption);
         }
 
@@ -81,36 +81,50 @@ function populateFactionSelects() {
 }
 
 function filterForceEraSelect(factionId) {
-    const $eraSelect = $("#force-era");
+    const eraSelect = document.getElementById("force-era");
 
-    const currentForceEra = $eraSelect.val();
+    const currentForceEra = eraSelect.value;
 
-    $eraSelect.children().remove();
+    eraSelect.innerHTML = "";
 
-    $eraSelect.append(`<option value="any">No Era Selected</option>`);
+    const noEraOption = document.createElement("option");
+    noEraOption.value = "any";
+    noEraOption.innerText = "No Era Selected";
+    eraSelect.appendChild(noEraOption);
+
     getFilteredErasInOrder(factionId).forEach((eraId) => {
-        $eraSelect.append(`<option value="${eraId}">${getEraDisplayName(eraId)}</option>`);
+        const eraOption = document.createElement("option");
+        eraOption.value = eraId;
+        eraOption.innerText = getEraDisplayName(eraId);
+        eraSelect.appendChild(eraOption);
     });
 
     if (currentForceEra) {
-        $eraSelect.val(currentForceEra);
+        eraSelect.value = currentForceEra;
     }
 }
 
 function filterSearchEraSelect(factionId) {
-    const $eraSelect = $("#search-era");
+    const eraSelect = document.getElementById("search-era");
 
-    const currentSearchEra = $eraSelect.val();
+    const currentSearchEra = eraSelect.value;
 
-    $eraSelect.children().remove();
+    eraSelect.innerHTML = "";
 
-    $eraSelect.append(`<option value="any">Any Era</option>`);
+    const anyEraOption = document.createElement("option");
+    anyEraOption.value = "any";
+    anyEraOption.innerText = "Any Era";
+    eraSelect.appendChild(anyEraOption);
+
     getFilteredErasInOrder(factionId).forEach((eraId) => {
-        $eraSelect.append(`<option value="${eraId}">${getEraDisplayName(eraId)}</option>`);
+        const eraOption = document.createElement("option");
+        eraOption.value = eraId;
+        eraOption.innerText = getEraDisplayName(eraId);
+        eraSelect.appendChild(eraOption);
     });
 
     if (currentSearchEra) {
-        $eraSelect.val(currentSearchEra);
+        eraSelect.value = currentSearchEra;
     }
 }
 
