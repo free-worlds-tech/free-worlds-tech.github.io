@@ -25,7 +25,7 @@ function readyInterface() {
 
     switchToForceTab();
 
-    $(".lazy").removeAttr("disabled");
+    document.querySelectorAll(".lazy").forEach(lazyElement => lazyElement.removeAttribute("disabled"));
 
     const urlParams = new URLSearchParams(window.location.search);
     const debugParam = urlParams.get('debug');
@@ -35,24 +35,48 @@ function readyInterface() {
 }
 
 function populateEraSelects() {
-    const $eraSelects = $(".era-select");
+    document.querySelectorAll(".era-select").forEach(eraSelect => {
+        if (eraSelect.id == "force-era") {
+            const noEraOption = document.createElement("option");
+            noEraOption.value = "any";
+            noEraOption.innerText = "No Era Selected";
+            eraSelect.appendChild(noEraOption);
+        } else if (eraSelect.id == "search-era") {
+            const anyEraOption = document.createElement("option");
+            anyEraOption.value = "any";
+            anyEraOption.innerText = "No Era Selected";
+            eraSelect.appendChild(anyEraOption);
+        }
 
-    $eraSelects.filter("#force-era").append(`<option value="any">No Era Selected</option>`);
-    $eraSelects.filter("#search-era").append(`<option value="any">Any Era</option>`);
-
-    getErasInOrder().forEach((eraId) => {
-        $eraSelects.append(`<option value="${eraId}">${getEraDisplayName(eraId)}</option>`);
+        getErasInOrder().forEach((eraId) => {
+            const eraOption = document.createElement("option");
+            eraOption.value = eraId;
+            eraOption.innerText = getEraDisplayName(eraId);
+            eraSelect.appendChild(eraOption);
+        });
     });
 }
 
 function populateFactionSelects() {
-    const $factionSelects = $(".faction-select");
+    document.querySelectorAll(".faction-select").forEach(factionSelect => {
+        if (factionSelect.id == "force-faction") {
+            const noFactionOption = document.createElement("option");
+            noFactionOption.value = "any";
+            noFactionOption.innerText = "No Faction Selected";
+            factionSelect.appendChild(noFactionOption);
+        } else if (factionSelect.id == "search-faction") {
+            const anyFactionOption = document.createElement("option");
+            anyFactionOption.value = "any";
+            anyFactionOption.innerText = "Any Faction";
+            factionSelect.appendChild(anyFactionOption);
+        }
 
-    $factionSelects.filter("#force-faction").append(`<option value="any">No Faction Selected</option>`);
-    $factionSelects.filter("#search-faction").append(`<option value="any">Any Faction</option>`);
-
-    getFactionsInOrder().forEach((factionId) => {
-        $factionSelects.append(`<option value="${factionId}">${getFactionDisplayName(factionId)}</option>`);
+        getFactionsInOrder().forEach((factionId) => {
+            const factionOption = document.createElement("option");
+            factionOption.value = factionId;
+            factionOption.innerText = getFactionDisplayName(factionId);
+            factionSelect.appendChild(factionOption);
+        });
     });
 }
 
@@ -2122,8 +2146,8 @@ function resetSearchEraAndFactionSelects(eraId, factionId) {
     filterSearchFactionSelect(eraId);
     filterSearchEraSelect(factionId);
 
-    $("#search-era").val(eraId);
-    $("#search-faction").val(factionId);
+    document.getElementById("search-era").value = eraId;
+    document.getElementById("search-faction").value = factionId;
 }
 
 function updateSearchEra() {
@@ -2196,8 +2220,8 @@ function setForceEraAndFaction(eraId, factionId) {
     filterForceFactionSelect(eraId);
     filterForceEraSelect(factionId);
     resetSearchEraAndFactionSelects(eraId, factionId);
-    $("#force-faction").val(factionId);
-    $("#force-era").val(eraId);
+    document.getElementById("force-faction").value = factionId;
+    document.getElementById("force-era").value = eraId;
 
     updateUnitAvailabilities(eraId, factionId);
 
