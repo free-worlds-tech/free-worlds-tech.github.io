@@ -269,13 +269,13 @@ function searchUnits() {
         maxJump = Number(maxJumpValue);
     }
 
-    const allowBM = $("#search-bm").is(":checked");
-    const allowIM = $("#search-im").is(":checked");
-    const allowPM = $("#search-pm").is(":checked");
-    const allowBA = $("#search-ba").is(":checked");
-    const allowCI = $("#search-ci").is(":checked");
-    const allowCV = $("#search-cv").is(":checked");
-    const allowQV = $("#search-qv").is(":checked");
+    const allowBM = document.getElementById("search-bm").checked;
+    const allowIM = document.getElementById("search-im").checked;
+    const allowPM = document.getElementById("search-pm").checked;
+    const allowBA = document.getElementById("search-ba").checked;
+    const allowCI = document.getElementById("search-ci").checked;
+    const allowCV = document.getElementById("search-cv").checked;
+    const allowQV = document.getElementById("search-qv").checked;
 
     let types = [];
     if (allowBM) { types.push("bm"); }
@@ -286,13 +286,13 @@ function searchUnits() {
     if (allowCV) { types.push("cv"); }
     if (allowQV) { types.push("qv"); }
 
-    const requireC3M = $("#search-c3m").is(":checked");
-    const requireC3S = $("#search-c3s").is(":checked");
-    const requireC3i = $("#search-c3i").is(":checked");
-    const requireOmni = $("#search-omni").is(":checked");
-    const requireTAG = $("#search-tag").is(":checked");
-    const requireProbe = $("#search-probe").is(":checked");
-    const requireECM = $("#search-ecm").is(":checked");
+    const requireC3M = document.getElementById("search-c3m").checked;
+    const requireC3S = document.getElementById("search-c3s").checked;
+    const requireC3i = document.getElementById("search-c3i").checked;
+    const requireOmni = document.getElementById("search-omni").checked;
+    const requireTAG = document.getElementById("search-tag").checked;
+    const requireProbe = document.getElementById("search-probe").checked;
+    const requireECM = document.getElementById("search-ecm").checked;
 
     let searchParams = new URLSearchParams();
     if (query.length > 0) {
@@ -467,7 +467,7 @@ function addUnit(unitProps) {
     let primarySkill = 4;
     let secondarySkill = 5;
 
-    const forceExperienceRating = $("#force-experience").val();
+    const forceExperienceRating = document.getElementById("force-experience").value;
     switch (forceExperienceRating) {
         case "green":
             primarySkill = 5;
