@@ -1,0 +1,32 @@
+.adv-summary {
+    background-color: beige;
+    display: flex;
+    flex-direction: row;
+}
+
+.adv-summary > *:first-child {
+    flex: 1;
+}
+
+details > .adv-summary::before {
+    content: "🞂";
+    width: 16px;
+    margin-right: 8px;
+    text-align: center;
+}
+
+details[open] > .adv-summary::before {
+    content: "🞃";
+}
+
+header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.logo {
+    width: 64px;
+    height: 64px;
+    margin: 16px;
+}
