@@ -155,6 +155,7 @@ function addFormationUI(formation) {
 
     const editButton = document.createElement("button");
     editButton.innerHTML = `<span class="material-symbols-outlined">edit_note</span>`;
+    editButton.title = "Edit Formation";
     editButton.addEventListener("click", () => {
         showEditFormationPanel(formation);
     });
@@ -162,6 +163,7 @@ function addFormationUI(formation) {
 
     const addMechButton = document.createElement("button");
     addMechButton.innerHTML = `<span class="material-symbols-outlined">add</span>`;
+    addMechButton.title = "Add 'Mech";
     addMechButton.addEventListener("click", () => {
         showAddMechPanel(formation);
     });
@@ -169,6 +171,8 @@ function addFormationUI(formation) {
 
     const deleteButton = document.createElement("button");
     deleteButton.innerHTML = `<span class="material-symbols-outlined">delete</span>`;
+    deleteButton.title = "Delete Formation";
+    deleteButton.classList.add("destructive");
     buttons.appendChild(deleteButton);
 
     const formationUnitList = document.createElement("div");
@@ -257,11 +261,13 @@ function addSupportUI(force) {
 
     const addStrikeButton = document.createElement("button");
     addStrikeButton.innerHTML = `<span class="material-symbols-outlined">explosion</span>`;
+    addStrikeButton.title = "Add Strike";
     addStrikeButton.setAttribute("disabled", "disabled");
     buttons.appendChild(addStrikeButton);
 
     const addAssetButton = document.createElement("button");
     addAssetButton.innerHTML = `<span class="material-symbols-outlined">local_shipping</span>`;
+    addAssetButton.title = "Add Asset";
     addAssetButton.setAttribute("disabled", "disabled");
     buttons.appendChild(addAssetButton);
 
@@ -294,6 +300,7 @@ function showEditForcePanel() {
     titleLine.appendChild(title);
     const closeButton = document.createElement("button");
     closeButton.innerHTML = `<span class="material-symbols-outlined">close</span>`;
+    closeButton.title = "Done";
     closeButton.addEventListener("click", () => {
         panelHost.classList.add("hidden");
         panelHost.innerHTML = "";
@@ -346,6 +353,7 @@ function showEditFormationPanel(formation) {
     title.innerText = formation.name;
     titleLine.appendChild(title);
     const closeButton = document.createElement("button");
+    closeButton.title = "Done";
     closeButton.innerHTML = `<span class="material-symbols-outlined">close</span>`;
     closeButton.addEventListener("click", () => {
         panelHost.classList.add("hidden");
@@ -381,6 +389,7 @@ function showAddMechPanel(formation) {
     titleLine.appendChild(title);
     const closeButton = document.createElement("button");
     closeButton.innerHTML = `<span class="material-symbols-outlined">close</span>`;
+    closeButton.title = "Done";
     closeButton.addEventListener("click", () => {
         panelHost.classList.add("hidden");
         panelHost.innerHTML = "";
@@ -400,6 +409,7 @@ function showAddMechPanel(formation) {
 
     const searchButton = document.createElement("button");
     searchButton.innerHTML = `<span class="material-symbols-outlined">search</span>`;
+    searchButton.title = "Search";
     searchControls.appendChild(searchButton);
 
     panelHost.appendChild(searchControls);
@@ -447,6 +457,7 @@ function createAddUnitRow(formation, unitData) {
 
     const addButton = document.createElement("button");
     addButton.innerHTML = `<span class="material-symbols-outlined">add</span>`;
+    addButton.title = "Add to Formation";
     row.appendChild(addButton);
 
     addButton.addEventListener("click", () => {

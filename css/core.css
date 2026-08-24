@@ -7,13 +7,17 @@
     --text-color: rgb(33, 33, 33);
     --accent-color: rgb(13, 71, 161);
     --accent-text-color: rgb(240,240,240);
-    --accent-hover-color: #1266e2;
+    --accent-hover-color: rgb(18, 102, 226);
     --bg-color: #ffffff;
     --accent-bg-color: #f5f7ff;
     --border-color: #898ea4;
 
     --disabled-color: rgba(13, 71, 161, 0.5);
     --text-disabled-color: rgba(240,240,240, 0.8);
+
+    --destructive-color: rgb(161, 71, 13);
+    --destructive-disabled-color: rgba(161, 71, 13, 0.5);
+    --destructive-hover-color: rgb(226, 102, 18);
 
     /*
         background
@@ -162,6 +166,18 @@ label[type="button"]:hover {
   background-color: var(--accent-hover-color);
   border-color: var(--accent-hover-color);
   cursor: pointer;
+}
+
+button.destructive {
+    background-color: var(--destructive-color);
+}
+
+button.destructive[disabled] {
+    background-color: var(--destructive-disabled-color);
+}
+
+button.destructive:enabled:hover {
+    background-color: var(--destructive-hover-color);
 }
 
 /* ------------------------------------- */
