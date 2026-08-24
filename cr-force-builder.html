@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>FWTI - Force Builder</title>
+<meta charset="utf-8">
+<meta name="description" content="A force builder for BattleTech">
+<meta property="og:url" content="https://free-worlds-tech.github.io/cr-force-builder.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="FWTI - Force Builder">
+<meta property="og:description" content="A force builder for BattleTech">
+<meta property="og:image" content="https://free-worlds-tech.github.io/assets/fwti-force-builder-1200-630.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="twitter:domain" content="free-worlds-tech.github.io">
+<meta property="twitter:url" content="https://free-worlds-tech.github.io/cr-force-builder.html">
+<meta name="twitter:title" content="FWTI - Force Builder">
+<meta name="twitter:description" content="A force builder for BattleTech">
+<meta name="twitter:image" content="https://free-worlds-tech.github.io/assets/fwti-force-builder-1200-630.png">
+<link rel="icon" href="assets/fwti.svg" type="image/svg+xml">
+<link rel="icon" href="assets/fwti-256.png" type="image/png">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+<!--<link rel="stylesheet" href="ext/simple.min.css">
+<link rel="stylesheet" href="css/fwti.css">
+<link rel="stylesheet" href="css/print.css">-->
+<link rel="stylesheet" href="css/core.css">
+<link rel="stylesheet" href="css/cr-force-builder.css">
+
+<script charset="UTF-8" src="script/fwti.js" defer></script>
+<script charset="UTF-8" src="script/force-builder-data.js" defer></script>
+<script charset="UTF-8" src="script/cr-force-builder.js" defer></script>
+</head>
+<body>
+    <header>
+        <img class="logo" src="assets/fwti-256.png" alt="FWTI logo">
+        <div>
+            <h1>Free Worlds Technical Institute</h1>
+            <nav id="site-nav" data-current="cr-force-builder"></nav>
+        </div>
+    </header>
+
+    <h2 id="page-title">Force Builder</h2>
+    <p class="notice">
+        This is a prototype for a force builder focused on supporting
+        BattleTech's new Core Rulebook.
+    </p>
+
+    <div id="force-view">
+        <h3 id="force-name">Sample Force</h3>
+        <div class="toolbar">
+            <button id="edit-force-properties"><span class="material-symbols-outlined">edit_note</span></button>
+            <button id="add-formation-to-force"><span class="material-symbols-outlined">docs_add_on</span></button>
+        </div>
+        <div id="formation-list">
+        </div>
+        <div id="support-list">
+        </div>
+    </div>
+
+    <div id="panel-host" class="panel hidden">
+    </div>
+
+    <footer>
+        <p>Maintained by <a href="https://github.com/scottboehmer">Scott Boehmer</a>.</p>
+        <p>Built using data from <a href="https://megamek.org">MegaMek</a> and the <a href="http://masterunitlist.info/">Master Unit List</a>.</p>
+    </footer>
+</body>
+</html>
