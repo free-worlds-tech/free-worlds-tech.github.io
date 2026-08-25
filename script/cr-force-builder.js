@@ -148,6 +148,16 @@ class Formation extends DataClass {
         this.propertyChanged("battleValue", this.battleValue);
     }
 
+    removeUnit(unit) {
+        var i = this.#units.indexOf(unit);
+        if (i >= 0) {
+            this.#units.splice(i, 1);
+            this.propertyChanged("units", { remove: unit });
+            this.propertyChanged("unitCount", this.unitCount);
+            this.propertyChanged("battleValue", this.battleValue);
+        }
+    }
+
     get unitCount() {
         return this.#units.length;
     }
@@ -277,17 +287,7 @@ function addFormationUI(formation) {
 
     const formationUnitList = document.createElement("div");
     formation.forEachUnit((unit) => {
-        const unitEntry = document.createElement("div");
-        unitEntry.classList.add("summary-line");
-
-        const unitName = document.createElement("div");
-        unitName.innerText = unit.name;
-        unitEntry.appendChild(unitName);
-
-        const unitStats = document.createElement("div");
-        unitStats.innerText = `${unit.tonnage} tons • ${unit.adjustedBV.toLocaleString("en-us")} BV`;
-        unitEntry.appendChild(unitStats);
-
+        const unitEntry = createUnitInFormationRow(formation, unit);
         formationUnitList.appendChild(unitEntry);
     });
 
@@ -298,17 +298,7 @@ function addFormationUI(formation) {
     const unitsListener = (changed) => {
         formationUnitList.innerHTML = "";
         formation.forEachUnit((unit) => {
-            const unitEntry = document.createElement("div");
-            unitEntry.classList.add("summary-line");
-
-            const unitName = document.createElement("div");
-            unitName.innerText = unit.name;
-            unitEntry.appendChild(unitName);
-
-            const unitStats = document.createElement("div");
-            unitStats.innerText = `${unit.tonnage} tons • ${unit.adjustedBV.toLocaleString("en-us")} BV`;
-            unitEntry.appendChild(unitStats);
-
+            const unitEntry = createUnitInFormationRow(formation, unit);
             formationUnitList.appendChild(unitEntry);
         });
 
@@ -547,20 +537,70 @@ function showAddMechPanel(formation) {
 }
 
 function createAddUnitRow(formation, unitData) {
+    buttons = [
+        {
+            icon: "add",
+            title: "Add to Formation",
+            action: () => formation.addUnit(new Unit(unitData.name, unitData.bv, unitData.tonnage))
+        }
+    ];
+
+    const details = `${unitData.tonnage} tons • ${unitData.bv.toLocaleString("en-us")} BV`;
+
+    return createRowWithButtons(unitData.name, details, buttons);
+}
+
+function createUnitInFormationRow(formation, unit) {
+    buttons = [
+        {
+            icon: "edit_note",
+            title: "Edit Unit",
+            action: () => { },
+            disabled: true
+        },
+        {
+            icon: "delete",
+            title: "Delete Unit",
+            action: () => { formation.removeUnit(unit); },
+            destructive: true
+        }
+    ]
+
+    const details = `${unit.tonnage} tons • ${unit.adjustedBV.toLocaleString("en-us")} BV`;
+
+    return createRowWithButtons(unit.name, details, buttons);
+}
+
+function createRowWithButtons(label, details, buttons) {
     const row = document.createElement("div");
     row.classList.add("row");
 
     const name = document.createElement("div");
-    name.innerText = unitData.name;
+    name.innerText = label;
+    name.classList.add("row-title");
     row.appendChild(name);
 
-    const addButton = document.createElement("button");
-    addButton.innerHTML = `<span class="material-symbols-outlined">add</span>`;
-    addButton.title = "Add to Formation";
-    row.appendChild(addButton);
+    if (details) {
+        const detailsDiv = document.createElement("div");
+        detailsDiv.innerText = details;
+        detailsDiv.classList.add("row-details");
+        row.appendChild(detailsDiv);
+    }
 
-    addButton.addEventListener("click", () => {
-        formation.addUnit(new Unit(unitData.name, unitData.bv, unitData.tonnage));
+    buttons.forEach((buttonInfo) => {
+        const button = document.createElement("button");
+        button.innerHTML = `<span class="material-symbols-outlined">${buttonInfo.icon}</span>`;
+        button.title = buttonInfo.title;
+        button.addEventListener("click", () => {
+            buttonInfo.action();
+        });
+        if (buttonInfo.disabled) {
+            button.setAttribute("disabled", "disabled");
+        }
+        if (buttonInfo.destructive) {
+            button.classList.add("destructive");
+        }
+        row.appendChild(button);
     });
 
     return row;

@@ -212,3 +212,11 @@ button.destructive:enabled:hover {
 .row:nth-child(even) {
     background-color: var(--bg-color);
 }
+
+.row-title {
+    font-weight: bold;
+}
+
+.row-details {
+    margin-right: 8px;
+}
