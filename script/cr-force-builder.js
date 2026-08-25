@@ -4,41 +4,41 @@ function readyInterface() {
     });
 };
 
-class Force {
-    name = "BattleTech Force";
-    formations = [];
-    support = [];
-    era = "any";
-    faction = "any";
+class DataClass {
+    #listeners = {};
 
-    battleValue() {
-        let bv = 0;
-        this.formations.forEach((formation) => {
-            bv += formation.battleValue();
-        });
-        return bv;
+    addPropertyObserver(propertyName, observer) {
+        if (this.#listeners[propertyName] == undefined) {
+            this.#listeners[propertyName] = [];
+        }
+        this.#listeners[propertyName].push(observer);
     }
 
-    unitCount() {
-        let count = 0;
-        this.formations.forEach((formation) => {
-            count += formation.unitCount;
-        });
-        return count;
+    removePropertyObserver(propertyName, observer) {
+        if (this.#listeners[propertyName]) {
+            const i = this.#listeners[propertyName].indexOf(observer);
+            this.#listeners[propertyName].splice(i, 1);
+        }
+    }
+
+    propertyChanged(propertyName, update) {
+        if (this.#listeners[propertyName]) {
+            this.#listeners[propertyName].forEach((observer) => {
+                observer(update);
+            });
+        }
     }
 }
 
-class Formation {
-    #listeners;
-    #name;
-    #units = [];
+class Force extends DataClass {
+    #name = "BattleTech Force";
+    #formations = [];
+    support = [];
+    #era = "any";
+    #faction = "any";
 
-    constructor(name) {
-        this.#name = name;
-        this.#listeners = {
-            name: [],
-            units: []
-        };
+    constructor() {
+        super();
     }
 
     get name() {
@@ -46,9 +46,90 @@ class Formation {
     }
 
     set name(value) {
-        if (this.name != value) {
+        if (this.#name != value) {
             this.#name = value;
-            this.#propertyChanged("name", value);
+            this.propertyChanged("name", value);
+        }
+    }
+
+    get era() {
+        return this.#era;
+    }
+
+    set era(value) {
+        if (this.#era != value) {
+            this.#era = value;
+            this.propertyChanged("era", value);
+        }
+    }
+
+    get faction() {
+        return this.#faction;
+    }
+
+    set faction(value) {
+        if (this.#faction != value) {
+            this.#faction = value;
+            this.propertyChanged("faction", value);
+        }
+    }
+
+    addFormation(formation) {
+        this.#formations.push(formation);
+
+        formation.addPropertyObserver("battleValue", () => this.propertyChanged("battleValue", this.battleValue));
+        formation.addPropertyObserver("unitCount", () => this.propertyChanged("unitCount", this.unitCount));
+    }
+
+    removeFormation(formation) {
+        const i = this.#formations.indexOf(formation);
+        this.#formations.splice(i, 1);
+
+        this.propertyChanged("battleValue", this.battleValue);
+        this.propertyChanged("unitCount", this.unitCount);
+    }
+
+    forEachFormation(action) {
+        this.#formations.forEach((formation) => {
+            action(formation);
+        });
+    }
+
+    get battleValue() {
+        let bv = 0;
+        this.#formations.forEach((formation) => {
+            bv += formation.battleValue;
+        });
+        return bv;
+    }
+
+    get unitCount() {
+        let count = 0;
+        this.#formations.forEach((formation) => {
+            count += formation.unitCount;
+        });
+        return count;
+    }
+}
+
+class Formation extends DataClass {
+    #name = "";
+    #units = [];
+
+    constructor(name) {
+        super();
+        this.#name = name;
+        this.#units = [];
+    }
+
+    get name() {
+        return this.#name;
+    }
+
+    set name(value) {
+        if (this.#name != value) {
+            this.#name = value;
+            this.propertyChanged("name", value);
         }
     }
 
@@ -62,7 +143,9 @@ class Formation {
 
     addUnit(unit) {
         this.#units.push(unit);
-        this.#propertyChanged("units", { add: unit });
+        this.propertyChanged("units", { add: unit });
+        this.propertyChanged("unitCount", this.unitCount);
+        this.propertyChanged("battleValue", this.battleValue);
     }
 
     get unitCount() {
@@ -70,24 +153,9 @@ class Formation {
     }
 
     forEachUnit(action) {
-        this.#units.forEach(unit => { action(unit); });
-    }
-
-    addPropertyChangedListener(property, listener) {
-        this.#listeners[property].push(listener);
-    }
-
-    removePropertyChangedListener(property, listener) {
-        const i = this.#listeners[property].indexOf(listener);
-        this.#listeners[property].splice(i, 1);
-    }
-
-    #propertyChanged(property, newValue) {
-        if (this.#listeners[property]) {
-            this.#listeners[property].forEach((listener) => {
-                listener(newValue);
-            });
-        }
+        this.#units.forEach(unit => { 
+            action(unit);
+        });
     }
 }
 
@@ -121,10 +189,42 @@ function buildInitialForce() {
 
     let formation = new Formation("Formation 1");
 
-    initialForce.formations = [formation];
+    initialForce.addFormation(formation);
     initialForce.support = [];
 
     return initialForce;
+}
+
+function addForceStats() {
+    const forceStatsContiner = document.getElementById("force-stats");
+
+    const eraDisplay = document.createElement("div");
+    eraDisplay.innerText = force.era == "any" ? "No Era Chosen" : getEraDisplayName(force.era);
+    force.addPropertyObserver("era", (eraId) => {
+        eraDisplay.innerText = eraId == "any" ? "No Era Chosen" : getEraDisplayName(eraId);
+    });
+    forceStatsContiner.appendChild(eraDisplay);
+
+    const factionDisplay = document.createElement("div");
+    factionDisplay.innerText = force.faction == "any" ? "No Faction Chosen" : getFactionDisplayName(force.faction);
+    force.addPropertyObserver("faction", (factionId) => {
+        factionDisplay.innerText = factionId == "any" ? "No Faction Chosen" : getFactionDisplayName(factionId);
+    });
+    forceStatsContiner.appendChild(factionDisplay);
+
+    const countDisplay = document.createElement("div");
+    countDisplay.innerText = `${force.unitCount} units`;
+    force.addPropertyObserver("unitCount", (count) => {
+        countDisplay.innerText = `${count} units`;
+    });
+    forceStatsContiner.appendChild(countDisplay);
+
+    const bvDisplay = document.createElement("div");
+    bvDisplay.innerText = `${force.battleValue.toLocaleString("en-us")} BV`;
+    force.addPropertyObserver("battleValue", (bv) => {
+        bvDisplay.innerText = `${bv.toLocaleString("en-us")} BV`;
+    });
+    forceStatsContiner.appendChild(bvDisplay);
 }
 
 function addFormationUI(formation) {
@@ -215,16 +315,15 @@ function addFormationUI(formation) {
         formationStats.innerText = `${formation.unitCount} units • ${formation.battleValue.toLocaleString("en-us")} BV`;
     };
 
-    formation.addPropertyChangedListener("name", nameListener);
+    formation.addPropertyObserver("name", nameListener);
 
-    formation.addPropertyChangedListener("units", unitsListener);
+    formation.addPropertyObserver("units", unitsListener);
 
     deleteButton.addEventListener("click", () => {
-        const i = force.formations.indexOf(formation);
-        force.formations.splice(i, 1);
+        force.removeFormation(formation);
         document.getElementById("formation-list").removeChild(formationContainer);
-        formation.removePropertyChangedListener("name", nameListener);
-        formation.removePropertyChangedListener("units", unitsListener);
+        formation.removePropertyObserver("name", nameListener);
+        formation.removePropertyObserver("units", unitsListener);
     });
 }
 
@@ -597,10 +696,11 @@ function bindEraAndFactionSelects(eraSelectId, factionSelectId) {
 let force = buildInitialForce(); // buildSampleForce();
 
 readyInterface();
-force.formations.forEach((formation) => {
+force.forEachFormation((formation) => {
     addFormationUI(formation);
 });
 addSupportUI(force);
+addForceStats();
 
 document.getElementById("edit-force-properties").addEventListener("click", () => {
     showEditForcePanel();
@@ -609,7 +709,7 @@ document.getElementById("edit-force-properties").addEventListener("click", () =>
 document.getElementById("add-formation-to-force").addEventListener("click", () => {
     const newFormation = new Formation();
     newFormation.name = "New Formation";
-    force.formations.push(newFormation);
+    force.addFormation(newFormation);
     addFormationUI(newFormation);
 });
 
