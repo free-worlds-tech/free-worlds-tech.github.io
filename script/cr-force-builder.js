@@ -33,7 +33,7 @@ class DataClass {
 class Force extends DataClass {
     #name = "BattleTech Force";
     #formations = [];
-    support = [];
+    #support = [];
     #era = "any";
     #faction = "any";
 
@@ -95,6 +95,27 @@ class Force extends DataClass {
         });
     }
 
+    addSupport(supportElement) {
+        this.#support.push(supportElement);
+
+        this.propertyChanged("support", {add: supportElement});
+        this.propertyChanged("battlefieldSupportPoints", this.battlefieldSupportPoints);
+    }
+
+    removeSupport(supportElement) {
+        const i = this.#support.indexOf(supportElement);
+        this.#support.splice(i, 1);
+
+        this.propertyChanged("support", {remove: supportElement});
+        this.propertyChanged("battlefieldSupportPoints", this.battlefieldSupportPoints);
+    }
+
+    forEachSupport(action) {
+        this.#support.forEach((supportElement) => {
+            action(supportElement);
+        });
+    }
+
     get battleValue() {
         let bv = 0;
         this.#formations.forEach((formation) => {
@@ -109,6 +130,14 @@ class Force extends DataClass {
             count += formation.unitCount;
         });
         return count;
+    }
+
+    get battlefieldSupportPoints() {
+        let bsp = 0;
+        this.#support.forEach((supportElement) => {
+            bsp += supportElement.points;
+        });
+        return bsp;
     }
 }
 
@@ -200,7 +229,6 @@ function buildInitialForce() {
     let formation = new Formation("Formation 1");
 
     initialForce.addFormation(formation);
-    initialForce.support = [];
 
     return initialForce;
 }
@@ -235,6 +263,13 @@ function addForceStats() {
         bvDisplay.innerText = `${bv.toLocaleString("en-us")} BV`;
     });
     forceStatsContiner.appendChild(bvDisplay);
+
+    const bspDisplay = document.createElement("div");
+    bspDisplay.innerText = `${force.battlefieldSupportPoints} BSP`
+    force.addPropertyObserver("battlefieldSupportPoints", (bsp) => {
+        bspDisplay.innerText = `${bsp} BSP`
+    });
+    forceStatsContiner.appendChild(bspDisplay);
 }
 
 function addFormationUI(formation) {
@@ -324,7 +359,7 @@ function addSupportUI(force) {
     let bsp = 0;
     let assets = 0;
     let strikes = 0;
-    force.support.forEach((supportElement) => {
+    force.forEachSupport((supportElement) => {
         bsp += supportElement.points;
         switch (supportElement.supportType) {
             case "asset": assets++; break;
@@ -351,7 +386,9 @@ function addSupportUI(force) {
     const addStrikeButton = document.createElement("button");
     addStrikeButton.innerHTML = `<span class="material-symbols-outlined">explosion</span>`;
     addStrikeButton.title = "Add Strike";
-    addStrikeButton.setAttribute("disabled", "disabled");
+    addStrikeButton.addEventListener("click", () => {
+        showAddStrikePanel();
+    });
     buttons.appendChild(addStrikeButton);
 
     const addAssetButton = document.createElement("button");
@@ -360,19 +397,33 @@ function addSupportUI(force) {
     addAssetButton.setAttribute("disabled", "disabled");
     buttons.appendChild(addAssetButton);
 
-    force.support.forEach((supportElement) => {
-        const elementEntry = document.createElement("div");
-        elementEntry.classList.add("summary-line");
+    const supportList = document.createElement("div");
+    supportContainer.appendChild(supportList);
 
-        const elementName = document.createElement("div");
-        elementName.innerText = supportElement.name;
-        elementEntry.appendChild(elementName);
+    force.forEachSupport((supportElement) => {
+        const elementEntry = createSupportInForceRow(force, supportElement);
+        supportList.appendChild(elementEntry);
+    });
 
-        const elementStats = document.createElement("div");
-        elementStats.innerText = `${supportElement.supportType} • ${supportElement.points} BSP`;
-        elementEntry.appendChild(elementStats);
+    force.addPropertyObserver("support", () => {
+        supportList.innerHTML = "";
 
-        supportContainer.appendChild(elementEntry);
+        let bsp = 0;
+        let assets = 0;
+        let strikes = 0;
+        force.forEachSupport((supportElement) => {
+            bsp += supportElement.points;
+            switch (supportElement.supportType) {
+                case "asset": assets++; break;
+                case "strike": strikes++; break;
+            }
+        });
+        supportStats.innerText = `${assets} assets, ${strikes} strikes • ${bsp} BSP`;
+
+        force.forEachSupport((supportElement) => {
+            const elementEntry = createSupportInForceRow(force, supportElement);
+            supportList.appendChild(elementEntry);
+        });
     });
 
     document.getElementById("support-list").appendChild(supportContainer);
@@ -536,8 +587,43 @@ function showAddMechPanel(formation) {
     panelHost.classList.remove("hidden");
 }
 
+function showAddStrikePanel() {
+    const panelHost = document.getElementById("panel-host");
+    const forceView = document.getElementById("force-view");
+
+    const titleLine = document.createElement("div");
+    titleLine.classList.add("summary-line");
+    const title = document.createElement("h3");
+    title.innerText = `Add Strike`;
+    titleLine.appendChild(title);
+    const closeButton = document.createElement("button");
+    closeButton.innerHTML = `<span class="material-symbols-outlined">close</span>`;
+    closeButton.title = "Done";
+    closeButton.addEventListener("click", () => {
+        panelHost.classList.add("hidden");
+        panelHost.innerHTML = "";
+
+        forceView.classList.remove("hidden");
+    });
+
+    titleLine.appendChild(closeButton);
+    panelHost.appendChild(titleLine);
+
+    const strikeOptions = document.createElement("div");
+    panelHost.appendChild(strikeOptions);
+
+    const strikes = getSupportStrikes();
+    strikes.forEach((strikeType) => {
+        const strikeRow = createAddStrikeRow(force, strikeType);
+        strikeOptions.appendChild(strikeRow);
+    });
+
+    forceView.classList.add("hidden");
+    panelHost.classList.remove("hidden");
+}
+
 function createAddUnitRow(formation, unitData) {
-    buttons = [
+    const buttons = [
         {
             icon: "add",
             title: "Add to Formation",
@@ -550,8 +636,37 @@ function createAddUnitRow(formation, unitData) {
     return createRowWithButtons(unitData.name, details, buttons);
 }
 
+function createAddStrikeRow(force, strikeData) {
+    const buttons = [
+        {
+            icon: "add",
+            title: "Add to Formation",
+            action: () => force.addSupport(new BattlefieldSupportElement(strikeData.name, strikeData.points, strikeData.type))
+        }
+    ];
+
+    const details = `${strikeData.category} • ${strikeData.points} BSP`;
+
+    return createRowWithButtons(strikeData.name, details, buttons);
+}
+
+function createSupportInForceRow(force, supportElement) {
+    const buttons = [
+        {
+            icon: "delete",
+            title: "Delete Unit",
+            action: () => { force.removeSupport(supportElement); },
+            destructive: true
+        }
+    ]
+
+    const details = `${supportElement.supportType} • ${supportElement.points} BSP`;
+
+    return createRowWithButtons(supportElement.name, details, buttons);
+}
+
 function createUnitInFormationRow(formation, unit) {
-    buttons = [
+    const buttons = [
         {
             icon: "edit_note",
             title: "Edit Unit",
@@ -564,7 +679,7 @@ function createUnitInFormationRow(formation, unit) {
             action: () => { formation.removeUnit(unit); },
             destructive: true
         }
-    ]
+    ];
 
     const details = `${unit.tonnage} tons • ${unit.adjustedBV.toLocaleString("en-us")} BV`;
 
@@ -733,7 +848,7 @@ function bindEraAndFactionSelects(eraSelectId, factionSelectId) {
     });
 }
 
-let force = buildInitialForce(); // buildSampleForce();
+let force = buildInitialForce();
 
 readyInterface();
 force.forEachFormation((formation) => {
