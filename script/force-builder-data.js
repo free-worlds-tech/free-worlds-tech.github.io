@@ -3846,3 +3846,23 @@ function factionExistsInEra(factionId, eraId) {
         case "word-of-blake": return ["clan-invasion", "civil-war", "jihad"].indexOf(eraId) != -1;
     }
 }
+
+function getSupportStrikes() {
+    return [
+        { name: "Bluff", points: 5, type: "strike", category: "Offensive Air Support" },
+        { name: "Light Air Strike", points: 10, type: "strike", category: "Offensive Air Support" },
+        { name: "Light Bombing", points: 13, type: "strike", category: "Offensive Air Support" },
+        { name: "Heavy Air Strike", points: 16, type: "strike", category: "Offensive Air Support" },
+        { name: "Heavy Bombing", points: 18, type: "strike", category: "Offensive Air Support" },
+        { name: "Strafing", points: 22, type: "strike", category: "Offensive Air Support" },
+        { name: "Light Air Cover", points: 5, type: "strike", category: "Defensive Air Support" },
+        { name: "Heavy Air Cover", points: 8, type: "strike", category: "Defensive Air Support" },
+        { name: "Arrow IV Standard", points: 16, type: "strike", category: "Artillery Support" },
+        { name: "Thumper", points: 12, type: "strike", category: "Artillery Support" },
+        { name: "Sniper", points: 16, type: "strike", category: "Artillery Support" },
+        { name: "Long Tom", points: 24, type: "strike", category: "Artillery Support" },
+        { name: "Light Density Minefield", points: 3, type: "strike", category: "Minefield Support" },
+        { name: "Medium Density Minefield", points: 5, type: "strike", category: "Minefield Support" },
+        { name: "Heavy Density Minefield", points: 8, type: "strike", category: "Minefield Support" },
+    ];
+}
