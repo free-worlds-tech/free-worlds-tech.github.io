@@ -699,6 +699,9 @@ function addUnitAmmoSelector(unit)
                             return;
                         }
                     }
+                    if (option.level && option.level >= 3) {
+                        return;
+                    }
                     availableOptions += 1;
                     const ammoName = getAmmoName(element.type, option.id, element.shots);
                     if (element.default ? option.id == element.default : option.id == "standard") {
