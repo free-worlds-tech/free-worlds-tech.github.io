@@ -799,12 +799,13 @@ function updateUnitBV(unit, fromNetworkChange) {
         bvNotes.push({note: "Alternate Ammo", amount: Math.round(alternateAmmoBV)});
     }
 
+    // TODO: Replace with new method of getting Arrow IV Semi-Guided BV
     // Add BV for TAG and semi-guided ammo in the force
-    const semiGuidedAmmoBV = getAdditionalBVforTAG(unit);
-    if (semiGuidedAmmoBV > 0) {
-        modifiedBV += semiGuidedAmmoBV;
-        bvNotes.push({note: "TAG", amount: semiGuidedAmmoBV});
-    }
+    // const semiGuidedAmmoBV = getAdditionalBVforTAG(unit);
+    // if (semiGuidedAmmoBV > 0) {
+    //    modifiedBV += semiGuidedAmmoBV;
+    //    bvNotes.push({note: "TAG", amount: semiGuidedAmmoBV});
+    //}
 
     // C3 networks
     let connectedNetwork = undefined;
@@ -814,9 +815,10 @@ function updateUnitBV(unit, fromNetworkChange) {
                 forEachNetworkUnit(network, (networkUnit) => {
                     if (unit.id == networkUnit.id) {
                         connectedNetwork = network;
-                        const networkBV = Math.round(getNetworkBV(network.id, unit.unitProps.specials.includes("boostedc3")));
-                        modifiedBV += networkBV;
-                        bvNotes.push({note: "C3", amount: networkBV});
+                        const networkMultiplier = getNetworkBVMultiplier(network.id, unit.unitProps.specials.includes("boostedc3"));
+                        const networkBV = Math.round(networkMultiplier * modifiedBV);
+                        modifiedBV *= (1 + networkMultiplier);
+                        bvNotes.push({note: `C3 ×${(1 + networkMultiplier)}`, amount: networkBV});
                     }
                 });
             }
@@ -828,9 +830,10 @@ function updateUnitBV(unit, fromNetworkChange) {
                 forEachNetworkUnit(network, (networkUnit) => {
                     if (unit.id == networkUnit.id) {
                         connectedNetwork = network;
-                        const networkBV = Math.round(getNetworkBV(network.id, false));
-                        modifiedBV += networkBV;
-                        bvNotes.push({note: "C3i", amount: networkBV});
+                        const networkMultiplier = getNetworkBVMultiplier(network.id, false);
+                        const networkBV = Math.round(networkMultiplier * modifiedBV);
+                        modifiedBV *- (1 + networkMultiplier);
+                        bvNotes.push({note: `C3 ×${(1 + networkMultiplier)}`, amount: networkBV});
                     }
                 });
             }
@@ -965,6 +968,24 @@ function getNovaNetworkCap() {
     });
     const maxAddedNovaBV = forceBaseBV * 0.35;
     return maxAddedNovaBV / novaCount;
+}
+
+function getNetworkBVMultiplier(networkId, isBoosted) {
+    let multiplier = 0;
+    let unitCount = 0;
+    const network = networks.get(networkId);
+
+    forEachNetworkUnit(network, (unit) => {
+        unitCount += 1;
+    });
+
+    if (unitCount >= 2) {
+        multiplier = Math.min(0.40, unitCount * 0.05);
+        if (isBoosted) {
+            multiplier += 0.05;
+        }
+    }
+    return multiplier;
 }
 
 function adjustTAGUnitsBV() {
