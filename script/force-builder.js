@@ -799,13 +799,12 @@ function updateUnitBV(unit, fromNetworkChange) {
         bvNotes.push({note: "Alternate Ammo", amount: Math.round(alternateAmmoBV)});
     }
 
-    // TODO: Replace with new method of getting Arrow IV Semi-Guided BV
-    // Add BV for TAG and semi-guided ammo in the force
-    // const semiGuidedAmmoBV = getAdditionalBVforTAG(unit);
-    // if (semiGuidedAmmoBV > 0) {
-    //    modifiedBV += semiGuidedAmmoBV;
-    //    bvNotes.push({note: "TAG", amount: semiGuidedAmmoBV});
-    //}
+    // Add BV for TAG and semi-guided Arrow IVs in the force
+    const semiGuidedAmmoBV = getAdditionalBVforTAG(unit);
+    if (semiGuidedAmmoBV > 0) {
+        modifiedBV += semiGuidedAmmoBV;
+        bvNotes.push({note: "TAG", amount: semiGuidedAmmoBV});
+    }
 
     // C3 networks
     let connectedNetwork = undefined;
@@ -926,7 +925,7 @@ function getAdditionalBVforTAG(unit) {
         }
     });
     if (tagCount > 0) {
-        const semiGuidedAmmoBV = Math.round(tagCount * getSemiGuidedAmmoValueForForce());
+        const semiGuidedAmmoBV = Math.round(getSemiGuidedAmmoValueForForce());
         return semiGuidedAmmoBV;
     }
     return 0;
@@ -1000,10 +999,26 @@ function getSemiGuidedAmmoValueForForce()
 {
     let total = 0;
     force.forEach((unit) => {
+        let unitHasHomingAIV = false;
         unit.unitProps.ammo.forEach((ammoBin, index) => {
-            const addedValue = getTAGAdditionalBV(ammoBin.type, unit.ammoTypes.get(index));
-            total += addedValue;
+            if (ammoBin.type == "is:arrowiv" || ammoBin.type == "clan:arrowiv")
+            {
+                if (unit.ammoTypes.get(index) == "homing")
+                {
+                    unitHasHomingAIV = true;
+                }
+            }
         });
+        if (unitHasHomingAIV) {
+            let aivCount = 0;
+            unit.unitProps.specials.forEach((special) => {
+                if (special == "arrowiv")
+                {
+                    aivCount = aivCount + 1;
+                }
+            });
+            total += 50 * aivCount;
+        }
     });
     return total;
 }
