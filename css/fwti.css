@@ -1,5 +1,9 @@
 .logo {
-    max-width: 33%;
+    max-width: 20%;
+}
+
+body > header {
+    padding: 0 0.5rem 0 0.5rem;
 }
 
 h1, h2, h3, h4, h5, h6 {

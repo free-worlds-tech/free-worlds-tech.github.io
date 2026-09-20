@@ -699,6 +699,9 @@ function addUnitAmmoSelector(unit)
                             return;
                         }
                     }
+                    if (option.level && option.level >= 3) {
+                        return;
+                    }
                     availableOptions += 1;
                     const ammoName = getAmmoName(element.type, option.id, element.shots);
                     if (element.default ? option.id == element.default : option.id == "standard") {
@@ -796,7 +799,7 @@ function updateUnitBV(unit, fromNetworkChange) {
         bvNotes.push({note: "Alternate Ammo", amount: Math.round(alternateAmmoBV)});
     }
 
-    // Add BV for TAG and semi-guided ammo in the force
+    // Add BV for TAG and semi-guided Arrow IVs in the force
     const semiGuidedAmmoBV = getAdditionalBVforTAG(unit);
     if (semiGuidedAmmoBV > 0) {
         modifiedBV += semiGuidedAmmoBV;
@@ -811,9 +814,10 @@ function updateUnitBV(unit, fromNetworkChange) {
                 forEachNetworkUnit(network, (networkUnit) => {
                     if (unit.id == networkUnit.id) {
                         connectedNetwork = network;
-                        const networkBV = Math.round(getNetworkBV(network.id, unit.unitProps.specials.includes("boostedc3")));
-                        modifiedBV += networkBV;
-                        bvNotes.push({note: "C3", amount: networkBV});
+                        const networkMultiplier = getNetworkBVMultiplier(network.id, unit.unitProps.specials.includes("boostedc3"));
+                        const networkBV = Math.round(networkMultiplier * modifiedBV);
+                        modifiedBV *= (1 + networkMultiplier);
+                        bvNotes.push({note: `C3 ×${(1 + networkMultiplier)}`, amount: networkBV});
                     }
                 });
             }
@@ -825,9 +829,10 @@ function updateUnitBV(unit, fromNetworkChange) {
                 forEachNetworkUnit(network, (networkUnit) => {
                     if (unit.id == networkUnit.id) {
                         connectedNetwork = network;
-                        const networkBV = Math.round(getNetworkBV(network.id, false));
-                        modifiedBV += networkBV;
-                        bvNotes.push({note: "C3i", amount: networkBV});
+                        const networkMultiplier = getNetworkBVMultiplier(network.id, false);
+                        const networkBV = Math.round(networkMultiplier * modifiedBV);
+                        modifiedBV *- (1 + networkMultiplier);
+                        bvNotes.push({note: `C3 ×${(1 + networkMultiplier)}`, amount: networkBV});
                     }
                 });
             }
@@ -920,7 +925,7 @@ function getAdditionalBVforTAG(unit) {
         }
     });
     if (tagCount > 0) {
-        const semiGuidedAmmoBV = Math.round(tagCount * getSemiGuidedAmmoValueForForce());
+        const semiGuidedAmmoBV = Math.round(getSemiGuidedAmmoValueForForce());
         return semiGuidedAmmoBV;
     }
     return 0;
@@ -964,6 +969,24 @@ function getNovaNetworkCap() {
     return maxAddedNovaBV / novaCount;
 }
 
+function getNetworkBVMultiplier(networkId, isBoosted) {
+    let multiplier = 0;
+    let unitCount = 0;
+    const network = networks.get(networkId);
+
+    forEachNetworkUnit(network, (unit) => {
+        unitCount += 1;
+    });
+
+    if (unitCount >= 2) {
+        multiplier = Math.min(0.40, unitCount * 0.05);
+        if (isBoosted) {
+            multiplier += 0.05;
+        }
+    }
+    return multiplier;
+}
+
 function adjustTAGUnitsBV() {
     force.forEach((unit) => {
         if (unit.unitProps.specials.includes("tag")) {
@@ -976,10 +999,26 @@ function getSemiGuidedAmmoValueForForce()
 {
     let total = 0;
     force.forEach((unit) => {
+        let unitHasHomingAIV = false;
         unit.unitProps.ammo.forEach((ammoBin, index) => {
-            const addedValue = getTAGAdditionalBV(ammoBin.type, unit.ammoTypes.get(index));
-            total += addedValue;
+            if (ammoBin.type == "is:arrowiv" || ammoBin.type == "clan:arrowiv")
+            {
+                if (unit.ammoTypes.get(index) == "homing")
+                {
+                    unitHasHomingAIV = true;
+                }
+            }
         });
+        if (unitHasHomingAIV) {
+            let aivCount = 0;
+            unit.unitProps.specials.forEach((special) => {
+                if (special == "arrowiv")
+                {
+                    aivCount = aivCount + 1;
+                }
+            });
+            total += 50 * aivCount;
+        }
     });
     return total;
 }
