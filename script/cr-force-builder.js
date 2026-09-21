@@ -557,7 +557,7 @@ function showAddMechPanel(formation) {
     const searchResults = document.createElement("div");
     panelHost.appendChild(searchResults);
 
-    searchButton.addEventListener("click", () => {
+    const search = () => {
         const query = searchText.value.toLowerCase().trim();
         let searchParams = new URLSearchParams();
         if (query.length > 0) {
@@ -581,6 +581,13 @@ function showAddMechPanel(formation) {
                     searchResults.innerText = "Error!"
                 }
             });
+    };
+
+    searchButton.addEventListener("click", search);
+    searchText.addEventListener("keydown", (ev) => {
+        if (ev.key == "Enter") {
+            search();
+        }
     });
 
     forceView.classList.add("hidden");
@@ -626,8 +633,9 @@ function createAddUnitRow(formation, unitData) {
     const buttons = [
         {
             icon: "add",
-            title: "Add to Formation",
-            action: () => formation.addUnit(new Unit(unitData.name, unitData.bv, unitData.tonnage))
+            title: unitData.core == true ? "Add to Formation" : "Cannot Add Non-Core Units",
+            action: () => formation.addUnit(new Unit(unitData.name, unitData.bv, unitData.tonnage)),
+            disabled: unitData.core == false
         }
     ];
 
