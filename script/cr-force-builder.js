@@ -1,4 +1,6 @@
 function readyInterface() {
+    document.getElementById("force-name").innerText = force.name;
+
     document.querySelectorAll(".lazy").forEach((lazyElement) => {
         lazyElement.removeAttribute("disabled");
     });
@@ -222,6 +224,54 @@ class BattlefieldSupportElement {
     supportType;
 }
 
+function getSaveData(force) {
+    let saveData = {
+        name: force.name,
+        faction: force.faction,
+        era: force.era,
+        formations: []
+    };
+
+    force.forEachFormation((formation) => {
+        saveData.formations.push({
+            name: formation.name
+        });
+    });
+
+    return saveData;
+}
+
+function loadSaveData(data) {
+    let loadedForce = new Force();
+    loadedForce.name = data.name;
+    loadedForce.era = data.era;
+    loadedForce.faction = data.faction;
+
+    if (data.formations) {
+        data.formations.forEach((formationData) => {
+            let formation = new Formation(formationData.name);
+            loadedForce.addFormation(formation);
+        });
+    }
+
+    return loadedForce;
+}
+
+function saveCurrentForce(force) {
+    var saveData = getSaveData(force);
+    var json = JSON.stringify(saveData);
+    localStorage.setItem("saved-force", json);
+}
+
+function loadSavedForce() {
+    var json = localStorage.getItem("saved-force");
+    if (json != null) {
+        var saveData = JSON.parse(json);
+        return loadSaveData(saveData);
+    }
+    return null;
+}
+
 function buildInitialForce() {
     let initialForce = new Force();
     initialForce.name = "BattleTech Force";
@@ -349,6 +399,8 @@ function addFormationUI(formation) {
         document.getElementById("formation-list").removeChild(formationContainer);
         formation.removePropertyObserver("name", nameListener);
         formation.removePropertyObserver("units", unitsListener);
+
+        saveCurrentForce(force);
     });
 }
 
@@ -446,6 +498,8 @@ function showEditForcePanel() {
         panelHost.innerHTML = "";
 
         forceView.classList.remove("hidden");
+
+        saveCurrentForce(force);
     });
 
     titleLine.appendChild(closeButton);
@@ -500,6 +554,8 @@ function showEditFormationPanel(formation) {
         panelHost.innerHTML = "";
 
         forceView.classList.remove("hidden");
+
+        saveCurrentForce(force);
     });
 
     titleLine.appendChild(closeButton);
@@ -557,7 +613,13 @@ function showAddMechPanel(formation) {
     const searchResults = document.createElement("div");
     panelHost.appendChild(searchResults);
 
+    let searchInProgress = false;
+
     const search = () => {
+        if (searchInProgress) {
+            return;
+        }
+        searchInProgress = true;
         const query = searchText.value.toLowerCase().trim();
         let searchParams = new URLSearchParams();
         if (query.length > 0) {
@@ -577,9 +639,16 @@ function showAddMechPanel(formation) {
                         const result = createAddUnitRow(formation, match);
                         searchResults.appendChild(result);
                     });
+                    if (json.resume) {
+                        // TODO: Click to add more units with r=resume
+                        const showMoreRow = document.createElement("div");
+                        showMoreRow.innerText = "More results available...";
+                        searchResults.appendChild(showMoreRow);
+                    }
                 } else {
                     searchResults.innerText = "Error!"
                 }
+                searchInProgress = false;
             });
     };
 
@@ -856,7 +925,10 @@ function bindEraAndFactionSelects(eraSelectId, factionSelectId) {
     });
 }
 
-let force = buildInitialForce();
+let force = loadSavedForce();
+if (force == null) {
+    force = buildInitialForce();
+}
 
 readyInterface();
 force.forEachFormation((formation) => {
@@ -874,5 +946,6 @@ document.getElementById("add-formation-to-force").addEventListener("click", () =
     newFormation.name = "New Formation";
     force.addFormation(newFormation);
     addFormationUI(newFormation);
+    saveCurrentForce(force);
 });
 
