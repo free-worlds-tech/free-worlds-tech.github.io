@@ -1,0 +1,38 @@
+.card {
+    width: 100%;
+    border: 1px grey solid;
+    padding: 0.5rem;
+    border-radius: 4px;
+    max-width: 450px;
+    margin: 0 auto 3rem auto;
+}
+
+.card-row {
+    display: flex;
+}
+
+.card-cost {
+    margin-right: 2rem;
+}
+
+.card-title {
+    display: flex;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.right-row-item {
+    flex-grow: 1;
+    text-align: right;
+}
+
+.centered-row-item {
+    flex-grow: 1;
+    text-align: center;
+}
+
+.minor {
+    font-size: 0.8rem;
+}
+

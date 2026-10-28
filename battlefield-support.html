@@ -22,6 +22,7 @@
 
 <link rel="stylesheet" href="ext/simple.min.css">
 <link rel="stylesheet" href="css/fwti.css">
+<link rel="stylesheet" href="css/battlefield-support.css">
 <script charset="UTF-8" src="script/fwti.js" defer></script>
 <script charset="UTF-8" src="script/battlefield-support.js" defer></script>
 </head>
@@ -39,18 +40,18 @@
     available for BattleTech.
 </p>
 
-<div id="support-card" style="margin-bottom: 36px;">
-    <div><strong>NAME: </strong><span id="sc-name"></span></div>
-    <div><strong>BSP: </strong><span id="sc-bsp"></span></div>
-    <div><strong>MP: </strong><span id="sc-mp"></span></div>
-    <div><strong>TMM: </strong><span id="sc-tmm"></span></div>
-    <div><strong>RANGE: </strong><span id="sc-range"></span></div>
-    <div><strong>SKILL: </strong><span id="sc-skill"></span></div>
-    <div><strong>DMG: </strong><span id="sc-dmg"></span></div>
-    <div><strong>CHECK: </strong><span id="sc-check"></span></div>
-    <div><strong>THRESHOLD: </strong><span id="sc-threshold"></span></div>
+<div id="support-card" class="card"">
+    <div class="card-title"><span class="card-cost" id="sc-bsp"></span><span class="right-row-item" id="sc-name"></span></div>
+    <div class="card-row"><span class="right-row-item"><strong>MP: </strong><span id="sc-mp"></span><span id="sc-name"></span></span></div>
+    <div class="card-row"><span class="right-row-item"><strong>TMM: </strong><span id="sc-tmm"></span></span></div>
+    <div class="card-row">
+        <div class="centered-row-item"><div><strong>RANGE</strong></div><div id="sc-range"></div></div>
+        <div class="centered-row-item"><div><strong>SKILL</strong></div><div id="sc-skill"></div></div>
+        <div class="centered-row-item"><div><strong>DMG</strong></div><div id="sc-dmg"></div></div>
+        <div class="centered-row-item"><div><strong>CHECK</strong></div><div id="sc-check"></div><div class="minor"><strong>THRESHOLD: </strong><span id="sc-threshold"></span></div></div>
+    </div>
     <div><strong>SPECIALS: </strong><span id="sc-specials"></span></div>
-    <div><strong>SOURCE: </strong><span id="sc-source"></span></div>
+    <div class="minor card-row"><span class="right-row-item" id="sc-source"></span></div>
 </div>
 
 <label for="search-text">Search</label>
