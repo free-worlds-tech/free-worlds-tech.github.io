@@ -74,12 +74,49 @@ const knownSupport = [
 { name: "Pegasus Scout Hover Tank (C3)", type: "asset", bsp: 27, mp: "9h", tmm: 3, range: "3/6/9", skill: 6, dmg: "7D × 4", check: 7, threshold: 5, specials: "Crit Seeker", source: "Force Pack: Assault & Cavalry Lances" },
 { name: "Pegasus Scout Hover Tank (Upgrade)", type: "asset", bsp: 26, mp: "11h", tmm: 4, range: "3/6/9", skill: 6, dmg: "7D × 3", check: 7, threshold: 5, specials: "Crit Seeker, IF 1, PRB", source: "Force Pack: Assault & Cavalry Lances" },
 { name: "Pegasus Scout Hover Tank", type: "asset", bsp: 23, mp: "8h", tmm: 3, range: "3/6/9", skill: 6, dmg: "7D × 3", check: 7, threshold: 5, specials: "Crit Seeker", source: "Force Pack: Assault & Cavalry Lances" },
+{ name: "Pike Support Vehicle (Clan)", type: "asset", bsp: 27, mp: "3t", tmm: 1, range: "9/18/27", skill: 6, dmg: "5D × 3", check: 10, threshold: 5, specials: "-", source: "Force Pack: Heavy Battle & Sweep Lances" },
+{ name: "Pike Support Vehicle (LB-X)", type: "asset", bsp: 25, mp: "3t", tmm: 1, range: "7/14/21", skill: 6, dmg: "5D × 3", check: 10, threshold: 5, specials: "-", source: "Force Pack: Heavy Battle & Sweep Lances" },
+{ name: "Pike Support Vehicle (Missile)", type: "asset", bsp: 32, mp: "3t", tmm: 1, range: "7/14/21", skill: 6, dmg: "5D × 5", check: 9, threshold: 5, specials: "IF 5", source: "Force Pack: Heavy Battle & Sweep Lances" },
+{ name: "Pike Support Vehicle", type: "asset", bsp: 17, mp: "3t", tmm: 1, range: "8/16/24", skill: 6, dmg: "6D", check: 9, threshold: 5, specials: "-", source: "Force Pack: Heavy Battle & Sweep Lances" },
 { name: "Pilum Heavy Tank (Arrow IV)", type: "asset", bsp: 60, mp: "4w", tmm: 1, range: "-", skill: 6, dmg: "-", check: 10, threshold: 5, specials: "ARROW", source: "Hot Spots: Draconis Reach" },
 { name: "Saracen Mk II HCV", type: "asset", bsp: 29, mp: "10h", tmm: 4, range: "2/4/6", skill: 6, dmg: "7D × 3", check: 7, threshold: 5, specials: "ECM 6", source: "Hot Spots: Draconis Reach" },
+{ name: "Savannah Master Hovercraft (Interdictor)", type: "asset", bsp: 17, mp: "13h", tmm: 4, range: "-", skill: 0, dmg: "-", check: 5, threshold: 5, specials: "ECM 6", source: "Salvage Box: Savannah Master" },
+{ name: "Savannah Master Hovercraft (Reflective)", type: "asset", bsp: 14, mp: "13h", tmm: 4, range: "4/8/12", skill: 6, dmg: "5D", check: 5, threshold: 5, specials: "No Turret, RFA", source: "Salvage Box: Savannah Master" },
+{ name: "Savannah Master Hovercraft (SL)", type: "asset", bsp: 13, mp: "13h", tmm: 4, range: "1/2/3", skill: 6, dmg: "6D", check: 5, threshold: 5, specials: "No Turret", source: "Salvage Box: Savannah Master" },
+{ name: "Savannah Master Hovercraft", type: "asset", bsp: 13, mp: "13h", tmm: 4, range: "3/6/9", skill: 6, dmg: "5D", check: 5, threshold: 5, specials: "No Turret", source: "Salvage Box: Savannah Master" },
+{ name: "Savior Repair Vehicle", type: "asset", bsp: 13, mp: "4t", tmm: 1, range: "1/2/3", skill: 6, dmg: "3D", check: 7, threshold: 5, specials: "APC 2, MFB", source: "Force Pack: Third Star League Battle Group" },
+{ name: "Schrek AC Carrier", type: "asset", bsp: 23, mp: "3t", tmm: 1, range: "6/12/18", skill: 6, dmg: "5D × 3", check: 9, threshold: 8, specials: "-", source: "Force Pack: Assault & Cavalry Lances" },
+{ name: "Schrek Gauss Carrier", type: "asset", bsp: 43, mp: "3t", tmm: 2, range: "8/16/24", skill: 6, dmg: "8D × 3", check: 9, threshold: 8, specials: "ECM 6", source: "Force Pack: Assault & Cavalry Lances" },
+{ name: "Schrek PPC Carrier (XL)", type: "asset", bsp: 34, mp: "4t", tmm: 1, range: "6/12/18", skill: 6, dmg: "10D × 3", check: 9, threshold: 8, specials: "-", source: "Force Pack: Assault & Cavalry Lances" },
+{ name: "Schrek PPC Carrier", type: "asset", bsp: 31, mp: "3t", tmm: 1, range: "6/12/18", skill: 6, dmg: "10D × 3", check: 8, threshold: 8, specials: "-", source: "Force Pack: Assault & Cavalry Lances" },
+{ name: "Skulker Wheeled Scout Tank (C3M)", type: "asset", bsp: 28, mp: "7w", tmm: 3, range: "-", skill: 6, dmg: "5D", check: 7, threshold: 5, specials: "Commander", source: "Force Pack: Recon & Hunter Lances" },
+{ name: "Skulker Wheeled Scout Tank (SRM)", type: "asset", bsp: 14, mp: "7w", tmm: 3, range: "3/6/9", skill: 6, dmg: "5D", check: 7, threshold: 5, specials: "No Turret", source: "Force Pack: Recon & Hunter Lances" },
+{ name: "Skulker Wheeled Scout Tank C", type: "asset", bsp: 18, mp: "9w", tmm: 3, range: "3/6/9", skill: 6, dmg: "5D", check: 7, threshold: 5, specials: "ECM 3, PRB, No Turret", source: "Force Pack: Recon & Hunter Lances" },
+{ name: "Skulker Wheeled Scout Tank", type: "asset", bsp: 14, mp: "7w", tmm: 3, range: "3/6/9", skill: 6, dmg: "5D", check: 7, threshold: 5, specials: "No Turret", source: "Force Pack: Recon & Hunter Lances" },
+{ name: "SRM Carrier (3054 Upgrade)", type: "asset", bsp: 31, mp: "3t", tmm: 1, range: "3/6/9", skill: 6, dmg: "10D × 5", check: 7, threshold: 5, specials: "Crit Seeker, No Turret", source: "Force Pack: Battle & Fire Lances" },
+{ name: "SRM Carrier (C3)", type: "asset", bsp: 37, mp: "3t", tmm: 1, range: "3/6/9", skill: 6, dmg: "10D × 5", check: 7, threshold: 5, specials: "Crit Seeker, ECM 6, No Turret", source: "Force Pack: Battle & Fire Lances" },
+{ name: "SRM Carrier C", type: "asset", bsp: 34, mp: "4t", tmm: 1, range: "3/6/9", skill: 6, dmg: "10D × 5", check: 8, threshold: 5, specials: "Crit Seeker, No Turret", source: "Force Pack: Battle & Fire Lances" },
+{ name: "SRM Carrier", type: "asset", bsp: 31, mp: "3t", tmm: 1, range: "3/6/9", skill: 6, dmg: "10D × 5", check: 7, threshold: 5, specials: "Crit Seeker, No Turret", source: "Force Pack: Battle & Fire Lances" },
 { name: "Striker Light Tank (Stealth)", type: "asset", bsp: 32, mp: "5w", tmm: 3, range: "3/6/9", skill: 6, dmg: "7D × 3", check: 8, threshold: 5, specials: "Crit Seeker, ECM 6, IF 2", source: "Hot Spots: Draconis Reach" },
 { name: "Striker Light Tank", type: "asset", bsp: 18, mp: "5w", tmm: 2, range: "3/6/9", skill: 6, dmg: "8D", check: 8, threshold: 5, specials: "IF 1", source: "Hot Spots: Draconis Reach" },
-{ name: "Tokugawa Heavy Tank (MRM)", type: "asset", bsp: 38, mp: "4w", tmm: 1, range: "4/8/12", skill: 6, dmg: "7D × 5", check: 10, threshold: 5, specials: "TAG", source: "Hot Spots: Draconis Reach" }
-]
+{ name: "Sturmfeur Heavy Tank (Assault)", type: "asset", bsp: 40, mp: "3t", tmm: 1, range: "6/12/18", skill: 6, dmg: "22D", check: 12, threshold: 8, specials: "ECM 6, IF 5", source: "Force Pack: Rifle & Command Lances" },
+{ name: "Sturmfeur Heavy Tank (Cell)", type: "asset", bsp: 40, mp: "4t", tmm: 1, range: "7/14/21", skill: 6, dmg: "9D × 3", check: 12, threshold: 8, specials: "IF 6", source: "Force Pack: Rifle & Command Lances" },
+{ name: "Sturmfeur Heavy Tank (SRM)", type: "asset", bsp: 35, mp: "3t", tmm: 1, range: "3/6/9", skill: 6, dmg: "8D × 4", check: 12, threshold: 8, specials: "Crit Seeker, IF 2", source: "Force Pack: Rifle & Command Lances" },
+{ name: "Sturmfeur Heavy Tank", type: "asset", bsp: 37, mp: "3t", tmm: 1, range: "7/14/21", skill: 6, dmg: "8D × 3", check: 12, threshold: 8, specials: "IF 5", source: "Force Pack: Rifle & Command Lances" },
+{ name: "Tokugawa Heavy Tank (MRM)", type: "asset", bsp: 38, mp: "4w", tmm: 1, range: "4/8/12", skill: 6, dmg: "7D × 5", check: 10, threshold: 5, specials: "TAG", source: "Hot Spots: Draconis Reach" },
+{ name: "Vedette Medium Tank (Armor)", type: "asset", bsp: 22, mp: "5t", tmm: 2, range: "6/12/18", skill: 6, dmg: "11D", check: 9, threshold: 5, specials: "-", source: "Force Pack: Battle & Fire Lances" },
+{ name: "Vedette Medium Tank (Cell)", type: "asset", bsp: 20, mp: "5t", tmm: 2, range: "6/12/18", skill: 6, dmg: "10D", check: 8, threshold: 5, specials: "AMS", source: "Force Pack: Battle & Fire Lances" },
+{ name: "Vedette Medium Tank (Ultra)", type: "asset", bsp: 18, mp: "5t", tmm: 2, range: "6/12/18", skill: 6, dmg: "8D", check: 8, threshold: 5, specials: "-", source: "Force Pack: Battle & Fire Lances" },
+{ name: "Vedette Medium Tank", type: "asset", bsp: 16, mp: "5t", tmm: 2, range: "6/12/18", skill: 6, dmg: "5D", check: 8, threshold: 5, specials: "-", source: "Force Pack: Battle & Fire Lances" },
+{ name: "Von Luckner VNL-K65N", type: "asset", bsp: 31, mp: "3t", tmm: 1, range: "3/6/9", skill: 6, dmg: "30D", check: 10, threshold: 8, specials: "Crit Seeker, IF 1", source: "Force Pack: Rifle & Command Lances" },
+{ name: "Von Luckner VNL-K70", type: "asset", bsp: 30, mp: "3t", tmm: 1, range: "6/12/18", skill: 6, dmg: "11D × 2", check: 10, threshold: 8, specials: "IF 1", source: "Force Pack: Rifle & Command Lances" },
+{ name: "Von Luckner VNL-K75N", type: "asset", bsp: 35, mp: "3t", tmm: 1, range: "3/6/9", skill: 6, dmg: "20D × 2", check: 10, threshold: 8, specials: "-", source: "Force Pack: Rifle & Command Lances" },
+{ name: "Von Luckner VNL-K85N", type: "asset", bsp: 37, mp: "3t", tmm: 1, range: "4/8/12", skill: 6, dmg: "8D × 4", check: 12, threshold: 8, specials: "Crit Seeker", source: "Force Pack: Rifle & Command Lances" },
+{ name: "Warrior H-7 Attack Helicopter", type: "asset", bsp: 12, mp: "9v", tmm: 4, range: "8/16/24", skill: 6, dmg: "2D", check: 5, threshold: 5, specials: "No Turret", source: "Force Pack: Recon & Hunter Lances" },
+{ name: "Warrior H-7C Attack Helicopter", type: "asset", bsp: 15, mp: "9v", tmm: 4, range: "7/14/21", skill: 6, dmg: "6D", check: 5, threshold: 5, specials: "IF 1, No Turret", source: "Force Pack: Recon & Hunter Lances" },
+{ name: "Warrior H-7F Attack Helicopter", type: "asset", bsp: 18, mp: "10v", tmm: 5, range: "5/10/15", skill: 6, dmg: "3D", check: 5, threshold: 5, specials: "No Turret, TAG", source: "Force Pack: Recon & Hunter Lances" },
+{ name: "Warrior H-8 Attack Helicopter", type: "asset", bsp: 14, mp: "10v", tmm: 5, range: "7/14/21", skill: 6, dmg: "3D", check: 6, threshold: 5, specials: "No Turret", source: "Force Pack: Recon & Hunter Lances" }
+];
 
 function displayMatchingSupport(query) {
     const list = document.getElementById("support-list");
@@ -137,7 +174,7 @@ function displaySupport(supportItem) {
     range.innerText = supportItem.range;
 
     const skill = document.getElementById("sc-skill");
-    skill.innerText = supportItem.skill;
+    skill.innerText = supportItem.skill > 0 ? supportItem.skill : "-";
 
     const dmg = document.getElementById("sc-dmg");
     dmg.innerText = supportItem.dmg;
