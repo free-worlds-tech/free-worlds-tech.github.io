@@ -831,7 +831,7 @@ function updateUnitBV(unit, fromNetworkChange) {
                         connectedNetwork = network;
                         const networkMultiplier = getNetworkBVMultiplier(network.id, false);
                         const networkBV = Math.round(networkMultiplier * modifiedBV);
-                        modifiedBV *- (1 + networkMultiplier);
+                        modifiedBV *= (1 + networkMultiplier);
                         bvNotes.push({note: `C3 ×${(1 + networkMultiplier)}`, amount: networkBV});
                     }
                 });
