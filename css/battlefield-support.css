@@ -39,3 +39,8 @@
 .upgrade-text {
     color: gray;
 }
+
+.selected-row {
+    background-color: var(--accent) !important;
+    color: var(--accent-text) !important;
+}

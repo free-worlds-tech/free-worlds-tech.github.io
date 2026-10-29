@@ -136,13 +136,11 @@ function displayMatchingSupport(query) {
     let matched = false;
 
     knownSupport.forEach((entry) => {
-        if (entry.name.toLowerCase().indexOf(lowerQuery) != -1) {
-            if (!matched)
-            {
-                displaySupport(entry);
-                matched = true;
-            }
+        let match = (entry.name.toLowerCase().indexOf(lowerQuery) != -1) ||
+                    (entry.source.toLocaleLowerCase().indexOf(lowerQuery) != -1) ||
+                    (entry.specials.toLocaleLowerCase().indexOf(lowerQuery) != -1);
 
+        if (match) {
             const row = document.createElement("li");
             row.classList.add("unit-costs");
             
@@ -157,12 +155,28 @@ function displayMatchingSupport(query) {
 
             row.style.cursor = "pointer";
             row.addEventListener("click", () => {
+                selectRow(row);
                 displaySupport(entry);
             });
 
             list.appendChild(row);
+
+            if (!matched)
+            {
+                selectRow(row);
+                displaySupport(entry);
+                matched = true;
+            }
         }
     });
+}
+
+function selectRow(row) {
+    const selectedRows = document.getElementsByClassName("selected-row");
+    for (let i = 0; i < selectedRows.length; i++) {
+        selectedRows.item(i).classList.remove("selected-row");
+    }
+    row.classList.add("selected-row");
 }
 
 function displaySupport(supportItem) {
