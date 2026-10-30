@@ -8,6 +8,7 @@ const knownSupport = [
 { name: "Bulldog Medium Tank (ERLL)", type: "asset", bsp: 20, mp: "4t", tmm: 1, range: "7/14/21", skill: 6, dmg: "9D", check: 10, threshold: 5, specials: "-", source: "Force Pack: Rifle & Command Lances", upgrade: 23 },
 { name: "Bulldog Medium Tank (Plasma)", type: "asset", bsp: 18, mp: "4t", tmm: 1, range: "5/10/15", skill: 6, dmg: "11D", check: 10, threshold: 5, specials: "AI", source: "Force Pack: Rifle & Command Lances", upgrade: 21 },
 { name: "Bulldog Medium Tank", type: "asset", bsp: 16, mp: "4t", tmm: 1, range: "5/10/15", skill: 6, dmg: "9D", check: 8, threshold: 5, specials: "-", source: "Force Pack: Rifle & Command Lances", upgrade: 19 },
+{ name: "Clan Foot Point Conventional Infantry", type: "asset", bsp: 7, mp: "1f", tmm: 0, range: "1/2/3", skill: 6, dmg: "5D × 2", check: 8, threshold: 1, specials: "Nimble, Spotter, Swarm", source: "Aces: Scouring Sands", upgrade: 8 },
 { name: "Condor Heavy Hover Tank (Laser)", type: "asset", bsp: 24, mp: "8h", tmm: 3, range: "4/8/12", skill: 6, dmg: "7D × 3", check: 7, threshold: 5, specials: "-", source: "Force Pack: Assault & Cavalry Lances", upgrade: 28 },
 { name: "Condor Heavy Hover Tank (Ultra)", type: "asset", bsp: 30, mp: "9h", tmm: 3, range: "5/10/15", skill: 6, dmg: "10D × 2", check: 7, threshold: 5, specials: "AMS, TAG", source: "Force Pack: Assault & Cavalry Lances", upgrade: 35 },
 { name: "Condor Heavy Hover Tank (Upgrade)", type: "asset", bsp: 24, mp: "9h", tmm: 3, range: "7/14/21", skill: 6, dmg: "5D × 3", check: 7, threshold: 5, specials: "IF 2", source: "Force Pack: Assault & Cavalry Lances", upgrade: 28 },
@@ -22,6 +23,7 @@ const knownSupport = [
 { name: "Drillson Heavy Hover Tank (Streak)", type: "asset", bsp: 22, mp: "9h", tmm: 3, range: "3/6/9", skill: 6, dmg: "9D × 2", check: 7, threshold: 5, specials: "Crit Seeker", source: "Force Pack: Heavy Battle & Sweep Lances", upgrade: 26 },
 { name: "Drillson Heavy Hover Tank C", type: "asset", bsp: 22, mp: "9h", tmm: 3, range: "5/10/15", skill: 6, dmg: "8D × 2", check: 7, threshold: 5, specials: "IF 1", source: "Force Pack: Heavy Battle & Sweep Lances", upgrade: 26 },
 { name: "Drillson Heavy Hover Tank", type: "asset", bsp: 18, mp: "9h", tmm: 3, range: "5/10/15", skill: 6, dmg: "9D", check: 7, threshold: 5, specials: "IF 1", source: "Force Pack: Heavy Battle & Sweep Lances", upgrade: 21 },
+{ name: "Elemental Battle Armor (AP Gauss)", type: "asset", bsp: 19, mp: "3j", tmm: 2, range: "2/4/6", skill: 5, dmg: "6D × 2", check: 9, threshold: 5, specials: "Mechanized, Nimble, Spotter, Swarm", source: "Aces: Scouring Sands", upgrade: 22 },
 { name: "Elemental Battle Armor", type: "asset", bsp: 17, mp: "3j", tmm: 2, range: "1/2/3", skill: 5, dmg: "6D × 2", check: 9, threshold: 5, specials: "Mechanized, Nimble, Spotter, Swarm", source: "Mercenaries Box Set", upgrade: 20 },
 { name: "Elemental III Battle Armor", type: "asset", bsp: 26, mp: "3j", tmm: 3, range: "3/6/9", skill: 5, dmg: "6D × 2", check: 9, threshold: 5, specials: "Mechanized, Nimble, Spotter, Swarm", source: "Hot Spots: Hinterlands", upgrade: 30 },
 { name: "Enyo Strike Tank (ER Pulse)", type: "asset", bsp: 39, mp: "5t", tmm: 2, range: "4/8/12", skill: 5, dmg: "7D × 4", check: 10, threshold: 5, specials: "Crit Seeker", source: "Hot Spots: Hinterlands", upgrade: 45 },
@@ -36,6 +38,7 @@ const knownSupport = [
 { name: "Galleon GAL-100 Light Tank", type: "asset", bsp: 13, mp: "6t", tmm: 2, range: "3/6/9", skill: 6, dmg: "5D", check: 7, threshold: 5, specials: "-", source: "Mercenaries Box Set", upgrade: 15 },
 { name: "Hawk Moth II Gunship", type: "asset", bsp: 25, mp: "11v", tmm: 5, range: "3/6/9", skill: 6, dmg: "6D × 4", check: 4, threshold: 5, specials: "Crit Seeker", source: "Hot Spots: Draconis Reach", upgrade: 29 },
 { name: "Heavy Emplacement", type: "asset", bsp: 13, mp: "0", tmm: 0, range: "3/6/9", skill: 5, dmg: "15D", check: 10, threshold: 8, specials: "Immobile, No Turret, Spotter", source: "Mercenaries Box Set", upgrade: 15 },
+{ name: "Heavy Hover APC", type: "asset", bsp: 16, mp: "8h", tmm: 3, range: "1/2/3", skill: 6, dmg: "4D", check: 6, threshold: 5, specials: "AI, APC 3", source: "Aces: Scouring Sands", upgrade: 19 },
 { name: "Hephaestus Scout Tank Prime", type: "asset", bsp: 38, mp: "8h", tmm: 3, range: "4/8/12", skill: 5, dmg: "7D × 2", check: 7, threshold: 5, specials: "APC 2, ECM 6, PRB, TAG, TC", source: "Hot Spots: Hinterlands", upgrade: 44 },
 { name: "Hetzer Wheeled Assault Gun (Cell)", type: "asset", bsp: 26, mp: "5w", tmm: 2, range: "3/6/9", skill: 6, dmg: "30D", check: 8, threshold: 5, specials: "No Turret", source: "Force Pack: Rifle & Command Lances", upgrade: 30 },
 { name: "Hetzer Wheeled Assault Gun (SRM)", type: "asset", bsp: 29, mp: "4w", tmm: 1, range: "3/6/9", skill: 6, dmg: "8D × 5", check: 8, threshold: 5, specials: "Crit Seeker, No Turret", source: "Force Pack: Rifle & Command Lances", upgrade: 34 },
@@ -120,10 +123,7 @@ const knownSupport = [
 { name: "Von Luckner VNL-K70", type: "asset", bsp: 30, mp: "3t", tmm: 1, range: "6/12/18", skill: 6, dmg: "11D × 2", check: 10, threshold: 8, specials: "IF 1", source: "Force Pack: Rifle & Command Lances", upgrade: 35 },
 { name: "Von Luckner VNL-K75N", type: "asset", bsp: 35, mp: "3t", tmm: 1, range: "3/6/9", skill: 6, dmg: "20D × 2", check: 10, threshold: 8, specials: "-", source: "Force Pack: Rifle & Command Lances", upgrade: 41 },
 { name: "Von Luckner VNL-K85N", type: "asset", bsp: 37, mp: "3t", tmm: 1, range: "4/8/12", skill: 6, dmg: "8D × 4", check: 12, threshold: 8, specials: "Crit Seeker", source: "Force Pack: Rifle & Command Lances", upgrade: 43 },
-{ name: "Warrior H-7 Attack Helicopter", type: "asset", bsp: 12, mp: "9v", tmm: 4, range: "8/16/24", skill: 6, dmg: "2D", check: 5, threshold: 5, specials: "No Turret", source: "Force Pack: Recon & Hunter Lances", upgrade: 14 },
-{ name: "Warrior H-7C Attack Helicopter", type: "asset", bsp: 15, mp: "9v", tmm: 4, range: "7/14/21", skill: 6, dmg: "6D", check: 5, threshold: 5, specials: "IF 1, No Turret", source: "Force Pack: Recon & Hunter Lances", upgrade: 17 },
-{ name: "Warrior H-7F Attack Helicopter", type: "asset", bsp: 18, mp: "10v", tmm: 5, range: "5/10/15", skill: 6, dmg: "3D", check: 5, threshold: 5, specials: "No Turret, TAG", source: "Force Pack: Recon & Hunter Lances", upgrade: 21 },
-{ name: "Warrior H-8 Attack Helicopter", type: "asset", bsp: 14, mp: "10v", tmm: 5, range: "7/14/21", skill: 6, dmg: "3D", check: 6, threshold: 5, specials: "No Turret", source: "Force Pack: Recon & Hunter Lances", upgrade: 16 }
+{ name: "Warrior H-7 Attack Helicopter", type: "asset", bsp: 12, mp: "9v", tmm: 4, range: "8/16/24", skill: 6, dmg: "2D", check: 5, threshold: 5, specials: "No Turret", source: "Force Pack: Recon & Hunter Lances", upgrade: 14 }
 ];
 
 function displayMatchingSupport(query) {
