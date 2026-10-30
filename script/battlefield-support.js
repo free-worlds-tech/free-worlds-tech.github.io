@@ -123,7 +123,10 @@ const knownSupport = [
 { name: "Von Luckner VNL-K70", type: "asset", bsp: 30, mp: "3t", tmm: 1, range: "6/12/18", skill: 6, dmg: "11D × 2", check: 10, threshold: 8, specials: "IF 1", source: "Force Pack: Rifle & Command Lances", upgrade: 35 },
 { name: "Von Luckner VNL-K75N", type: "asset", bsp: 35, mp: "3t", tmm: 1, range: "3/6/9", skill: 6, dmg: "20D × 2", check: 10, threshold: 8, specials: "-", source: "Force Pack: Rifle & Command Lances", upgrade: 41 },
 { name: "Von Luckner VNL-K85N", type: "asset", bsp: 37, mp: "3t", tmm: 1, range: "4/8/12", skill: 6, dmg: "8D × 4", check: 12, threshold: 8, specials: "Crit Seeker", source: "Force Pack: Rifle & Command Lances", upgrade: 43 },
-{ name: "Warrior H-7 Attack Helicopter", type: "asset", bsp: 12, mp: "9v", tmm: 4, range: "8/16/24", skill: 6, dmg: "2D", check: 5, threshold: 5, specials: "No Turret", source: "Force Pack: Recon & Hunter Lances", upgrade: 14 }
+{ name: "Warrior H-7 Attack Helicopter", type: "asset", bsp: 12, mp: "9v", tmm: 4, range: "8/16/24", skill: 6, dmg: "2D", check: 5, threshold: 5, specials: "No Turret", source: "Force Pack: Recon & Hunter Lances", upgrade: 14 },
+{ name: "Warrior H-7C Attack Helicopter", type: "asset", bsp: 15, mp: "9v", tmm: 4, range: "7/14/21", skill: 6, dmg: "6D", check: 5, threshold: 5, specials: "IF 1, No Turret", source: "Force Pack: Recon & Hunter Lances", upgrade: 17 },
+{ name: "Warrior H-7F Attack Helicopter", type: "asset", bsp: 18, mp: "10v", tmm: 5, range: "5/10/15", skill: 6, dmg: "3D", check: 5, threshold: 5, specials: "No Turret, TAG", source: "Force Pack: Recon & Hunter Lances", upgrade: 21 },
+{ name: "Warrior H-8 Attack Helicopter", type: "asset", bsp: 14, mp: "10v", tmm: 5, range: "7/14/21", skill: 6, dmg: "3D", check: 6, threshold: 5, specials: "No Turret", source: "Force Pack: Recon & Hunter Lances", upgrade: 16 }
 ];
 
 function displayMatchingSupport(query) {
