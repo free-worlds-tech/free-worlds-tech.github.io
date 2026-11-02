@@ -19,7 +19,6 @@
     display: flex;
     font-size: 1.5rem;
     font-weight: bold;
-    margin-bottom: 1rem;
 }
 
 .right-row-item {
@@ -43,4 +42,12 @@
 .selected-row {
     background-color: var(--accent) !important;
     color: var(--accent-text) !important;
+}
+
+.asset-card .strike-only {
+    display: none;
+}
+
+.strike-card .asset-only {
+    display: none;
 }

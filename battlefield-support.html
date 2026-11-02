@@ -40,17 +40,24 @@
     available for BattleTech.
 </p>
 
-<div id="support-card" class="card"">
+<div id="support-card" class="card asset-card">
     <div class="card-title"><span class="card-cost" id="sc-bsp"></span><span class="right-row-item" id="sc-name"></span></div>
-    <div class="card-row"><span class="right-row-item"><strong>MP: </strong><span id="sc-mp"></span><span id="sc-name"></span></span></div>
-    <div class="card-row"><span class="right-row-item"><strong>TMM: </strong><span id="sc-tmm"></span></span></div>
-    <div class="card-row">
+
+    <div class="card-row asset-only"><span class="right-row-item"><strong>MP: </strong><span id="sc-mp"></span></span></div>
+    <div class="card-row asset-only"><span class="right-row-item"><strong>TMM: </strong><span id="sc-tmm"></span></span></div>
+    <div class="card-row asset-only">
         <div class="centered-row-item"><div><strong>RANGE</strong></div><div id="sc-range"></div></div>
         <div class="centered-row-item"><div><strong>SKILL</strong></div><div id="sc-skill"></div></div>
         <div class="centered-row-item"><div><strong>DMG</strong></div><div id="sc-dmg"></div></div>
         <div class="centered-row-item"><div><strong>CHECK</strong></div><div id="sc-check"></div><div class="minor"><strong>THRESHOLD: </strong><span id="sc-threshold"></span></div></div>
     </div>
-    <div><strong>SPECIALS: </strong><span id="sc-specials"></span></div>
+    <div class="asset-only"><strong>SPECIALS: </strong><span id="sc-specials"></span></div>
+
+    <div class="card-row minor strike-only"><span class="right-row-item" id="sc-type"></span></div>
+    <div class="card-row strike-only"><span class="right-row-item"><strong>Target Number: </strong><span id="sc-tn"></span></span></div>
+    <div class="card-row strike-only"><span class="right-row-item"><strong>Damage Groupings: </strong><span id="sc-damage-groups"></span></span></div>
+    <div class="card-row strike-only"><span class="right-row-item"><strong>Damage Type: </strong><span id="sc-damage-type"></span></span></div>
+
     <div class="minor card-row"><span class="right-row-item" id="sc-source"></span></div>
 </div>
 

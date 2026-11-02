@@ -1,4 +1,4 @@
-const knownSupport = [
+const knownSupportAssets = [
 { name: "Alacorn Heavy Tank Mk. VII", type: "asset", bsp: 31, mp: "3t", tmm: 1, range: "6/12/18", skill: 6, dmg: "20D × 2", check: 12, threshold: 8, specials: "No Turret", source: "Hot Spots: Draconis Reach", upgrade: 36 },
 { name: "Behemoth Heavy Tank (Davion)", type: "asset", bsp: 34, mp: "2t", tmm: 0, range: "7/14/21", skill: 6, dmg: "15D × 2", check: 10, threshold: 8, specials: "-", source: "Force Pack: Recon & Hunter Lances", upgrade: 39 },
 { name: "Behemoth Heavy Tank (Kurita Upgrade)", type: "asset", bsp: 40, mp: "2t", tmm: 0, range: "6/12/18", skill: 6, dmg: "10D × 4", check: 10, threshold: 8, specials: "Crit Seeker", source: "Force Pack: Recon & Hunter Lances", upgrade: 46 },
@@ -129,6 +129,26 @@ const knownSupport = [
 { name: "Warrior H-8 Attack Helicopter", type: "asset", bsp: 14, mp: "10v", tmm: 5, range: "7/14/21", skill: 6, dmg: "3D", check: 6, threshold: 5, specials: "No Turret", source: "Force Pack: Recon & Hunter Lances", upgrade: 16 }
 ];
 
+const knownSupportStrikes = [
+{ name: "Bluff", type: "strike", subtype: "Offensive Aerospace Support", bsp: 5, source: "Core Rulebook" },
+{ name: "Light Air Strike", type: "strike", subtype: "Offensive Aerospace Support", bsp: 10, tn: 5, dmg: "2", source: "Core Rulebook" },
+{ name: "Light Bombing", type: "strike", subtype: "Offensive Aerospace Support", bsp: 13, tn: 5, dmg: "3", dmgType: "AE", source: "Core Rulebook" },
+{ name: "Heavy Air Strike", type: "strike", subtype: "Offensive Aerospace Support", bsp: 16, tn: 6, dmg: "4", source: "Core Rulebook" },
+{ name: "Heavy Bombing", type: "strike", subtype: "Offensive Aerospace Support", bsp: 18, tn: 7, dmg: "6", dmgType: "AE", source: "Core Rulebook" },
+{ name: "Strafing", type: "strike", subtype: "Offensive Aerospace Support", bsp: 22, tn: 7, dmg: "3", dmgType: "DE", source: "Core Rulebook" },
+{ name: "Light Air Cover", type: "strike", subtype: "Defensive Aerospace Support", bsp: 5, source: "Core Rulebook" },
+{ name: "Heavy Air Cover", type: "strike", subtype: "Defensive Aerospace Support", bsp: 8, source: "Core Rulebook" },
+{ name: "Arrow IV Standard", type: "strike", subtype: "Artillery Support", bsp: 16, tn: 8, dmg: "4/2", dmgType: "AE", source: "Core Rulebook" },
+{ name: "Thumper", type: "strike", subtype: "Artillery Support", bsp: 12, tn: 8, dmg: "3/1", dmgType: "AE", source: "Core Rulebook" },
+{ name: "Sniper", type: "strike", subtype: "Artillery Support", bsp: 16, tn: 8, dmg: "4/2", dmgType: "AE", source: "Core Rulebook" },
+{ name: "Long Tom", type: "strike", subtype: "Artillery Support", bsp: 24, tn: 8, dmg: "5/3/1", dmgType: "AE", source: "Core Rulebook" },
+{ name: "Light Density", type: "strike", subtype: "Minefield Support", bsp: 3, tn: 9, dmg: "2", dmgType: "AE", source: "Core Rulebook" },
+{ name: "Medium Density", type: "strike", subtype: "Minefield Support", bsp: 5, tn: 8, dmg: "4", dmgType: "AE", source: "Core Rulebook" },
+{ name: "Heavy Density", type: "strike", subtype: "Minefield Support", bsp: 8, tn: 7, dmg: "6", dmgType: "AE", source: "Core Rulebook" }
+];
+
+const knownSupport = knownSupportStrikes.concat(knownSupportAssets);
+
 function displayMatchingSupport(query) {
     const list = document.getElementById("support-list");
 
@@ -141,7 +161,8 @@ function displayMatchingSupport(query) {
     knownSupport.forEach((entry) => {
         let match = (entry.name.toLowerCase().indexOf(lowerQuery) != -1) ||
                     (entry.source.toLocaleLowerCase().indexOf(lowerQuery) != -1) ||
-                    (entry.specials.toLocaleLowerCase().indexOf(lowerQuery) != -1);
+                    (entry.specials && entry.specials.toLocaleLowerCase().indexOf(lowerQuery) != -1) ||
+                    (entry.subtype && entry.subtype.toLocaleLowerCase().indexOf(lowerQuery) != -1);
 
         if (match) {
             const row = document.createElement("li");
@@ -193,34 +214,56 @@ function displaySupport(supportItem) {
     }
     bsp.innerHTML = bspHtml;
 
-    const mp = document.getElementById("sc-mp");
-    mp.innerText = supportItem.mp;
+    if (supportItem.type == "asset") {
+        const card = document.getElementById("support-card");
+        card.classList.remove("strike-card");
+        card.classList.add("asset-card");
 
-    const tmm = document.getElementById("sc-tmm");
-    tmm.innerText = `+${supportItem.tmm}`;
+        const mp = document.getElementById("sc-mp");
+        mp.innerText = supportItem.mp;
 
-    const range = document.getElementById("sc-range");
-    range.innerText = supportItem.range;
+        const tmm = document.getElementById("sc-tmm");
+        tmm.innerText = `+${supportItem.tmm}`;
 
-    const skill = document.getElementById("sc-skill");
-    let skillText = supportItem.skill > 0 ? supportItem.skill : "-";
-    let skillHtml = `<span>${skillText}</span>`;
-    if (supportItem.upgrade > 0) {
-        skillHtml += ` <span class="upgrade-text">(${supportItem.skill - 1})</span>`;
+        const range = document.getElementById("sc-range");
+        range.innerText = supportItem.range;
+
+        const skill = document.getElementById("sc-skill");
+        let skillText = supportItem.skill > 0 ? supportItem.skill : "-";
+        let skillHtml = `<span>${skillText}</span>`;
+        if (supportItem.upgrade > 0) {
+            skillHtml += ` <span class="upgrade-text">(${supportItem.skill - 1})</span>`;
+        }
+        skill.innerHTML = skillHtml;
+
+        const dmg = document.getElementById("sc-dmg");
+        dmg.innerText = supportItem.dmg;
+
+        const check = document.getElementById("sc-check");
+        check.innerText = supportItem.check;
+
+        const threshold = document.getElementById("sc-threshold");
+        threshold.innerText = supportItem.threshold;
+
+        const specials = document.getElementById("sc-specials");
+        specials.innerText = supportItem.specials;
+    } else if (supportItem.type == "strike") {
+        const card = document.getElementById("support-card");
+        card.classList.remove("asset-card");
+        card.classList.add("strike-card");
+
+        const subtype = document.getElementById("sc-type");
+        subtype.innerText = supportItem.subtype;
+
+        const tn = document.getElementById("sc-tn");
+        tn.innerText = supportItem.tn != undefined ? supportItem.tn : "-";
+
+        const dmg = document.getElementById("sc-damage-groups");
+        dmg.innerText = supportItem.dmg != undefined ? supportItem.dmg : "-";
+
+        const dmgType = document.getElementById("sc-damage-type");
+        dmgType.innerText = supportItem.dmgType != undefined ? supportItem.dmgType : "-";
     }
-    skill.innerHTML = skillHtml;
-
-    const dmg = document.getElementById("sc-dmg");
-    dmg.innerText = supportItem.dmg;
-
-    const check = document.getElementById("sc-check");
-    check.innerText = supportItem.check;
-
-    const threshold = document.getElementById("sc-threshold");
-    threshold.innerText = supportItem.threshold;
-
-    const specials = document.getElementById("sc-specials");
-    specials.innerText = supportItem.specials;
 
     const source = document.getElementById("sc-source");
     source.innerText = supportItem.source;
