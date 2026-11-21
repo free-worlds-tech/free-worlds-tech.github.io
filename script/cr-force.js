@@ -94,6 +94,9 @@ class Force extends DataClass {
 
         this.propertyChanged("support", {add: supportElement});
         this.propertyChanged("battlefieldSupportPoints", this.battlefieldSupportPoints);
+        if (supportElement.supportType == "asset") {
+            this.propertyChanged("unitCount", this.unitCount);
+        }
     }
 
     removeSupport(supportElement) {
@@ -102,6 +105,9 @@ class Force extends DataClass {
 
         this.propertyChanged("support", {remove: supportElement});
         this.propertyChanged("battlefieldSupportPoints", this.battlefieldSupportPoints);
+        if (supportElement.supportType == "asset") {
+            this.propertyChanged("unitCount", this.unitCount);
+        }
     }
 
     forEachSupport(action) {
@@ -122,6 +128,11 @@ class Force extends DataClass {
         let count = 0;
         this.#formations.forEach((formation) => {
             count += formation.unitCount;
+        });
+        this.#support.forEach((supportItem) => {
+            if (supportItem.supportType == "asset") {
+                count += 1;
+            }
         });
         return count;
     }
