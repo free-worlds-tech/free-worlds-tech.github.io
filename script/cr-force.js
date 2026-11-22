@@ -177,6 +177,9 @@ class Formation extends DataClass {
 
     addUnit(unit) {
         this.#units.push(unit);
+
+        unit.addPropertyObserver("adjustedBV", () => this.propertyChanged("battleValue", this.battleValue));
+
         this.propertyChanged("units", { add: unit });
         this.propertyChanged("unitCount", this.unitCount);
         this.propertyChanged("battleValue", this.battleValue);
@@ -203,21 +206,59 @@ class Formation extends DataClass {
     }
 }
 
-class Unit {
+class Unit extends DataClass {
+    #name;
+    #baseBV;
+    #tonnage;
+    #skills = {};
+
     constructor(name, bv, tonnage) {
-        this.name = name;
-        this.baseBV = bv;
-        this.adjustedBV = bv;
-        this.tonnage = tonnage;
+        super();
+        this.#name = name;
+        this.#baseBV = bv;
+        this.#tonnage = tonnage;
+        this.#skills["gunnery"] = 4;
+        this.#skills["piloting"] = 5;
     }
-    name;
-    baseBV;
-    adjustedBV;
-    tonnage;
+
+    get name() {
+        return this.#name;
+    }
+
+    get baseBV() {
+        return this.#baseBV;
+    }
+
+    get adjustedBV() {
+        const bv = this.#baseBV;
+        const g = this.getSkill("gunnery");
+        const p = this.getSkill("piloting");
+        const multiplier = getSkillMultiplier(g, p);
+        return Math.round(bv * multiplier);
+    }
+
+    get tonnage() {
+        return this.#tonnage;
+    }
+
+    setSkill(skill, rating) {
+        this.#skills[skill] = rating;
+
+        this.propertyChanged(skill, rating);
+        this.propertyChanged("adjustedBV", this.adjustedBV);
+    }
+
+    getSkill(skill) {
+        if (this.#skills[skill] != undefined) {
+            return this.#skills[skill];
+        }
+        return 8;
+    }
 }
 
-class BattlefieldSupportElement {
+class BattlefieldSupportElement extends DataClass {
     constructor(name, points, type) {
+        super();
         this.name = name;
         this.points = points;
         this.supportType = type;

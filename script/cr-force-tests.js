@@ -24,7 +24,7 @@ function runAllTests(outputId) {
             } else {
                 const p = document.createElement("p");
                 p.classList.add("failure");
-                p.innerText = `${t.name} FAILED!`;
+                p.innerText = `${t.name} FAILED! ${rv}`;
                 output.appendChild(p);
             }
         }
@@ -173,6 +173,29 @@ tests.push({ name: "Force Updates When Asset Added", fn: () => {
     return true;
 }});
 
+tests.push({ name: "Force Updates When Asset Removed", fn: () => {
+    const force = new Force();
+    const asset = new BattlefieldSupportElement("Demolisher Heavy Tank", 33, "asset");
+
+    force.addSupport(asset);
+
+    let bspChangeReported = false;
+    let countChangeReported = false;
+
+    force.addPropertyObserver("battlefieldSupportPoints", () => { bspChangeReported = true; });
+    force.addPropertyObserver("unitCount", () => { countChangeReported = true; });
+
+    force.removeSupport(asset);
+
+    tester.equals(0, force.battlefieldSupportPoints);
+    tester.equals(0, force.unitCount);
+
+    tester.assert(bspChangeReported);
+    tester.assert(countChangeReported);
+
+    return true;
+}});
+
 tests.push({ name: "Force Updates When Strike Added", fn: () => {
     const force = new Force();
     const strike = new BattlefieldSupportElement("Light Air Strike", 10, "strike");
@@ -190,6 +213,55 @@ tests.push({ name: "Force Updates When Strike Added", fn: () => {
 
     tester.assert(bspChangeReported);
     tester.assert(!countChangeReported);
+
+    return true;
+}});
+
+tests.push({ name: "Force Updates When Strike Removed", fn: () => {
+    const force = new Force();
+    const strike = new BattlefieldSupportElement("Light Air Strike", 10, "strike");
+
+    force.addSupport(strike);
+
+    let bspChangeReported = false;
+    let countChangeReported = false;
+
+    force.addPropertyObserver("battlefieldSupportPoints", () => { bspChangeReported = true; });
+    force.addPropertyObserver("unitCount", () => { countChangeReported = true; });
+
+    force.removeSupport(strike);
+
+    tester.equals(0, force.battlefieldSupportPoints);
+    tester.equals(0, force.unitCount);
+
+    tester.assert(bspChangeReported);
+    tester.assert(!countChangeReported);
+
+    return true;
+}});
+
+tests.push({ name: "Force And Formation Update When Unit Skills Changed", fn: () => {
+    const force = new Force();
+    const formation = new Formation("Lance");
+    const unit = new Unit("Atlas AS7-D", 1897, 100);
+
+    force.addFormation(formation);
+    formation.addUnit(unit);
+
+    let forceChangeReported = false;
+    let formationChangeReported = false;
+
+    force.addPropertyObserver("battleValue", () => { forceChangeReported = true; });
+    formation.addPropertyObserver("battleValue", () => { formationChangeReported = true; });
+
+    unit.setSkill("gunnery", 3)
+
+    tester.equals(2276, unit.adjustedBV)
+    tester.equals(2276, formation.battleValue);
+    tester.equals(2276, force.battleValue);
+
+    tester.assert(forceChangeReported);
+    tester.assert(formationChangeReported);
 
     return true;
 }});
