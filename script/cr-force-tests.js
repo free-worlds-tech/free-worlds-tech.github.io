@@ -254,7 +254,7 @@ tests.push({ name: "Force And Formation Update When Unit Skills Changed", fn: ()
     force.addPropertyObserver("battleValue", () => { forceChangeReported = true; });
     formation.addPropertyObserver("battleValue", () => { formationChangeReported = true; });
 
-    unit.setSkill("gunnery", 3)
+    unit.setSkill("gunnery", 3);
 
     tester.equals(2276, unit.adjustedBV)
     tester.equals(2276, formation.battleValue);
@@ -262,6 +262,38 @@ tests.push({ name: "Force And Formation Update When Unit Skills Changed", fn: ()
 
     tester.assert(forceChangeReported);
     tester.assert(formationChangeReported);
+
+    return true;
+}});
+
+tests.push({ name: "Force Building Limits Return No Errors For Valid Force", fn: () => {
+    const force = new Force();
+    const formation = new Formation("Lance");
+    const phiic = new Unit("Phoenix Hawk IIC", 2057, 80);
+    const helt = new Unit("Hel T", 2077, 65);
+    const hammerhead = new Unit("Hammerhead", 1686, 45);
+    const iceferretj = new Unit("Ice Ferret J", 1739, 45);
+
+    helt.setSkill("piloting", 4);
+    iceferretj.setSkill("piloting", 4);
+
+    force.addFormation(formation);
+    formation.addUnit(phiic);
+    formation.addUnit(helt);
+    formation.addUnit(hammerhead);
+    formation.addUnit(iceferretj);
+
+    tester.equals(2285, helt.adjustedBV);
+    tester.equals(1913, iceferretj.adjustedBV);
+    tester.equals(7941, force.battleValue);
+
+    force.addSupport(new BattlefieldSupportElement("Drillson Heavy Hover Tank C", 26, "asset"));
+    force.addSupport(new BattlefieldSupportElement("Elemental Battle Armor", 20, "asset"));
+
+    const limits = GetTournamentForceBuildingLimits();
+    const errors = limits.checkForceForErrors(force);
+
+    tester.equals(0, errors.length);
 
     return true;
 }});

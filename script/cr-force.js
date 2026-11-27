@@ -24,6 +24,56 @@ class DataClass {
     }
 }
 
+class ForceBuildingLimits {
+    #bvLimit;
+    #bspLimit;
+    #bspConversionCap;
+    #maxUnits;
+    #minUnits;
+
+    constructor(bv, bsp, bspConversionCap, minUnits, maxUnits) {
+        this.#bvLimit = bv;
+        this.#bspLimit = bsp;
+        this.#bspConversionCap = bspConversionCap;
+        this.#minUnits = minUnits;
+        this.#maxUnits = maxUnits;
+    }
+
+    checkForceForErrors(force) {
+        let errors = [];
+        if (force.battleValue > this.#bvLimit) {
+            errors.push("Battle value exceeds the set limit.");
+        }
+        let additionalBsp = 0;
+        if (this.#bspConversionCap > 0) {
+            additionalBsp = Math.floor((this.#bvLimit - force.battleValue) / 20);
+            additionalBsp = Math.min(additionalBsp, this.#bspConversionCap);
+        }
+        if (force.battlefieldSupportPoints > this.#bspLimit + additionalBsp) {
+            errors.push("Battle value exceeds the set limit.");
+        }
+        if (this.#minUnits > 0 && force.unitCount < this.#minUnits) {
+            errors.push("Too few units.");
+        } else if (this.#maxUnits > 0 && force.unitCount > this.#maxUnits) {
+            errors.push("Too many units.");
+        }
+
+        return errors;
+    }
+}
+
+function GetStandardMissionForceBuildingLimits(scale) {
+    return new ForceBuildingLimits(scale * 2000, 0, scale * 100, 1, -1);
+}
+
+function GetChaosCampaignForceBuildingLimits(scale) {
+    return new ForceBuildingLimits(scale * 3000, scale * 32, scale * 32, 1, scale * 3);
+}
+
+function GetTournamentForceBuildingLimits() {
+    return new ForceBuildingLimits(8000, 50, 0, 3, 6);
+}
+
 class Force extends DataClass {
     #name = "BattleTech Force";
     #formations = [];
